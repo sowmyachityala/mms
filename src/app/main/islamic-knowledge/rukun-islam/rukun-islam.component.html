@@ -1,0 +1,1040 @@
+<div class="container donation-container">
+    <!-- Header Section -->
+    <!-- <div class="title-section">
+        <h6>Islamic Knowledge</h6>
+    </div> -->
+
+    <!-- Title -->
+    <h3 class="name_allah mt-2">
+        <i class="fa fa-th-large" aria-hidden="true"></i> {{menuItems[activeIndex].label}}
+    </h3>
+
+    <div class="icon-scroll-wrapper">
+        <!-- Left Arrow -->
+        <!-- <button class="scroll-btn left" (click)="scrollIcons('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button> -->
+
+        <div class="icon-scroll" #iconScroll id="iconScroll">
+            <div
+                class="icon-item"
+                #iconItem
+                *ngFor="let item of menuItems; let i = index"
+                (click)="navigateToPage(item.label, i)"
+                [ngClass]="{ active: activeIndex === i }"
+            >
+                <img [src]="item.image" [alt]="item.label" />
+                <div>{{ item.label }}</div>
+            </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <!-- <button class="scroll-btn right" (click)="scrollIcons('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button> -->
+    </div>
+
+    <div class="divider-image">
+        <img src="assets/images/islamic-knowledge/devider.png" alt="divider" />
+    </div>
+
+    <div class="audio-section">
+        <h2>RUKUN ISLAM</h2>
+
+        <div class="px-10">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_islam/Rukun_islam.png"
+            />
+        </div>
+        <div class="p-3 rukum-iman-section">
+            <div>
+                <span class="islamic-knowledge-color">Rukun Islam</span> adalah
+                lima pilar utama yang harus diimani dan diamalkan oleh setiap
+                Muslim. Kelima rukun ini merupakan dasar dari semua ibadah dan
+                menjadi pondasi keislaman seseorang. Tanpa menjalankan rukun
+                Islam, keimanan seseorang dianggap belum sempurna. Setiap pilar
+                memiliki tuntunan tersendiri yang mencakup aspek keyakinan dan
+                praktik dalam kehidupan sehari-hari.
+            </div>
+            <div class="pt-3">
+                Imam An-Nawawi menyatakan dalam kitabnya Arbain Nawawi bahwa
+                siapa saja yang melaksanakan lima Rukun Islam, maka keislamannya
+                telah sempurna. Hal ini dapat diibaratkan seperti sebuah rumah
+                yang telah lengkap dengan bangunan dan tiangnya. 
+            </div>
+            <div class="pt-3 islamic-knowledge-color">
+                 عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللهِ بْنِ عُمَرَ بْنِ
+                الخَطَّابِ رَضِيَ اللهُ عَنْهُمَا قَالَ: سَمِعْتُ رَسُوْلَ اللهِ
+                ﷺ يَقُوْلُ: «بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لاَ
+                إِلَهَ إِلاَّ اللهُ وَأَنَّ مُحَمَّدًا رَسُوْلُ اللهِ، وَإِقَامِ
+                الصَّلاَةِ، وَإِيْتَاءِ الزَّكَاةِ، وَحَجِّ البَيْتِ، وَصَوْمِ
+                رَمَضَانَ» رَوَاهُ البُخَارِي وَمُسْلِمٌ. 
+            </div>
+            <div class="pt-3">
+                Dari Abu Abdirrahman Abdullah bin Umar bin Khattab Radhiyallahu
+                ‘Anhuma, ia berkata: aku mendengar Rasulullah Shallallahu Alaihi
+                wa Sallam bersabda, “Islam dibagun di atas lima hal: syahadat lâ
+                ilâha illâllâh dan Muhammadur Rasûlûllâh, menegakkan shalat,
+                menunaikan zakat, haji ke Baitullah, dan puasa Ramadan.” (HR
+                Al-Bukhari dan Muslim)
+            </div>
+            <div class="pt-3">
+                Hadits ketiga dalam Arba'in Nawawi ini membahas tentang bangunan
+                Islam yang berdiri kokoh di atas lima rukun yang dikenal sebagai
+                Rukun Islam. Imam An-Nawawi menjelaskan juga bahwa lima rukun
+                ini adalah pondasi utama dalam Islam, dan seseorang tidak dapat
+                dianggap sebagai Muslim yang sempurna kecuali jika ia
+                menjalankan semua rukun ini sesuai dengan kemampuannya dan
+                syarat-syarat yang ditetapkan oleh syariat. Diketahui bersama
+                bahwa Rukun Islam yang lima adalah:
+            </div>
+            <div class="pt-3">
+                Ayat ini adalah
+                <span class="islamic-knowledge-color font-bold"
+                    >perintah langsung dari Allah</span
+                >
+                kepada kaum beriman agar
+                <span class="islamic-knowledge-color font-bold"
+                    >meneguhkan dan memperdalam keimanan</span
+                >
+                mereka kepada enam unsur pokok:
+            </div>
+            <div class="pt-4">
+                <div class="islamic-knowledge-color font-extrabold">
+                    <li>Syahadat</li>
+                    <li>Salat</li>
+                    <li>Zakat</li>
+                    <li>Puasa</li>
+                    <li>haji</li>
+                </div>
+            </div>
+
+            <!-- Syahadat -->
+            <div class="pt-4">
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/divider.png"
+                        alt="divider"
+                    />
+                </div>
+                <div class="px-20">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/Syahadat.png"
+                    />
+                </div>
+                <h2>RUKUN ISLAM PERTAMA</h2>
+                <h2>Mengucapkan Dua Kalimat Syahadat</h2>
+                <h2>
+                    (شَهَادَةُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَأَنَّ مُحَمَّدًا
+                    رَسُوْلُ اللهِ)
+                </h2>
+                <div>
+                    <div class="pt-3">
+                        <div class="islamic-knowledge-color font-bold">
+                            Tulisan Arab Dua Kalimat Syahadat
+                        </div>
+                        <div class="pt-2">
+                            أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ، وَأَشْهَدُ
+                            أَنَّ مُحَمَّدًا رَسُوْلُ اللهِ
+                        </div>
+                        <div>
+                            “Aku bersaksi bahwa tidak ada Tuhan selain Allah,
+                            dan aku bersaksi bahwa Muhammad adalah utusan
+                            Allah.”
+                        </div>
+                        <div class="pt-3">
+                            <div class="islamic-knowledge-color font-bold">
+                                Pengertian Syahadat
+                            </div>
+                            <div>
+                                Syahadat adalah pernyataan iman seorang Muslim,
+                                dan merupakan
+                                <span class="islamic-knowledge-color font-bold"
+                                    >pintu masuk utama ke dalam Islam.</span
+                                >
+                                Dengan mengucapkan syahadat, seseorang mengakui
+                                <span class="islamic-knowledge-color font-bold"
+                                    >keesaan Allah (tawhid)</span
+                                >
+                                dan bahwa
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Nabi Muhammad SAW adalah utusan-Nya.</span
+                                >
+                            </div>
+                            <div>
+                                Syahadat bukan hanya ucapan di lisan, tapi juga
+                                keyakinan dalam hati dan pembuktian dengan amal.
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <div>
+                                <div class="islamic-knowledge-color font-bold">
+                                    Rincian Dua Kalimat Syahadat
+                                </div>
+                                <div class="islamic-knowledge-color font-bold">
+                                    1. Syahadat Tauhid (لَا إِلٰهَ إِلَّا اللهُ)
+                                </div>
+                                <div>
+                                    Artinya: “Tidak ada Tuhan yang berhak
+                                    disembah selain Allah.”
+                                </div>
+                                <div class="pl-2">
+                                    <ul class="list-disc pl-6">
+                                        <li>
+                                            Ini menolak semua bentuk
+                                            kemusyrikan, menyatakan bahwa hanya
+                                            Allah yang layak disembah.
+                                        </li>
+                                        <li>
+                                            Menjadi landasan tauhid
+                                            <span
+                                                class="islamic-knowledge-color font-bold"
+                                                >Rububiyah, Uluhiyah, dan Asma
+                                                wa Shifat.
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div
+                                        class="islamic-knowledge-color font-bold"
+                                    >
+                                        2. Syahadat Rasul (مُحَمَّدًا رَسُوْلُ
+                                        اللهِ)
+                                    </div>
+                                    <div>
+                                        Artinya: “Muhammad adalah utusan Allah.”
+                                    </div>
+                                    <div class="pl-2">
+                                        <ul class="list-disc pl-6">
+                                            <li>
+                                                Berarti kita wajib meyakini
+                                                bahwa Rasulullah SAW diutus oleh
+                                                Allah untuk menyampaikan wahyu,
+                                                dan kita harus taat pada
+                                                ajarannya.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <div class="islamic-knowledge-color font-bold">
+                                    Dalil Al-Qur’an tentang Syahadat
+                                </div>
+                                <div>
+                                    <div
+                                        class="islamic-knowledge-color font-bold"
+                                    >
+                                        1. Tentang Keimanan kepada Allah
+                                    </div>
+                                    <div class="pl-1">
+                                        فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا
+                                        اللَّهُ
+                                    </div>
+                                    <div>
+                                        “Maka ketahuilah, bahwa sesungguhnya
+                                        tidak ada Tuhan (yang berhak disembah)
+                                        selain Allah.”
+                                    </div>
+                                    <div>(QS. Muhammad: 19)</div>
+                                    <div>
+                                        2.
+                                        <span class="pl-1"
+                                            >Tentang Kenabian Muhammad SAW</span
+                                        >
+                                    </div>
+                                    <div>مُحَمَّدٌ رَسُولُ اللَّهِ</div>
+                                    <div>“Muhammad adalah utusan Allah.”</div>
+                                    <div class="pl-1">(QS. Al-Fath: 29)</div>
+                                </div>
+                                <div class="pt-3">
+                                    <div
+                                        class="islamic-knowledge-color font-bold"
+                                    >
+                                        Hadits tentang Syahadat
+                                    </div>
+                                    <div>
+                                        "Barangsiapa mengucapkan: 'Lā ilāha
+                                        illallāh', maka dia akan masuk surga."
+                                    </div>
+                                    <div>(HR. Bukhari dan Muslim)</div>
+                                </div>
+                                <div class="pt-3">
+                                    <div
+                                        class="islamic-knowledge-color font-bold"
+                                    >
+                                        Mengapa Harus Mengucapkan Syahadat?
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <span
+                                                class="islamic-knowledge-color font-bold"
+                                                >1. Pintu masuk Islam
+                                            </span>
+                                            <span>
+                                                -Tanpa syahadat, seseorang tidak
+                                                bisa disebut Muslim.</span
+                                            >
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="islamic-knowledge-color font-bold"
+                                                >2. Konsekuensi akidah
+                                            </span>
+                                            <span>
+                                                - Ini bukan hanya ucapan, tapi
+                                                komitmen terhadap kehidupan yang
+                                                Islami.</span
+                                            >
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="islamic-knowledge-color font-bold"
+                                                >3. Pembeda antara iman dan
+                                                kufur
+                                            </span>
+                                            <span>
+                                                - Syahadat adalah batas antara
+                                                Islam dan kekafiran.</span
+                                            >
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="islamic-knowledge-color font-bold"
+                                                >4. Sumber kekuatan spiritual
+                                            </span>
+                                            <span>
+                                                - Mengimani hanya satu Tuhan
+                                                memberikan rasa tenang, arah
+                                                hidup, dan makna sejati.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-3">
+                                    <div
+                                        class="islamic-knowledge-color font-bold"
+                                    >
+                                        Hikmah dan Manfaat Syahadat
+                                    </div>
+                                    <div
+                                        class="relative overflow-x-auto shadow-md sm:rounded-lg"
+                                    >
+                                        <div
+                                            class="relative overflow-x-auto shadow-md sm:rounded-lg"
+                                        >
+                                            <table
+                                                class="w-full text-sm text-left border border-gray-300 table-auto"
+                                            >
+                                                <thead
+                                                    class="text-xs uppercase bg-gray-100"
+                                                >
+                                                    <tr>
+                                                        <th
+                                                            class="border border-gray-300 islamic-knowledge-color font-bold"
+                                                        >
+                                                            Hikmah
+                                                        </th>
+                                                        <th
+                                                            class="border border-gray-300 islamic-knowledge-color font-bold"
+                                                        >
+                                                            Penjelasan
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td
+                                                            class="border border-gray-300 whitespace-nowrap islamic-knowledge-color font-bold"
+                                                        >
+                                                            1. Ketenangan jiwa
+                                                        </td>
+                                                        <td
+                                                            class="border border-gray-300"
+                                                        >
+                                                            Orang yang bertauhid
+                                                            hidupnya lebih damai
+                                                            karena hanya
+                                                            bergantung pada
+                                                            Allah.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="border border-gray-300 islamic-knowledge-color font-bold"
+                                                        >
+                                                            2. Tidak mudah
+                                                            tergoyahkan
+                                                        </td>
+                                                        <td
+                                                            class="border border-gray-300"
+                                                        >
+                                                            Orang yang
+                                                            bersyahadat paham
+                                                            tujuan hidupnya.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="border border-gray-300 islamic-knowledge-color font-bold"
+                                                        >
+                                                            3. Meningkatkan
+                                                            kualitas ibadah
+                                                        </td>
+                                                        <td
+                                                            class="border border-gray-300"
+                                                        >
+                                                            Semua ibadah sah
+                                                            karena dasar
+                                                            keimanan pada Allah
+                                                            dan Rasul-Nya.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="border border-gray-300 islamic-knowledge-color font-bold"
+                                                        >
+                                                            4. Menyempurnakan
+                                                            akhlak
+                                                        </td>
+                                                        <td
+                                                            class="border border-gray-300"
+                                                        >
+                                                            Syahadat
+                                                            mengantarkan pada
+                                                            kehidupan yang lurus
+                                                            dan bermoral.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="border border-gray-300 islamic-knowledge-color font-bold"
+                                                        >
+                                                            5. Mendapat jaminan
+                                                            surga
+                                                        </td>
+                                                        <td
+                                                            class="border border-gray-300"
+                                                        >
+                                                            Orang yang ikhlas
+                                                            mengucap dan
+                                                            mengamalkan syahadat
+                                                            akan masuk surga.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="pt-4">
+                                        <div
+                                            class="islamic-knowledge-color font-bold"
+                                        >
+                                            Tanda Orang yang Benar-benar
+                                            Mengamalkan Syahadat
+                                        </div>
+                                        <ul class="list-disc pl-6">
+                                            <li>
+                                                Tidak menyekutukan Allah (jauh
+                                                dari syirik).
+                                            </li>
+                                            <li>
+                                                Taat kepada Rasulullah SAW
+                                                (mengikuti sunnahnya).
+                                            </li>
+                                            <li>
+                                                Mencintai Allah dan Rasul-Nya
+                                                melebihi apa pun.
+                                            </li>
+                                            <li>
+                                                Menjalankan ibadah karena Allah
+                                                semata, bukan karena riya atau
+                                                tradisi.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salat  -->
+
+            <div class="pt-4">
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/divider.png"
+                        alt="divider"
+                    />
+                </div>
+                <div class="px-20">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/Salat.png"
+                    />
+                </div>
+                <h2>RUKUN ISLAM KE-2</h2>
+                <h2>Mendirikan Shalat</h2>
+                <h2>(إِقَامَةُ الصَّلَاةِ)</h2>
+                <div class="pt-4">
+                    <div class="islamic-knowledge-color font-bold">
+                        Pengertian
+                    </div>
+                    <div>
+                        Shalat adalah ibadah utama dalam Islam yang terdiri dari
+                        gerakan dan bacaan tertentu yang dimulai dengan
+                        takbiratul ihram dan diakhiri dengan salam. Shalat
+                        merupakan sarana komunikasi langsung antara hamba dan
+                        Tuhannya.
+                    </div>
+                    <div>
+                        "Shalat adalah tiang agama, siapa yang menegakkannya
+                        maka ia telah menegakkan agama, dan siapa yang
+                        meninggalkannya maka ia telah meruntuhkan agama."
+                    </div>
+                    <div>(HR. Baihaqi dalam Syu’abul Iman)</div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil dari Al-Qur'an
+                    </div>
+                    <div>
+                        <div class="islamic-knowledge-color font-bold">
+                            1. Perintah Mendirikan Shalat
+                        </div>
+                        <div>
+                            وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ
+                            وَارْكَعُوا مَعَ الرَّاكِعِينَ
+                        </div>
+                        <div>
+                            "Dan dirikanlah shalat, tunaikanlah zakat, dan
+                            rukuklah beserta orang-orang yang rukuk."
+                        </div>
+                        <div>(QS. Al-Baqarah: 43)</div>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil dari Al-Qur'an
+                    </div>
+                    <div>
+                        <div class="islamic-knowledge-color font-bold">
+                            2. Shalat sebagai Pembersih Dosa
+                        </div>
+                        <div>
+                            إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ
+                            وَالْمُنكَرِ
+                        </div>
+                        <div>
+                            "Sesungguhnya shalat itu mencegah dari perbuatan
+                            keji dan mungkar."
+                        </div>
+                        <div>(QS. Al-‘Ankabut: 45)</div>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Kenapa Kita Harus Shalat?
+                    </div>
+                    <div>
+                        <span class="islamic-knowledge-color font-bold"
+                            >1. Perintah langsung dari Allah SWT</span
+                        >
+                        <span
+                            >-Tidak ada ibadah lain yang diperintahkan Allah
+                            langsung kepada Nabi Muhammad SAW saat Isra Mi’raj
+                            kecuali shalat.</span
+                        >
+                    </div>
+                    <div>
+                        <span class="islamic-knowledge-color font-bold"
+                            >2. Sebagai pengingat-</span
+                        >
+                        <span>
+                            Dalam sehari manusia sering lalai. Shalat adalah
+                            momen 5 kali sehari untuk mengingat Allah.</span
+                        >
+                    </div>
+                    <div>
+                        <span class="islamic-knowledge-color font-bold"
+                            >3. Pembersih jiwa –</span
+                        >
+                        <span
+                            >Menjaga konsistensi shalat berarti menjaga diri
+                            dari perbuatan keji dan dosa.
+                        </span>
+                    </div>
+                    <div>
+                        <span class="islamic-knowledge-color font-bold"
+                            >4. Simbol ketaatan dan keimanan
+                        </span>
+                        <span
+                            >Shalat adalah bukti nyata dari keimanan seorang
+                            Muslim.
+                        </span>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Penjabaran Shalat Wajib (Fardhu)
+                    </div>
+                    <div class="islamic-knowledge-color font-bold">
+                        1. Shalat Subuh (صَلَاةُ الفَجْرِ) – 2 Rakaat
+                    </div>
+                    <div class="pt-3">
+                        <div class="islamic-knowledge-color font-bold">
+                            Keutamaan:
+                        </div>
+                        <ul class="list-disc pl-2">
+                            <li>
+                                Disaksikan oleh malaikat malam dan malaikat
+                                siang.
+                            </li>
+                            <li>Dilindungi dari siksa neraka.</li>
+                        </ul>
+                        <div class="islamic-knowledge-color font-bold">
+                            Dalil Hadits:
+                        </div>
+                        <div>
+                            "Barang siapa yang melaksanakan shalat Subuh, maka
+                            ia berada dalam jaminan Allah."
+                        </div>
+                        <div>(HR. Muslim)</div>
+                    </div>
+                    <div class="pt-3">
+                        <div class="islamic-knowledge-color font-bold">
+                            2. Shalat Dzuhur (صَلَاةُ الظُّهْرِ) – 4 Rakaat
+                        </div>
+                        <div class="islamic-knowledge-color font-bold">
+                            Keutamaan:
+                        </div>
+                        <ul class="list-disc pl-2">
+                            <li>Waktu tenang setelah kesibukan pagi.</li>
+                            <li>Menghapus dosa-dosa kecil.</li>
+                        </ul>
+                        <div class="pt-1">
+                            <div class="islamic-knowledge-color font-bold">
+                                Hadits:
+                            </div>
+                            <div>
+                                "Setiap shalat yang dikerjakan oleh seorang
+                                Muslim adalah penghapus dosa yang dilakukannya
+                                antara waktu shalat tersebut dan shalat
+                                berikutnya, selama dosa besar tidak dilakukan."
+                            </div>
+                            <div>(HR. Muslim)</div>
+                        </div>
+                        <div class="pt-3">
+                            <div class="islamic-knowledge-color font-bold">
+                                3. Shalat Ashar (صَلَاةُ العَصْرِ) – 4 Rakaat
+                            </div>
+                            <div class="islamic-knowledge-color font-bold">
+                                Keutamaan:
+                            </div>
+                            <ul class="list-disc pl-2">
+                                <li>Siapa yang menjaganya akan masuk surga.</li>
+                            </ul>
+                            <div class="pt-2">
+                                <div class="islamic-knowledge-color font-bold">
+                                    Dalil:
+                                </div>
+                                <div>
+                                    "Barang siapa yang shalat sebelum matahari
+                                    terbit (Subuh) dan sebelum terbenam (Ashar),
+                                    maka dia tidak akan masuk neraka."
+                                </div>
+                                <div>(HR. Muslim)</div>
+                            </div>
+                        </div>
+                        <div class="pt-3">
+                            <div class="islamic-knowledge-color font-bold">
+                                4. Shalat Maghrib (صَلَاةُ المَغْرِبِ) – 3
+                                Rakaat
+                            </div>
+                            <div class="islamic-knowledge-color font-bold">
+                                Keutamaan:
+                            </div>
+                            <ul class="list-disc pl-2">
+                                <li>
+                                    Waktu untuk memperbanyak istighfar setelah
+                                    seharian beraktivitas.
+                                </li>
+                            </ul>
+                            <div class="pt-2">
+                                <div class="islamic-knowledge-color font-bold">
+                                    Dalil:
+                                </div>
+                                <div>
+                                    "Tidak ada seorang hamba Muslim yang shalat
+                                    karena Allah setiap hari dua belas rakaat
+                                    selain yang fardhu, melainkan Allah akan
+                                    membangunkan untuknya rumah di surga."
+                                </div>
+                                <div>(HR. Muslim)</div>
+                            </div>
+                        </div>
+                        <div class="pt-3">
+                            <div class="islamic-knowledge-color font-bold">
+                                5. Shalat Isya (صَلَاةُ العِشَاءِ) – 4 Rakaat
+                            </div>
+                            <div class="islamic-knowledge-color font-bold">
+                                Keutamaan:
+                            </div>
+                            <ul class="list-disc pl-2">
+                                <li>
+                                    Shalat yang paling berat bagi orang munafik.
+                                </li>
+                                <li>Dilipatgandakan pahalanya.</li>
+                            </ul>
+                            <div class="pt-2">
+                                <div class="islamic-knowledge-color font-bold">
+                                    Dalil:
+                                </div>
+                                <div>
+                                    "Barang siapa yang melaksanakan shalat Isya
+                                    berjamaah, maka seolah-olah ia shalat
+                                    separuh malam."
+                                </div>
+                                <div>(HR. Muslim)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zakat -->
+
+            <div class="pt-4">
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/divider.png"
+                        alt="divider"
+                    />
+                </div>
+                <div class="px-20">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/Zakat.png"
+                    />
+                </div>
+                <h2>RUKUN ISLAM KE-3</h2>
+                <h2>Mendirikan Zakat</h2>
+                <h2>(إِيتَاءُ الزَّكَاةِ)</h2>
+
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Pengertian:
+                    </div>
+                    <div>
+                        Zakat adalah sejumlah harta tertentu yang wajib
+                        dikeluarkan oleh setiap Muslim yang telah memenuhi
+                        syarat kepada orang-orang yang berhak menerimanya.
+                        Secara bahasa, zakat berarti "bersih", "tumbuh", dan
+                        "berkah". Dengan menunaikan zakat, harta menjadi bersih
+                        dan penuh berkah.
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil dari Al-Qur’an:
+                    </div>
+                    <div>
+                        وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا
+                        مَعَ الرَّاكِعِينَ
+                    </div>
+                    <div>
+                        “Dan dirikanlah shalat, tunaikanlah zakat, dan rukuklah
+                        beserta orang-orang yang rukuk.”
+                    </div>
+                    <div>(QS. Al-Baqarah: 43)</div>
+                </div>
+                <div class="pt-4">
+                    <div class="islamic-knowledge-color font-extrabold">
+                        Dalil Hadis:
+                    </div>
+                    <div>
+                        بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ... وَإِيتَاءِ
+                        الزَّكَاةِ...
+                    </div>
+                    <div>
+                        "Islam dibangun atas lima perkara… dan menunaikan
+                        zakat…" (HR. Bukhari dan Muslim)
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Mengapa Harus Zakat?
+                    </div>
+                    <div class="pl-3">
+                        <div>
+                            <span class="islamic-knowledge-color font-bold"
+                                >1. Membersihkan harta </span
+                            >dari hak orang lain.
+                        </div>
+                        <div class="islamic-knowledge-color font-bold">
+                            2. Menghapus sifat kikir dan cinta dunia.
+                        </div>
+                        <div>
+                            3.
+                            <span class="islamic-knowledge-color font-bold"
+                                >Menolong fakir miskin</span
+                            >dan membangun solidaritas sosial.
+                        </div>
+                        <div>
+                            4.
+                            <span class="islamic-knowledge-color font-bold"
+                                >Menggerakkan ekonomi umat</span
+                            >karena zakat mendistribusikan kekayaan secara adil.
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Hikmah dan Keutamaan Zakat:
+                    </div>
+                    <ul class="list-disc pl-6">
+                        <li>
+                            Menjadi salah satu pilar yang menjaga kestabilan
+                            sosial.
+                        </li>
+                        <li>
+                            Didoakan oleh malaikat: “Ya Allah, berikanlah ganti
+                            bagi orang yang berinfak.”
+                        </li>
+                        <li>
+                            Menambah keberkahan harta dan membuka pintu rezeki
+                            baru.
+                        </li>
+                        <li>
+                            Menjadi pelindung di akhirat dari siksa neraka
+                            akibat kekikiran.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Puasa -->
+            <div class="pt-4">
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/divider.png"
+                        alt="divider"
+                    />
+                </div>
+                <div class="px-20">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/Puasa.png"
+                    />
+                </div>
+                <h2>RUKUN ISLAM KE-4</h2>
+                <h2>PUASA Ramadan</h2>
+                <h2>(صَوْمُ رَمَضَانَ)</h2>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Pengertian:
+                    </div>
+                    <div>
+                        Puasa Ramadan adalah menahan diri dari makan, minum, dan
+                        segala yang membatalkan puasa dari terbit fajar hingga
+                        terbenam matahari dengan niat karena Allah SWT.
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil dari Al-Qur’an:
+                    </div>
+                    <div>
+                        يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ
+                        الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ
+                        لَعَلَّكُمْ تَتَّقُونَ
+                    </div>
+                    <div>
+                        “Wahai orang-orang yang beriman! Diwajibkan atas kamu
+                        berpuasa sebagaimana diwajibkan atas orang-orang sebelum
+                        kamu agar kamu bertakwa.”
+                    </div>
+                    <div>(QS. Al-Baqarah: 183)</div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil Hadis:
+                    </div>
+                    <div>
+                        "Barangsiapa yang berpuasa Ramadan karena iman dan
+                        mengharap pahala dari Allah, maka diampuni dosa-dosanya
+                        yang telah lalu."
+                    </div>
+                    <div>(HR. Bukhari dan Muslim)</div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Mengapa Harus Puasa?
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        1.<span class="pl-1"
+                            >Melatih kesabaran dan pengendalian diri.</span
+                        >
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        2.<span class="pl-1"
+                            >Meningkatkan ketakwaan dan kesadaran spiritual.
+                        </span>
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        3.<span class="pl-1"
+                            >Mengenal penderitaan kaum fakir miskin.
+                        </span>
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        4.<span class="pl-1">Menyucikan jiwa dan raga. </span>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Hikmah dan Keutamaan Puasa:
+                    </div>
+                    <ul class="list-disc pl-6">
+                        <li>
+                            Memiliki
+                            <span class="islamic-knowledge-color font-bold"
+                                >pintu khusus di surga</span
+                            >
+                            yang disebut Ar-Rayyan.
+                        </li>
+                        <li>
+                            Puasa adalah
+                            <span class="islamic-knowledge-color font-bold"
+                                >perisai dari api neraka.
+                            </span>
+                        </li>
+                        <li>
+                            Orang yang berpuasa akan
+                            <span class="islamic-knowledge-color font-bold"
+                                >memperoleh dua kebahagiaan</span
+                            >: saat berbuka dan saat bertemu Allah.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Haji -->
+            <div class="pt-4">
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/divider.png"
+                        alt="divider"
+                    />
+                </div>
+                <div class="px-20">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_islam/Haji.png"
+                    />
+                </div>
+                <h2>RUKUN ISLAM KE-5</h2>
+                <h2>MENUNAIKAN HAJI</h2>
+                <h2>(حَجُّ الْبَيْتِ)</h2>
+
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Pengertian:
+                    </div>
+                    <div>
+                        Haji adalah berkunjung ke Baitullah (Ka'bah) di Mekkah
+                        untuk melaksanakan ibadah tertentu pada waktu tertentu
+                        dan dengan syarat tertentu.
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil dari Al-Qur’an:
+                    </div>
+                    <div>
+                        وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ
+                        إِلَيْهِ سَبِيلًا ۚ وَمَنْ كَفَرَ فَإِنَّ اللَّهَ
+                        غَنِيٌّ عَنِ الْعَالَمِينَ
+                    </div>
+                    <div>
+                        “Mengerjakan haji adalah kewajiban manusia terhadap
+                        Allah, yaitu (bagi) orang yang sanggup mengadakan
+                        perjalanan ke Baitullah. Barang siapa mengingkari
+                        (kewajiban haji), maka sesungguhnya Allah Maha Kaya
+                        (tidak memerlukan sesuatu) dari semesta alam.”
+                    </div>
+                    <div>(QS. Ali Imran: 97)</div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Dalil Hadis:
+                    </div>
+                    <div>
+                        "Barangsiapa melaksanakan haji lalu tidak berkata kotor
+                        dan tidak berbuat kefasikan, maka dia kembali seperti
+                        hari ia dilahirkan oleh ibunya."
+                    </div>
+                    <div>(HR. Bukhari dan Muslim)</div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Mengapa Harus Haji?
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        1.<span class="pl-1"
+                            >Puncak ketaatan dan penyerahan diri kepada Allah.
+                        </span>
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        2.<span class="pl-1"
+                            >Menyatukan umat Islam dari seluruh dunia.
+                        </span>
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        3.<span class="pl-1"
+                            >Mengikuti jejak Nabi Ibrahim dan Nabi Muhammad SAW.
+                        </span>
+                    </div>
+                    <div class="islamic-knowledge-color font-bold flex">
+                        4.<span class="pl-1">Menghapus dosa-dosa besar. </span>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="islamic-knowledge-color font-bold">
+                        Hikmah dan Keutamaan Haji:
+                    </div>
+                    <ul class="list-disc pl-6">
+                        <li>
+                            Haji yang mabrur tidak ada balasan selain surga.
+                        </li>
+                        <li>
+                            Mendapat gelar kehormatan dari Allah sebagai
+                            tamu-Nya.
+                        </li>
+                        <li>
+                            Menyucikan diri lahir dan batin, kembali fitrah.
+                        </li>
+                    </ul>
+                </div>
+                <div class="pt-3">
+                    <div>
+                        Adapun tambahan dan penyempurnaan kelima Rukun Islam
+                        tersebut, seperti kewajiban-kewajiban lainnya dan
+                        amalan-amalan sunnah, maka itu adalah hiasan dalam
+                        bangunan. Dengan mengetahui dan mengamalkan rukun Islam
+                        secara menyeluruh, seorang muslim dapat menjalani hidup
+                        sesuai dengan ajaran Islam, yang pada akhirnya akan
+                        membawa kepada kebahagiaan dan keselamatan dunia
+                        akhirat.
+                    </div>
+                </div>
+            </div>
+            <button
+                class="scroll-to-top"
+                *ngIf="showScrollToTop"
+                (click)="scrollToTop()"
+                aria-label="Scroll to top"
+            >
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+</div>

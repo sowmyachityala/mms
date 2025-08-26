@@ -1,0 +1,977 @@
+/* -------------------------------------------------------------------------- */
+/*  @ Overlay
+/* -------------------------------------------------------------------------- */
+.fuse-backdrop-on-mobile {
+    @apply bg-black bg-opacity-60 sm:bg-transparent #{'!important'};
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Font smoothing
+/* -------------------------------------------------------------------------- */
+*[class*="mat-"],
+*[class*="mat-mdc-"] {
+    -webkit-font-smoothing: auto !important;
+    -moz-osx-font-smoothing: auto !important;
+
+    * {
+        -webkit-font-smoothing: auto !important;
+        -moz-osx-font-smoothing: auto !important;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Accordion
+/* -------------------------------------------------------------------------- */
+.mat-accordion {
+    .mat-expansion-panel {
+        margin-bottom: 24px;
+        border-radius: 8px !important;
+        transition: box-shadow 225ms cubic-bezier(0.4, 0, 0.2, 1);
+        @apply shadow #{'!important'};
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.mat-expanded,
+        &:hover {
+            @apply shadow-lg #{'!important'};
+        }
+
+        &:not(.mat-expanded) {
+            .mat-expansion-panel-header {
+                &:not([aria-disabled="true"]) {
+                    &.cdk-keyboard-focused,
+                    &.cdk-program-focused,
+                    &:hover {
+                        background: transparent !important;
+                    }
+                }
+            }
+        }
+
+        .mat-expansion-panel-header {
+            font-size: 14px;
+
+            &[aria-disabled="true"] {
+                .mat-expansion-panel-header-description {
+                    margin-right: 28px;
+                }
+            }
+
+            .mat-expansion-indicator {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 12px;
+                height: 12px;
+
+                /* Do not override the border color of the expansion panel indicator */
+                &:after {
+                    border-color: currentColor !important;
+                }
+            }
+        }
+
+        .mat-expansion-panel-body {
+            @apply text-secondary #{'!important'};
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Table
+/* -------------------------------------------------------------------------- */
+
+.mat-mdc-table .mdc-data-table__header-row {
+    height: 48px !important;
+}
+
+.mat-mdc-no-data-row {
+    text-align: center;
+}
+
+.mat-mdc-table .mdc-data-table__row {
+    height: 42px !important;
+}
+
+.theme-default .light .mdc-data-table__header-cell,
+.theme-default.light .mdc-data-table__header-cell {
+    background: #173f53;
+    color: white;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Horizontal Line
+/* -------------------------------------------------------------------------- */
+
+hr {
+    margin: 16px 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Hint and error css
+/* -------------------------------------------------------------------------- */
+
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+    padding: 0px !important;
+}
+
+.mat-mdc-form-field-hint-wrapper {
+    right: auto !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Outline form field css
+/* -------------------------------------------------------------------------- */
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.mat-mdc-form-field-infix {
+    min-height: 44px !important;
+}
+
+.mat-mdc-menu-content {
+    padding: 0px !important;
+}
+
+.mat-mdc-menu-item {
+    min-height: 36px !important;
+}
+
+.mat-mdc-unelevated-button:disabled {
+    background-color: var(
+        --mdc-filled-button-disabled-container-color,
+        #006e8c
+    );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Toggle css
+/* -------------------------------------------------------------------------- */
+
+.mat-mdc-slide-toggle .mdc-switch .mdc-switch__track {
+    border-radius: var(--mdc-switch-track-shape, 12px) !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch .mdc-switch__track {
+    height: var(--mdc-switch-track-height, 20px) !important;
+}
+
+.theme-default .light .mat-mdc-slide-toggle.mat-primary,
+.theme-default.light .mat-mdc-slide-toggle.mat-primary {
+    --mdc-switch-selected-focus-state-layer-color: #006e8c;
+    --mdc-switch-selected-handle-color: #006e8c;
+    --mdc-switch-selected-hover-state-layer-color: #006e8c;
+    --mdc-switch-selected-pressed-state-layer-color: #006e8c;
+    --mdc-switch-selected-focus-handle-color: #006e8c;
+    --mdc-switch-selected-hover-handle-color: #006e8c;
+    --mdc-switch-selected-pressed-handle-color: #006e8c;
+    --mdc-switch-selected-focus-track-color: #e0e0e0;
+    --mdc-switch-selected-hover-track-color: #e0e0e0;
+    --mdc-switch-selected-pressed-track-color: #e0e0e0;
+    --mdc-switch-selected-track-color: #e0e0e0;
+}
+
+.mat-mdc-slide-toggle
+    .mdc-switch.mdc-switch--unselected:enabled
+    .mdc-switch__handle::after {
+    background: white !important;
+}
+
+.mat-mdc-slide-toggle
+    .mdc-switch.mdc-switch--unselected:enabled
+    .mdc-switch__icon {
+    fill: none !important;
+}
+
+.mat-mdc-slide-toggle
+    .mdc-switch.mdc-switch--selected:enabled
+    .mdc-switch__icon {
+    fill: none !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch .mdc-switch__ripple {
+    height: 0px !important;
+    width: 0px !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch .mdc-switch__focus-ring-wrapper,
+.mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle {
+    height: var(--mdc-switch-handle-height, 18px) !important;
+    width: var(--mdc-switch-handle-width, 18px) !important;
+}
+
+.theme-default
+    .light
+    .mat-button-toggle-checked.mat-button-toggle-appearance-standard,
+.theme-default.light
+    .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    border-radius: 0px;
+    padding: 0 5px;
+}
+
+.mat-button-toggle-appearance-standard {
+    background: #006e8c;
+    color: white;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Table body with border
+/* -------------------------------------------------------------------------- */
+
+.mat-mdc-table tbody,
+.mat-mdc-table tfoot,
+.mat-mdc-table thead,
+.mat-mdc-cell,
+.mat-mdc-footer-cell,
+.mat-mdc-header-row,
+.mat-mdc-row,
+.mat-mdc-footer-row,
+.mat-mdc-table .mat-mdc-header-cell {
+    border: solid 1px #cacaca !important;
+}
+
+/** custom CSS as per your :required */
+// .mat-horizontal-stepper-header {
+//     // box-sizing: border-box;
+//     flex-direction: column-reverse !important;
+//     height: auto;
+//     // padding: 24px;
+// }
+
+// .mat-horizontal-stepper-header .mat-step-label {
+//     padding: 0px 0px 16px !important;
+// }
+
+// .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+//     // top: 68px !important;
+//     width: -webkit-fill-available;
+// }
+
+// .mat-step-text-label {
+//     top: 0;
+//     position: absolute;
+// }
+
+/* -------------------------------------------------------------------------- */
+/*  @ Table body with border
+/* -------------------------------------------------------------------------- */
+
+.mat-mdc-radio-button
+    .mdc-radio
+    .mdc-radio__native-control:enabled:checked
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: #006e8c !important;
+}
+
+.mat-mdc-radio-button
+    .mdc-radio
+    .mdc-radio__native-control:enabled
+    + .mdc-radio__background
+    .mdc-radio__inner-circle {
+    border-color: #006e8c !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Buttons
+/* -------------------------------------------------------------------------- */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-icon-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    line-height: 1 !important;
+    border-radius: 0px !important;
+
+    /* Large button */
+    &.fuse-mat-button-large {
+        height: 48px;
+        min-height: 48px;
+        max-height: 48px;
+    }
+
+    /* Lower the icon opacity on disabled buttons */
+    &[disabled="true"] {
+        .mat-icon {
+            opacity: 0.38 !important;
+        }
+    }
+}
+
+/**** Checkbox *****/
+
+.mat-mdc-checkbox
+    .mdc-checkbox:hover
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background,
+.mat-mdc-checkbox
+    .mdc-checkbox:hover
+    .mdc-checkbox__native-control:enabled:indeterminate
+    ~ .mdc-checkbox__background,
+.mat-mdc-checkbox
+    .mdc-checkbox:hover
+    .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+    ~ .mdc-checkbox__background {
+    background-color: #006e8c !important;
+    border-color: #006e8c !important;
+}
+
+.mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background,
+.mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:indeterminate
+    ~ .mdc-checkbox__background,
+.mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+    ~ .mdc-checkbox__background {
+    background-color: #006e8c !important;
+    border-color: #006e8c !important;
+}
+
+.mat-mdc-checkbox
+    .mdc-checkbox:hover
+    .mdc-checkbox__native-control:not([disabled])
+    ~ .mdc-checkbox__ripple {
+    opacity: 0;
+}
+
+/* Icon buttons */
+.mat-mdc-icon-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px !important;
+    padding: 0 !important;
+
+    svg,
+    img {
+        height: auto !important;
+    }
+}
+
+/* FAB buttons */
+.mat-mdc-fab {
+    max-height: 56px;
+    border-radius: 16px !important;
+
+    &:not(.mdc-fab--extended) .mdc-fab__ripple {
+        border-radius: 16px !important;
+    }
+}
+
+/* Mini FAB buttons */
+.mat-mdc-mini-fab {
+    border-radius: 12px !important;
+
+    &:not(.mdc-fab--extended) .mdc-fab__ripple {
+        border-radius: 12px !important;
+    }
+}
+
+/* Rounded design */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+    padding: 0 20px !important;
+}
+
+/* Fix the alignment of icons when used within buttons */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+    & > .mat-icon {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* Adjust the color of mat-progress-spinner when used within buttons */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-icon-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+    .mat-mdc-progress-spinner {
+        .mdc-circular-progress__indeterminate-container {
+            circle {
+                stroke: currentColor !important;
+                animation-duration: 6000ms;
+            }
+        }
+    }
+}
+
+/* Adjust the focus, ripple and icon colors of colored background buttons */
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+    --mat-mdc-button-persistent-ripple-color: theme(
+        "colors.gray[400]"
+    ) !important;
+    --mat-mdc-button-ripple-color: rgba(0, 0, 0, 0.1) !important;
+
+    .dark & {
+        --mat-mdc-button-persistent-ripple-color: theme(
+            "colors.black"
+        ) !important;
+        --mat-mdc-button-ripple-color: rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .mat-icon {
+        color: currentColor !important;
+    }
+
+    .mat-ripple-element {
+        @apply bg-black/10 #{'!important'};
+    }
+}
+
+/* Color the icons of transparent background buttons */
+.mat-mdc-button,
+.mat-mdc-icon-button,
+.mat-mdc-outlined-button {
+    &:not([disabled="true"]) {
+        /* Apply primary color */
+        &.mat-primary {
+            .mat-icon {
+                @apply text-primary #{'!important'};
+            }
+        }
+
+        /* Apply accent color */
+        &.mat-accent {
+            .mat-icon {
+                @apply text-accent #{'!important'};
+            }
+        }
+
+        /* Apply warn color */
+        &.mat-warn {
+            .mat-icon {
+                @apply text-warn #{'!important'};
+            }
+        }
+    }
+}
+
+/* Adjust the border color of outlined buttons */
+.mat-mdc-outlined-button {
+    /* Not disabled */
+    &:not([disabled="true"]) {
+        @apply border-gray-300 dark:border-gray-500 #{'!important'};
+    }
+
+    /* Disabled */
+    &[disabled="true"] {
+        @apply border-gray-300/70 dark:border-gray-600 #{'!important'};
+    }
+}
+
+/* Don't wrap the button label text */
+.mdc-button {
+    .mdc-button__label {
+        white-space: nowrap;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Button Toggle
+/* -------------------------------------------------------------------------- */
+.mat-button-toggle-group {
+    border: none !important;
+    @apply space-x-1;
+
+    &.mat-button-toggle-group-appearance-standard {
+        .mat-button-toggle + .mat-button-toggle {
+            background-clip: padding-box;
+        }
+    }
+
+    .mat-button-toggle {
+        border-radius: 9999px;
+        overflow: hidden;
+        border: none !important;
+        font-weight: 500;
+
+        &.mat-button-toggle-checked {
+            .mat-button-toggle-label-content {
+                @apply text-default #{'!important'};
+            }
+        }
+
+        .mat-button-toggle-label-content {
+            padding: 0 20px;
+            line-height: 40px !important;
+            @apply text-secondary;
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Checkbox
+/* -------------------------------------------------------------------------- */
+.mat-mdc-checkbox {
+    display: inline-flex !important;
+
+    .mdc-form-field {
+        padding-right: 12px;
+    }
+}
+
+.mdc-checkbox__native-control {
+    opacity: 0 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Chip
+/* -------------------------------------------------------------------------- */
+.mat-mdc-chip {
+    font-weight: 500 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Dialog
+/* -------------------------------------------------------------------------- */
+.mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0px;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Drawer
+/* -------------------------------------------------------------------------- */
+.mat-drawer-backdrop.mat-drawer-shown {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* "outline" appearance */
+.mat-mdc-form-field.mat-form-field-appearance-outline {
+    /* Invalid */
+    &.mat-form-field-invalid {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            border-color: var(--fuse-warn) !important;
+        }
+    }
+
+    /* Focused */
+    &.mat-focused:not(.mat-form-field-invalid) {
+        /* Primary */
+        &.mat-primary {
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+                border-color: var(--fuse-primary) !important;
+            }
+        }
+
+        /* Accent */
+        &.mat-accent {
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+                border-color: var(--fuse-accent) !important;
+            }
+        }
+    }
+
+    &:not(.mat-focused):not(.mat-form-field-invalid) {
+        .mat-mdc-text-field-wrapper {
+            .mat-mdc-form-field-flex {
+                .mdc-notched-outline {
+                    .mdc-notched-outline__leading,
+                    .mdc-notched-outline__notch,
+                    .mdc-notched-outline__trailing {
+                        @apply border-slate-300 dark:border-slate-500 #{'!important'};
+                    }
+                }
+            }
+        }
+    }
+
+    /* Remove the extra border on the right side of the notch */
+    /* Tailwind's global border setter causes this issue */
+    .mat-mdc-text-field-wrapper {
+        .mat-mdc-form-field-flex {
+            .mdc-notched-outline {
+                .mdc-notched-outline__notch {
+                    border-right-style: none !important;
+                }
+            }
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Datepicker
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*  @ Icon
+/* -------------------------------------------------------------------------- */
+.mat-icon {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    min-height: 24px;
+    font-size: 24px;
+    line-height: 24px;
+    -webkit-appearance: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Inputs
+/* -------------------------------------------------------------------------- */
+.mat-mdc-input-element {
+    &::placeholder {
+        transition: none !important;
+        @apply text-hint #{'!important'};
+    }
+
+    &::-moz-placeholder {
+        transition: none !important;
+        @apply text-hint #{'!important'};
+    }
+
+    &::-webkit-input-placeholder {
+        transition: none !important;
+        @apply text-hint #{'!important'};
+    }
+
+    &:-ms-input-placeholder {
+        transition: none !important;
+        @apply text-hint #{'!important'};
+    }
+}
+
+/* Invalid */
+.mat-form-field-invalid {
+    .mat-mdc-input-element {
+        /* Placeholder color */
+        &::placeholder {
+            @apply text-warn #{'!important'};
+        }
+
+        &::-moz-placeholder {
+            @apply text-warn #{'!important'};
+        }
+
+        &::-webkit-input-placeholder {
+            @apply text-warn #{'!important'};
+        }
+
+        &:-ms-input-placeholder {
+            @apply text-warn #{'!important'};
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Menu
+/* -------------------------------------------------------------------------- */
+.mat-mdc-menu-panel {
+    min-width: 144px !important;
+
+    .mat-mdc-menu-content {
+        .mat-mdc-menu-item {
+            display: flex;
+            align-items: center;
+
+            > span {
+                display: inline-flex;
+                align-items: center;
+            }
+
+            &.mat-mdc-menu-item-submenu-trigger {
+                padding-right: 40px;
+            }
+
+            .mat-icon {
+                margin-right: 12px;
+            }
+
+            .mat-icon-no-color {
+                --tw-text-opacity: 1;
+                color: rgba(var(--fuse-mat-icon-rgb), var(--tw-text-opacity));
+            }
+        }
+
+        /* Divider within mat-menu */
+        mat-divider {
+            margin: 8px 0;
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Paginator
+/* -------------------------------------------------------------------------- */
+.mat-mdc-paginator {
+    .mat-mdc-paginator-container {
+        padding: 8px 0px;
+        justify-content: space-between !important;
+
+        @screen sm {
+            justify-content: normal;
+        }
+
+        /* Page size select */
+        .mat-mdc-paginator-page-size {
+            align-items: center;
+            min-height: 40px;
+            // margin: 8px;
+            .mat-mdc-form-field-infix {
+                min-height: 32px !important;
+            }
+            .mat-mdc-paginator-page-size-label {
+                display: none;
+                // margin-right: 12px;
+
+                @screen sm {
+                    display: block;
+                }
+            }
+
+            .mat-mdc-paginator-page-size-select {
+                margin: 0;
+
+                .mat-mdc-text-field-wrapper {
+                    padding: 0 10px;
+
+                    // .mat-form-field-flex {
+                    //     min-height: 32px;
+                    // }
+                }
+            }
+        }
+
+        /* Range actions */
+        .mat-mdc-paginator-range-actions {
+            margin: 8px 0;
+
+            .mat-mdc-paginator-range-label {
+                margin-right: 16px;
+            }
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Select
+/* -------------------------------------------------------------------------- */
+.mat-mdc-select {
+    display: inline-flex !important;
+
+    .mat-mdc-select-placeholder {
+        transition: none !important;
+        @apply text-hint #{'!important'};
+    }
+
+    .mat-mdc-select-trigger {
+        .mat-mdc-select-value {
+            position: relative;
+            display: flex;
+            max-width: none;
+
+            .mat-mdc-select-value-text {
+                display: inline-flex;
+
+                > * {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+    .mat-mdc-select-arrow-wrapper {
+        transform: translateY(0) !important;
+
+        .mat-mdc-select-arrow {
+            margin: 0 0 0 8px;
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Slide Toggle
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*  @ Stepper
+/* -------------------------------------------------------------------------- */
+.mat-step-icon {
+    /* Do not override the mat-icon color */
+    .mat-icon {
+        color: currentColor !important;
+    }
+}
+
+.mat-step-label,
+.mat-step-label-selected {
+    font-weight: 500 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Table
+/* -------------------------------------------------------------------------- */
+.mat-mdc-table {
+    .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
+        background: none !important;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Tabs
+/* -------------------------------------------------------------------------- */
+.mat-mdc-tab-group {
+    /* No header */
+    &.fuse-mat-no-header {
+        .mat-mdc-tab-header {
+            height: 0 !important;
+            max-height: 0 !important;
+            border: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+    }
+
+    &:not(.mat-background-primary):not(.mat-background-accent) {
+        .mat-mdc-tab-header {
+            .mat-mdc-tab-label-container {
+                box-shadow: inset 0 -1px var(--fuse-border);
+            }
+        }
+    }
+
+    .mat-mdc-tab-header {
+        .mat-mdc-tab-label-container {
+            margin: 0 24px;
+        }
+    }
+
+    .mat-mdc-tab-body-content {
+        padding: 24px;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Textarea
+/* -------------------------------------------------------------------------- */
+textarea.mat-mdc-input-element {
+    box-sizing: content-box !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Toolbar
+/* -------------------------------------------------------------------------- */
+.mat-toolbar {
+    /* Apply primary contrast color */
+    &.mat-primary {
+        .mat-icon {
+            @apply text-on-primary #{'!important'};
+        }
+
+        .text-secondary {
+            @apply text-on-primary text-opacity-60 #{'!important'};
+        }
+
+        .text-hint {
+            @apply text-on-primary text-opacity-38 #{'!important'};
+        }
+
+        .text-disabled {
+            @apply text-on-primary text-opacity-38 #{'!important'};
+        }
+
+        .divider {
+            @apply text-on-primary text-opacity-12 #{'!important'};
+        }
+    }
+
+    /* Apply accent contrast color */
+    &.mat-accent {
+        .mat-icon {
+            @apply text-on-accent #{'!important'};
+        }
+
+        .text-secondary {
+            @apply text-on-accent text-opacity-60 #{'!important'};
+        }
+
+        .text-hint {
+            @apply text-on-accent text-opacity-38 #{'!important'};
+        }
+
+        .text-disabled {
+            @apply text-on-accent text-opacity-38 #{'!important'};
+        }
+
+        .divider {
+            @apply text-on-accent text-opacity-12 #{'!important'};
+        }
+    }
+
+    /* Apply warn contrast color */
+    &.mat-warn {
+        .mat-icon {
+            @apply text-on-warn #{'!important'};
+        }
+
+        .text-secondary {
+            @apply text-on-warn text-opacity-60 #{'!important'};
+        }
+
+        .text-hint {
+            @apply text-on-warn text-opacity-38 #{'!important'};
+        }
+
+        .text-disabled {
+            @apply text-on-warn text-opacity-38 #{'!important'};
+        }
+
+        .divider {
+            @apply text-on-warn text-opacity-12 #{'!important'};
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  @ Tooltip
+/* -------------------------------------------------------------------------- */
+
+.mat-mdc-tooltip .mdc-tooltip__surface {
+    background-color: var(--fuse-text-default) !important;
+    color: white;
+
+    .dark & {
+        background-color: var(--fuse-text-secondary) !important;
+        color: var(--fuse-bg-default) !important;
+    }
+}

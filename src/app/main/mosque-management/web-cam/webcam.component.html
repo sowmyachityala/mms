@@ -1,0 +1,10 @@
+<div>
+    <button mat-raised-button color="primary" (click)="toggleWebcam()">Open Webcam</button>
+    <webcam
+      *ngIf="showWebcam"
+      [height]="240"
+      [width]="320"
+      (imageCapture)="handleImage($event)"
+    ></webcam>
+  </div>
+  

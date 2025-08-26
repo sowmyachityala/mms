@@ -1,0 +1,57 @@
+// ::ng-deep .navBar {
+//     position: fixed !important;
+//     width: calc(100% - 250px) !important;
+// }
+
+// ::ng-deep .contentSet {
+//     padding-top: 4rem !important;
+// }
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: -webkit-fill-available;
+}
+
+::ng-deep .login-height {
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+}
+
+::ng-deep .login_bg_al {
+    max-width: 243px;
+    max-height: 238px;
+    margin: auto;
+}
+
+::ng-deep .f-w-3 {
+    font-weight: 300 !important;
+}
+
+::ng-deep .login_bg {
+    background-image: url(./../assets/images/logo/login_bg.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+::ng-deep input {
+    // direction: ltr;
+    // text-align: end;
+}
+
+::ng-deep .text-600 {
+    font-weight: 600;
+}
+
+::ng-deep .span-info {
+    font-size: 11px !important;
+}
+
+
+::ng-deep .imgLangHt {
+    height: 24px !important;
+    width: 24px !important;
+}

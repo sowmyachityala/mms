@@ -1,0 +1,1070 @@
+<div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8">
+    <h1 class="font-semibold">{{ "Events.createNewEvent" | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()"
+        ><mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "Events.cclose" | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-8 pt-8">
+    <mat-stepper
+        class="example-stepper"
+        [linear]="isLinear"
+        labelPosition="bottom"
+        [orientation]="(stepperOrientation | async)!"
+    >
+        <ng-template matStepperIcon="edit">
+            <mat-icon>check</mat-icon>
+        </ng-template>
+        <mat-step
+            [stepControl]="eventInforForm"
+            label="{{ 'Events.eventInformation' | translate }}"
+        >
+            <div class="flex justify-between">
+                <div class="text-xl font-bold">
+                    {{ "Events.eventInformation" | translate }}
+                </div>
+                <div>
+                    <span> {{ "Events.step1of4" | translate }}</span>
+                </div>
+            </div>
+
+            <hr />
+            <form [formGroup]="eventInforForm" class="mt-10">
+                <div class="inner-page-sub-title">
+                    {{ "Events.eventDetails" | translate }}
+                </div>
+                <div class="mt-4">
+                    <div class="mt-4">
+                        <mat-checkbox formControlName="isImportantEvent">{{
+                            "Events.important" | translate
+                        }}</mat-checkbox>
+                    </div>
+
+                    <div class="mt-4">
+                        <mat-form-field class="w-full max-w-1/2">
+                            <mat-label>{{
+                                "Events.eventName" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="eventName"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('eventName')
+                                        .hasError('required')
+                                "
+                            >
+                                {{ "Events.eventNameIsRequired" | translate }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm.controls[
+                                        'eventName'
+                                    ].hasError('noLeadingSpaces')
+                                "
+                            >
+                                {{
+                                    "MosqueProfile.spaceNotAllowedInitially"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="mt-4">
+                        <mat-form-field class="w-full max-w-1/2">
+                            <mat-label>{{
+                                "Events.eventTypeCategory" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="eventType">                            
+                                <mat-option *ngFor="let type of eventTypes" [value]="type">
+                                    {{ type }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="eventInforForm.get('eventType').hasError('required')">
+                                {{ "Events.eventTypeIsRequired" | translate }}
+                            </mat-error>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="mt-4">
+                        <mat-form-field class="w-full max-w-1/2">
+                            <mat-label>{{
+                                "Events.keynoteSpeaker" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="keynoteSpeaker"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('keynoteSpeaker')
+                                        .hasError('required')
+                                "
+                            >
+                                {{ "Events.keynoteSpeakerNameRequired" | translate }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm.controls[
+                                        'keynoteSpeaker'
+                                    ].hasError('noLeadingSpaces')
+                                "
+                            >
+                                {{
+                                    "MosqueProfile.spaceNotAllowedInitially"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="w-full max-w-1/2">
+                            <mat-label>{{
+                                "Events.eventDescription" | translate
+                            }}</mat-label>
+                            <textarea
+                                matInput
+                                rows="4"
+                                formControlName="eventDescription"
+                                maxlength="500"
+                            ></textarea>
+                            <label class="text-disabled">
+                                {{
+                                    eventInforForm?.value?.eventDescription
+                                        .length
+                                }}/500
+                            </label>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('eventDescription')
+                                        .hasError('required')
+                                "
+                            >
+                                {{ "Events.descriptionIsRequired" | translate }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('eventDescription')
+                                        .hasError('maxlength')
+                                "
+                            >
+                                {{
+                                    "Events.maxlengthOnly500Characters"
+                                        | translate
+                                }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm.controls[
+                                        'eventDescription'
+                                    ].hasError('noLeadingSpaces')
+                                "
+                            >
+                                {{
+                                    "MosqueProfile.spaceNotAllowedInitially"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="mt-1">
+                        <mat-form-field class="w-full max-w-1/2 mt-8">
+                            <mat-label> {{'Events.pleaseSelectEventDateAndTime' | translate}}</mat-label>
+                            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+                                formControlName="eventDate" [min]="minDate" [max]="maxDate" [disabled]="true">
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                            </mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                                [touchUi]="touchUi" [color]="color">
+                            </ngx-mat-datetime-picker>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="mt-1">
+                        <mat-form-field class="w-full max-w-1/2 mt-8">
+                            <mat-label>
+                                {{
+                                    "Events.pleaseSelectEventDateAndTime"
+                                        | translate
+                                }}</mat-label
+                            >
+                            <mat-datetimepicker-toggle
+                                [for]="datetimePicker"
+                                matSuffix
+                            ></mat-datetimepicker-toggle>
+                            <mat-datetimepicker
+                                #datetimePicker
+                                type="datetime"
+                                openOnFocus="true"
+                                timeInterval="5"
+                            >
+                            </mat-datetimepicker>
+                            <input
+                                matInput
+                                formControlName="eventDate"
+                                [min]="minDate"
+                                [max]="maxDate"
+                                [disabled]="true"
+                                [matDatetimepicker]="datetimePicker"
+                                autocomplete="false"
+                                (dateInput)="onEventDateChange($event)"
+                            />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mt-4">
+                        <mat-slide-toggle
+                            [color]="'primary'"
+                            formControlName="isIndoorEvent"
+                            [checked]="eventInforForm?.value?.isIndoorEvent"
+                            >{{
+                                "Events.isEventHeldMosqueLocation" | translate
+                            }}</mat-slide-toggle
+                        >
+                    </div>
+                </div>
+
+                <div class="inner-page-sub-title mt-4">
+                    {{ "Events.uploadEventBannerImage" | translate }}
+                </div>
+                <div class="text-disabled text-sm">
+                    {{ "Events.imageSizeValidation" | translate }}
+                </div>
+
+                <div class="{{ direction }}">
+                    <div
+                        class="px-20 py-10 dropzone h-40 w-2/5 mt-4 block"
+                        *ngIf="!selectedFile"
+                        (click)="uploadImage('event', '1920', '1080')"
+                    >
+                        <div>
+                            <mat-icon
+                                svgIcon="mat_outline:file_upload"
+                            ></mat-icon>
+                        </div>
+                        <div>{{ "Events.uploadImageHere" | translate }}</div>
+                    </div>
+
+                    <div
+                        class="dropzone w-2/5 px-20 py-10 mt-4 {{ direction }}"
+                        *ngIf="eventImageSource"
+                    >
+                        <img class="w-15 h-18" [src]="eventImageSource" />
+                    </div>
+                    <div
+                        class="w-2/5 mt-2 justify-between flex"
+                        *ngIf="eventImageSource"
+                    >
+                        <div
+                            class="flex cursor-pointer"
+                            (click)="uploadImage('event', '1920', '1080')"
+                        >
+                            <img class="w-4 h-6" [src]="imageUrl?.reloadIcon" />
+                            <span
+                                class="active font-semibold text-lg"
+                                [ngClass]="
+                                    direction === 'ltr'
+                                        ? 'ml-1 '
+                                        : direction === 'rtl'
+                                        ? 'mr-1 '
+                                        : ''
+                                "
+                                >{{ "Events.reUpload" | translate }}</span
+                            >
+                        </div>
+                        <div
+                            class="flex cursor-pointer"
+                            (click)="deleteImage('event')"
+                        >
+                            <img class="w-4 h-6" [src]="imageUrl?.deleteIcon" />
+                            <span
+                                class="text-danger font-semibold text-lg"
+                                [ngClass]="
+                                    direction === 'ltr'
+                                        ? 'ml-1 '
+                                        : direction === 'rtl'
+                                        ? 'mr-1 '
+                                        : ''
+                                "
+                                >{{ "Events.delete" | translate }}</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!eventInforForm?.value?.isIndoorEvent">
+                    <div class="inner-page-sub-title mt-4">
+                        {{ "Events.outdoorLocationAdd" | translate }}
+                    </div>
+
+                    <div class="mt-4">
+                        <mat-form-field class="w-full max-w-1/2">
+                            <mat-label>
+                                {{
+                                    "Events.eventLocation" | translate
+                                }}</mat-label
+                            >
+                            <input
+                                matInput
+                                formControlName="eventLocation"
+                                [autocomplete]="'off'"
+                                [formControl]="autocompleteControl"
+                                [matAutocomplete]="auto"
+                            />
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option
+                                    *ngFor="let option of locations"
+                                    [value]="option.customerCode"
+                                    (onSelectionChange)="selectLocation(option)"
+                                >
+                                    {{ option.description }}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('eventLocation')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "Events.mosqueLocationIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="w-full max-w-1/2">
+                            <mat-label>
+                                {{
+                                    "Events.eventCompleteAddress" | translate
+                                }}</mat-label
+                            >
+                            <textarea
+                                matInput
+                                formControlName="eventCompleteAddress"
+                                maxlength="100"
+                            ></textarea>
+                            <label class="text-disabled">
+                                {{
+                                    eventInforForm?.value?.eventCompleteAddress
+                                        ?.length
+                                }}/100
+                            </label>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('eventCompleteAddress')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "Events.mosqueAddressIsRequired" | translate
+                                }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    eventInforForm
+                                        .get('eventCompleteAddress')
+                                        .hasError('maxlength')
+                                "
+                            >
+                                {{
+                                    "Events.maxlengthOnly100Characters"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="inner-page-sub-title mt-4">
+                        {{ "Events.mapEventLocation" | translate }}
+                    </div>
+                    <app-map [locationDetails]="locationDetails"></app-map>
+                </div>
+
+                <hr class="mt-28 mb-4" />
+
+                <div
+                    mat-dialog-actions
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'float-left'
+                            : direction === 'rtl'
+                            ? 'float-right'
+                            : ''
+                    "
+                    class="mt-4"
+                >
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        matStepperNext
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'float-left'
+                                : direction === 'rtl'
+                                ? 'float-right'
+                                : ''
+                        "
+                    >
+                        {{ "Events.saveContinue" | translate }}
+                    </button>
+                    <button
+                        mat-button
+                        mat-dialog-close
+                        (click)="addDialogRef.close()"
+                    >
+                        {{ "Events.cancel" | translate }}
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step
+            [stepControl]="registrationInfoForm"
+            label="{{ 'Events.registrationInformation' | translate }}"
+        >
+            <div class="flex justify-between">
+                <div class="text-xl font-bold">
+                    {{ "Events.registrationInformation" | translate }}
+                </div>
+                <div>
+                    <span>{{ "Events.step2of4" | translate }}</span>
+                </div>
+            </div>
+            <hr />
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.eventTime" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">
+                    {{ eventInforForm?.value?.eventDate | date : "dd/MM/yyyy" }}
+                    {{ eventInforForm?.value?.eventDate | date : "shortTime" }}
+                </b>
+            </div>
+            <form [formGroup]="registrationInfoForm" class="mt-10">
+                <div class="inner-page-sub-title">
+                    {{ "Events.registrationDetails" | translate }}
+                </div>
+                <div>
+                    <div class="inner-page-sub-title mt-4">
+                        {{ "Events.isRegistrationRequired" | translate }}
+                    </div>
+                    <mat-radio-group formControlName="isFreeEvent" (change)="onRadioButtonChange($event)">
+                        <mat-radio-button [value]="false">{{
+                            "Events.yes" | translate
+                        }}</mat-radio-button>
+                        <mat-radio-button [value]="true">{{
+                            "Events.no" | translate
+                        }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div
+                    class="mt-4"
+                    *ngIf="!registrationInfoForm.get('isFreeEvent').value"
+                >
+                    <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>{{
+                            "Events.registrationFee" | translate
+                        }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="registrationFee"
+                            [autocomplete]="'off'"
+                            appOnlynumber
+                        />
+                        <mat-error
+                            *ngIf="
+                                registrationInfoForm
+                                    .get('registrationFee')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Events.registrationFeeIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>
+                            {{
+                                "Events.registrationStartDate" | translate
+                            }}</mat-label
+                        >
+                        <mat-datetimepicker-toggle
+                            [for]="datetimePicker1"
+                            matSuffix
+                        ></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                            #datetimePicker1
+                            type="datetime"
+                            openOnFocus="true"
+                            timeInterval="5"
+                        >
+                        </mat-datetimepicker>
+                        <input
+                            matInput
+                            formControlName="registrationDateFrom"
+                            [max]="maxDate"
+                            [disabled]="dateDisabled"
+                            [matDatetimepicker]="datetimePicker1"
+                            autocomplete="false"
+                            (dateInput)="onDateChange($event)"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>
+                            {{
+                                "Events.registrationEndDate" | translate
+                            }}</mat-label
+                        >
+                        <mat-datetimepicker-toggle
+                            [for]="datetimePicker2"
+                            matSuffix
+                        ></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                            #datetimePicker2
+                            type="datetime"
+                            openOnFocus="true"
+                            timeInterval="5"
+                        >
+                        </mat-datetimepicker>
+                        <input
+                            matInput
+                            formControlName="registrationDateTo"
+                            [disabled]="dateDisabled"
+                            [matDatetimepicker]="datetimePicker2"
+                            autocomplete="false"
+                            (dateInput)="onDateChangeEnd($event)"
+                        />
+                        <mat-error
+                            *ngIf="
+                                registrationInfoForm
+                                    .get('registrationDateTo')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Events.registrationFeeIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <div class="inner-page-sub-title">
+                        {{ "Events.selectRegistrationLimitation" | translate }}
+                    </div>
+                    <mat-radio-group
+                        formControlName="isUnlimited"
+                        (change)="updateEventLimitValidators($event.value)"
+                    >
+                        <mat-radio-button [value]="false">{{
+                            "Events.limited" | translate
+                        }}</mat-radio-button>
+                        <mat-radio-button [value]="true">{{
+                            "Events.unLimited" | translate
+                        }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div
+                    class="mt-4"
+                    *ngIf="!registrationInfoForm?.value?.isUnlimited"
+                >
+                    <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>{{
+                            "Events.enterTheLimit" | translate
+                        }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="eventLimit"
+                            appOnlynumber
+                            [autocomplete]="'off'"
+                        />
+                        <mat-error
+                            *ngIf="
+                                registrationInfoForm
+                                    .get('eventLimit')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Events.enterTheLimitIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                registrationInfoForm
+                                    .get('eventLimit')
+                                    .hasError('positiveNumber')
+                            "
+                        >
+                            {{
+                                "Events.eventLimitMustBeGreaterThanZero"
+                                    | translate
+                            }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <hr class="mt-28 mb-4" />
+
+                <div
+                    mat-dialog-actions
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'float-left'
+                            : direction === 'rtl'
+                            ? 'float-right'
+                            : ''
+                    "
+                    class="mt-4"
+                >
+                    <button
+                        mat-button
+                        mat-flat-button
+                        [color]="'primary'"
+                        matStepperNext
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'float-left'
+                                : direction === 'rtl'
+                                ? 'float-right'
+                                : ''
+                        "
+                    >
+                        {{ "Events.saveContinue" | translate }}
+                    </button>
+                    <button mat-button matStepperPrevious>
+                        {{ "Events.previous" | translate }}
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step
+            [stepControl]="publishInfoForm"
+            label="{{ 'Events.publishInformation' | translate }}"
+        >
+            <div class="flex justify-between">
+                <div class="text-xl font-bold">
+                    {{ "Events.eventPublishInformation" | translate }}
+                </div>
+                <div>
+                    <span>{{ "Events.step3of4" | translate }}</span>
+                </div>
+            </div>
+            <hr />
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.eventTime" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">
+                    {{ eventInforForm?.value?.eventDate | date : "dd/MM/yyyy" }}
+                    {{ eventInforForm?.value?.eventDate | date : "shortTime" }}
+                </b>
+            </div>
+
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationStartDate" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">
+                    {{
+                        registrationInfoForm?.value?.registrationDateFrom
+                            | date : "dd/MM/yyyy"
+                    }}
+                    {{
+                        registrationInfoForm?.value?.registrationDateFrom
+                            | date : "shortTime"
+                    }}
+                </b>
+            </div>
+
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationEndDate" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">
+                    {{
+                        registrationInfoForm?.value?.registrationDateTo
+                            | date : "dd/MM/yyyy"
+                    }}
+                    {{
+                        registrationInfoForm?.value?.registrationDateTo
+                            | date : "shortTime"
+                    }}
+                </b>
+            </div>
+
+            <form [formGroup]="publishInfoForm" class="mt-10">
+                <div class="inner-page-sub-title">
+                    {{ "Events.publishingDetails" | translate }}
+                </div>
+
+                <div class="mt-4">
+                    <div class="inner-page-sub-title">
+                        {{ "Events.eventPublishingImmediately" | translate }}
+                    </div>
+                    <mat-radio-group
+                        formControlName="isImmediatePublish"
+                        (change)="isImmediatePublish($event)"
+                    >
+                        <mat-radio-button [value]="true">{{
+                            "Events.yes" | translate
+                        }}</mat-radio-button>
+                        <mat-radio-button [value]="false">{{
+                            "Events.no" | translate
+                        }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="mt-2">
+                    <!-- <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>{{'Events.publishingDateAndTime' | translate}}</mat-label>
+                        <input matInput [ngxMatDatetimePicker]="picker3" placeholder="Choose a date"
+                            formControlName="publishedDate" [min]="minDate" [max]="maxDate" [disabled]="dateDisabled">
+                        <mat-datepicker-toggle matSuffix [for]="picker3">
+                        </mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #picker3 [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                            [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                            [touchUi]="touchUi" [color]="color">
+                        </ngx-mat-datetime-picker>
+                    </mat-form-field> -->
+                    <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>
+                            {{
+                                "Events.publishingDateAndTime" | translate
+                            }}</mat-label
+                        >
+                        <mat-datetimepicker-toggle
+                            [for]="datetimePicker3"
+                            matSuffix
+                        ></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                            #datetimePicker3
+                            type="datetime"
+                            openOnFocus="true"
+                            timeInterval="5"
+                        >
+                        </mat-datetimepicker>
+                        <input
+                            matInput
+                            formControlName="publishedDate"
+                            [min]="minDate"
+                            [disabled]="dateDisabled"
+                            [matDatetimepicker]="datetimePicker3"
+                            autocomplete="false"
+                            (dateInput)="onPublishDateChange($event)"
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-1/2">
+                        <mat-label>{{"Events.liveVideoUrl" | translate}}</mat-label>
+                        <input matInput formControlName="liveVideoUrl" [autocomplete]="'off'"/>  
+                    </mat-form-field>
+                </div>
+                <hr class="mt-28 mb-4" />
+
+                <div
+                    mat-dialog-actions
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'float-left'
+                            : direction === 'rtl'
+                            ? 'float-right'
+                            : ''
+                    "
+                    class="mt-4"
+                >
+                    <button
+                        mat-button
+                        mat-flat-button
+                        [color]="'primary'"
+                        matStepperNext
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'float-left'
+                                : direction === 'rtl'
+                                ? 'float-right'
+                                : ''
+                        "
+                    >
+                        {{ "Events.saveContinue" | translate }}
+                    </button>
+                    <button mat-button matStepperPrevious>
+                        {{ "Events.previous" | translate }}
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step label="{{ 'Events.reviewAndSubmit' | translate }}">
+            <div class="flex justify-between">
+                <div class="text-xl font-bold">
+                    {{ "Events.review" | translate }}
+                </div>
+                <div>
+                    <span> {{ "Events.step4of4" | translate }}</span>
+                </div>
+            </div>
+            <hr />
+            <div class="inner-page-sub-title mt-10">
+                {{ "Events.eventInformation" | translate }}
+            </div>
+            <div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventName" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.eventName
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventType" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">
+                        {{
+                            eventInforForm?.value?.isImportantEvent
+                                ? "Important"
+                                : "Normal"
+                        }}</b
+                    >
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventTypeCategory" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">
+                        {{
+                            eventInforForm?.value?.eventType
+                        }}</b
+                    >
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventDescription" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.eventDescription
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.keynoteSpeaker" | translate }}:22</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.keynoteSpeaker
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventDate" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.eventDate | date : "dd/MM/yyyy"
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventTime" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.eventDate | date : "shortTime"
+                    }}</b>
+                </div>
+            </div>
+            <div class="inner-page-sub-title mt-6">
+                {{ "Events.eventLocationDetails" | translate }}
+            </div>
+            <div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventLocation" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.eventLocation
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventCompleteAddress" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        eventInforForm?.value?.eventCompleteAddress
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.eventMapLocation" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        "Events.nill" | translate
+                    }}</b>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" />
+            <div class="inner-page-sub-title mt-6">
+                {{ "Events.registrationInformation" | translate }}
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.isRegistrationRequired" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.isFreeEvent ? "No" : "Yes"
+                }}</b>
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationStartDate" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.registrationDateFrom
+                        | date : "dd/MM/yyyy"
+                }}</b>
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationStartTime" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.registrationDateFrom
+                        | date : "shortTime"
+                }}</b>
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationEndDate" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.registrationDateTo
+                        | date : "dd/MM/yyyy"
+                }}</b>
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationEndTime" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.registrationDateTo
+                        | date : "shortTime"
+                }}</b>
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationLimitation" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    !registrationInfoForm?.value?.isUnlimited
+                        ? "Limited"
+                        : "Unlimited"
+                }}</b>
+            </div>
+            <div class="mt-4" *ngIf="!registrationInfoForm?.value?.isUnlimited">
+                <span class="inner-page-labels"
+                    >{{ "Events.limit" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.eventLimit
+                }}</b>
+            </div>
+            <div class="mt-4">
+                <span class="inner-page-labels"
+                    >{{ "Events.registrationFee" | translate }}:</span
+                >
+                <b class="inner-page-labels font-semibold ml-2">{{
+                    registrationInfoForm?.value?.registrationFee
+                }}</b>
+            </div>
+            <hr class="mt-4 mb-4" />
+            <div class="inner-page-sub-title mt-6">
+                {{ "Events.publishingInformation" | translate }}
+            </div>
+            <div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{
+                            "Events.eventPublishingImmediately" | translate
+                        }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        publishInfoForm?.value?.isImmediatePublish
+                            ? "Yes"
+                            : "No"
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.publishingDate" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        publishInfoForm?.value?.publishedDate
+                            | date : "dd/MM/yyyy"
+                    }}</b>
+                </div>
+
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.publishingTime" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        publishInfoForm?.value?.publishedDate
+                            | date : "shortTime"
+                    }}</b>
+                </div>
+                <div class="mt-4">
+                    <span class="inner-page-labels"
+                        >{{ "Events.liveVideoUrl" | translate }}:</span
+                    >
+                    <b class="inner-page-labels font-semibold ml-2">{{
+                        publishInfoForm?.value?.liveVideoUrl
+                    }}</b>
+                </div>
+            </div>
+
+            <hr class="mt-28 mb-4" />
+
+            <div
+                mat-dialog-actions
+                [ngClass]="
+                    direction === 'ltr'
+                        ? 'float-left'
+                        : direction === 'rtl'
+                        ? 'float-right'
+                        : ''
+                "
+                class="mt-4"
+            >
+                <button
+                    mat-button
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="isButtonDisabled"
+                    (click)="createNewEvent()"
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'float-left'
+                            : direction === 'rtl'
+                            ? 'float-right'
+                            : ''
+                    "
+                >
+                    {{ "Events.saveContinue" | translate }}
+                </button>
+                <button mat-button matStepperPrevious>
+                    {{ "Events.previous" | translate }}
+                </button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</div>
+<ngx-spinner size="medium" [type]="isLoadingType"></ngx-spinner>

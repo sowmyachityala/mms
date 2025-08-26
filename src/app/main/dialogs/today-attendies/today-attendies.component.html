@@ -1,0 +1,66 @@
+<div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8">
+    <h1 class="font-semibold">{{'TodayAttendies.todayAttendies' | translate}}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{'Events.cclose' | translate}}</span>
+    </span>
+</div>
+<div  mat-dialog-content class="px-15 {{direction}}">
+    <div class="page-title justify-between flex">
+        <div class="">
+            <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                <mat-label>{{'TodayAttendies.search' | translate}}</mat-label>
+                <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput [formControl]="searchInputControl" (keyup)="applyFilter($event.target.value)"
+                    [autocomplete]="'off'" placeholder="{{'TodayAttendies.search' | translate}}">
+            </mat-form-field>
+        </div>       
+        <div class="page-sub-title">
+            <a class="mr-1 text-xl">{{ attendiesList?.length }}</a>
+                <span class="float-right">{{'TodayAttendies.totalAttendies' | translate}} </span>
+        </div>  
+    </div>
+     <div class="flex">
+        <div class="flex flex-auto overflow-hidden">
+            <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                <table mat-table [dataSource]="dataSource">                     
+                    <ng-container matColumnDef="fullName">
+                        <th mat-header-cell *matHeaderCellDef> {{'TodayAttendies.attendeeName' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+                    </ng-container> 
+                   <ng-container matColumnDef="email">
+                       <th mat-header-cell *matHeaderCellDef> {{'TodayAttendies.attendeeEmail' | translate}} </th>
+                       <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+                   </ng-container>   
+                   <ng-container matColumnDef="phoneNumber">
+                       <th mat-header-cell *matHeaderCellDef> {{'TodayAttendies.attendeePhoneNumber' | translate}} </th>
+                       <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                   </ng-container>                 
+                   <ng-container matColumnDef="prayerName">
+                        <th mat-header-cell *matHeaderCellDef> {{'TodayAttendies.prayerName' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.prayerName}} </td>
+                   </ng-container>
+                   <ng-container matColumnDef="prayeredDate">
+                       <th mat-header-cell *matHeaderCellDef class="colNumeric"> {{'TodayAttendies.prayeredDate' | translate}} </th>
+                       <td mat-cell *matCellDef="let element" class="colNumeric">
+                           <div> {{element.prayeredDate | date:'dd/MM/yyyy'}} </div>
+                           <div class="text-sm text-disabled"> {{element?.prayeredDate | date:'shortTime'}} </div>
+                       </td>
+                   </ng-container>                    
+   
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+   
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">{{'TodayAttendies.noDataMatching' | translate}}</td>
+                    </tr>
+                </table>
+                <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+                </mat-paginator>
+            </div>
+        </div>
+     </div>
+    
+  
+ </div>

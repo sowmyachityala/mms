@@ -1,0 +1,184 @@
+/* Scope styles to only affect the signin-signup-form */
+.signin-signup-form {
+    background-color: #f9f9f9; /* Light background for the form */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Section 1 - Personal Information (Name, Email, Phone) */
+.signin-signup-form .mt-4 {
+    margin-top: 1rem;
+}
+
+.signin-signup-form .mat-form-field {
+    background-color: #ffffff; /* White background for each input field */
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* Adding space between form fields */
+.signin-signup-form .mat-form-field:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+/* Form fields label styling */
+.signin-signup-form mat-label {
+    color: #333;
+}
+
+/* Section 2 - OTP Verification */
+.signin-signup-form .mt-4 div {
+    background-color: #f1f8ff; /* Light blue background for OTP section */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.signin-signup-form .mt-4 div mat-label {
+    color: #005d75;
+}
+
+/* Timer & Resend OTP Section */
+.signin-signup-form .text-600 {
+    color: #005d75; /* Darker color for the text */
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Button Section */
+.signin-signup-form button {
+    //width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.signin-signup-form button mat-progress-spinner {
+    margin-left: 10px;
+}
+
+.signin-signup-form button:disabled {
+    background-color: #e0e0e0;
+    color: #a5a5a5;
+}
+
+.signin-signup-form button:not(:disabled) {
+    background-color: #006e8c;
+    color: white;
+}
+
+.signin-signup-form button:hover {
+    background-color: #006e8c;
+    cursor: pointer;
+}
+
+/* Specific Styling for the OTP Resend Link */
+.signin-signup-form span.info {
+    font-size: 14px;
+    color: #00796b;
+}
+
+.signin-signup-form span.info a {
+    text-decoration: none;
+    color: #00796b;
+}
+
+.signin-signup-form span.info a:hover {
+    color: #004d40;
+}
+
+.form-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+.red-hint {
+    color: #dc2626;
+    display: inline;
+}
+/* Custom class for the container of the label and the input */
+.label-input-container {
+    display: flex;
+    align-items: center; /* Vertically align the items */
+    justify-content: flex-start; /* Align items to the left side */
+}
+
+/* Custom class for the label */
+.custom-label {
+    margin-right: 16px; /* Space between label and input field */
+}
+
+/* Custom class for the mat-form-field */
+.custom-mat-field {
+    width: 100%;
+}
+
+/* Styling the mat-form-field underline */
+.custom-mat-field .mat-form-field-underline {
+    display: block;
+    height: 2px; /* Set the underline height */
+    background-color: #000; /* Set your desired underline color */
+}
+
+/* Custom style for the label text */
+.custom-label span {
+    font-weight: 400;
+    margin: 0;
+}
+
+.verify-btn {
+    background-color: darkcyan;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.verify-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.status-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+/* Verified - green */
+.status-verified {
+    background-color: #28a745;
+    color: white;
+}
+
+.image {
+    left: 45%;
+    width: 91px;
+    height: 87px;
+    position: relative;
+    display: flex;
+}
+
+.onboaring {
+    color: #006e8c;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.step {
+    color: #006e8c;
+    font-size: 13px;
+    font-weight: 600;
+}

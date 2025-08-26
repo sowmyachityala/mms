@@ -1,0 +1,68 @@
+/* General Container */
+body {
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    font-family: sans-serif;
+}
+
+.success-container {
+    padding: 20px;
+    max-width: 350px;
+    margin: 20px auto;
+    border-radius: 15px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+/* Success Card */
+.success-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Success Icon */
+.success-icon {
+    font-size: 50px;
+    color: #006e8c;
+    margin-bottom: 15px;
+}
+
+/* Title */
+.success-title {
+    font-size: 20px;
+    color: #388e3c;
+    margin-bottom: 10px;
+}
+
+/* Message */
+.success-message {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .success-card {
+        padding: 15px;
+    }
+
+    .success-icon {
+        font-size: 40px;
+    }
+
+    .success-title {
+        font-size: 18px;
+    }
+
+    .btn-back {
+        padding: 10px 15px;
+    }
+}

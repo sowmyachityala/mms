@@ -1,0 +1,32 @@
+.alignAssign {
+    top: 48%;
+    right: 32%;
+    left: 32%;
+}
+
+::ng-deep
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(
+        .mdc-text-field--textarea
+    )
+    .mat-mdc-form-field-infix {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.assignMatActions {
+    margin-left: 3%;
+}
+
+.mat-button-toggle-group:not([class*="mat-elevation-z"]) {
+    background: #006e8c !important;
+}
+.mat-button-toggle-group .mat-button-toggle {
+    border-radius: 0;
+}
+
+.mat-button-toggle {
+    background: #006e8c !important;
+}
+.clr-w {
+    color: white;
+}

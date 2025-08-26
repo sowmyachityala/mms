@@ -1,0 +1,1888 @@
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <div class="page-title bgGreen text-white text-center">
+        <h1 class="font-semibold">DATA PROFIL KHATIB / IMAM MASJID / ULAMA</h1>
+    </div>
+    <div class="px-6">
+        <mat-radio-group
+            [(ngModel)]="isNewImamReg"
+            (ngModelChange)="switchForm($event)"
+            [disabled]="radioButtonsDisabled"
+        >
+            <mat-radio-button value="New" [disabled]="radioButtonsDisabled"
+                >Imam Baru</mat-radio-button
+            >
+            <mat-radio-button value="Exist" [disabled]="radioButtonsDisabled"
+                >Imam yang ada</mat-radio-button
+            >
+        </mat-radio-group>
+    </div>
+    <div class="px-6">
+        <div *ngIf="imamRegGrid && isNewImamReg === 'New'">
+            <form [formGroup]="signUpForm">
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>Nama lengkap</mat-label>
+                        <input
+                            id="fullName"
+                            matInput
+                            [formControlName]="'fullName'"
+                            (change)="checkForTrimChars()"
+                        />
+                        <mat-error
+                            *ngIf="
+                                signUpForm.get('fullName').hasError('required')
+                            "
+                        >
+                            Nama lengkap wajib diisi
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm.get('fullName').hasError('minlength')
+                            "
+                            >Nama lengkap minimal 2 Karakter
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm.get('fullName').hasError('maxlength')
+                            "
+                            >Panjang maksimal untuk Nama Lengkap adalah 50 Hanya
+                            karakter
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm.get('fullName').hasError('pattern')
+                            "
+                            >Silakan masukkan Nama Lengkap yang valid
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm
+                                    .get('fullName')
+                                    .hasError('customValidation')
+                            "
+                        >
+                            Nama lengkap tidak boleh mengandung angka.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm
+                                    .get('fullName')
+                                    .hasError('whitespace')
+                            "
+                        >
+                            Nama lengkap tidak boleh hanya berupa spasi kosong
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm
+                                    .get('fullName')
+                                    .hasError('multispace')
+                            "
+                        >
+                            Nama lengkap tidak boleh memiliki lebih dari satu
+                            spasi
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>ID email</mat-label>
+                        <input
+                            id="eMail"
+                            matInput
+                            [formControlName]="'eMail'"
+                        />
+                        <mat-error
+                            *ngIf="signUpForm.get('eMail').hasError('required')"
+                        >
+                            ID email diperlukan
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm.get('eMail').hasError('email') ||
+                                signUpForm.get('eMail').hasError('pattern')
+                            "
+                        >
+                            Silakan masukkan id email yang valid
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>Nomor handphone</mat-label>
+                        <input
+                            id="phoneNumber"
+                            matInput
+                            [formControlName]="'phoneNumber'"
+                            appOnlynumber
+                        />
+                        <mat-error
+                            *ngIf="
+                                signUpForm
+                                    .get('phoneNumber')
+                                    .hasError('required')
+                            "
+                        >
+                            Nomor Ponsel diperlukan
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm
+                                    .get('phoneNumber')
+                                    .hasError('minlength')
+                            "
+                            >Nomor Ponsel seharusnya setidaknya 8 Karakter
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm
+                                    .get('phoneNumber')
+                                    .hasError('maxlength')
+                            "
+                        >
+                            Panjang maksimal Nomor Ponsel adalah 15 Karakter
+                            saja
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div
+                    class="mt-4"
+                    *ngIf="isOtpArrived && isNewImamReg === 'New'"
+                >
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>Masukkan OTP</mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'loginOtp'"
+                            appOnlynumber
+                            (keypress)="onKeyPress($event)"
+                        />
+                        <mat-error> OTP diperlukan </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signUpForm.get('loginOtp').hasError('maxlength')
+                            "
+                        >
+                            Maxlength kode verifikasi hanya 6 digit.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="isNewImamReg === 'New' && seconds !== 0">
+                    <span *ngIf="isOtpArrived" class="span-info">
+                        Tersisa <b>{{ displayTimer }}</b>
+                    </span>
+                </div>
+                <div
+                    class="text-600"
+                    *ngIf="
+                        isNewImamReg === 'New' && isOtpArrived && seconds === 0
+                    "
+                >
+                    <a (click)="resendOtp()">Kirim ulang OTP</a>
+                </div>
+                <div class="mt-4">
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="signUpForm.disabled"
+                        (click)="signUp()"
+                        *ngIf="
+                            !signUpForm.disabled &&
+                            !isOtpArrived &&
+                            isNewImamReg === 'New'
+                        "
+                    >
+                        <span> Melanjutkan </span>
+                        <mat-progress-spinner
+                            *ngIf="signUpForm.disabled"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="signUpForm.disabled"
+                        (click)="validateSignUp()"
+                        *ngIf="
+                            !signUpForm.disabled &&
+                            isOtpArrived &&
+                            isNewImamReg === 'New'
+                        "
+                    >
+                        <span class="buttonText"> Verifikasi & Lanjutkan </span>
+                        <mat-progress-spinner
+                            *ngIf="signUpForm.disabled"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="imamRegGrid && isNewImamReg === 'Exist'">
+            <form class="mt-8" [formGroup]="signInForm">
+                <div class="mt-4">
+                    <mat-form-field
+                        class="w-full max-w-80"
+                        *ngIf="!isOtpArrived"
+                    >
+                        <mat-label>Masukkan nomor ponsel atau email</mat-label>
+                        <input
+                            id="email"
+                            matInput
+                            [formControlName]="'email'"
+                        />
+                        <mat-error
+                            *ngIf="signInForm.get('email').hasError('required')"
+                        >
+                            Alamat email atau nomor telepon diperlukan
+                        </mat-error>
+                        <mat-error
+                            *ngIf="signInForm.get('email').hasError('email')"
+                        >
+                            Silakan masukkan alamat email atau nomor telepon
+                            yang valid
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        class="w-full max-w-80"
+                        *ngIf="isOtpArrived"
+                    >
+                        <mat-label>Masukkan kode verifikasi</mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'loginOtp'"
+                            appOnlynumber
+                        />
+                        <mat-error
+                            *ngIf="
+                                signInForm.get('loginOtp').hasError('required')
+                            "
+                        >
+                            Kode verifikasi diperlukan
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                signInForm.get('loginOtp').hasError('maxlength')
+                            "
+                        >
+                            Maxlength kode verifikasi hanya 6 digit.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div
+                    class="mt-4"
+                    *ngIf="isNewImamReg === 'Exist' && seconds !== 0"
+                >
+                    <span *ngIf="isOtpArrived" class="span-info">
+                        Tersisa <b>{{ displayTimer }}</b>
+                    </span>
+                </div>
+                <div
+                    class="mt-4 text-600"
+                    *ngIf="
+                        isNewImamReg === 'Exist' &&
+                        isOtpArrived &&
+                        seconds === 0
+                    "
+                >
+                    <a (click)="resendOtpExist()">Kirim ulang</a>
+                </div>
+                <button
+                    class="mt-6"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="signInForm.disabled"
+                    (click)="sendOtp()"
+                    *ngIf="
+                        !signInForm.disabled &&
+                        !isOtpArrived &&
+                        isNewImamReg === 'Exist'
+                    "
+                >
+                    <span class="font-semibold text-lg">
+                        Kirim kode verifikasi
+                    </span>
+                    <mat-progress-spinner
+                        *ngIf="signInForm.disabled"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"
+                    ></mat-progress-spinner>
+                </button>
+
+                <button
+                    class="mt-6"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="signInForm.disabled"
+                    (click)="validateSignIn()"
+                    *ngIf="
+                        !signInForm.disabled &&
+                        isOtpArrived &&
+                        isNewImamReg === 'Exist'
+                    "
+                >
+                    <span class="font-semibold text-lg">
+                        Verifikasi & Lanjutkan
+                    </span>
+                    <mat-progress-spinner
+                        *ngIf="signInForm.disabled"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"
+                    ></mat-progress-spinner>
+                </button>
+
+                <!-- <div class="mt-4 text-center" *ngIf="isOtpArrived">
+                    <span span-info>
+                        {{ signInForm.value.email }}
+                    </span>
+                    <div class="flex justify-center">
+                        <span class="login-info w-auto span-info">Ganti nomor ponsel atau email?<span
+                                [ngClass]="direction === 'ltr' ? ' mr-1' : direction === 'rtl' ? ' ml-1' :''"
+                                class="createInfo w-auto span-info" (click)="changeLoginDetails()">Click
+                                here</span></span>
+                    </div>
+                </div> -->
+            </form>
+        </div>
+        <div *ngIf="imamProfileGrid">
+            <form [formGroup]="imamInfoForm" class="imam-form">
+                <div class="form-section">
+                    <div class="form-section-title">
+                        {{ "ImamProfile.personalInformation" | translate }}
+                    </div>
+                    <div class="fields-gap">
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.nickName" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="nickName"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('nickName')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.nickNameIsRequired" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.place" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="place"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('place')
+                                        .hasError('required')
+                                "
+                            >
+                                {{ "ImamProfile.placeIsRequired" | translate }}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.doB" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="picker2"
+                                placeholder="DOB(DD/MM/YYYY)"
+                                formControlName="doB"
+                                [max]="maxDOB"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker2"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm.get('doB').hasError('required')
+                                "
+                            >
+                                {{ "ImamProfile.doBIsRequired" | translate }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('doB')
+                                        .hasError('ageInvalid')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.ageMustBeAtLeast20" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-title">
+                        {{ "ImamProfile.address" | translate }} &
+                        {{ "ImamProfile.mapsLocation" | translate }}
+                    </div>
+                    <div class="fields-gap">
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.address" | translate
+                            }}</mat-label>
+                            <textarea
+                                matInput
+                                formControlName="imamAddress"
+                                maxlength="150"
+                            ></textarea>
+                            <label class="text-disabled">
+                                {{
+                                    imamInfoForm?.value?.imamAddress.length
+                                }}/150
+                            </label>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('imamAddress')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.addressIsRequired" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.country" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="countryId">
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        placeholderLabel="Search"
+                                        [formControl]="countryFilterCtrl"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option
+                                    *ngFor="
+                                        let type of filteredCountries | async
+                                    "
+                                    [value]="type.id"
+                                    (onSelectionChange)="
+                                        getLocationData(type.id, 'S')
+                                    "
+                                >
+                                    {{ type.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('countryId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.countryNameIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.state" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="stateId">
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        placeholderLabel="Search"
+                                        [formControl]="stateFilterCtrl"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option
+                                    *ngFor="let type of filteredStates | async"
+                                    [value]="type.id"
+                                    (onSelectionChange)="
+                                        getLocationData(type.id, 'C')
+                                    "
+                                >
+                                    {{ type.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('stateId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.stateNameIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>
+                                {{ "ImamProfile.city" | translate }}</mat-label
+                            >
+                            <mat-select formControlName="cityId">
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        placeholderLabel="Search"
+                                        [formControl]="citiesFilterCtrl"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option
+                                    *ngFor="let type of filteredCities | async"
+                                    [value]="type.id"
+                                    (onSelectionChange)="
+                                        getLocationData(type.id, 'D')
+                                    "
+                                >
+                                    {{ type.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('cityId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.cityNameIsRequired" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.district" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="districtId">
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        placeholderLabel="Search"
+                                        [formControl]="districtsFilterCtrl"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option
+                                    *ngFor="
+                                        let type of filteredDistricts | async
+                                    "
+                                    [value]="type.id"
+                                    (onSelectionChange)="
+                                        getLocationData(type.id, 'V')
+                                    "
+                                >
+                                    {{ type.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('districtId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.districtNameIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.village" | translate
+                                }}</mat-label
+                            >
+                            <mat-select formControlName="villageId">
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        placeholderLabel="Search"
+                                        [formControl]="villagesFilterCtrl"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option
+                                    *ngFor="
+                                        let type of filteredVillages | async
+                                    "
+                                    [value]="type.id"
+                                >
+                                    {{ type.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('villageId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.villageNameIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.rtrwCode" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="rtrwCode"
+                                [autocomplete]="'off'"
+                                maxlength="7"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('rtrwCode')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.rtrwCodeIsRequired" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.postalCode" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="postalCode"
+                                [autocomplete]="'off'"
+                                maxlength="5"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('postalCode')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.postalCodeIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- <mat-form-field class="w-full max-width-rem62">
+                            <mat-label> {{'ImamProfile.mapsLocation' | translate}} </mat-label>
+                            <input matInput formControlName="mapsLocation" [autocomplete]="'off'"
+                                [formControl]="autocompleteControl" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of locations" [value]="option.customerCode"
+                                    (onSelectionChange)="selectLocation(option)">
+                                    {{option.description}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="imamInfoForm.get('mapsLocation').hasError('required')">
+                                {{'ImamProfile.mapsLocationIsRequired' | translate}}
+                            </mat-error>
+                        </mat-form-field>   -->
+                    </div>
+                </div>
+                <!-- <div class="mt-5 mb-5">
+                <app-map [locationDetails]="locationDetails"></app-map>
+            </div> -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        {{ "ImamProfile.educationInfo" | translate }}
+                    </div>
+                    <div class="fields-gap">
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.highestFormalEducation" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="educationLevels">
+                                <mat-option
+                                    *ngFor="let type of HigherEducation"
+                                    [value]="type.id"
+                                >
+                                    {{ type.levelName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('educationLevels')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.highestFormalEducationIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.informalEducation" | translate
+                            }}</mat-label>
+                            <mat-select
+                                formControlName="trainings"
+                                multiple="true"
+                                [matTooltip]="getSelectedTrainingNames()"
+                            >
+                                <mat-option
+                                    *ngFor="let type of TrainingCourses"
+                                    [value]="type.id"
+                                >
+                                    {{ type.trainingName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('trainings')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.informalEducationIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.knownLanguages" | translate
+                                }}</mat-label
+                            >
+                            <mat-select
+                                formControlName="knownLanguages"
+                                multiple="true"
+                                [matTooltip]="getSelectedLanguageNames()"
+                            >
+                                <mat-option
+                                    *ngFor="let type of LocalLanguages"
+                                    [value]="type.id"
+                                >
+                                    {{ type.languageName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('knownLanguages')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.knownLanguagesIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.khutbahThemes" | translate
+                            }}</mat-label>
+                            <mat-select
+                                formControlName="sermonThemes"
+                                multiple="true"
+                                [matTooltip]="getSelectedSermonThemeNames()"
+                            >
+                                <mat-option
+                                    *ngFor="let type of SermonThemes"
+                                    [value]="type.id"
+                                >
+                                    {{ type.sermonThemeName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('sermonThemes')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.khutbahThemesIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.memorizationAbility"
+                                        | translate
+                                }}</mat-label
+                            >
+                            <mat-select formControlName="memorizationAbilityId">
+                                <mat-option
+                                    *ngFor="let type of MemorizationAbility"
+                                    [value]="type.id"
+                                >
+                                    {{ type.memorizationName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('memorizationAbilityId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.memorizationAbilityIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-title">
+                        {{ "ImamProfile.mainBaseMosqueDetails" | translate }}
+                    </div>
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{
+                            "ImamProfile.mainBaseMosqueName" | translate
+                        }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="mainBaseMosque"
+                            [autocomplete]="'off'"
+                        />
+                        <mat-error
+                            *ngIf="
+                                imamInfoForm
+                                    .get('mainBaseMosque')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "ImamProfile.mainBaseMosqueNameIsRequired"
+                                    | translate
+                            }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                imamInfoForm.controls[
+                                    'mainBaseMosque'
+                                ].hasError('noLeadingSpaces')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.spaceNotAllowedInitially"
+                                    | translate
+                            }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{
+                            "ImamProfile.mainMosqueAddress" | translate
+                        }}</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="mainMosqueAddress"
+                            maxlength="150"
+                        ></textarea>
+                        <label class="text-disabled">
+                            {{ imamInfoForm?.value?.imamAddress.length }}/150
+                        </label>
+                        <mat-error
+                            *ngIf="
+                                imamInfoForm
+                                    .get('mainMosqueAddress')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "ImamProfile.mosqueAddressIsRequired"
+                                    | translate
+                            }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                imamInfoForm.controls[
+                                    'mainMosqueAddress'
+                                ].hasError('noLeadingSpaces')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.spaceNotAllowedInitially"
+                                    | translate
+                            }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <mat-form-field class="w-full max-width-rem62">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.mainBaseMosqueMapsLocation"
+                                        | translate
+                                }}
+                            </mat-label>
+                            <input
+                                matInput
+                                formControlName="mosqueMapsLocation"
+                                [autocomplete]="'off'"
+                                [formControl]="autocompleteControl"
+                                [matAutocomplete]="auto"
+                            />
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option
+                                    *ngFor="let option of locations"
+                                    [value]="option.customerCode"
+                                    (onSelectionChange)="
+                                        selectMainMosqueLocation(option)
+                                    "
+                                >
+                                    {{ option.description }}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('mosqueMapsLocation')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.baseMosqueMapsLocationIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <span class="ml-4">
+                            <button
+                                mat-icon-button
+                                type="button"
+                                (click)="addMosque()"
+                            >
+                                <mat-icon style="color: #006e8c"
+                                    >add_circle_outline</mat-icon
+                                >
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-5 mb-5">
+                    <app-map [locationDetails]="locationDetails"></app-map>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-title">
+                        {{ "ImamProfile.otherMosquesDetails" | translate }}
+                    </div>
+                    <div formArrayName="otherMosques">
+                        <div
+                            *ngFor="
+                                let mosque of otherMosques.controls;
+                                let i = index
+                            "
+                            [formGroupName]="i"
+                        >
+                            <div class="mt-4">
+                                <mat-form-field class="w-full max-w-80">
+                                    <mat-label>{{
+                                        "ImamProfile.otherMosqueName"
+                                            | translate
+                                    }}</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="otherMosqueName"
+                                        [autocomplete]="'off'"
+                                    />
+                                    <mat-error
+                                        *ngIf="
+                                            otherMosques
+                                                .at(i)
+                                                .get('otherMosqueName').invalid
+                                        "
+                                    >
+                                        {{
+                                            "ImamProfile.otherMosqueNameIsRequired"
+                                                | translate
+                                        }}
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="w-full max-w-80 ml-4">
+                                    <mat-label>{{
+                                        "ImamProfile.otherMosqueAddress"
+                                            | translate
+                                    }}</mat-label>
+                                    <textarea
+                                        matInput
+                                        formControlName="otherMosqueAddress"
+                                        maxlength="150"
+                                    ></textarea>
+                                    <mat-error
+                                        *ngIf="
+                                            otherMosques
+                                                .at(i)
+                                                .get('otherMosqueAddress')
+                                                .invalid
+                                        "
+                                    >
+                                        {{
+                                            "ImamProfile.otherMosqueAddressIsRequired"
+                                                | translate
+                                        }}
+                                    </mat-error>
+                                </mat-form-field>
+                                <span class="ml-4">
+                                    <button
+                                        mat-icon-button
+                                        type="button"
+                                        (click)="removeMosque(i)"
+                                    >
+                                        <mat-icon style="color: indianred"
+                                            >remove_circle_outline</mat-icon
+                                        >
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-title">
+                        {{ "ImamProfile.otherInfoDetails" | translate }}
+                    </div>
+                    <div class="fields-gap">
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.professionalImam" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="professionalImam"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('professionalImam')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.professionalImamIsRequied"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.experienceInInternationalDawah"
+                                    | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="expInternationalDawah"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('expInternationalDawah')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.experienceInInternationalDawahIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.professionalKhatib" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="professionalKhatib"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('professionalKhatib')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.professionalKhatibIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.experienceAsImamAbroad"
+                                        | translate
+                                }}</mat-label
+                            >
+                            <input
+                                matInput
+                                formControlName="expImamAbroad"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('expImamAbroad')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.experienceAsImamAbroadIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.religiousBookAuthor" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="religiousBookAuthor"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('religiousBookAuthor')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.religiousBookAuthorIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.activistInReligiousInstitutions"
+                                    | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="activistReligiousInst"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('activistReligiousInst')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.activistInReligiousInstitutionsIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.popularPreacher" | translate
+                                }}</mat-label
+                            >
+                            <input
+                                matInput
+                                formControlName="popularPreacher"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('popularPreacher')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.popularPreacherIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.moderateDawahActivist" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="moderateDawahActivist"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('moderateDawahActivist')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.moderateDawahActivistIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.majelisTaklimTeacher" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="majelisTaklimTeacher"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('majelisTaklimTeacher')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.majelisTaklimTeacherIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{
+                                "ImamProfile.serviceInGovernmentInstitutions"
+                                    | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="serviceGovtInst"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('serviceGovtInst')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.serviceInGovernmentInstitutionsIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.pesantrenTeacher" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="pesantrenTeacher"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('pesantrenTeacher')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.pesantrenTeacherIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.socialMediaActivist" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="socialMediaActivist"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('socialMediaActivist')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.socialMediaActivistIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.politicalPartyAffiliation"
+                                        | translate
+                                }}</mat-label
+                            >
+                            <input
+                                matInput
+                                formControlName="politicalPartyAffiliation"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('politicalPartyAffiliation')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.politicalPartyAffiliationIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>{{
+                                "ImamProfile.independent" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                formControlName="independent"
+                                [autocomplete]="'off'"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('independent')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.independentIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <mat-label>
+                                {{
+                                    "ImamProfile.expertiseAsEducationAndTrainingInstructor"
+                                        | translate
+                                }}
+                            </mat-label>
+                            <mat-select
+                                formControlName="eductaionTrainingInstructor"
+                                multiple="true"
+                                [matTooltip]="getSelectedInstructorNames()"
+                            >
+                                <mat-option
+                                    *ngFor="
+                                        let type of EductaionTrainingInstructor
+                                    "
+                                    [value]="type.id"
+                                >
+                                    {{ type.educationTrainingName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    imamInfoForm
+                                        .get('eductaionTrainingInstructor')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "ImamProfile.expertiseAsEducationAndTrainingInstructorIsRequired"
+                                        | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="social-media-section">
+                    <div class="social-media-section-title">
+                        {{ "ImamProfile.socialMediaDetails" | translate }}
+                    </div>
+                    <div formArrayName="socialMediaAccounts">
+                        <div
+                            *ngFor="
+                                let account of socialMediaAccounts.controls;
+                                let i = index
+                            "
+                            [formGroupName]="i"
+                            class="social-media-account-item"
+                        >
+                            <mat-checkbox
+                                class="social-media-checkbox"
+                                formControlName="isChecked"
+                            >
+                                {{ account.value.socialMediaType }}
+                            </mat-checkbox>
+                            <mat-form-field class="social-media-form-field">
+                                <input
+                                    matInput
+                                    formControlName="socialMediaId"
+                                    [placeholder]="
+                                        'Enter ' +
+                                        account.value.socialMediaType +
+                                        ' ID'
+                                    "
+                                    [readonly]="!account.value.isChecked"
+                                />
+                                <mat-error
+                                    *ngIf="isInvalid(i)"
+                                    class="social-media-error"
+                                >
+                                    {{
+                                        "ImamProfile.socialMediaIDIsRequired"
+                                            | translate
+                                    }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-left mt-4">
+                    <button mat-button (click)="cancelRegistration()">
+                        {{ "ImamProfile.skip" | translate }}
+                    </button>
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="addUpdateImamProfileData()"
+                    >
+                        {{ "ImamProfile.update" | translate }}
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- <div *ngIf="imamProfileGrid">
+            <form [formGroup]="imamInfoForm">
+                <div class="mt-4">           
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.nickName' | translate}}</mat-label>
+                        <input matInput formControlName="nickName" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('nickName').hasError('required')">
+                            {{'ImamProfile.nickNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.place' | translate}}</mat-label>
+                        <input matInput formControlName="place" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('place').hasError('required')">
+                            {{'ImamProfile.placeIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.doB' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="picker2"  placeholder="DOB(DD/MM/YYYY)" formControlName="doB" [max]="maxDOB"/>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-error *ngIf="imamInfoForm.get('doB').hasError('required')">
+                            {{'ImamProfile.doBIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>        
+                </div>
+                <div class="mt-4">           
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.address' | translate}}</mat-label>
+                        <textarea matInput formControlName="imamAddress" maxlength="150"></textarea>
+                        <label class="text-disabled"> {{imamInfoForm?.value?.imamAddress.length}}/150 </label>
+                        <mat-error *ngIf="imamInfoForm.get('imamAddress').hasError('required')">
+                            {{'ImamProfile.addressIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80  ml-4">
+                        <mat-label>{{'ImamProfile.country' | translate}}</mat-label>
+                        <mat-select formControlName="countryId">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search" [formControl]="countryFilterCtrl"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let type of filteredCountries | async" [value]="type.id" (onSelectionChange)="getLocationData(type.id,'S')">
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('countryId').hasError('required')">
+                            {{'ImamProfile.countryNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80  ml-4">
+                        <mat-label>{{'ImamProfile.state' | translate}}</mat-label>
+                        <mat-select formControlName="stateId">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search" [formControl]="stateFilterCtrl"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let type of filteredStates | async" [value]="type.id" (onSelectionChange)="getLocationData(type.id,'C')">
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('stateId').hasError('required')">
+                            {{'ImamProfile.stateNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label> {{'ImamProfile.city' | translate}}</mat-label>
+                        <mat-select formControlName="cityId">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search" [formControl]="citiesFilterCtrl"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let type of filteredCities | async" [value]="type.id" (onSelectionChange)="getLocationData(type.id,'D')">
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('cityId').hasError('required')">
+                            {{'ImamProfile.cityNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80  ml-4">
+                        <mat-label>{{'ImamProfile.district' | translate}}</mat-label>
+                        <mat-select formControlName="districtId">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search" [formControl]="districtsFilterCtrl"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let type of filteredDistricts | async" [value]="type.id" (onSelectionChange)="getLocationData(type.id,'V')">
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('districtId').hasError('required')">
+                            {{'ImamProfile.districtNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80  ml-4">
+                        <mat-label> {{'ImamProfile.village' | translate}}</mat-label>
+                        <mat-select formControlName="villageId">
+                                <mat-option>
+                                    <ngx-mat-select-search  placeholderLabel="Search" [formControl]="villagesFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let type of filteredVillages | async" [value]="type.id">
+                                    {{ type.name }}
+                                </mat-option>
+                            </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('villageId').hasError('required')">
+                            {{'ImamProfile.villageNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.rtrwCode' | translate}}</mat-label>
+                        <input matInput formControlName="rtrwCode" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('rtrwCode').hasError('required')">
+                            {{'ImamProfile.rtrwCodeIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.postalCode' | translate}}</mat-label>
+                        <input matInput formControlName="postalCode" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('postalCode').hasError('required')">
+                            {{'ImamProfile.postalCodeIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-width-rem62">
+                        <mat-label> {{'ImamProfile.mapsLocation' | translate}} </mat-label>
+                        <input matInput formControlName="mapsLocation" [autocomplete]="'off'"
+                            [formControl]="autocompleteControl" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of locations" [value]="option.customerCode"
+                                (onSelectionChange)="selectLocation(option)">
+                                {{option.description}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="imamInfoForm.get('mapsLocation').hasError('required')">
+                            {{'ImamProfile.mapsLocationIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>      
+                </div>
+                <div>
+                    <app-map [locationDetails]="locationDetails"></app-map>
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.highestFormalEducation' | translate}}</mat-label>
+                        <mat-select formControlName="educationLevels" multiple="true">
+                            <mat-option *ngFor="let type of HigherEducation" [value]="type.id">
+                                {{ type.levelName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('educationLevels').hasError('required')">
+                            {{'ImamProfile.highestFormalEducationIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.informalEducation' | translate}}</mat-label>
+                        <mat-select formControlName="trainings" multiple="true">
+                            <mat-option *ngFor="let type of TrainingCourses" [value]="type.id">
+                                {{ type.trainingName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('trainings').hasError('required')">
+                            {{'ImamProfile.informalEducationIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{'ImamProfile.knownLanguages' | translate}}</mat-label>
+                        <mat-select formControlName="knownLanguages" multiple="true">
+                            <mat-option *ngFor="let type of LocalLanguages" [value]="type.id">
+                                {{ type.languageName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('knownLanguages').hasError('required')">
+                            {{'ImamProfile.knownLanguagesIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>                         
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.khutbahThemes' | translate}}</mat-label>
+                        <mat-select formControlName="sermonThemes" multiple="true">
+                            <mat-option *ngFor="let type of SermonThemes" [value]="type.id">
+                                {{ type.sermonThemeName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('sermonThemes').hasError('required')">
+                            {{'ImamProfile.khutbahThemesIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{'ImamProfile.memorizationAbility' | translate}}</mat-label>
+                        <mat-select formControlName="memorizationAbilityId">
+                            <mat-option *ngFor="let type of MemorizationAbility" [value]="type.id">
+                                {{ type.memorizationName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('memorizationAbilityId').hasError('required')">
+                            {{'ImamProfile.memorizationAbilityIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.mainBaseMosqueName' | translate}}</mat-label>
+                        <input matInput formControlName="mainBaseMosque" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('mainBaseMosque').hasError('required')">
+                            {{'ImamProfile.mainBaseMosqueNameIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.mainMosqueAddress' | translate}}</mat-label>
+                        <textarea matInput formControlName="mainMosqueAddress" maxlength="150"></textarea>
+                        <label class="text-disabled"> {{imamInfoForm?.value?.imamAddress.length}}/150 </label>
+                        <mat-error *ngIf="imamInfoForm.get('mainMosqueAddress').hasError('required')">
+                            {{'ImamProfile.mosqueAddressIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>           
+                </div>
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-width-rem62">
+                        <mat-label> {{'ImamProfile.mainBaseMosqueMapsLocation' | translate}} </mat-label>
+                        <input matInput formControlName="mosqueMapsLocation" [autocomplete]="'off'"
+                            [formControl]="autocompleteControl" [matAutocomplete]="autoMosque">
+                        <mat-autocomplete #autoMosque="matAutocomplete">
+                            <mat-option *ngFor="let option of locations" [value]="option.customerCode"
+                                (onSelectionChange)="selectMainMosqueLocation(option)">
+                                {{option.description}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="imamInfoForm.get('mosqueMapsLocation').hasError('required')">
+                            {{'ImamProfile.baseMosqueMapsLocationIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>  
+                    <span class="ml-4">
+                        <button mat-icon-button type="button" (click)="addMosque()">
+                            <mat-icon style="color: #006E8C;">add_circle_outline</mat-icon>
+                        </button>
+                    </span>     
+                </div>
+                <div formArrayName="otherMosques">
+                    <div *ngFor="let mosque of otherMosques.controls; let i = index" [formGroupName]="i">
+                    <div class="mt-4">
+                        <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.otherMosqueName' | translate}}</mat-label>
+                        <input matInput formControlName="otherMosqueName" [autocomplete]="'off'">
+                        <mat-error *ngIf="otherMosques.at(i).get('otherMosqueName').invalid">
+                            {{'ImamProfile.otherMosqueNameIsRequired' | translate}}
+                        </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.otherMosqueAddress' | translate}}</mat-label>
+                        <textarea matInput formControlName="otherMosqueAddress" maxlength="150"></textarea>
+                        <mat-error *ngIf="otherMosques.at(i).get('otherMosqueAddress').invalid ">
+                            {{'ImamProfile.otherMosqueAddressIsRequired' | translate}}
+                        </mat-error>
+                        </mat-form-field>
+                        <span class="ml-4">
+                            <button mat-icon-button type="button" (click)="removeMosque(i)">
+                            <mat-icon style="color: indianred;">remove_circle_outline</mat-icon>
+                            </button>
+                        </span> 
+                    </div>
+                    </div>
+                </div>  
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.professionalImam' | translate}}</mat-label>
+                        <input matInput formControlName="professionalImam" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('professionalImam').hasError('required')">
+                            {{'ImamProfile.professionalImamIsRequied' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.experienceInInternationalDawah' | translate}}</mat-label>
+                        <input matInput formControlName="expInternationalDawah" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('expInternationalDawah').hasError('required')">
+                            {{'ImamProfile.experienceInInternationalDawahIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.professionalKhatib' | translate}}</mat-label>
+                        <input matInput formControlName="professionalKhatib" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('professionalKhatib').hasError('required')">
+                            {{'ImamProfile.professionalKhatibIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>   
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label> {{'ImamProfile.experienceAsImamAbroad' | translate}}</mat-label>
+                        <input matInput formControlName="expImamAbroad" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('expImamAbroad').hasError('required')">
+                            {{'ImamProfile.experienceAsImamAbroadIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.religiousBookAuthor' | translate}}</mat-label>
+                        <input matInput formControlName="religiousBookAuthor" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('religiousBookAuthor').hasError('required')">
+                            {{'ImamProfile.religiousBookAuthorIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.activistInReligiousInstitutions' | translate}}</mat-label>
+                        <input matInput formControlName="activistReligiousInst" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('activistReligiousInst').hasError('required')">
+                            {{'ImamProfile.activistInReligiousInstitutionsIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>   
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label> {{'ImamProfile.popularPreacher' | translate}}</mat-label>
+                        <input matInput formControlName="popularPreacher" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('popularPreacher').hasError('required')">
+                            {{'ImamProfile.popularPreacherIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.moderateDawahActivist' | translate}}</mat-label>
+                        <input matInput formControlName="moderateDawahActivist" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('moderateDawahActivist').hasError('required')">
+                            {{'ImamProfile.moderateDawahActivistIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.majelisTaklimTeacher' | translate}}</mat-label>
+                        <input matInput formControlName="majelisTaklimTeacher" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('majelisTaklimTeacher').hasError('required')">
+                            {{'ImamProfile.majelisTaklimTeacherIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>      
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{'ImamProfile.serviceInGovernmentInstitutions' | translate}}</mat-label>
+                        <input matInput formControlName="serviceGovtInst" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('serviceGovtInst').hasError('required')">
+                            {{'ImamProfile.serviceInGovernmentInstitutionsIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.pesantrenTeacher' | translate}}</mat-label>
+                        <input matInput formControlName="pesantrenTeacher" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('pesantrenTeacher').hasError('required')">
+                            {{'ImamProfile.pesantrenTeacherIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.socialMediaActivist' | translate}}</mat-label>
+                        <input matInput formControlName="socialMediaActivist" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('socialMediaActivist').hasError('required')">
+                            {{'ImamProfile.socialMediaActivistIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div> 
+                <div class="mt-4">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label> {{'ImamProfile.politicalPartyAffiliation' | translate}}</mat-label>
+                        <input matInput formControlName="politicalPartyAffiliation" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('politicalPartyAffiliation').hasError('required')">
+                            {{'ImamProfile.politicalPartyAffiliationIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{'ImamProfile.independent' | translate}}</mat-label>
+                        <input matInput formControlName="independent" [autocomplete]="'off'">
+                        <mat-error *ngIf="imamInfoForm.get('independent').hasError('required')">
+                            {{'ImamProfile.independentIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{'ImamProfile.expertiseAsEducationAndTrainingInstructor' | translate}} </mat-label>
+                        <mat-select formControlName="eductaionTrainingInstructor" multiple="true">
+                            <mat-option *ngFor="let type of EductaionTrainingInstructor" [value]="type.id">
+                                {{ type.educationTrainingName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="imamInfoForm.get('eductaionTrainingInstructor').hasError('required')">
+                            {{'ImamProfile.expertiseAsEducationAndTrainingInstructorIsRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div> 
+                <div formArrayName="socialMediaAccounts" class="mt-4">
+                    <div *ngFor="let account of socialMediaAccounts.controls; let i = index" [formGroupName]="i">
+                        <mat-checkbox  class="w-full max-w-80" formControlName="isChecked">
+                            {{ account.value.socialMediaType }}
+                        </mat-checkbox>
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <input matInput formControlName="socialMediaId" [placeholder]="'Enter ' + account.value.socialMediaType + ' ID'" [readonly]="!(account.value.isChecked)">
+                            <mat-error *ngIf="isInvalid(i)">
+                                {{'ImamProfile.socialMediaIDIsRequired' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="float-left mt-4">
+                    <button mat-button (click)="cancelRegistration()">{{'ImamProfile.cancel' | translate}}</button>
+                    <button mat-flat-button [color]="'primary'" (click)="addUpdateImamProfileData()">
+                        {{'ImamProfile.update' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>  -->
+    </div>
+</div>

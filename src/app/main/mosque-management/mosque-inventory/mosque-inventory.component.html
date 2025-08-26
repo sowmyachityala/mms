@@ -1,0 +1,289 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div>
+         <div class="page-title justify-between flex">
+             <span>{{'Inventory.inventory' | translate}}</span>
+             <div class="page-sub-title">
+                 <a class="mr-1 text-xl">{{ inventoryList?.length }}</a>
+                 <span class="float-right">{{'Inventory.totalInventory' | translate}} </span>
+             </div>
+         </div>        
+         <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+             <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                 <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+             </div>
+             <div class="">
+                 <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                     <mat-label>{{'Inventory.search' | translate}}</mat-label>
+                     <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                     <input matInput [formControl]="searchInputControl" (keyup)="applyFilter($event.target.value)"
+                         [autocomplete]="'off'" placeholder="{{'Inventory.search' | translate}}">
+                 </mat-form-field>
+             </div>               
+             <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+                <div *ngFor="let action of currentActions?.childMenuActions">                    
+                    <button mat-flat-button [color]="'primary'" *ngIf="action?.actionNameId === 'Stock-In'" (click)="addInventoryNew()">
+                        <span class="ml-2 mr-1">{{action?.actionName}}</span>
+                    </button>                      
+                </div>                    
+             </div>         
+         </div>
+         <div class="flex flex-auto overflow-hidden">
+             <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                 <table mat-table [dataSource]="dataSource">
+                     
+                     <ng-container matColumnDef="productName">
+                         <th mat-header-cell *matHeaderCellDef> {{'Inventory.productName' | translate}} </th>
+                         <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+                     </ng-container>  
+
+                    <!-- <ng-container matColumnDef="mosqueName">
+                        <th mat-header-cell *matHeaderCellDef> Mosque Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.mosqueName}} </td>
+                    </ng-container> -->
+
+                     <ng-container matColumnDef="supplierName">
+                         <th mat-header-cell *matHeaderCellDef> {{'Inventory.supplierName' | translate}} </th>
+                         <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+                     </ng-container>
+                    <ng-container matColumnDef="supplierMobileNumber">
+                        <th mat-header-cell *matHeaderCellDef> {{'Inventory.mobileNumber' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.supplierMobileNumber}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef> {{'Inventory.quantity' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.quantity}} {{element.uomName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="createdBy">
+                        <th mat-header-cell *matHeaderCellDef> {{'Inventory.entryBy' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                    </ng-container>
+                    <!-- <ng-container matColumnDef="createdOn">
+                        <th mat-header-cell *matHeaderCellDef class="colNumeric"> Entry On </th>
+                        <td mat-cell *matCellDef="let element" class="colNumeric">
+                            <div> {{element.createdOn | date:'dd/MM/yyyy'}} </div>
+                            <div class="text-sm text-disabled"> {{element?.createdOn | date:'shortTime'}} </div>
+                        </td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="updatedOn">
+                        <th mat-header-cell *matHeaderCellDef class="colNumeric"> {{'Inventory.lastEntryOn' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="colNumeric">
+                            <div> {{element.updatedOn | date:'dd/MM/yyyy'}} </div>
+                            <div class="text-sm text-disabled"> {{element?.updatedOn | date:'shortTime'}} </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="isActive">
+                        <th mat-header-cell *matHeaderCellDef> {{'Inventory.status' | translate}} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="flex cursor-pointer">
+                                <img class="w-4 h-4 mt-1" [ngClass]="direction === 'ltr' ? 'mr-1 ' : direction === 'rtl' ? 'ml-1' :''"
+                                    [src]="element?.isActive === false ? imageEndPoints?.deactive : imageEndPoints?.activeIcon">
+                                <span [ngClass]="element?.isActive === false ? '' : element.isActive ? 'active' :''">{{element.isActive ? 'Active' : 'Inactive'}}</span>
+                            </span>
+    
+                        </td>
+                    </ng-container>
+                     <ng-container matColumnDef="action">
+                         <th mat-header-cell *matHeaderCellDef class="actionCenter"> </th>
+                         <td mat-cell *matCellDef="let element" class="pr-0 pl-0 w-4 actionCenter">
+                             <button  [matMenuTriggerFor]="menu">
+                                 <mat-icon>more_vert</mat-icon>
+                             </button>
+                             <mat-menu #menu="matMenu" [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                                 <ng-container>
+                                    <button mat-menu-item (click)="navigateToTrasactions(element)">
+                                        <span> {{'Inventory.transactions' | translate}} </span>
+                                    </button>
+                                    <div *ngFor="let action of currentActions?.childMenuActions">
+                                        <button mat-menu-item *ngIf="action?.actionNameId === 'Stock-Out'" (click)="confirmStockOutProduct(element.inventoryGuid,element.quantity,element.productName)">
+                                            <span> {{action?.actionName}} </span>
+                                        </button>
+                                        <button mat-menu-item *ngIf="action?.actionNameId === 'Deactivate' && element?.isActive" (click)="confirmDeactiveProduct(element.inventoryGuid)">
+                                            <span> {{action?.actionName}} </span>
+                                        </button>
+                                        <button mat-menu-item *ngIf="action?.actionNameId === 'Activate' && !element?.isActive" (click)="confirmActiveProduct(element.inventoryGuid)">
+                                            <span> {{action?.actionName}} </span>
+                                        </button>                                       
+                                    </div>                                    
+                                 </ng-container>                            
+                             </mat-menu>
+                         </td>
+                     </ng-container>
+ 
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ 
+                     <tr class="mat-row" *matNoDataRow>
+                         <td class="mat-cell" colspan="4">{{'Inventory.noDataMatching' | translate}}</td>
+                     </tr>
+                 </table>
+                 <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                     showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+                 </mat-paginator>
+             </div>
+         </div>
+    </div>
+    <div>
+        <ng-template #inventoryDialog>
+            <form [formGroup]="inventoryForm" id="myDialog">  
+                <div class="dTitleBar">
+                    <h1 matDialogTitle class="dTitle" *ngIf="!isUpdate"> {{'Inventory.inventoryStockIn' | translate}}</h1> 
+                    <!-- <h1 matDialogTitle class="dTitle" *ngIf="isUpdate"> Update Inventory</h1>  -->
+                </div>           
+                <mat-dialog-content>
+                    <div class="mt-4 p-ltr">
+                        <div>
+                            <mat-form-field class="w-half pull-left">
+                                <mat-label> {{'Inventory.category' | translate}} </mat-label>
+                                <mat-select [(ngModel)]="categoryGuid" (selectionChange)="getSubCategories($event.value)">
+                                    <mat-option *ngFor="let type of categories" [value]="type.categoryGuid">
+                                        {{type.categoryName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="w-half pull-right">
+                                <mat-label> {{'Inventory.subCategory' | translate}} </mat-label>
+                                <mat-select [(ngModel)]="childCategoryGuid" (selectionChange)="getProducts($event.value)">
+                                    <mat-option *ngFor="let type of subCategories" [value]="type.categoryGuid">
+                                        {{type.categoryName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> 
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label> {{'Inventory.product' | translate}} </mat-label>
+                                <mat-select formControlName="productId">
+                                    <mat-option *ngFor="let type of products"  [value]="type.id" (onSelectionChange)="selectedProduct(type?.id, type?.uomName)">
+                                        {{type.productName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="inventoryForm.get('productId').hasError('required')">
+                                    {{'Inventory.productIsRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label> {{'Inventory.supplier' | translate}} </mat-label>
+                                <mat-select formControlName="supplierId" (selectionChange)="selectedSupplier($event.value)">
+                                    <mat-option *ngFor="let type of supplierList" [value]="type.id">
+                                        {{type.supplierName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="inventoryForm.get('supplierId').hasError('required')">
+                                    {{'Inventory.supplierIsRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="w-half pull-left">
+                                <mat-label> {{'Inventory.quantity' | translate}}</mat-label>
+                                <input matInput type="number" formControlName="quantity" appOnlynumber [autocomplete]="'off'">
+                                <mat-error *ngIf="inventoryForm.get('quantity').hasError('required')">
+                                    {{'Inventory.quantityIsRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-half pull-right">
+                                <mat-label>{{'Inventory.uom' | translate}}</mat-label>
+                                <input matInput type="text" formControlName="selectedUOM" readonly>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="w-half pull-left">
+                                <mat-label> {{'Inventory.purchaseDate' | translate}}</mat-label>
+                                <input matInput [ngxMatDatetimePicker]="purchaseDatePiker" placeholder="{{'Inventory.chooseDate' | translate}}"
+                                    formControlName="purchaseDate" [min]="minDate" [max]="maxDate">
+                                <mat-datepicker-toggle matSuffix [for]="purchaseDatePiker"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #purchaseDatePiker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                                    [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                                    [touchUi]="touchUi" [color]="color">
+                                </ngx-mat-datetime-picker>
+                                
+                            </mat-form-field>
+                            <mat-form-field class="w-half pull-right">
+                                <mat-label> {{'Inventory.warrentyThru' | translate}} </mat-label>
+                                <input matInput [ngxMatDatetimePicker]="warrentyThruPicker" placeholder="{{'Inventory.chooseDate' | translate}}"
+                                    formControlName="warrentyThru" [min]="minDate" [max]="maxDate">
+                                <mat-datepicker-toggle matSuffix [for]="warrentyThruPicker"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #warrentyThruPicker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                                    [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                                    [touchUi]="touchUi" [color]="color">
+                                </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                    </div>  
+                </mat-dialog-content>
+                <mat-dialog-actions >
+                    <div *ngIf="direction === 'ltr'" class="ml-3">
+                        <button mat-flat-button [color]="'primary'" (click)="addOrUpdateInventory()">
+                            <span *ngIf="!isUpdate"> {{'Inventory.add' | translate}}</span>
+                            <!-- <span *ngIf="isUpdate">Update</span> -->
+                        </button>
+                        <button mat-button matDialogClose (click)="closeDialog()">{{'Inventory.cancel' | translate}}</button>                    
+                    </div>
+                    <div *ngIf="direction === 'rtl'" class="mr-3">                    
+                        <button mat-button matDialogClose (click)="closeDialog()"> {{'Inventory.cancel' | translate}}</button>  
+                        <button mat-flat-button [color]="'primary'" (click)="addOrUpdateInventory()">
+                            <span *ngIf="!isUpdate">{{'Inventory.add' | translate}}</span>
+                            <!-- <span *ngIf="isUpdate">Update</span> -->
+                        </button>                  
+                    </div>
+                </mat-dialog-actions> 
+            </form>
+        </ng-template>  
+   </div>
+   <div>
+    <ng-template #stockOutDialog>
+        <form [formGroup]="stockOutForm" id="stockOutDialog">  
+            <div class="dTitleBar">
+                <h1 matDialogTitle class="dTitle"> {{'Inventory.inventoryStockOut' | translate}} </h1> 
+            </div>           
+            <mat-dialog-content>
+                <div class="mt-4 p-ltr">
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'Inventory.productName' | translate}}</mat-label>
+                            <input matInput formControlName="productName" [autocomplete]="'off'" readonly>
+                        </mat-form-field>
+                    </div>   
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'Inventory.availableQuantity' | translate}}</mat-label>
+                            <input matInput type="number" formControlName="availableQuantity" appOnlynumber [autocomplete]="'off'" readonly>
+                        </mat-form-field>
+                    </div> 
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'Inventory.stockOutQuantity' | translate}}</mat-label>
+                            <input matInput type="number" formControlName="stockOutQuantity" appOnlynumber [autocomplete]="'off'">
+                            <mat-error *ngIf="stockOutForm.get('stockOutQuantity').hasError('required')">
+                                {{'Inventory.stockOutQuantityIsReq' | translate}}
+                            </mat-error>
+                            <mat-error *ngIf="stockOutForm.get('stockOutQuantity').hasError('min')">
+                                {{'Inventory.minStockOutQty' | translate}}
+                            </mat-error>
+                            <mat-error *ngIf="stockOutForm.get('stockOutQuantity').hasError('max')">
+                                {{'Inventory.maxStockOutQty' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>  
+            </mat-dialog-content>
+            <mat-dialog-actions >
+                <div *ngIf="direction === 'ltr'" class="ml-3">
+                    <button mat-flat-button [color]="'primary'" (click)="stockOutProduct()">
+                        <span>{{'Inventory.update' | translate}}</span>
+                    </button>
+                    <button mat-button matDialogClose (click)="closeDialog()">Cancel</button>                    
+                </div>
+                <div *ngIf="direction === 'rtl'" class="mr-3">                    
+                    <button mat-button matDialogClose (click)="closeDialog()">Cancel</button>  
+                    <button mat-flat-button [color]="'primary'" (click)="stockOutProduct()">
+                        <span>{{'Inventory.update' | translate}}</span>
+                    </button>                  
+                </div>
+            </mat-dialog-actions> 
+        </form>
+    </ng-template>   
+   </div>
+ </div>

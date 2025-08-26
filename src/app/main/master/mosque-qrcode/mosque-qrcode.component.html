@@ -1,0 +1,154 @@
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <div>
+        <div class="page-title justify-between flex">
+            <span> {{ "QRprint.QRCodes" | translate }}</span>
+        </div>
+        <div class="px-6 py-4 flex gap-6" *ngIf="mosqueGuid">
+            <div
+                #contentToDownload
+                class="qr-code-container flex-1 shadow-md rounded-lg p-6 flex flex-col items-center"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'pl-6'
+                        : direction === 'ltr'
+                        ? 'pr-6'
+                        : ''
+                "
+            >
+                <div>
+                    <h3 class="text-lg textBold mb-4 text-center text-gray-800">
+                        {{ mosqueName }}
+                    </h3>
+
+                    <p class="text-sm text-center">
+                        <span class="textBold text-gray-700">{{
+                            "QRprint.purpose" | translate
+                        }}</span>
+                    </p>
+                    <h3 class="text-lg textBold mb-4 text-center">
+                        {{ "QRprint.attendance" | translate }}
+                    </h3>
+                    <div class="mt-2 flex justify-center">
+                        <ngx-qrcode-styling
+                            #qrcode
+                            [template]="'green'"
+                            [data]="qrAttData"
+                            [width]="200"
+                            [height]="190"
+                            [dotsOptions]="{
+                                color: '#00000',
+                                type: 'extra-rounded'
+                            }"
+                            [qrOptions]="{
+                                typeNumber: 10,
+                                errorCorrectionLevel: 'H'
+                            }"
+                            [cornersSquareOptions]="{
+                                type: 'square',
+                                color: '#00000'
+                            }"
+                            [cornersDotOptions]="{
+                                type: 'square',
+                                color: '#00000'
+                            }"
+                        ></ngx-qrcode-styling>
+                    </div>
+
+                    <div class="mt-4 p-3">
+                        <p class="text-sm mb-2">
+                            <span class="font-semibold text-gray-700">
+                                {{ "QRprint.printDate" | translate }}</span
+                            >
+                            <span class="text-gray-900 font-medium">
+                                {{ todayDate }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <button
+                    class="mt-4 w-full bg-primary text-white font-medium py-2 rounded shadow hover:bg-primary-dark transition"
+                    mat-flat-button
+                    (click)="saveAsImageMosqueQR(contentToDownload)"
+                >
+                    {{ "QRprint.download" | translate }}
+                </button>
+            </div>
+
+            <div
+                #donatecontentToDownload
+                class="qr-code-container flex-1 shadow-md p-6 flex flex-col items-center"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'pr-6'
+                        : direction === 'ltr'
+                        ? 'pl-6'
+                        : ''
+                "
+            >
+                <div>
+                    <h3 class="text-lg textBold text-gray-800 mb-4 text-center">
+                        {{ mosqueName }}
+                    </h3>
+                    <p class="text-sm text-center">
+                        <span class="textBold text-gray-700">{{
+                            "QRprint.purpose" | translate
+                        }}</span>
+                    </p>
+                    <h3 class="text-lg textBold mb-4 text-center">
+                        {{ "QRprint.donation" | translate }}
+                    </h3>
+                    <div class="mt-2 flex justify-center">
+                        <ngx-qrcode-styling
+                            #qrcode
+                            [template]="'green'"
+                            [data]="qrDonate"
+                            [width]="200"
+                            [height]="190"
+                            [dotsOptions]="{
+                                color: '#006E8C',
+                                type: 'extra-rounded'
+                            }"
+                            [qrOptions]="{
+                                typeNumber: 10,
+                                errorCorrectionLevel: 'H'
+                            }"
+                            [cornersSquareOptions]="{
+                                type: 'square',
+                                color: '#00000'
+                            }"
+                            [cornersDotOptions]="{
+                                type: 'square',
+                                color: '#00000'
+                            }"
+                        ></ngx-qrcode-styling>
+                    </div>
+                    <div class="mt-4 p-3">
+                        <p class="text-sm mb-2">
+                            <span class="font-semibold text-gray-700">{{
+                                "QRprint.printDate" | translate
+                            }}</span>
+                            <span class="text-gray-900 font-medium">
+                                {{ todayDate }}
+                            </span>
+                            <span class="font-semibold text-gray-700 ml-2">
+                                {{ "QRprint.expDate" | translate }}</span
+                            >
+                            <span class="text-red-600 font-medium">
+                                {{ expiryDate }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <button
+                    class="mt-4 w-full bg-primary text-white font-medium py-2 rounded shadow hover:bg-primary-dark transition"
+                    mat-flat-button
+                    (click)="saveAsImageMosqueQR(donatecontentToDownload)"
+                >
+                    {{ "QRprint.download" | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

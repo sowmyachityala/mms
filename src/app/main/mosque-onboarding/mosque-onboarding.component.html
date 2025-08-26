@@ -1,0 +1,1219 @@
+<div *ngIf="!onboardPage">
+    <div class="flex-col flex-auto m-10 text-md">
+        <div class="image">
+           <img src="assets/images/onboarding/iSalaam22.png" alt="Logo image" />
+        </div>
+        <div *ngIf="currentPage === 1">
+           <div class="onboaring">  
+              PANDUAN UNTUK PENDAFTARAN OTOMATIS (AUTO ONBOARDING ) PLATFORM ISALAAM
+           </div>
+           <div class="font-bold pt-2 text-base">
+               <div>Kepada Yang Terhormat</div>
+               <div>Ketua/Pengurus Dewan Kemakmuran Masjid / Takmir Masjid,</div>
+               <div class="pt-2">Assalaamu'alaikum wa rahmatullahi wa barakaatuh.</div>
+               <div class="pt-1">
+                   Selamat Datang di Sistem Pendaftaran Otomatis (Auto Onboarding ) iSalaam.
+               </div>
+            </div>
+            <div>
+               <div class="pt-6">
+                   Dengan penuh rasa hormat, kami mengucapkan terima kasih atas ketertarikan Anda untuk
+                   bermitra dengan platform
+                   <span class="font-bold text-sm">
+                      iSalaam Smart Masjid Management System (iSalaam SMMS).
+                   </span>
+               </div>
+               <div class="pt-2">
+                   Untuk memastikan proses
+                   <span class="font-bold" style="font-size: 13px">
+                       Pendaftaran Otomatis (Auto Onboarding )
+                   </span>
+                   berjalan dengan lancar dan efisien, kami mohon kerja sama Anda untuk mengikuti
+                   langkah-langkah berikut ini:
+               </div>
+            </div>
+            <hr />
+            <div>
+               <div class="step underline underline-offset-4 pb-4">
+                   TAHAP 1: PEDAFTARAN TIM MANAJEMEN UTAMA
+               </div>
+               <div>
+                  Setiap orang yang ditunjuk untuk melakukan pedaftaran secara perorangan dengan menggunakan
+                  alamat email resmi masjid atau alamat email pribadi yang tersedia untuk menjadi
+                  <span class="text-sm font-bold">Anggota ( Member )</span> di platform iSalaam SMMS.
+               </div>
+               <div class="font-bold text-base pt-2">Peran ( Tugas Pokok ) :</div>
+               <div class="px-10">
+                   <div>
+                      <div class="font-bold text-base pt-2">
+                       1. <span class="pl-3">Admin Utama Masjid (Super Mosque Admin)</span>
+                    </div>
+                   <div class="pl-6">
+                       Admin Utama Masjid mendaptkan akses penuh ke semua fitur utama, termasuk pengelolaan
+                       detail perbankan, transaksi donasi, dan proses pencairan dana melalui Sistem Transaksi
+                       Digital ( Payment Gateway).
+                   </div>
+               </div>
+               <div class="font-bold text-base pt-2">
+                   2. <span class="pl-3">Admin Pendukung Masjid (Mosque Admin)</span>
+                </div>
+                <div class="pl-6">
+                   Admin Pendukung Masjid mendapatkan akses ke seluruh fitur utama, kecuali fitur yang
+                   berkaitan dengan detail perbankan, transaksi donasi, dan pencairan dana.
+                </div>
+                <div class="font-bold text-base pt-2">
+                  3. <span class="pl-3">Admin Keuangan Masjid (Accounts Mosque)</span>
+                </div>
+                <div class="pl-6">
+                   Admin Keuangan Masjid mendapatkan akses eksklusif ke Sistem Manajemen Akuntansi yang
+                   praktis muda eficien dan terpacaya.
+                </div>
+            </div>
+            <div class="font-bold text-base pt-2">
+                👉 <span class="text-cyan-900 underline underline-offset-4 cursor-pointer" (click)="goToMemberRegistration()">
+                    Klik di sini untuk mendaftar sebagai Anggota (Member)
+                  </span>
+                  
+            </div>
+         </div>
+         <hr />
+         <div>           
+           <div>
+              Setelah semua
+              <span class="font-bold text-base">Tim Manajemen Utama (TMU )</span> menyelesaikan
+              pendaftaran sebagai Anggota/Member, silakan klik tombol
+              <span class="font-bold">NEXT</span> di bawah ini. Anda akan diarahkan untuk mengisi formulir
+              sesuai permintaan
+           </div>
+         </div>
+         <div class="p-3 text-end">
+           <button class="mt-2" mat-flat-button [color]="'primary'" (click)="goToNextPage()">
+              Next
+           </button>
+         </div>
+       </div>
+     
+       <div *ngIf="currentPage === 2">
+        <div class="step pb-4 underline underline-offset-4">TAHAP 2: PENDAFTARAN OTOMATIS (AUTO ONBOARDING ) MASJID</div>
+          <div>1. <span class="pl-3">Data Langkep Masjid</span></div>
+          <div class="pt-1">
+              2.
+              <span class="pl-3">
+              Informasi <span class="font-bold">Tim Manajemen Utama (TMU ) </span>(Nama Lengkap, Alamat
+              Email, dan Nomor Telepon)</span>  
+           </div>
+          <div class="font-bold pt-2">Catatan:</div>
+          <div>
+              Alamat email yang disediakan saat pendaftaran <span class="font-bold">Tahap 2</span> harus
+              sama dengan alamat email yang digunakan saat pendaftaran TMU pada
+              <span class="font-bold">Tahap 1</span>. Apabila tidak sesuai, sistem tidak akan memberikan
+              akses Peran ( Tugas Pokok ) secara otomatis sebagai
+              <span class="font-bold">Tim Manajemen Utama (TMU ).</span>
+          </div>
+          <div class="font-bold text-base pt-3">
+            👉 <span class="text-blue-700 underline underline-offset-4 cursor-pointer" (click)="goToOnboardPage()">
+                Klik di sini untuk melanjutkan ke Pendaftaran Automatis (Auto Onboarding) Masjid
+              </span>
+          </div>
+          <hr />
+          <div class="step underline underline-offset-4 pb-4">
+              TAHAP 3 : FINALISASI PENDAFTARAN OTOMATIS (AUTO ONBOARDING ) MASJID DAN PENETAPAN PERAN TIM
+              MANAGEMEN MASJID
+          </div>
+           <div>
+               Setelah formulir di lenkapi sesuai <span class="font-bold"> Tahap 2</span> , bebrapa langkah
+               selanjutnya akan dilakukan secara otomatis:
+            </div>
+          <div class="px-5">
+               <div class="pt-2 flex">
+                   <span>1.</span>
+                   <span class="pl-3">Data yang diberikan oleh Masjid pada Tahap 2, akan diverifikasi dan validasi Final oleh Tim Admin iSalaam.</span>
+               </div>
+               <div class="pt-2 flex">
+                    <span>2.</span>
+                    <span class="pl-3">
+                       Proses Pendaftaran / Onboarding Masjid Anda dinyatakan final secara otomatis di dalam
+                       sistem iSalaam SMMS.
+                    </span> 
+                </div>
+               <div class="pt-2 flex">
+                  <span>3.</span>
+                  <span class="pl-3">
+                       Secara otomatis status sebagai Anggota/Member, menjadi Tim Manajemen Utama (
+                       <span class="font-bold">Super Mosque Admin, Accounts Mosque</span> ).
+                   </span>  
+                </div>
+                <div class="pt-2 flex">
+                <span>4.</span>
+                <span class="pl-3">
+                   Secara otomatis akan dikirim email kepada masing-masing Tim Manajemen Utama (Super Mosque
+                   Admin, Accounts Mosque) yang berisi tautan login dan akses terperinci ke platform iSalaam
+                   SMMS.
+                </span>
+            </div>
+          </div>
+          <hr />
+          <div class="font-bold text-base">
+              Saat ini juga Anda depat mulai Mengelola Manajemen Masjid Secara Mudah Efisien dan Lebih
+              Produktif bersama iSalaam SMMS
+           </div>
+           <div class="pt-2">
+              Kami sengat yakin iSalaam depat menyajikan fitur-fitur terbaik yang nyaman, mudah dan efisien
+              untuk mendukung operasional manajemen masjid sesuai harapan.
+           </div>
+           <div class="pt-2">
+               Kami sangat menantikan tindak lanjut pelaksanan dan jalinan kemitraan yang bermanfat dan
+               berkelanjutan dengan
+              <span class="font-bold">Ketua/Pengurus Dewan Kemakmuran Masjid / Takmir Masjid</span>
+            </div>
+           <div class="font-bold text-base">
+               <div class="pt-3">Salam hormat,</div>
+               <div>Tim Manajemen</div>
+              <div class="pb-3">iSalaam Smart Masjid Management System (iSalaam SMMS)</div>
+              <div>
+                  Untuk bantuan atau klarifikasi lebih lanjut, jangan ragu untuk hubungi Tim Dukungan kami:
+               </div>
+           </div>
+           <div class="pt-1 text-base">
+              WhatsApp: <span class="font-bold">+62 857-1439-1404</span> | Email:
+              <a href="mailto:cs.isalaam@isalaam.id" ><u>cs.isalaam&#64;isalaam.id</u></a>
+           </div>
+     
+           <div class="p-3 text-end">
+              <button class="mt-2" mat-flat-button [color]="'primary'" (click)="goToPreviousPage()">
+                  Previous
+              </button>
+            </div>
+       </div>
+     </div>
+</div>
+
+<div *ngIf="onboardPage" class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">    
+    
+    <div class="page-title bgGreen text-white text-center">
+        <h1 class="font-semibold">{{ "MosqueProfile.requestForMosqueOnboarding" | translate }}</h1>
+    </div>    
+    <div class="px-6">
+        <form [formGroup]="mosqueInfoForm">
+            <div class="inner-page-sub-title  mt-4">
+                {{ "MosqueProfile.basicDetails" | translate }}
+            </div>
+    
+            <div class="mt-4 form-section">
+                <div>
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{
+                            "MosqueProfile.mosqueName" | translate
+                        }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="mosqueName"
+                            [autocomplete]="'off'"
+                        />
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('mosqueName')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueNameIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm.controls['mosqueName'].hasError(
+                                    'noLeadingSpaces'
+                                )
+                            "
+                        >
+                            {{
+                                "MosqueProfile.spaceNotAllowedInitially" | translate
+                            }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{
+                            "MosqueProfile.mosqueType" | translate
+                        }}</mat-label>
+                        <mat-select formControlName="mosqueTypeId">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueTypeFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueTypes | async"
+                                [value]="type.mosqueTypeId"
+                            >
+                                {{ type.mosqueTypeName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('mosqueTypeId')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueTypeIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>                    
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{
+                            "MosqueProfile.establishedYear" | translate
+                        }}</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="dp"
+                            formControlName="establishedYear"
+                            placeholder="YYYY"
+                            readonly
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="dp"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                            #dp
+                            startView="multi-year"
+                            (yearSelected)="setYear($event, dp)"
+                            panelClass="example-month-picker"
+                        >
+                        </mat-datepicker>
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('establishedYear')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.establishedYearIsRequired"
+                                    | translate
+                            }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+    
+                <div>
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>{{
+                            "MosqueProfile.aboutMosques" | translate
+                        }}</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="aboutMosque"
+                            maxlength="500"
+                        ></textarea>
+                        <label class="text-disabled">
+                            {{ mosqueInfoForm?.value?.aboutMosque.length }}/500
+                        </label>
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('aboutMosque')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.aboutMosqueIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+    
+            <div class="inner-page-sub-title mt-4">
+                {{ "MosqueProfile.communicationDetails" | translate }}
+            </div>
+            <div class="mt-4 form-section">
+                <mat-form-field class="w-full max-w-60">
+                    <mat-label>
+                        {{ "MosqueProfile.contactName" | translate }}</mat-label
+                    >
+                    <input
+                        matInput
+                        formControlName="personIncharge"
+                        [autocomplete]="'off'"
+                    />
+                    <mat-error
+                        *ngIf="
+                            mosqueInfoForm
+                                .get('personIncharge')
+                                .hasError('required')
+                        "
+                    >
+                        {{ "MosqueProfile.contactNameIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field class="w-full max-w-60 ml-4">
+                    <mat-label>{{
+                        "MosqueProfile.mobileNumber" | translate
+                    }}</mat-label>
+                    <input
+                        matInput
+                        formControlName="mobileNumber"
+                        appOnlynumber
+                        [autocomplete]="'off'"
+                        minlength="10"
+                        maxlength="14"
+                    />
+                    <mat-error
+                        *ngIf="
+                            mosqueInfoForm.get('mobileNumber').hasError('required')
+                        "
+                    >
+                        {{ "MosqueProfile.mobileNumberIsRequired" | translate }}
+                    </mat-error>
+                    <mat-error
+                        *ngIf="
+                            mosqueInfoForm.get('mobileNumber').hasError('minlength')
+                        "
+                    >
+                        {{ "DialogBox.mobileNumberMin" | translate }}
+                    </mat-error>
+                    <mat-error
+                        *ngIf="
+                            mosqueInfoForm.get('mobileNumber').hasError('maxlength')
+                        "
+                    >
+                        {{ "DialogBox.mobileNumberMax" | translate }}
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field class="w-full max-w-60 ml-4">
+                    <mat-label> {{ "MosqueProfile.email" | translate }}</mat-label>
+                    <input
+                        matInput 
+                        formControlName="email"
+                        [autocomplete]="'off'"
+                    />
+                    <mat-error
+                        *ngIf="mosqueInfoForm.get('email').hasError('required')"
+                    >
+                        {{ "MosqueProfile.emailIsRequired" | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="mosqueInfoForm.get('email').hasError('email') || mosqueInfoForm.get('email').hasError('pattern')">
+                       {{"Suppliers.enterValidEmail" | translate}}
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field class="w-full max-w-60 ml-4">
+                    <mat-label>
+                        {{ "MosqueProfile.website" | translate }}</mat-label
+                    >
+                    <input
+                        matInput
+                        formControlName="website"
+                        [autocomplete]="'off'"
+                    />
+                    <mat-error
+                        *ngIf="mosqueInfoForm.get('website').hasError('pattern')"
+                    >
+                        <ng-container>
+                            {{ "MosqueProfile.validWebsiteURL" | translate }}
+                        </ng-container>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+    
+            
+    
+            <div class="inner-page-sub-title mt-4">
+                {{ "MosqueProfile.detailAddress" | translate }}
+            </div>
+            <div class="mt-4 form-section">
+                <div>
+                    <mat-form-field class="w-full max-w-60">
+                        <mat-label>
+                            {{ "MosqueProfile.completeAddress" | translate }}</mat-label
+                        >
+                        <textarea
+                            matInput
+                            formControlName="mosqueAddress"
+                            maxlength="150"
+                        ></textarea>
+                        <label class="text-disabled">
+                            {{ mosqueInfoForm?.value?.mosqueAddress.length }}/150
+                        </label>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('mosqueAddress').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueAddressIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>{{
+                            "MosqueProfile.mosqueCountry" | translate
+                        }}</mat-label>
+                        <mat-select formControlName="mosqueCountry">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueCountryFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueCountries | async"
+                                [value]="type.id"
+                                (onSelectionChange)="getLocationData(type.id, 'S')"
+                            >
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('mosqueCountry').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueCountryIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>{{
+                            "MosqueProfile.mosqueState" | translate
+                        }}</mat-label>
+                        <mat-select formControlName="mosqueState">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueStateFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueStates | async"
+                                [value]="type.id"
+                                (onSelectionChange)="getLocationData(type.id, 'C')"
+                            >
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('mosqueState').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueStateIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.mosqueCity" | translate }}</mat-label
+                        >
+                        <mat-select formControlName="mosqueCity">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueCitiesFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueCities | async"
+                                [value]="type.id"
+                                (onSelectionChange)="getLocationData(type.id, 'D')"
+                            >
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('mosqueCity').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueCityIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="w-full max-w-60">
+                        <mat-label>{{
+                            "MosqueProfile.mosqueDistrict" | translate
+                        }}</mat-label>
+                        <mat-select formControlName="mosqueDistrict">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueDistrictsFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueDistricts | async"
+                                [value]="type.id"
+                                (onSelectionChange)="getLocationData(type.id, 'V')"
+                            >
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('mosqueVillage').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueDistrictIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>{{
+                            "MosqueProfile.mosqueVillage" | translate
+                        }}</mat-label>
+                        <mat-select formControlName="mosqueVillage">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueVillagesFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueVillages | async"
+                                [value]="type.id"
+                            >
+                                {{ type.name }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('mosqueVillage').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueVillageIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.rtrwCode" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="rtrwCode"
+                            [autocomplete]="'off'"
+                            maxlength="7"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.landline" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="landline"
+                            [autocomplete]="'off'"
+                            appOnlynumber
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="inner-page-sub-title mt-4">
+                {{ "MosqueProfile.mapLocation" | translate }}
+            </div>
+    
+            <div class="mt-4 form-section">
+                <mat-form-field class="w-full max-width-rem63">
+                    <mat-label>
+                        {{ "MosqueProfile.mosqueLocation" | translate }}</mat-label
+                    >
+                    <input
+                        matInput
+                        formControlName="mosqueLocation"
+                        [autocomplete]="'off'"
+                        [formControl]="autocompleteControl"
+                        [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option
+                            *ngFor="let option of locations"
+                            [value]="option.customerCode"
+                            (onSelectionChange)="selectLocation(option)"
+                        >
+                            {{ option.description }}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error
+                        *ngIf="
+                            mosqueInfoForm
+                                .get('mosqueLocation')
+                                .hasError('required')
+                        "
+                    >
+                        {{ "MosqueProfile.mosqueLocationIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-hint class="red-hint" *ngIf="!locationDetails">{{ "MosqueProfile.noteForLocation" | translate }}</mat-hint>
+            </div>
+            
+            <div class="inner-page-sub-title mt-4">
+                {{ "MosqueProfile.facilitySpecifications" | translate }}
+            </div>
+            <div class="mt-4 form-section">
+                <div class="">
+                    <mat-form-field class="w-full max-w-60">
+                        <mat-label>
+                            {{
+                                "MosqueProfile.totalSittingCapacity" | translate
+                            }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="totalSittingCapacity"
+                            [autocomplete]="'off'"
+                            appOnlynumber
+                            maxlength="6"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('totalSittingCapacity')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.totalSittingCapacityIsRequired"
+                                    | translate
+                            }}
+                        </mat-error> -->
+                    </mat-form-field>
+        
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>{{
+                            "MosqueProfile.capacityOutside" | translate
+                        }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="capacityOutside"
+                            appOnlynumber
+                            [autocomplete]="'off'"
+                            maxlength="6"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('capacityOutside')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.capacityOutsideIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+        
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.noOfPersons" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="numbersOfStaff"
+                            [autocomplete]="'off'"
+                            appOnlynumber
+                            maxlength="6"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('numbersOfStaff')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.noOfPersonsIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{
+                                "MosqueProfile.legalStatusOfLand" | translate
+                            }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="landLegalStatus"
+                            [autocomplete]="'off'"
+                            maxlength="15"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('landLegalStatus')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.legalStatusOfLandIsRequired" | translate
+                            }}
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="">
+                    <mat-form-field class="w-full max-w-60">
+                        <mat-label>
+                            {{ "MosqueProfile.masjidTower" | translate }}</mat-label
+                        >
+                        <mat-select formControlName="masjidTower">
+                            <mat-option
+                                *ngFor="let option of valuesArray"
+                                [value]="option.value"
+                            >
+                                {{ option.display }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('masjidTower').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.masjidTowerIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.masjidDome" | translate }}</mat-label
+                        >
+                        <mat-select formControlName="masjidDome">
+                            <mat-option
+                                *ngFor="let option of valuesArray"
+                                [value]="option.value"
+                            >
+                                {{ option.display }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('masjidDome').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.masjidDomeIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{
+                                "MosqueProfile.certificateOfLand" | translate
+                            }}</mat-label
+                        >
+                        <mat-select formControlName="landCertificate">
+                            <mat-option
+                                *ngFor="let option of valuesArray"
+                                [value]="option.value"
+                            >
+                                {{ option.display }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('landCertificate')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.certificateOfLandIsRequired" | translate
+                            }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-60 ml-4">
+                        <mat-label>
+                            {{
+                                "MosqueProfile.buildingStructure" | translate
+                            }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="buildingStructure"
+                            [autocomplete]="'off'"
+                            maxlength="15"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('buildingStructure')
+                                    .hasError('required')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.buildingStructureIsRequired" | translate
+                            }}
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+        
+                <div class="">
+                    <mat-form-field class="w-full max-w-80">
+                        <mat-label>
+                            {{ "MosqueProfile.organisation" | translate }}</mat-label
+                        >
+                        <mat-select formControlName="organisationId">
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueOrgFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredOrginsation | async"
+                                [value]="type.organisationId"
+                            >
+                                {{ type.organisationName }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('organisationId')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.organisationIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>
+                            {{
+                                "MosqueProfile.mosqueFacilities" | translate
+                            }}</mat-label
+                        >
+                        <mat-select
+                            formControlName="facilityId"
+                            [multiple]="true"
+                            [matTooltip]="getSelectedFacilityNames()"
+                        >
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueFacilityFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredMosqueFacilities | async"
+                                [value]="type.facilityId"
+                            >
+                                {{ type.facilityName }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('facilityId').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.mosqueFacilitiesIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>
+                            {{
+                                "MosqueProfile.financialResources" | translate
+                            }}</mat-label
+                        >
+                        <mat-select
+                            formControlName="resourceId"
+                            [multiple]="true"
+                            [matTooltip]="getSelectedResourceNames()"
+                        >
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    placeholderLabel="Search"
+                                    [formControl]="mosqueFinancialFilterCtrl"
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                                *ngFor="let type of filteredFinancialResources | async"
+                                [value]="type.resourceId"
+                            >
+                                {{ type.resourceName }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('resourceId').hasError('required')
+                            "
+                        >
+                            {{
+                                "MosqueProfile.financialResourcesIsRequired" | translate
+                            }}
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="">
+                    <mat-form-field class="w-half max-w-50">
+                        <mat-label>
+                            {{ "MosqueProfile.landArea" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="landArea"
+                            [autocomplete]="'off'"
+                        />
+                        <!-- <mat-error
+                            *ngIf="mosqueInfoForm.get('landArea').hasError('required')"
+                        >
+                            {{ "MosqueProfile.landAreaIsRequired" | translate }}
+                        </mat-error> -->
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('landArea').hasError('pattern') &&
+                                mosqueInfoForm.get('landArea').touched
+                            "
+                        >
+                            {{ "MosqueProfile.onlyNumbersOneDecimal" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.get('landArea').hasError('min')"
+                        >
+                            {{ "MosqueProfile.lAreaNegative" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.get('landArea').hasError('max')"
+                        >
+                            {{ "MosqueProfile.lAreaMax" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field class="w-half max-w-30 ml-4">
+                        <mat-label>{{ "MosqueProfile.uoM" | translate }}</mat-label>
+                        <mat-select formControlName="landUomId">
+                            <mat-option
+                                *ngFor="let type of productUOM"
+                                [value]="type.id"
+                            >
+                                {{ type.uomName }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="mosqueInfoForm.get('landUomId').hasError('required')"
+                        >
+                            {{ "MosqueProfile.landAreaUomIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+        
+                    <mat-form-field class="w-half max-w-50 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.buildingArea" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="buildingArea"
+                            [autocomplete]="'off'"
+                            appOnlynumber
+                            maxlength="6"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('buildingArea').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.buildingAreaIsRequired" | translate }}
+                        </mat-error> -->
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm
+                                    .get('buildingArea')
+                                    .hasError('pattern') &&
+                                mosqueInfoForm.get('buildingArea').touched
+                            "
+                        >
+                            {{ "MosqueProfile.onlyNumbersOneDecimal" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.get('buildingArea').hasError('min')"
+                        >
+                            {{ "MosqueProfile.bAreaNegative" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.get('buildingArea').hasError('max')"
+                        >
+                            {{ "MosqueProfile.bAreaMax" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field class="w-half max-w-30 ml-4">
+                        <mat-label>{{ "MosqueProfile.uoM" | translate }}</mat-label>
+                        <mat-select formControlName="buildingUomId">
+                            <mat-option
+                                *ngFor="let type of productUOM"
+                                [value]="type.id"
+                            >
+                                {{ type.uomName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('buildingUomId').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.buildingAreaUomIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-half max-w-50 ml-4">
+                        <mat-label>
+                            {{ "MosqueProfile.parkingArea" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="parkingArea"
+                            [autocomplete]="'off'"
+                            appOnlynumber
+                            maxlength="6"
+                        />
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('parkingArea').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.parkingAreaIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('parkingArea').hasError('pattern') &&
+                                mosqueInfoForm.get('parkingArea').touched
+                            "
+                        >
+                            {{ "MosqueProfile.onlyNumbersOneDecimal" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.get('parkingArea').hasError('min')"
+                        >
+                            {{ "MosqueProfile.pAreaNegative" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.get('parkingArea').hasError('max')"
+                        >
+                            {{ "MosqueProfile.pAreaMax" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+        
+                    <mat-form-field class="w-half max-w-30 ml-4">
+                        <mat-label>{{ "MosqueProfile.uoM" | translate }}</mat-label>
+                        <mat-select formControlName="parkingUomId">
+                            <mat-option
+                                *ngFor="let type of productUOM"
+                                [value]="type.id"
+                            >
+                                {{ type.uomName }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="
+                                mosqueInfoForm.get('parkingUomId').hasError('required')
+                            "
+                        >
+                            {{ "MosqueProfile.parkingAreaUomIsRequired" | translate }}
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+            </div>
+                    
+            <div class="inner-page-sub-title">
+                {{ "MosqueProfile.basicDetails" | translate }}
+            </div>
+    
+            <div class="mt-4 form-section">
+                <div class="label-input-container">
+                    <div class="custom-label min-w-60">
+                        <span> {{ "MosqueProfile.superMosqueAdminEmail" | translate }}</span>
+                    </div>
+                    <mat-form-field class="custom-mat-field max-w-80">
+                        <mat-label>{{ "MosqueProfile.superMosqueAdminEmail" | translate }}</mat-label>
+                        <input matInput formControlName="sMAdminEmail" [autocomplete]="'off'" />
+                        <mat-error *ngIf="mosqueInfoForm.get('sMAdminEmail').hasError('required')  || mosqueInfoForm.get('sMAdminEmail').hasError('pattern')">
+                            {{ "MosqueProfile.superMosqueAdminEmailRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.controls['sMAdminEmail'].hasError('noLeadingSpaces')"
+                        >
+                            {{ "MosqueProfile.spaceNotAllowedInitially" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="min-w-60 ml-4">                       
+                        <span class="verify-btn" *ngIf="!mosqueInfoForm.get('isSMAdminVerified')?.value" (click)="verifyUserExistAsMember(mosqueInfoForm.get('sMAdminEmail')?.value,'SMA')">
+                            <i class="fas fa-hourglass-half"></i>  {{ "MosqueProfile.verificationPending" | translate }}
+                        </span>
+                        <span class="status-btn status-verified" *ngIf="mosqueInfoForm.get('isSMAdminVerified')?.value">
+                            <i class="fas fa-check-circle"></i>  {{ "MosqueProfile.verified" | translate }}
+                        </span>
+                    </div>
+                </div>
+                <div class="label-input-container">
+                    <div class="custom-label min-w-60">
+                        <span> {{ "MosqueProfile.mosqueAdminEmail" | translate }}</span>
+                    </div>
+                    <mat-form-field class="custom-mat-field max-w-80">
+                        <mat-label>{{ "MosqueProfile.mosqueAdminEmail" | translate }}</mat-label>
+                        <input matInput formControlName="mosqueAdminEmail" [autocomplete]="'off'" />
+                        <mat-error *ngIf="mosqueInfoForm.get('mosqueAdminEmail').hasError('pattern')">
+                            {{ "MosqueProfile.mosqueAdminEmailRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.controls['mosqueAdminEmail'].hasError('noLeadingSpaces')"
+                        >
+                            {{ "MosqueProfile.spaceNotAllowedInitially" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="min-w-60 ml-4">
+                        <span class="verify-btn" *ngIf="!mosqueInfoForm.get('isMosqueAdminVerified')?.value" (click)="verifyUserExistAsMember(mosqueInfoForm.get('mosqueAdminEmail')?.value, 'MA')">
+                            <i class="fas fa-hourglass-half"></i> {{ "MosqueProfile.verificationPending" | translate }}
+                        </span>    
+                        <span class="status-btn status-verified" *ngIf="mosqueInfoForm.get('isMosqueAdminVerified')?.value">
+                            <i class="fas fa-check-circle"></i> {{ "MosqueProfile.verified" | translate }}
+                        </span>
+                    </div>
+                </div> 
+                <div class="label-input-container">
+                    <div class="custom-label min-w-60">
+                        <span> {{ "MosqueProfile.mosqueAccountantEmail" | translate }}</span>
+                    </div>
+                    <mat-form-field class="custom-mat-field max-w-80">
+                        <mat-label>{{ "MosqueProfile.mosqueAccountantEmail" | translate }}</mat-label>
+                        <input matInput formControlName="mosqueAccountantEmail" [autocomplete]="'off'" />
+                        <mat-error *ngIf="mosqueInfoForm.get('mosqueAccountantEmail').hasError('pattern')">
+                            {{ "MosqueProfile.mosqueAccountantEmailRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="mosqueInfoForm.controls['mosqueAccountantEmail'].hasError('noLeadingSpaces')"
+                        >
+                            {{ "MosqueProfile.spaceNotAllowedInitially" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="min-w-60 ml-4">
+                        <span class="verify-btn" *ngIf="!mosqueInfoForm.get('isMosqueAccountantVerified')?.value" (click)="verifyUserExistAsMember(mosqueInfoForm.get('mosqueAccountantEmail')?.value, 'MAC')">
+                            <i class="fas fa-hourglass-half"></i> {{ "MosqueProfile.verificationPending" | translate }}
+                        </span>    
+                        <span class="status-btn status-verified" *ngIf="mosqueInfoForm.get('isMosqueAccountantVerified')?.value">
+                            <i class="fas fa-check-circle"></i> {{ "MosqueProfile.verified" | translate }}
+                        </span>
+                    </div>
+                </div> 
+                <mat-hint class="red-hint">{{ "MosqueProfile.noteForUsers" | translate }}</mat-hint>              
+            </div>
+        </form>
+        <div class="mt-3">
+            <span 
+                >Dengan memberikan alamat email saya, saya dengan ini
+                menyetujui dan menerima
+                <a
+                    href="https://www.isalaam.id/syarat-dan-ketentuan-penggunaan"
+                    target="_blank"
+                    >Terms of Use</a
+                >
+                and
+                <a
+                    href="https://www.isalaam.id/kebijakan-privasi"
+                    target="_blank"
+                    >Kebijakan pribadi</a
+                ></span
+            >
+        </div>
+        <div mat-dialog-actions class="float-left mt-4 mb-4">
+            <button mat-button mat-dialog-close (click)="cancelRequest()">
+                {{ "MosqueProfile.cancel" | translate }}
+            </button>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="sendOnboardRequest()"
+            >
+                <span>{{ "MosqueProfile.sendRequest" | translate }}</span>
+                
+            </button>
+        </div>
+    </div>
+</div>

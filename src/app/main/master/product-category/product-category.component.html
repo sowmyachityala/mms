@@ -1,0 +1,244 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <!-- <fuse-alert [appearance]="'soft'" class="w-full z-10 fixed" [dismissible]="true" [dismissed]="false"
+        [name]="'assignAlert'" [type]="'success'">
+        <span fuseAlertTitle>Success</span>
+        {{assignText}}
+    </fuse-alert> -->
+    <div class="page-title justify-between flex">
+        <span *ngIf="!categoryGuid && !parentCategoryId">{{'ProductCat.productCategories' | translate }}</span>
+        <span *ngIf="categoryGuid && !parentCategoryId">{{'ProductCat.subCategories' | translate }}</span>
+        <span *ngIf="categoryGuid && parentCategoryId">{{'ProductCat.products' | translate }}</span>
+        <div class="page-sub-title">
+            <a class="mr-1 text-xl" *ngIf="!categoryGuid && !parentCategoryId">{{ categories?.length }}</a>
+            <a class="mr-1 text-xl" *ngIf="categoryGuid && !parentCategoryId">{{ subCategories?.length }}</a>
+            <a class="mr-1 text-xl" *ngIf="categoryGuid && parentCategoryId">{{ products?.length }}</a>
+            <span class="float-right"> total
+                <span *ngIf="!categoryGuid && !parentCategoryId"> {{'ProductCat.categories' | translate }}</span>
+                <span *ngIf="categoryGuid && !parentCategoryId"> {{'ProductCat.subCategoriess' | translate }}</span>
+                <span *ngIf="categoryGuid && parentCategoryId"> {{'ProductCat.products' | translate }}</span>
+            </span>
+        </div>
+    </div>
+
+    <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>  
+        <!-- FILTER SECTION -->
+        <div class="flex items-center gap-2 flex-nowrap w-full overflow-x-auto">
+            <form [formGroup]="searchForm" class="flex items-center gap-2 flex-nowrap">
+                <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-52">
+                <mat-label>
+                    <span *ngIf="!categoryGuid && !parentCategoryId">{{'ProductCat.categoryName' | translate}}</span>
+                    <span *ngIf="categoryGuid && !parentCategoryId">{{'ProductCat.subCategoryName' | translate}}</span>
+                    <span *ngIf="categoryGuid && parentCategoryId">{{'ProductCat.productName' | translate}}</span>
+                </mat-label>
+                <input matInput formControlName="catProdName" [autocomplete]="'off'" [placeholder]="catProdPlaceholder" maxlength="20" />
+                </mat-form-field>
+
+                <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-42">
+                <mat-label>{{'MosqueProfile.status' | translate}}</mat-label>
+                <mat-select formControlName="catProdStatus">
+                    <mat-option [value]="true">Active</mat-option>
+                    <mat-option [value]="false">Inactive</mat-option>
+                </mat-select>
+                </mat-form-field>
+
+                <div class="flex items-center gap-2">
+                <button mat-flat-button color="primary" (click)="SearchFilter()">
+                    {{ 'RegUsers.search' | translate }}
+                </button>
+                <button mat-flat-button (click)="ResetFilterList()" style="background: beige;">
+                    {{ 'RegUsers.reset' | translate }}
+                </button>
+                </div>
+            </form>
+
+            <div class="flex items-center ml-auto">
+                <ng-container>
+                <button mat-flat-button color="primary" (click)="addcategory()">
+                    <span class="ml-2 mr-1">{{'ProductCat.add' | translate}}</span>
+                </button>
+                </ng-container>
+            </div>
+        </div>      
+    </div>
+     <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+        <!-- BREADCRUMB SECTION -->
+        <div class="flex items-center ml-auto">
+            <div class="text-sm text-gray-700">
+                <span *ngIf="selectedCategory" (click)="backToCategories()" class="cursor-pointer hover:underline mr-1">
+                {{'ProductCat.categories' | translate}}
+                </span>
+                <span *ngIf="selectedCategory" class="mr-1">/</span>
+                <a *ngIf="selectedCategory" class="breadCrum titleCase cursor-pointer hover:underline mr-1" (click)="backToSubCategories()">
+                {{selectedCategory?.categoryName}}
+                </a>
+                <span *ngIf="selectedCategory && selectedSubCategory" class="mr-1">/</span>
+                <span *ngIf="selectedCategory && selectedSubCategory" class="cursor-pointer hover:underline" (click)="backToProducts()">
+                {{selectedSubCategory?.categoryName}}
+                </span>
+            </div>
+        </div>
+     </div>
+    <div class="flex flex-auto overflow-hidden">
+        <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+            <table mat-table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="categoryName">
+                    <th mat-header-cell *matHeaderCellDef>
+                         <span *ngIf="!categoryGuid && !parentCategoryId">{{'ProductCat.categoryName' | translate }}</span>
+                         <span *ngIf="categoryGuid && !parentCategoryId">{{'ProductCat.subCategoryName' | translate }}</span>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="active">
+                        <span *ngIf="!categoryGuid && !parentCategoryId" class="pointer" (click)="navigateToSubcategories(element)">{{element.categoryName}}</span>
+                        <span *ngIf="categoryGuid && !parentCategoryId" class="pointer" (click)="navigateToProducts(element)">{{element.categoryName}}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="categoryDescription">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <span *ngIf="!categoryGuid && !parentCategoryId">{{'ProductCat.categoryDescription' | translate }}</span>
+                        <span *ngIf="categoryGuid && !parentCategoryId">{{'ProductCat.subCategoryDescription' | translate }}</span>                          
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element?.categoryDescription}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="childCategoryCount">
+                    <th mat-header-cell *matHeaderCellDef class="colNumeric">{{'ProductCat.subCategorys' | translate }}</th>
+                    <td mat-cell *matCellDef="let element" class="colNumeric">
+                        {{element?.childCategoryCount}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="productsCount">
+                    <th mat-header-cell *matHeaderCellDef class="colNumeric"> {{'ProductCat.products' | translate }} </th>
+                    <td mat-cell *matCellDef="let element" class="colNumeric">
+                        {{element?.productsCount}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef> {{'ProductCat.productName' | translate }} </th>
+                    <td mat-cell *matCellDef="let element" class="active">
+                        {{element.productName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="productDescription">
+                    <th mat-header-cell *matHeaderCellDef>{{'ProductCat.productDescription' | translate }} </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element?.productDescription}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="uomId">
+                    <th mat-header-cell *matHeaderCellDef> {{'ProductCat.uoM' | translate }} </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element?.uomName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="updatedOn">
+                    <th mat-header-cell *matHeaderCellDef class="colNumeric">  {{'ProductCat.updatedDate' | translate }} </th>
+                    <td mat-cell *matCellDef="let element" class="colNumeric">
+                        <div> {{element.updatedOn | date:'dd/MM/yyyy'}} </div>
+                        <div class="text-sm text-disabled"> {{element?.updatedOn | date:'shortTime'}} </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="isActive">
+                    <th mat-header-cell *matHeaderCellDef> {{'ProductCat.status' | translate }} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span class="flex cursor-pointer" (click)="assignAdmin(element)">
+                            <img class="w-4 h-4 mt-1"
+                                [ngClass]="direction === 'ltr' ? 'mr-1 ' : direction === 'rtl' ? 'ml-1' :''"
+                                [src]="element?.isActive === false ? imageEndPoints?.deactive : imageEndPoints?.activeIcon">
+                            <span
+                                [ngClass]="element?.isActive === false ? '' : element.isActive ? 'active' :''">{{element.isActive
+                                ? 'Active' : 'Inactive'}}</span>
+                        </span>
+
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="mosqueEmail">
+                    <th mat-header-cell *matHeaderCellDef> {{'ProductCat.emailID' | translate }} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a href="mailto:{{ element.mosqueEmail }}"> {{element.mosqueEmail}}</a>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-0 w-4">
+                        <!-- Add a button to trigger the menu -->
+                        <button style="padding-right: revert;" [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <!-- Define the menu -->
+                        <mat-menu #menu="matMenu"
+                            [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                            <!-- <ng-container *ngFor="let action of currentActions?.childMenuActions"> -->
+                            <ng-container *ngIf="categoryGuid && parentCategoryId">
+                                <button mat-menu-item (click)="editCategory(element, 'Product')">{{'ProductCat.editProduct' | translate }}</button>
+                                <!-- *ngIf="action?.actionNameId === 'Edit'" -->
+                                <button mat-menu-item (click)="confirmDeactiveProduct(element,'Product')"
+                                    *ngIf="element?.isActive" class="text-danger">
+                                    <!-- && action?.actionNameId === 'Deactivate' -->
+                                    <span class="text-danger"> {{'ProductCat.deactivate' | translate }} </span>
+                                </button>
+                                <button mat-menu-item (click)="confirmActiveProduct(element,'Product')"
+                                    *ngIf="!element?.isActive" class="text-primary">
+                                    <span class="text-primary"> {{'ProductCat.activate' | translate }}  </span>
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="categoryGuid && !parentCategoryId">
+                                <button mat-menu-item (click)="editCategory(element, 'Sub Category')">
+                                    {{'ProductCat.editSubCategory' | translate }}
+                                </button>
+                                <button mat-menu-item (click)="navigateToProducts(element)">{{'ProductCat.products' | translate }}</button>
+                                <!-- *ngIf="action?.actionNameId === 'Edit'" -->
+                                <button mat-menu-item (click)="confirmDeactiveCategory(element,'Category')"
+                                    *ngIf="element?.isActive" class="text-danger">
+                                    <!-- && action?.actionNameId === 'Deactivate' -->
+                                    <span class="text-danger"> {{'ProductCat.deactivate' | translate }} </span>
+                                </button>
+                                <button mat-menu-item (click)="confirmActiveCategory(element,'Category')"
+                                    *ngIf="!element?.isActive" class="text-primary">
+                                    <span class="text-primary"> {{'ProductCat.activate' | translate }} </span>
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="!categoryGuid && !parentCategoryId">
+                                <button mat-menu-item (click)="editCategory(element, 'Category')">{{'ProductCat.editCategory' | translate }}</button>
+                                <button mat-menu-item (click)="navigateToSubcategories(element)">{{'ProductCat.subCategories' | translate }}</button>
+                                <!-- *ngIf="action?.actionNameId === 'Edit'" -->
+                                <button mat-menu-item (click)="confirmDeactiveCategory(element,'Category')"
+                                    *ngIf="element?.isActive" class="text-danger">
+                                    <!-- && action?.actionNameId === 'Deactivate' -->
+                                    <span class="text-danger"> {{'ProductCat.deactivate' | translate }} </span>
+                                </button>
+                                <button mat-menu-item (click)="confirmActiveCategory(element,'Category')"
+                                    *ngIf="!element?.isActive" class="text-primary">
+                                    <span class="text-primary"> {{'ProductCat.activate' | translate }} </span>
+                                </button>
+                            </ng-container>
+                            <!-- </ng-container> -->
+                        </mat-menu>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">{{'ProductCat.noDataMatching' | translate }}</td>
+                </tr>
+            </table>
+            <mat-paginator #paginator [length]="pageLength" [pageSize]="pageSize" [showFirstLastButtons]="true"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

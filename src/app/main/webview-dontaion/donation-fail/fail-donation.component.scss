@@ -1,0 +1,86 @@
+body {
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    font-family: sans-serif;
+  }
+/* General Container */
+.failure-container {
+    padding: 20px;
+    max-width: 350px;
+    margin: 20px auto;
+    border-radius: 15px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+/* Failure Card */
+.failure-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease;
+    padding-top: 60px;  /* Space for the circular icon */
+}
+
+/* Circular Icon */
+.failure-icon-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #e53935;
+    color: white;
+    font-size: 36px;
+    border-radius: 50%;   /* Makes it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -40px;           /* Moves the circle above the card */
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
+.failure-title {
+    font-size: 20px;
+    color: #d32f2f;
+    margin-bottom: 10px;
+}
+
+/* Message */
+.failure-message {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .failure-card {
+        padding: 15px;
+        padding-top: 60px;
+    }
+
+    .failure-icon-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        top: -30px;
+    }
+
+    .failure-title {
+        font-size: 18px;
+    }
+
+    .btn-retry, .btn-home {
+        padding: 10px 15px;
+    }
+}

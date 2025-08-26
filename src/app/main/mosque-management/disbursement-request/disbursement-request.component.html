@@ -1,0 +1,223 @@
+<div
+    mat-dialog-title
+    class="flex justify-between bgGreen text-white py-4 px-8 {{ direction }}"
+>
+    <h1 class="font-semibold">
+        {{ "PayoutTransactions.payoutrequest" | translate }}
+    </h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "PayoutTransactions.close" | translate }}</span>
+    </span>
+</div>
+
+<div mat-dialog-content class="px-8 pt-8">
+    <div class="p-4">
+        <form [formGroup]="payoutForm" class="imam-form">
+            <!-- Section for General Fields -->
+            <div class="form-section">
+                <div class="flex items-center justify-center py-4">
+                    <h1 class="text-3xl font-bold text-green-800">
+                        {{ "PayoutTransactions.payouttitle" | translate }}
+                    </h1>
+                </div>
+
+                <div
+                    class="bg-gray-50 p-6 rounded-lg shadow-md max-w-lg mx-auto mb-4"
+                >
+                    <div
+                        class="grid grid-cols-2 gap-4 items-center border-b pb-2 mb-4"
+                    >
+                        <span class="text-gray-600 font-medium"
+                            >{{
+                                "PayoutTransactions.accountnumber" | translate
+                            }}:</span
+                        >
+                        <span class="text-gray-800 font-semibold">
+                            {{ payoutForm.get("accountNumber")?.value }}
+                        </span>
+                    </div>
+                    <div
+                        class="grid grid-cols-2 gap-4 items-center border-b pb-2 mb-4"
+                    >
+                        <span class="text-gray-600 font-medium"
+                            >{{
+                                "PayoutTransactions.accountholdername"
+                                    | translate
+                            }}:</span
+                        >
+                        <span class="text-gray-800 font-semibold">
+                            {{ payoutForm.get("accountHolderName")?.value }}
+                        </span>
+                    </div>
+                    <div
+                        class="grid grid-cols-2 gap-4 items-center border-b pb-2 mb-4"
+                    >
+                        <span class="text-gray-600 font-medium"
+                            >{{
+                                "PayoutTransactions.channelcode" | translate
+                            }}:</span
+                        >
+                        <span class="text-gray-800 font-semibold">
+                            {{ payoutForm.get("channelCode")?.value }}
+                        </span>
+                    </div>
+                    <div
+                        class="grid grid-cols-2 gap-4 items-center border-b pb-2 mb-4"
+                    >
+                        <span class="text-gray-600 font-medium"
+                            >{{
+                                "PayoutTransactions.availableamount"
+                                    | translate
+                            }}:</span
+                        >
+                        <span class="text-green-600 font-semibold">
+                            {{ payoutForm.get("amount")?.value }}
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 items-center">
+                        <span class="text-gray-600 font-medium"
+                            >{{
+                                "PayoutTransactions.currency" | translate
+                            }}:</span
+                        >
+                        <span class="text-gray-800 font-semibold">
+                            {{ payoutForm.get("currency")?.value }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <h3 class="section-title">Add Email To  & Email CC</h3> -->
+
+                <!-- Email To -->
+                <div formArrayName="emailTo" class="email-list">
+                    <mat-label class="section-title">{{
+                        "PayoutTransactions.emailto" | translate
+                    }}</mat-label>
+
+                    <div
+                        *ngFor="
+                            let email of payoutForm.controls.emailTo[
+                                'controls'
+                            ];
+                            let i = index
+                        "
+                        class="email-item"
+                    >
+                        <!-- First Email is Readonly -->
+                        <mat-form-field
+                            class="w-full max-w-80 ml-4"
+                            *ngIf="i === 0"
+                        >
+                            <input
+                                matInput
+                                [formControlName]="i"
+                                readonly
+                                placeholder="Default email"
+                            />
+                        </mat-form-field>
+
+                        <!-- Editable Emails -->
+                        <mat-form-field
+                            class="w-full max-w-80 ml-4"
+                            *ngIf="i !== 0"
+                        >
+                            <input
+                                matInput
+                                [formControlName]="i"
+                                placeholder="Enter email"
+                            />
+                            <button
+                                mat-icon-button
+                                matSuffix
+                                (click)="removeEmailTo(i)"
+                                *ngIf="emailTo.length > 1"
+                            >
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+
+                    <button
+                        mat-icon-button
+                        type="button"
+                        (click)="addEmailTo()"
+                        [disabled]="emailTo.length >= 4"
+                    >
+                        <mat-icon style="color: #006e8c"
+                            >add_circle_outline</mat-icon
+                        >
+                    </button>
+                </div>
+
+                <!-- Email CC -->
+                <div formArrayName="emailCc" class="email-list">
+                    <mat-label class="section-title">{{
+                        "PayoutTransactions.emailcc" | translate
+                    }}</mat-label>
+
+                    <div
+                        *ngFor="let email of emailCc.controls; let i = index"
+                        class="email-item"
+                    >
+                        <mat-form-field class="w-full max-w-80 ml-4">
+                            <input
+                                matInput
+                                [formControlName]="i"
+                                placeholder="Enter CC email"
+                            />
+                            <button
+                                mat-icon-button
+                                matSuffix
+                                (click)="removeEmailCc(i)"
+                            >
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <button
+                        mat-icon-button
+                        type="button"
+                        (click)="addEmailCc()"
+                        class="add-button"
+                        [disabled]="emailCc.length >= 4"
+                    >
+                        <mat-icon style="color: #006e8c"
+                            >add_circle_outline</mat-icon
+                        >
+                    </button>
+                </div>
+
+                <div
+                    class="mt-4"
+                    *ngIf="emailTo.length >= 4 || emailCc.length >= 4"
+                >
+                    <p class="text-sm text-gray-600">
+                        {{ "PayoutTransactions.note" | translate }}
+                        <span class="font-semibold text-red-500">{{
+                            "PayoutTransactions.emaillimit" | translate
+                        }}</span
+                        >.
+                    </p>
+                </div>
+                <div class="form-actions">
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="onSubmit()"
+                    >
+                        {{ "PayoutTransactions.submit" | translate }}
+                    </button>
+                    <button mat-button mat-dialog-close (click)="onClose()">
+                        {{ "PayoutTransactions.cancel" | translate }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section for Email To and Email CC -->
+
+            <!-- Form Actions -->
+        </form>
+    </div>
+</div>
+<ngx-spinner size="medium" [type]="isLoadingType"></ngx-spinner>

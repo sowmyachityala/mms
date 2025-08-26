@@ -1,0 +1,44 @@
+// .preview {
+//     width: 80%;
+//     height: 250px;
+//     background-color: #eee;
+//     margin: 0 auto;
+//     border-radius: 10px;
+//     //position: relative;
+//   }
+  
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     border-radius: 10px;
+//   }
+    
+  .zoom-controls {
+    //position: absolute;
+    margin: 0 auto;
+    position: absolute;
+    display: inline-flex;
+    top: 10px;
+    /* float: right; */
+    /* align-items: inherit; */
+    left: 10%;
+  }
+  .preview{
+    overflow: hidden;
+  }
+
+  .image-container {
+    width: 100%; /* Adjust the container size as needed */
+    height: 400px; /* Adjust the container size as needed */
+    overflow: hidden;
+    margin: 0 auto;
+    //position: relative;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+ 

@@ -1,0 +1,117 @@
+<div class="container donation-container">
+    <div class="title-section full-logo" *ngIf="!isConfirmDonation">
+        <img [src]="imageUrl" alt="Mosque" width="100%" />
+    </div>
+    <h3 class="text-center mt-6" *ngIf="!isConfirmDonation">
+        {{ "Donations.donations" | translate }} -
+        {{ "Donations.paymentMode" | translate }}
+    </h3>
+
+    <div *ngIf="paymentMethods && !isConfirmDonation">
+        <div class="payment-tabs">
+            <div
+                *ngFor="let method of paymentMethods; let i = index"
+                class="tab"
+                [class.active]="i === activeTab"
+                (click)="showContent(i, method.paymentMethod)"
+            >
+                {{ method.paymentMethod }}
+            </div>
+        </div>
+
+        <div class="payment-content payment-content-four">
+            <div
+                *ngFor="let bank of BanksData; let i = index"
+                (click)="setActiveImage(i, bank.bankNameId)"
+            >
+                <div class="tabBank" [class.active]="i === activeImageIndex">
+                    <img
+                        [src]="bank.bankLogoUrl"
+                        [alt]="bank.bankName"
+                        class="bank-image"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="hint-message" *ngIf="activeImageIndex == null">
+            {{ "Donations.chooseYourBankToPay" | translate }}
+        </div>        
+        <div class="payment-breakdown">  
+            <label style="width: 100%; text-align: center; margin-bottom: 10px;"><b>{{ "DonationPurpose.paymentBreakDown" | translate }}</b></label>                      
+            <div>
+                <span>{{ "Donations.donatedAmount" | translate }}</span>
+                <span>{{ donatedAmount | currency:'IDR':'symbol':'1.0-0':'id'}}</span>
+            </div>
+            <div>
+                <span>{{ "Donations.transactionVATFee" | translate }}</span>
+                <span *ngIf="BankCharges.totalBankCharges"
+                    >{{ BankCharges.totalBankCharges | currency:'IDR':'symbol':'1.0-0':'id'}}</span
+                >
+            </div>
+            <div>
+                <span>{{ "Donations.serviceCharge" | translate }}</span>
+                <span *ngIf="BankCharges.splitCharges"
+                    >{{ BankCharges.splitCharges | currency:'IDR':'symbol':'1.0-0':'id'}}</span
+                >
+            </div>
+            <div class="total">
+                <span>{{ "Donations.totalPayment" | translate }}</span>
+                <span *ngIf="BankCharges.subTotalAmount"
+                    >{{ BankCharges.subTotalAmount | currency:'IDR':'symbol':'1.0-0':'id'}}</span
+                >
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <button mat-button (click)="onClose()">
+                {{ "ProductCat.cancel" | translate }}
+            </button>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class="ml-5"
+                (click)="confirmDonationForUser()"
+                [disabled]="!BankCharges.subTotalAmount"
+            >
+                {{ "Donations.proceedPay" | translate }}
+            </button>
+        </div>
+    </div>
+    <div class="donation-confirmation-wrapper mt-6" *ngIf="isConfirmDonation">
+        <div class="donation-confirmation-content">
+          <p class="donation-intro">{{ "DonationPurpose.youAreAboutDonate" | translate }}</p>
+      
+          <div class="mosque-image-box">
+            <img [src]="mosqueProfileUrl" (error)="onImageError($event)" alt="Mosque Profile Image" />
+          </div>
+      
+          <h2 class="mosque-name">{{ "DonationPurpose.mosqueName" | translate }}</h2>
+          <p class="info-text green">{{mosqueName}}</p>
+      
+          <h3 class="section-title">{{ "DonationPurpose.purposeOfDonation" | translate }}</h3>
+          <p class="info-text green">{{description}}</p>
+      
+          <h3 class="section-title">{{ "DonationPurpose.amount" | translate }}</h3>
+          <p class="amount-text">{{BankCharges.subTotalAmount | currency:'IDR':'symbol':'1.0-0':'id'}}</p>
+      
+          <div class="confirmation-check">
+            <input
+              type="checkbox"
+              id="confirm"
+              [(ngModel)]="isConfirmed"
+              class="confirm-checkbox"
+            />
+            <label for="confirm" class="confirm-label">
+                {{ "DonationPurpose.pleaseReview" | translate }}
+            </label>
+          </div>
+        </div>
+      
+        <div class="donation-actions">
+          <button  mat-flat-button [color]="'primary'" [disabled]="!isConfirmed" (click)="onYes()">{{ "DonationPurpose.yes" | translate }}</button>
+          <button class="no-button" (click)="onNo()">{{ "DonationPurpose.no" | translate }}</button>
+        </div>
+    </div>
+      
+</div>

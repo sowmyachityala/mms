@@ -1,0 +1,15 @@
+<div class="justify-center grid">
+    <ngx-qrcode-styling
+        #qrcode
+        [template]="'green'"
+        [data]="eventGuId"
+        [width]="500"
+        [height]="500"
+        [dotsOptions]="{ color: '#006E8C', type: 'extra-rounded' }"
+        [qrOptions]="{ typeNumber: 10, errorCorrectionLevel: 'Q' }"
+        [cornersSquareOptions]="{ type: 'square', color: '#00000' }"
+        [cornersDotOptions]="{ type: 'square', color: '#00000' }"
+    >
+    </ngx-qrcode-styling>
+    {{ data?.eventName }}
+</div>

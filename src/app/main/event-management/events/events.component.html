@@ -1,0 +1,152 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <!-- <fuse-alert [appearance]="'soft'" class="w-full z-10 fixed" [dismissible]="true" [dismissed]="false"
+        [name]="'assignAlert'" [type]="'success'">
+        <span fuseAlertTitle> {{'Events.success' | translate}}</span>
+        <span [innerHTML]="assignText"></span>
+    </fuse-alert> -->
+    <div class="page-title justify-between flex">
+        {{'Events.islamicEvents' | translate}}
+        <div class="page-sub-title">
+            <a class="mr-1 text-xl">{{ eventsList?.length }}</a>
+            <span class="float-right"> {{'Events.totalEvents' | translate}}</span>
+        </div>
+    </div>
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="">
+            <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                <mat-label> {{'Events.search' | translate}}</mat-label>
+                <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput [formControl]="searchInputControl" (keyup)="applyFilter($event.target.value)"
+                    [autocomplete]="'off'" placeholder="{{'Events.search' | translate}}">
+            </mat-form-field>
+        </div>
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+            <span class="ml-2 mr-2 active font-semibold m-auto">
+                <!-- {{eventByCalendar ? 'List' : 'Calendar'}}  -->
+                {{'Events.list' | translate}}
+            </span>
+            <mat-slide-toggle [color]="'primary'" class="m-auto" [checked]="eventByCalendar"
+                (change)="getEventByDisplayType($event)">
+            </mat-slide-toggle>
+
+            <span class="mr-4 active font-semibold m-auto">
+                <!-- {{eventByCalendar ? 'List' : 'Calendar'}}  -->
+                {{'Events.calendar' | translate}}
+            </span>
+
+            <!-- <button mat-flat-button>
+                <mat-icon prefix [svgIcon]="'filter_list'" [color]="'primary'"></mat-icon>
+                <span class="ml-2 mr-1">{{'Events.filters' | translate}}</span>
+            </button> -->
+
+            <div *ngFor="let action of currentActions?.mainMenuActions">                
+                <button mat-flat-button [color]="'primary'" *ngIf="action?.actionNameId === 'Add'" (click)="createEvent()">
+                    <span  class="ml-2 mr-1">{{'Events.createEvent' | translate}}</span>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="flex flex-col justify-between sm:flex-row flex-0 sm:items-center sm:justify-between px-4">
+        <div *ngIf="!eventByCalendar">
+            <button [matMenuTriggerFor]="menu" class="text-black flex font-semibold">                
+                <div [ngSwitch]="eventDisplayType">
+                    <span *ngSwitchCase="'All'">{{ 'Events.allEvents' | translate }}</span>
+                    <span *ngSwitchCase="'Past'">{{ 'Events.pastEvents' | translate }}</span>
+                    <span *ngSwitchCase="'Upcoming'">{{ 'Events.upcomingEvents' | translate }}</span>
+                    <span *ngSwitchCase="'Important'">{{ 'Events.importantEvents' | translate }}</span>
+                  </div>
+                <mat-icon class="text-black icon-p" svgIcon="heroicons_outline:chevron-down"></mat-icon>
+            </button>
+            <!-- Define the menu -->
+            <mat-menu #menu="matMenu" class="right-4">
+                <button mat-menu-item (click)="displayEventsByType('All')">{{'Events.allEvents' | translate}}</button>
+                <button mat-menu-item (click)="displayEventsByType('Past')">{{'Events.pastEvents' | translate}}</button>
+                <button mat-menu-item (click)="displayEventsByType('Upcoming')">{{'Events.upcomingEvents' | translate}}</button>
+                <button mat-menu-item (click)="displayEventsByType('Important')">{{'Events.importantEvents' | translate}}</button>
+            </mat-menu>
+        </div>
+        <div class="">
+            <button mat-icon-button [view]="view" [(viewDate)]="viewDate" mwlCalendarPreviousView (viewDateChange)="closeOpenMonthViewDay()" (click)="getPreviousOrNextMonthEvents('previous')" *ngIf="direction === 'ltr'">
+                <mat-icon class="text-primary" svgIcon="heroicons_outline:chevron-left"></mat-icon>
+            </button>
+            <button mat-icon-button  [view]="view" [(viewDate)]="viewDate" mwlCalendarNextView  (viewDateChange)="closeOpenMonthViewDay()" (click)="getPreviousOrNextMonthEvents('next')">
+                <mat-icon class="text-primary" svgIcon="heroicons_outline:chevron-right"></mat-icon>
+            </button>
+            <button mat-icon-button [view]="view" [(viewDate)]="viewDate" mwlCalendarPreviousView (viewDateChange)="closeOpenMonthViewDay()" (click)="getPreviousOrNextMonthEvents('previous')" *ngIf="direction === 'rtl'">
+                <mat-icon class="text-primary" svgIcon="heroicons_outline:chevron-left"></mat-icon>
+            </button>
+            <span class="text-xl m-auto">{{ curdate }} </span>
+        </div>
+    </div>
+    <div *ngIf="!eventByCalendar && eventsList?.length > 0" class="pb-4 px-6 md:px-4">
+        <!-- <div *ngFor="let mainItem of eventsList; let i = index"> -->
+            <!-- <div class="flex">
+                <span class="text-xl m-auto">{{ mainItem?.hijriMonthName }} </span>
+            </div> -->
+            <div *ngFor="let item of eventsList; let i = index" class="flex  mt-4">
+                <div class="w-16 h-18 eventDateName font-semibold" [ngClass]="item?.differenceDays > 0 ? '' : 'bg-primary'">
+                    <div class="p-4">
+                        <div class="">{{ item?.month?.substring(0,3) | uppercase }}</div>
+                        <div class="text-center f-18">{{ item?.day}}</div>
+                    </div>
+                </div>
+    
+                <div class="h-18 w-full eventListDetails flex justify-between cursor-pointer"
+                    (click)="getEventDetails(item)"
+                    [ngClass]="[(item?.activeEvent && direction === 'ltr') ? 'ml-4' :'' || (item?.activeEvent && direction) === 'rtl' ? 'mr-4' :'' || direction === 'ltr' ? 'ml-4' : direction === 'rtl' ? 'mr-4' :'']">
+                    <div class=" w-8 h-8" [ngClass]="direction === 'ltr' ? 'ml-3' : direction === 'rtl' ? 'mr-3' :''">
+                        <!-- <img [src]="ministryEventImageUrl" class="mt-6" *ngIf="item?.isMinistryEvent && item?.differenceDays > 0">
+                        <img [src]="ministryEventInactiveImageUrl" class="mt-6" *ngIf="item?.isMinistryEvent && item?.differenceDays < 0"> -->
+                        <img [src]="mosqueEventImageUrl" class="mt-6" *ngIf="item?.differenceDays < 0 || item?.differenceDays === 0">
+                        <img [src]="mosqueEventInactiveImageUrl" class="mt-6" *ngIf="item?.differenceDays > 0">
+                    </div>
+                    <div class="w-full mt-1" [ngClass]="direction === 'ltr' ? 'ml-3 ' : direction === 'rtl' ? 'mr-3' :''">
+                        <div>
+                            <span> {{ item?.differenceDays > 0 ? item?.differenceDays : item?.differenceDays < 0 ?
+                                    item?.differenceDays * -1 : '' }} {{ item?.differenceDays> 0 ?
+                                    'Days Ago' : item?.differenceDays < 0 ? 'Days Left' : item?.differenceDays===0
+                                        ? 'Happening Today' : '' }} </span>
+                                        <!-- <span>{{item?.eventHappenOn}}</span> -->
+                        </div>
+                        <div class="font-semibold mt-1" [ngClass]="item?.differenceDays > 0 ? '' : 'font-bold text-black' ">
+                            {{ item?.eventName }}
+                        </div>
+                        <div class="mt-1">
+                            {{ item?.eventDate | date:'dd/MM/yyyy'}} {{ item?.eventDate | date:'shortTime'}}
+                            <span>({{item?.hijriDate}} H)</span>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <span *ngIf="item?.isEventCancelled" class="w-max  mt-auto mb-auto"> {{ 'Cancelled' }} </span>
+                        <span class="active w-max  mt-auto mb-auto"
+                            *ngIf="!item?.isEventCancelled && item?.differenceDays <= 0">{{ item?.eventRegistrationsCount }}
+                            {{'Events.registered' | translate}}</span>
+                        <span *ngIf="item?.differenceDays > 0" class="w-max  mt-auto mb-auto"> {{ item?.eventAttendanceCount
+                            }}  {{'Events.attended' | translate}} </span>
+                        <button mat-icon-button class="mt-auto mb-auto" (click)="getEventDetails(item)">
+                            <mat-icon [ngClass]="item?.differenceDays > 0 ? '' : 'text-primary'" *ngIf="direction === 'rtl'"
+                                svgIcon="heroicons_outline:chevron-left"></mat-icon>
+                            <mat-icon [ngClass]="item?.differenceDays > 0 ? '' : 'text-primary'" *ngIf="direction === 'ltr'"
+                                svgIcon="heroicons_outline:chevron-right"></mat-icon>
+                        </button>
+                    </div>
+    
+                </div>
+            </div>
+        <!-- </div> -->
+       
+    </div>
+    <mwl-calendar-month-view [viewDate]="viewDate" [events]="eventsList" *ngIf="eventByCalendar" 
+        class="pb-4 px-6 md:px-4" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+
+    <div *ngIf="noResultsFound" class="no-results">
+        No results found
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8  {{direction}}">
+    <h1 class="font-semibold" *ngIf="(!categoryParentGuid && !productCategoryParentId) || (categoryParentGuid && !productCategoryParentId) || (data?.type === 'Category' || data?.type === 'Sub Category')">{{'ProductCat.addNewCategory' | translate }}</h1>
+    <h1 class="font-semibold" *ngIf="(categoryParentGuid && productCategoryParentId) || (data?.type === 'Product')">{{'ProductCat.addNewProduct' | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{'ProductCat.close' | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-8 pt-8">
+    <div class="inner-page-title">
+        <span *ngIf="(!categoryParentGuid && !productCategoryParentId) ||(categoryParentGuid && !productCategoryParentId) || (data?.type === 'Category' || data?.type === 'Sub Category')">{{'ProductCat.categoryInformation' | translate }}</span>
+        <span *ngIf="(categoryParentGuid && productCategoryParentId) || (data?.type === 'Product')">{{'ProductCat.productInformation' | translate }}</span>
+    </div>
+    <hr>
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    <form [formGroup]="categoriesForm"
+        *ngIf="(!categoryParentGuid && !productCategoryParentId)||(categoryParentGuid && !productCategoryParentId) || (data?.type === 'Category' || data?.type === 'Sub Category')">
+        <div class="inner-page-sub-title">
+            {{'ProductCat.basicDetails' | translate }}
+        </div>
+
+        <div class="mt-4">
+            <div>
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label *ngIf="!categoryParentGuid">{{'ProductCat.categoryName' | translate }}</mat-label>
+                    <mat-label *ngIf="categoryParentGuid">{{'ProductCat.subCategoryName' | translate }}</mat-label>
+                    <input matInput formControlName="categoryName" [autocomplete]="'off'">
+                    <mat-error *ngIf="categoriesForm.get('categoryName').hasError('required')">
+                        <span *ngIf="!categoryParentGuid">{{'ProductCat.categoryNameIsRequired' | translate }}</span>
+                        <span *ngIf="categoryParentGuid">{{'ProductCat.subCategoryNameIsRequired' | translate }}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label *ngIf="!categoryParentGuid">{{'ProductCat.categoryDescription' | translate }}</mat-label>
+                    <mat-label *ngIf="categoryParentGuid">{{'ProductCat.subCategoryDescription' | translate }}</mat-label>
+                    <textarea matInput formControlName="categoryDescription"></textarea>
+                    <mat-error *ngIf="categoriesForm.get('categoryDescription').hasError('required')">
+                        <spam *ngIf="!categoryParentGuid">{{'ProductCat.categoryDescriptionIsRequired' | translate }}</spam>
+                        <spam *ngIf="categoryParentGuid">{{'ProductCat.subCategoryDescriptionIsRequired' | translate }}</spam>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <hr class="mt-28 mb-4">
+
+        <div mat-dialog-actions class="float-left mt-4">
+            <button mat-button mat-dialog-close (click)="addDialogRef.close()">{{'ProductCat.cancel' | translate }}</button>
+            <button mat-flat-button [color]="'primary'" (click)="addOrUpdateCategory()">
+                <span *ngIf="!categoriesForm?.value?.id">{{'ProductCat.add' | translate }}</span>
+                <span *ngIf="categoriesForm?.value?.id">{{'ProductCat.update' | translate }} </span>
+            </button>
+        </div>
+    </form>
+    <form [formGroup]="productForm" *ngIf="(categoryParentGuid && productCategoryParentId) || data?.type === 'Product'">
+        <div class="inner-page-sub-title">
+            {{'ProductCat.basicDetails' | translate }}
+        </div>
+
+        <div class="mt-4">
+            <div>
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>{{'ProductCat.productName' | translate }}</mat-label>
+                    <input matInput formControlName="productName" [autocomplete]="'off'">
+                    <mat-error *ngIf="productForm.get('productName').hasError('required')">
+                        {{'ProductCat.productNameIsRequired' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>{{'ProductCat.productDescription' | translate }}</mat-label>
+                    <textarea matInput formControlName="productDescription"></textarea>
+                    <mat-error *ngIf="productForm.get('productDescription').hasError('required')">
+                        {{'ProductCat.productDescriptionIsRequired' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>  {{'ProductCat.productUoM' | translate }} </mat-label>
+                    <mat-select [(ngModel)]="selectedUOM" formControlName="uomId" (selectionChange)="getUomSelected($event)">
+                        <mat-option *ngFor="let type of productUOM" [value]="type.id"><!-- type.donationGuid-->
+                            {{type.uomName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <hr class="mt-28 mb-4">
+
+        <div mat-dialog-actions class="float-left mt-4">
+            <button mat-button mat-dialog-close (click)="addDialogRef.close()">{{'ProductCat.cancel' | translate }}</button>
+            <button mat-flat-button [color]="'primary'" (click)="addOrUpdateProduct()">
+                <span *ngIf="!productForm?.value?.id">{{'ProductCat.add' | translate }}</span>
+                <span *ngIf="productForm?.value?.id">{{'ProductCat.update' | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,14 @@
+/* Enable horizontal scrolling for the table container */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+/* The table itself */
+.custom-table {
+    width: 100%;
+    table-layout: fixed; /* Ensures columns have fixed widths */
+}
+.page-title {
+    font-size: 1rem !important;
+}

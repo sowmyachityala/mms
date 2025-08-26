@@ -1,0 +1,96 @@
+// .uprol {
+//   display: block;
+//   width: 375px;
+// }
+
+// img {
+//   height: 100%;
+//   width: 100%;
+//   border-radius: 50%;
+// }
+
+// .hoverable {
+//   position: relative;
+//   display: block;
+//   cursor: pointer;
+//   height: 200px;
+//   width: 200px;
+//   border: 5px solid #000;
+//   border-radius: 50%;
+// }
+
+// .hoverable .hover-text {
+//   position: absolute;
+//   display: none;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 2;
+// }
+
+// .hoverable .background {
+//   position: absolute;
+//   display: none;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   background-color: rgba(255, 255, 255, 0.5);
+//   pointer-events: none;
+//   border-radius: 50%;
+//   z-index: 1;
+// }
+
+// .hoverable:hover .hover-text {
+//   display: block;
+// }
+
+// .hoverable:hover .background {
+//   display: block;
+// }
+
+// #fileInput {
+//   display: none;
+// }
+
+// .l-align {
+//   width: 45%;
+//   float: left;
+//   padding: 0 15px;
+// }
+
+// .r-align {
+//   width: 45%;
+//   float: right;
+//   padding: 0 15px;
+// }
+
+// .group {
+//   width: 100%;
+//   padding: 25px;
+// }
+
+// .p-0 {
+//   padding: 0px;
+// }
+
+.hide_file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 24px;
+    width: 100%;
+}
+.mat-mdc-dialog-surface {
+    overflow-y: unset !important;
+}
+
+.text-underline {
+    text-decoration: underline !important;
+    cursor: pointer;
+    color: #006e8c;
+}

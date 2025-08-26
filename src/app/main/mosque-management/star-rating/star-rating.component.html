@@ -1,0 +1,17 @@
+<div class="star-rating">
+  <span *ngFor="let _ of [1,2,3,4,5]; let i=index">
+    <span class="star" [class.full]="i <= rating && rating < i+1">
+      <span class="half" *ngIf="rating >= i && rating < i+1">&#9733;</span>
+      <span *ngIf="rating < i">&#9734;</span>
+      <span *ngIf="rating >= i+1">&#9733;</span>
+    </span>
+  </span>
+</div>
+
+
+
+
+
+  
+  
+  

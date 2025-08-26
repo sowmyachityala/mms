@@ -1,0 +1,38 @@
+<div class="py-14 px-14 pb-0" [dir]="direction">
+    <div mat-dialog-title class="flex justify-between text-black">
+        <h1 class="font-semibold uppercase">Mosques <span class="text-disabled">({{ availableMosques?.length }} total mosques)</span></h1>
+        <span class="flex font-semibold" (click)="onClose()"><mat-icon class="text-black cursor">close</mat-icon>
+            <span class="mt-0.5">CLOSE</span>
+        </span>
+    </div>
+    <hr mt-4>
+
+    <div class="mt-6 flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4">
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="w-80">
+            <mat-form-field class="w-full fuse-mat-dense fuse-mat-rounded min-w-64 maxHeight"
+                [subscriptSizing]="'dynamic'" appearance="outline">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput (keyup)="applyFilter($event.target.value)" [autocomplete]="'off'"
+                    placeholder="Search by mosque, location" class="mt-2">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex flex-wrap justify-space">
+        <div class="pt-4 pb-6" *ngFor="let item of filteredMosques"
+            [ngClass]="direction === 'ltr' ? 'mr-5' : direction === 'rtl' ? 'ml-5' :''">
+            <fuse-card class="flex w-80 max-w-[350px] max-h-20  w-full filter-info " (click)="launchSelectedMosque(item)">
+                <img class="w-24 h-20 object-cover" [src]="item?.mosqueProfilePhotoUrl == null ? defaultMosqueImg: item?.mosqueProfilePhotoUrl" alt="">
+                <div class="flex flex-col flex-auto justify-center p-4 bg-[#F5F5F5]">
+                    <div class="text-lg font-semibold text-color-600 mt-3"> {{item.mosqueName}} </div>
+                    <!-- <div class="text-md leading-tight">{{ item.mosqueLocation }}, {{ item.mosqueCity }}, {{
+                        item.mosqueCountry }}</div> -->
+                    <div class="text-md leading-tight">{{item.mosqueLocation}} </div>
+                </div>
+            </fuse-card>
+        </div>
+    </div>
+
+</div>

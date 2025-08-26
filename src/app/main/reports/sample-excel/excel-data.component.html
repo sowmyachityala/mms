@@ -1,0 +1,28 @@
+<div class="p-4">
+    <div mat-dialog-title class="flex justify-between">
+        <h1 class="font-bold text-xl">Sample Excel View</h1>
+        <span class="flex font-semibold" (click)="onClose()">
+            <span class="mt-0.5">close</span>
+            <mat-icon class="cursor">close</mat-icon>
+        </span>
+    </div>
+    <hr class="m-auto mt-2" />
+    <!-- <table *ngIf="excelData" class="mt-2 excel-table">
+        <tr *ngFor="let row of excelData">
+            <td *ngFor="let cell of row" class="excel-cell">{{ cell }}</td>
+        </tr>
+    </table> -->
+    <table *ngIf="excelData" class="mt-2 excel-table">
+        <tr *ngFor="let row of excelData; let i = index">
+            <td
+                *ngFor="let cell of row; let j = index"
+                class="excel-cell"
+                (input)="updateCellData($event.target.innerText, i, j)"
+                contenteditable="true"
+            >
+                {{ cell }}
+            </td>
+        </tr>
+    </table>
+    <button (click)="exportToExcel()">Export to Excel</button>
+</div>

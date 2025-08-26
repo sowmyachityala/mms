@@ -1,0 +1,127 @@
+<div class="container donation-container">
+    <div class="title-section"><img [src]="imageUrl" alt="Mosque" width="100%"></div>
+    <div class="header-section"><img [src]="imageEndPoints.donation_mosque" alt="Mosque" width="100%" style="height: 150px;"></div>
+    <h3 class="text-center mt-2">{{ "Donations.donations" | translate }}</h3>
+    <p class="text-center title-p mt-1">{{ "Donations.enterAmountToDonate" | translate }}</p>
+    <div class="donation-options mb-3 d-flex justify-content-center">
+      <div class="form-check">
+        <mat-radio-group (change)="getUserDonationSelected($event.value)">
+          <mat-radio-button *ngFor="let type of userDonationTypes" class="form-check-input cust-radio" [checked]="type.isSelected" [value]="type.userDonationId">
+            {{ type.userDonationTypeName }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div *ngIf="userdonationType === 1 || userdonationType === 3">
+      <div *ngIf="userdonationType === 1">
+        <form [formGroup]="mosqueDonationForm">
+          <mat-form-field class="form-select cmb-1" appearance="outline">
+            <mat-label>{{ "Donations.mosqueName" | translate }}</mat-label>
+            <mat-select formControlName="mosqueId" (selectionChange)="getMosqueSelected($event)">
+              <mat-option *ngFor="let type of allMosques" [value]="type.mosqueId">{{ type.mosqueName }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="mosqueDonationForm.get('mosqueId').hasError('required')">{{ "Inventory.mosqueNameRequired" | translate }}</mat-error>
+          </mat-form-field>          
+        </form>
+        <mat-form-field class="form-select" appearance="outline" *ngIf="!isZakat">
+            <mat-label>{{ "Donations.donationPurpose" | translate }}</mat-label>
+            <mat-select class="" [(ngModel)]="donationTypeSelected" multiple (selectionChange)="getDonationSelected($event)" [matTooltip]="getSelectedDonationNames()">
+              <mat-option *ngFor="let type of donationTypes" [value]="type.donationGuid" >{{ type.donationTypeName }}</mat-option>
+            </mat-select>
+            <mat-hint *ngIf="donPurposeReq" class="error-message">{{ "Donations.donationPurposeReq" | translate }}</mat-hint>
+          </mat-form-field>
+      </div>
+      <div *ngIf="userdonationType === 3">
+        <form [formGroup]="eventDonationForm">
+          <mat-form-field class="form-select cmb-1" appearance="outline" >
+            <mat-label>{{ "Donations.mosqueName" | translate }}</mat-label>
+            <mat-select (selectionChange)="getMosqueSelected($event)" formControlName="mosqueId">
+              <mat-option *ngFor="let type of allMosques" [value]="type.mosqueId">{{ type.mosqueName }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="eventDonationForm.get('mosqueId').hasError('required')">{{ "Inventory.mosqueNameRequired" | translate }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-select" appearance="outline">
+            <mat-label>{{ "Events.eventName" | translate }}</mat-label>
+            <mat-select (selectionChange)="getEventSelected($event)" formControlName="eventId">
+              <mat-option *ngFor="let type of allEvents" [value]="type.eventId">{{ type.eventName }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="eventDonationForm.get('eventId').hasError('required')">{{ "Events.eventNameIsRequired" | translate }}</mat-error>
+          </mat-form-field>
+        </form>
+      </div>
+      <div>
+        <div *ngFor="let item of amountTypes" [ngClass]="item?.isActive ? 'activeEvent' : ''" class="amount-box" (click)="selectAmount(item)">
+                <mat-icon class="donation-icon" *ngIf="!item?.isActive" svgIcon="mat_outline:circle"></mat-icon>
+                <mat-icon class="donation-icon active" *ngIf="item?.isActive && item?.value !== 'other'" svgIcon="heroicons_solid:check-circle"></mat-icon>
+                <div *ngIf="item?.value !== 'other'" class="donation-amount">
+                    <span class="amount-text">{{ item?.displayValue | currency:'IDR':'symbol':'1.0-0':'id'}}</span>
+                    <!-- <span class="currency">{{ userCurrency }}</span> -->
+                </div>
+                <!-- <div *ngIf="item?.value === 'other'" class="custom-amount">
+                    <mat-icon class="donation-icon active" *ngIf="item?.isActive" svgIcon="heroicons_solid:check-circle"></mat-icon>
+                    <mat-form-field class="custom-input" *ngIf="item?.value === 'other'">
+                        <mat-label>{{ "Donations.enterCustomAmount" | translate }}</mat-label>
+                        <input matInput appOnlynumber [(ngModel)]="amountEntered" name="cAmount" #cAmount (input)="onAmountChange($event)" [autocomplete]="'off'">
+                    </mat-form-field>
+                </div>      -->
+                <div *ngIf="item?.value === 'other'" class="custom-amount">
+                  <div class="amount-container">
+                      <mat-icon class="donation-icon active" *ngIf="item?.isActive" svgIcon="heroicons_solid:check-circle"></mat-icon>
+                      <mat-form-field class="custom-input" *ngIf="item?.value === 'other'">
+                          <mat-label>{{ "Donations.enterCustomAmount" | translate }}</mat-label>
+                          <input matInput appOnlynumber [(ngModel)]="amountEntered" name="cAmount" #cAmount (input)="onAmountChange($event)" [autocomplete]="'off'">
+                      </mat-form-field>
+                  </div>
+              </div>
+        </div>
+        <div class="row text-center mt-1" *ngIf="selectedAmount > 0">
+            <button class="btn btn-success" (click)="navigateToChargesPage()" mat-flat-button color="primary">
+              {{ "Donations.continue" | translate }}
+            </button>
+          </div>
+      </div>  
+    </div>
+    <div *ngIf="userdonationType === 2">
+      <form [formGroup]="assetDonationForm">
+        <mat-form-field class="form-select cmb-1" appearance="outline">
+          <mat-label>{{ "Donations.mosqueName" | translate }}</mat-label>
+          <mat-select (selectionChange)="getMosqueSelected($event)" formControlName="mosqueId">
+            <mat-option *ngFor="let type of allMosques" [value]="type.mosqueId">{{ type.mosqueName }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="assetDonationForm.get('mosqueId').hasError('required')">{{ "Inventory.mosqueNameRequired" | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-select cmb-1" appearance="outline">
+          <mat-label>{{ "Inventory.category" | translate }}</mat-label>
+          <mat-select formControlName="categoryId" (selectionChange)="getSubCategories($event.value)">
+            <mat-option *ngFor="let type of categories" [value]="type.categoryGuid">{{ type.categoryName }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="assetDonationForm.get('categoryId').hasError('required')">{{ "Inventory.categoryIsRequired" | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-select cmb-1" appearance="outline">
+          <mat-label>{{ "Inventory.subCategory" | translate }}</mat-label>
+          <mat-select formControlName="subCategoryId" (selectionChange)="getProducts($event.value)">
+            <mat-option *ngFor="let type of subCategories" [value]="type.categoryGuid">{{ type.categoryName }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="assetDonationForm.get('subCategoryId').hasError('required')">{{ "Inventory.subCategoryIsRequired" | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-select cmb-1" appearance="outline">
+          <mat-label>{{ "Inventory.product" | translate }}</mat-label>
+          <mat-select formControlName="productId" (selectionChange)="selectedProduct($event.value)">
+            <mat-option *ngFor="let type of products" [value]="type.id">{{ type.productName }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="assetDonationForm.get('productId').hasError('required')">{{ "Inventory.productIsRequired" | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-select cmb-1" appearance="outline">
+          <mat-label>{{ "Inventory.quantity" | translate }}</mat-label>
+          <input matInput formControlName="quantity" appOnlynumber [autocomplete]="'off'">
+          <mat-error *ngIf="assetDonationForm.get('quantity').hasError('required')">{{ "Inventory.quantityIsRequired" | translate }}</mat-error>
+        </mat-form-field>
+        <div class="row text-center mt-1">
+            <button class="btn btn-success" mat-flat-button color="primary" (click)="assetDonateNow()">
+               {{ "Dashboard.generateAcknowledgement" | translate }}
+            </button>
+        </div>       
+      </form>
+    </div>
+  </div>
+  

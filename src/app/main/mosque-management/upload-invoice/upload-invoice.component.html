@@ -1,0 +1,41 @@
+<div class="py-14 px-14 w-200 pb-0"  [dir]="direction">
+    <div mat-dialog-title class="flex justify-between text-black">
+        <h1 class="font-semibold uppercase">{{'Inventory.uploadInvoice' | translate}}</h1>
+        <span class="flex font-semibold" (click)="onClose()"><mat-icon class="text-black cursor">close</mat-icon>
+            <span class="mt-0.5">{{'Inventory.cclose' | translate}}</span>
+        </span>
+    </div>
+    <hr mt-4>
+    <!-- <div >
+        <img [src]="imageSource" *ngIf="imageSource" class="{{classWidth}} {{classHeight}}">
+    </div> -->
+    
+    <!-- <div class="px-20 py-10 dropzone h-40 mt-10 block m-auto" (dragover)="onDragOver($event)" (drop)="onDrop($event)" *ngIf="!imageSource"
+        (dragleave)="onDragLeave($event)">
+        <div>
+            <mat-icon svgIcon="mat_outline:file_upload"></mat-icon>
+        </div>
+        <div>
+            Drop your images here, or
+            <label class="custom-file-label active font-medium" for="fileInput">Browse</label>
+            <input id="fileInput" class="custom-file-input" type="file" (change)="onFileChange($event)">
+        </div>
+    </div> -->
+    <div>
+        <div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileChange($event)" accept="image/*, application/pdf">
+            <div class="text-wrapper">
+                <div class="centered">
+                    <input type="file" name="file" id="file" (change)="onFileChange($event.target.files)" accept="image/*, application/pdf"><!--multiple-->
+                    <label for="file"><span class="textLink">{{'Inventory.selectYourFile' | translate}}</span> {{'Inventory.dropItHere' | translate}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>{{files[0]?.name}}</div>
+    <div class="text-md mt-4 mb-4">{{'Inventory.invoiceShoudBeImage' | translate}}</div>
+    <hr class="mt-10 mb-10">
+    <div mat-dialog-actions class="float-left mb-20">
+        <button mat-flat-button [color]="'primary'" (click)="saveUploadedInvoice()"> {{'Inventory.saveClose' | translate}} </button>
+        <button mat-button mat-dialog-close (click)="invoiceDialogRef.close()">{{'Inventory.close2' | translate}}</button>
+    </div>
+</div>

@@ -1,0 +1,892 @@
+<div class="container donation-container py-5">
+    <div class="tab-header name_allah" (click)="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> Kembali
+    </div>
+
+    <div class="hajiUmrah-section pb-7">
+        <h2>DOA UMRAH</h2>
+        <div class="px-10">
+            <img src="assets/images/haji-umrah/doa-umra/Doa_Umra.png" />
+        </div>
+        <h3 class="pt-2">Bacaan dan Doa dalam Ibadah Umrah</h3>
+        <p style="text-align: center">
+            <strong>(Teks Arab, Transliterasi, Terjemah)</strong>
+        </p>
+
+        <div class="mt-6">
+            <!-- Phrase 1: Keberangkatan -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(1)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[1],
+                                'fa-caret-right': !isOpen[1]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        1. Doa Keberangkatan
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[1]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <p class="islamic-color font-semibold">
+                        Doa Berangkat dari Rumah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        بِسْمِ اللهِ تَوَكَّلْتُ عَلَى اللهِ وَلَا حَوْلَ وَلَا
+                        قُوَّةَ إِلَّا بِاللهِ
+                    </div>
+                    <p>
+                        Bismillâhi tawakkaltu ‘alallâhi wa lâ ḫaula wa lâ
+                        quwwata illâ billâhil ‘aliyyil ‘adhîm
+                    </p>
+                    <p class="pt-2">
+                        Dengan nama Allah, aku bertawakal kepada Allah. Tidak
+                        ada daya dan kekuatan kecuali dengan (pertolongan)
+                        Allah.
+                    </p>
+
+                    <hr class="my-3" />
+
+                    <p class="islamic-color font-semibold">
+                        Doa Setelah Duduk dalam Kendaraan
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        بِسْمِ اللّٰهِ مَجْرٰ۪ىهَا وَمُرْسٰىهَاۗ اِنَّ رَبِّيْ
+                        لَغَفُوْرٌ رَّحِيْمٌ
+                    </div>
+                    <p>
+                        wa qâlarkabû fîhâ bismillâhi majrihâ wa mursâhâ, inna
+                        rabbî laghafûrur raḫîm
+                    </p>
+                    <p class="pt-2">
+                        Dengan (menyebut) nama Allah pada waktu berlayar dan
+                        berlabuhnya. Sesungguhnya Tuhanku Maha Pengampun, Maha
+                        Penyayang. (QS Hūd: 41)
+                    </p>
+
+                    <hr class="my-3" />
+
+                    <p class="islamic-color font-semibold">
+                        Doa Ketika Kendaraan Mulai Bergerak
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ . اَللهُ أَكْبَرُ
+                        اَللهُ أَكْبَرُ اَللهُ أَكْبَرُ.<br />
+                        سُبْحَانَ الَّذِيْ سَخَّرَلَنَا هٰذَا وَ مَا كُنَّا لَهٗ
+                        مُقْرِنِيْنَ . وَ إِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُوْنَ
+                    </div>
+                    <p>
+                        Bismillâhir-raḫmânir-raḫîm. Allâhu akbar, Allâhu akbar,
+                        Allâhu akbar.
+                    </p>
+                    <p class="pt-2">
+                        Dengan menyebut nama Allah yang Maha Pengasih lagi Maha
+                        Penyayang. Allah Maha Besar. Allah Maha Besar. Allah
+                        Maha Besar.
+                    </p>
+
+                    <hr class="my-3" />
+
+                    <p class="islamic-color font-semibold">
+                        Doa Ketika Tiba di Tempat Tujuan
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ إِنِّيْ أَسْأَلُكَ خَيْرَهَا وَخَيْرَ
+                        أَهْلِهَا وَخَيْرَ مَـــا فِيْهَا، وَأَعُوْذُ بِكَ مِنْ
+                        شَرِّهَا وَشَرِّ أَهْلِهَا وَشَرِّ مَـــا فِيْهَا
+                    </div>
+                    <p>
+                        Allâhumma innî as-aluka khairahâ wa khaira ahlihâ wa
+                        khaira mâ fîhâ wa a‘ûzubika min syarrihâ wa syarri
+                        ahlihâ wa syarri mâ fîhâ
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, aku memohon kepada-Mu kebaikan tempat ini dan
+                        kebaikan penduduknya serta kebaikan apa pun yang ada di
+                        dalamnya. Aku berlindung kepada-Mu dari kejahatan tempat
+                        ini dan kejahatan penduduknya serta kejahatan apa pun
+                        yang ada di dalamnya.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 2: Niat Haji dan Umrah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(2)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[2],
+                                'fa-caret-right': !isOpen[2]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        2. Niat Haji dan Umrah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[2]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Niat Haji -->
+                    <p class="islamic-color font-semibold">Niat Haji</p>
+                    <div class="py-1 text-right" dir="rtl">
+                        نَوَيْتُ الْحَجَّ وَأَحْرَمْتُ بِهِ لِلّٰهِ تَعَــالَى
+                    </div>
+                    <p>Nawaitul ḫajja wa aḫramtu bihî lillâhi ta‘âlâ</p>
+                    <p class="pt-2">
+                        Aku niat melaksanakan haji dan berihram karena Allah
+                        ta‘ala.
+                    </p>
+
+                    <hr class="my-3" />
+
+                    <!-- Niat Umrah -->
+                    <p class="islamic-color font-semibold">Niat Umrah</p>
+                    <div class="py-1 text-right" dir="rtl">
+                        نَوَيْتُ الْعُمْرَةَ وَأَحْرَمْتُ بِهَا لِلّٰهِ تَعَالَى
+                    </div>
+                    <p>Nawaitul ‘umrata wa aḫramtu bihî lillâhi ta‘âlâ</p>
+                    <p>
+                        Aku niat melaksanakan umrah dan berihram karena Allah
+                        ta‘ala.
+                    </p>
+
+                    <hr class="my-3" />
+
+                    <!-- Niat Haji Sekaligus Umrah (Haji Qiran) -->
+                    <p class="islamic-color font-semibold">
+                        Niat Haji Sekaligus Umrah (Haji Qiran)
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        نَوَيْتُ الْحَجَّ والْعُمْرَةَ وَأَحْرَمْتُ بِهِمَا
+                        لِلّٰهِ تَعَالَى
+                    </div>
+                    <p>
+                        Nawaitul ḫajja wal ‘umrata wa aḫramtu bihî lillâhi
+                        ta‘âlâ
+                    </p>
+                    <p class="pt-2">
+                        Aku niat melaksanakan haji sekaligus umrah dan berihram
+                        karena Allah ta‘ala.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 3: Doa Selesai Berihram -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(3)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[3],
+                                'fa-caret-right': !isOpen[3]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        3. Doa Selesai Berihram
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[3]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Selesai Berihram -->
+                    <p class="islamic-color font-semibold">
+                        Doa Selesai Berihram
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ أُحَرِّمُ شَعْرِيْ وَبَشَرِيْ وَجَسَدِيْ
+                        وَجَمِيْعَ جَوَارِحِيْ مِنْ كُلِّ شَيْءٍ حَرَّمْتَهُ
+                        عَلَى الْمُحْرِمِ أَبْتَغِيْ بِذٰلِكَ وَجْهَكَ
+                        الْكَرِيْمَ يَا رَبَّ الْعَــالِمِيْنَ
+                    </div>
+                    <p>
+                        Allâhumma uḫarrimu sya‘rî wa basyarî wa jasadî wa jamî‘a
+                        jawâriḫî min kulli syai-in ḫarramtahu ‘alâl muḫrimi
+                        abtaghî bidzâlika wajhakal karîma yâ rabbal ‘âlamîn(a)
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, aku mengharamkan rambut, kulit, tubuh, dan
+                        seluruh anggota tubuhku dari semua yang Kau haramkan
+                        bagi seorang yang sedang berihram, demi mengharapkan
+                        ridha-Mu semata, wahai Tuhan pemelihara seluruh
+                        keberadaan.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 4: Lafal Talbiyah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(4)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[4],
+                                'fa-caret-right': !isOpen[4]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        4. Lafal Talbiyah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[4]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Lafal Talbiyah -->
+                    <p class="islamic-color font-semibold">Lafal Talbiyah</p>
+                    <div class="py-1 text-right" dir="rtl">
+                        لَبَّيْكَ اللّٰهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيْكَ
+                        لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ
+                        وَالْمُلْكَ لَا شَرِيْكَ لَكَ
+                    </div>
+                    <p>
+                        Labbaika-llâhumma labbaîk, labbaika lâ syarîka laka
+                        labbaîk. Innal ḫamda wan ni‘mata laka wal mulk. Lâ
+                        syarîka lak(a)
+                    </p>
+                    <p class="pt-2">
+                        Aku datang memenuhi panggilan-Mu, ya Allah. Aku datang
+                        memenuhi panggilan-Mu. Aku datang memenuhi panggilan-Mu.
+                        Tiada sekutu bagi-Mu. Aku datang memenuhi panggilan-Mu.
+                        Sungguh, segala puji, nikmat, dan segala kekuasaan
+                        adalah milik-Mu. Tiada sekutu bagi-Mu.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 5: Doa di Makkah al Mukarramah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(5)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[5],
+                                'fa-caret-right': !isOpen[5]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        5. Doa di Makkah al Mukarramah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[5]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Memasuki Kota Makkah -->
+                    <p class="islamic-color font-semibold">
+                        Doa Memasuki Kota Makkah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ هٰذَا حَرَمُكَ وَأَمْنُكَ فَحَرِّمْ لَحْمِيْ
+                        وَدَمِيْ وَشَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ
+                        وَاٰمِنِّـيْ مِنْ عَذَابِكَ يَوْمَ تَبْعَثُ عِبَادَكَ
+                        وَاجْعَلْنِيْ مِنْ أَوْلِيَائِكَ وَأَهْلِ طَاعَتِكَ
+                    </div>
+                    <p>
+                        Allâhumma hâdzâ ḫaramuka wa amnuka faḫarrim laḫmî wa
+                        damî wa sya‘rî wa basyarî ‘alan-nâri wa âminnî min
+                        ‘adzâbika yauma tab’atsu ‘ibadaka waj‘alnî min
+                        auliyâ-ika wa ahli thâ‘atika
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, ini adalah tanah haram-Mu dan tempat aman-Mu.
+                        Haramkanlah dagingku, darahku, rambutku, dan kulitku
+                        dari api neraka. Selamatkanlah aku dari siksa-Mu pada
+                        hari ketika Engkau membangkitkan hamba-hamba-Mu. Jadikan
+                        aku termasuk di antara kekasih-Mu dan hamba-hamba yang
+                        taat pada-Mu.
+                    </p>
+
+                    <!-- Doa Masuk Masjidil Haram -->
+                    <p class="islamic-color font-semibold mt-4">
+                        Doa Masuk Masjidil Haram
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ
+                        فَحَيِّنَا رَبَّنَا بِالسَّلَامِ وَأَدْخِلْنَا
+                        الْجَنَّةَ دَارَالسَّلَامِ تَبَارَكْتَ وَتَعَالَيْتَ يَا
+                        ذَا الْجَلَالِ وَالْإِكْرَامِ. اَللّٰهُمَّ افْتَحْ لِيْ
+                        أَبْوَابَ رَحْمَتِكَ وَمَغْفِرَتِكَ وَأَدْخِلْنِيْ
+                        فِيْهَا. بِسْمِ اللهِ وَالْحَمْدُ ِللّٰهِ وَالصَّلَاةُ
+                        وَالسَّلَامُ عَلٰى رَسُوْلِ اللهِ
+                    </div>
+                    <p>
+                        Allâhumma antassalâm, waminkas-salâm fahayyinâ rabbanâ
+                        bissalâm wa adkhilnal jannata dâras-salâm tabârakta
+                        wata‘âlaita yâ dzaljalâli wal ikrâm. Allâhumma-ftaḫ lî
+                        abwâba raḫmatika wamaghfiratika wa adkhilnî fîhâ.
+                        Bismillâhi walḫamdulillahi wash-shalâtu wassalâmu ‘alâ
+                        rasûlillâh
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah Engkaulah Dzat yang memberi keselamatan
+                        (kesejahteraan), dari-Mu keselamatan datang, maka
+                        hidupkanlah kami ya Allah dengan selamat (sejahtera),
+                        masukkan kami ke dalam surga rumah keselamatan. Maha
+                        Suci Engkau, Maha Luhur Engkau, wahai Tuhan sang pemilik
+                        keagungan dan kemuliaan. Ya Allah bukakanlah untukku
+                        pintu rahmat dan ampunan-Mu. Masukkanlah aku ke dalam
+                        rahmat dan ampunan-Mu itu. Dengan nama Allah. Segala
+                        puji bagi Allah. Semoga rahmat dan keselamatan terlimpah
+                        untuk Rasulullah.
+                    </p>
+
+                    <!-- Doa ketika Melihat Ka'bah -->
+                    <p class="islamic-color font-semibold mt-4">
+                        Doa ketika Melihat Ka'bah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ زِدْ هٰذَا الْبَيْتَ تَشْرِيْفًا
+                        وَتَعْظِيْمًا وَتَكْرِيمًا وَمَهَابَةً وَزِدْ مَنْ
+                        شَرّفَهُ وَكَرّمَهُ مِمَّنْ حَجَّهُ أَوِاعْتَمَرَهُ
+                        تَشْرِيفًا وَتَكْرِيمًا وَتَعْظِيمًا وَبِرًّا
+                    </div>
+                    <p>
+                        Allâhumma zid hâdzal baita tasyrîfan wa ta‘dhîman wa
+                        takrîman wa maḫâbatan wa zid man syarafahu wa karramahu
+                        mim man ḫajjahu awi‘tamarahu tasyrîfan wa ta‘dhîman wa
+                        takrîman wa birran
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, tambahkanlah kemuliaan, kehormatan, keagungan
+                        dan kehebatan pada Baitullah ini; dan tambahkanlah pula
+                        kepada orang-orang yang memuliakan, menghormati, dan
+                        mengagungkannya di antara mereka yang berhaji atau yang
+                        berumrah kemuliaan, kehormatan, kebesaran, dan kebaikan.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Phrase 6: Doa Tawaf -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(6)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[6],
+                                'fa-caret-right': !isOpen[6]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        6. Doa Tawaf
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[6]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Tawaf dari Hajar Aswad ke Rukun Yamani -->
+                    <p class="islamic-color font-semibold">
+                        Dari Hajar Aswad ke Rukun Yamani
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        سُبْحَانَ اللهِ وَالْحَمْدُ لِلّٰهِ وَلَا إِلٰهَ إِلَّا
+                        اللهُ وَاللهُ أَكْبَرُ. وَلَا حَوْلَ وَلَا قُوَّةَ
+                        إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيْم
+                    </div>
+                    <p>
+                        Subḫânallâhi walḫamdulillâhi wa lâ ilâha illallâhu
+                        allâhu akbar. wa lâ haula wa lâ quwwata illâ billâhil
+                        ‘aliyyil ‘adhîm(i)
+                    </p>
+                    <p class="pt-2">
+                        Maha Suci Allah. Segala pujian hanya pantas disanjungkan
+                        kepada Allah. Tiada Tuhan selain Allah. Allah Maha
+                        Besar. Tidak ada daya dan kekuatan kecuali (pertolongan)
+                        dari Allah yang Maha Luhur lagi Maha Agung.
+                    </p>
+
+                    <!-- Doa Tawaf dari Rukun Yamani ke Hajar Aswad -->
+                    <p class="islamic-color font-semibold mt-4">
+                        Dari Rukun Yamani ke Hajar Aswad
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        رَبَّنَا اٰتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي
+                        الْاٰخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ
+                    </div>
+                    <p>
+                        Rabbanâ âtinaa fid dun-yâ ḫasanah, wa fil âkhirati
+                        ḫasanah, wa qinâ a‘dzâban nâr
+                    </p>
+                    <p class="pt-2">
+                        Wahai Tuhan kami, berilah kami kebaikan di dunia dan
+                        kebaikan di akhirat dan hindarkanlah kami dari siksa
+                        neraka.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 7: Doa Sa'i -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(7)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[7],
+                                'fa-caret-right': !isOpen[7]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        7. Doa Sa'i
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[7]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Sa'i -->
+                    <p class="islamic-color font-semibold">Doa Sa'i</p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللهُ أَكْبَرُ، اَللهُ أَكْبَرُ، اَللهُ أَكْبَرُ،
+                        اَللهُ أَكْبَرُ، كَبِيْرًا وَالْحَمْدُ لِلّٰهِ كَثِيرًا
+                        وَسُبْحَانَ اللهِ بُكْرَةً وَأَصِيْلًا
+                    </div>
+                    <p>
+                        Allâhu akbar, allâhu akbar, allâhu akbar, allâhu akbar,
+                        kabîran walḫamdulillâhi katsîran wa subḫanallâhi
+                        bukratan wa ashîlâ
+                    </p>
+                    <p class="pt-2">
+                        Allah Maha Besar, Allah Maha Besar, Allah Maha Besar,
+                        Allah Maha Besar, Maha Besar Allah segala puji bagi-Nya,
+                        Maha Suci Allah baik saat pagi maupun petang.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 8: Doa Menggunting Rambut (Tahallul) -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(8)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[8],
+                                'fa-caret-right': !isOpen[8]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        8. Doa Menggunting Rambut (Tahallul)
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[8]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Menggunting Rambut (Tahallul) -->
+                    <p class="islamic-color font-semibold">
+                        Doa Menggunting Rambut (Tahallul)
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ اثْبُتْ لِيْ بِكُلِّ شَعْرَةٍ حَسَنَةً
+                        وَامْحُ عَنِّيْ بِهَا سَيِّئَةً وَارْفَعْ لِيْ عِنْدَكَ
+                        دَرَجَةً
+                    </div>
+                    <p>
+                        Allâhumma-tsbut lî bi kuli sya’ratin ḫasanatan wa-mḫu
+                        ‘annî bihâ sayyi-atan wa-rfa‘ lî ‘indaka darajatan
+                    </p>
+                    <p>
+                        Ya Allah, tetapkanlah kebaikan untukku lantaran setiap
+                        helai rambut ini, hapuslah keburukan dari diriku
+                        lantaran rambut ini, dan angkatlah derajatku di sisi-Mu.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 9: Doa Ketika dan Selama di Arafah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(9)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[9],
+                                'fa-caret-right': !isOpen[9]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        9. Doa Ketika dan Selama di Arafah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[9]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Ketika Masuk Arafah -->
+                    <p class="islamic-color font-semibold">
+                        Doa Ketika Masuk Arafah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ إِلَيْكَ تَوَجَّهْتُ، وَبِكَ اعْتَصَمْتُ،
+                        وَعَلَيْكَ تَوَكَّلْتُ. اَللّٰهُمَّ اجْعَلْنِيْ مِمَّنْ
+                        تُبَاهِيْ بِهِ الْيَوْمَ مَلَائِكَتَكَ، إِنَّكَ عَلَى
+                        كُلِّ شَيْءٍ قَدِيْرٌ
+                    </div>
+                    <p>
+                        Allâhumma ilaika tawajjahtu, wabika‘tashamtu, wa’alaika
+                        tawakkaltu. Allâhummaj’alnî mim-man tubaahî bihil yauma
+                        malâ-ikataka, innaka ‘alâ kulli syai-in qadîrun
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, hanya kepada-Mulah aku menghadap, denganMulah
+                        aku berpegang teguh, pada-Mulah aku berserah diri. Ya
+                        Allah, jadikanlah aku menjadi bagian dari orang yang
+                        hari ini Engkau banggakan di hadapan Malaikat-Mu.
+                        Sesungguhnya Engkau Maha Kuasa atas segala sesuatu.
+                    </p>
+
+                    <!-- Doa Wukuf -->
+                    <p class="islamic-color font-semibold">Doa Wukuf</p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ لَكَ الْحَمْدُ كَالَّذِيْ تَقُوْلُ وَخَيْرًا
+                        مِمَّا نَقُوْلُ. اَللّٰهُمَّ لَكَ صَلَاتِيْ وَنُسُكِيْ
+                        وَمَحْيَايَ وَمَمَاتِيْ وَإِلَيْكَ مَاٰبِيْ، وَلَكَ
+                        رَبِّيْ تُرَاثِيْ. اَللّٰهُمَّ إِنِّيْ أَعُوْذُ بِكَ
+                        مِنْ عَذَابِ الْقَــبْرِ وَوَسْوَاسِ الصَّدْرِ،
+                        وَشَتَاتِ الْأَمْرِ. اَللّٰهُمَّ إِنِّيْ أَعُوْذُ بِكَ
+                        مِنْ شَرِّ مَا تَجِيْءُ بِهِ الرِّيْحُ
+                    </div>
+                    <p>
+                        Allâhumma lakal ḫamdu kalladzî taqûlu wa khairan mimmâ
+                        naqûlu. Allâhumma laka shalâtî wa nusukî wa maḫyâyâ wa
+                        mamâtî wa ilaika ma-âbî, wa laka rabbî turâtsî.
+                        Allâhumma innî a‘ûdzubika min ‘adzâbil qabri wa
+                        waswâsish-shadri, wasyatâtil amri. Allâhumma innî
+                        a‘ûdzubika min syarri mâ ta jî’u bihirrîḫ
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, segala puji bagi-Mu seperti Engkau memuji
+                        (diri-Mu) dan pujian terbaik yang kami ucapkan. Ya
+                        Allah, bagi-Mu shalatku, ibadahku, hidupku, dan matiku,
+                        dan kepadaMu tempat kembaliku dan kepada-Mulah
+                        pemeliharaan apa yang aku tinggalkan. Ya Allah, aku
+                        berlindung kepadaMu dari siksa kubur dan keragu-raguan
+                        dalam hati serta kesulitan-kesulitan dalam segala
+                        urusan. Ya Allah, aku berlindung kepadaMu dari kejahatan
+                        yang dihembuskan oleh angin.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 10: Doa Ketika Sampai di Muzdalifah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(10)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[10],
+                                'fa-caret-right': !isOpen[10]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        10. Doa Ketika Sampai di Muzdalifah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[10]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Ketika Sampai di Muzdalifah -->
+                    <p class="islamic-color font-semibold">
+                        Doa Ketika Sampai di Muzdalifah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ إِنَّ هٰذِهِ مُزْدَلِفَةُ جُمِعَتْ فِيْهَا
+                        أَلْسِنَةٌ مُخْتَلِفَةٌ تَسْأَلُكَ حَوَائِجَ
+                        مُتَنَوِّعَةً فَاجْعَلْنِيْ مِمَّنْ دَعَاكَ
+                        فَاسْتَجَبْتَ لَهُ وَتَوَكَّلَ عَلَيْكَ فَكَفَّيْتَهُ
+                        يَا أَرْحَمَ الرَّاحِمِيْنَ
+                    </div>
+                    <p>
+                        Allâhumma inna hâdzihi muzdalifatu jumi‘at fîhâ
+                        alsinatun mukhtalifatun, tas’aluka hawâija
+                        mutanawwi‘atan faj’alnî mimman da‘âka fastajabta lahu wa
+                        tawakkala ‘alaika fakaffaitahu yâ arḫamar râḫimîn
+                    </p>
+                    <p>
+                        Ya Allah, sesungguhnya di Muzdalifah ini telah berkumpul
+                        bermacam-macam bahasa yang memohon kepada-Mu berbagai
+                        hajat yang beraneka ragam. Maka, masukkanlah aku ke
+                        dalam golongan orang yang berdoa lalu Engkau kabulkan,
+                        golongan orang yang berserah diri pada-Mu lalu Engkau
+                        lindungi dia, wahai Tuhan yang Maha Pengasih dari segala
+                        yang pengasih.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 11: Doa Ketika Sampai di Mina -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(11)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[11],
+                                'fa-caret-right': !isOpen[11]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        11. Doa Ketika Sampai di Mina
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[11]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Ketika Sampai di Mina -->
+                    <p class="islamic-color font-semibold">
+                        Doa Ketika Sampai di Mina
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ هٰذَا مِنَى فَامْنُنْ عَلَيَّ بِمَا مَنَنْتَ
+                        بِهِ عَلَى أَوْلِيَائِكَ وَأَهْلِ طَاعَتِكَ
+                    </div>
+                    <p>
+                        Allâhumma hadzâ minâ famnun ‘alayya bimâ mananta bihi
+                        ‘alâ awliyâika wa ahli thâ‘atika
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, tempat ini adalah di Mina, anugerahkanlah
+                        kepadaku apa yang Engkau telah anugerahkan kepada
+                        orang-orang yang selalu dekat dan taat kepada-Mu.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 12: Doa Melontar Jamrah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(12)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[12],
+                                'fa-caret-right': !isOpen[12]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        12. Doa Melontar Jamrah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[12]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Melontar Jamrah -->
+                    <p class="islamic-color font-semibold">
+                        Doa Melontar Jamrah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        بِسْمِ اللهِ وَاللهُ أَكْبَرُ رَجْمًا لِلشَّيَاطِيْنِ
+                        وَرِضًا لِلرَّحْمٰنِ اَللّٰهُمَّ اجْعَلْ حَجًّا
+                        مَبْرُوْرًا وَسَعْيًا مَشْكُوْرًا
+                    </div>
+                    <p>
+                        Bismillâhi wallâhu akbar, rajman lisysyayâthîni wa
+                        ridhan lirraḫmâni allâhumma-j‘al hajjan mabrûran wa
+                        sa‘yan masykûran
+                    </p>
+                    <p class="pt-2">
+                        Dengan menyebut nama Allah, Allah Maha Besar. Laknat
+                        bagi setan dan keridhaan bagi Allah yang Maha Pengasih.
+                        Ya Allah, jadikanlah hajiku ini diterima dan usahaku
+                        dibalas pahala.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 13: Doa Ziarah di Madinah Al Munawwarah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(13)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[13],
+                                'fa-caret-right': !isOpen[13]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        13. Doa Ziarah di Madinah Al Munawwarah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[13]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Masuk Kota Madinah -->
+                    <p class="islamic-color font-semibold">
+                        Doa Masuk Kota Madinah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        اَللّٰهُمَّ هٰذَا حَرَمُ رَسُولِكَ وَاجْعَلْهُ لِيْ
+                        وِقَايَةً مِنَ النَّارِ وَأَمَانًا مِنَ الْعَذَابِ
+                        وَسُوْءِ الْحِسَابِ
+                    </div>
+                    <p>
+                        Allâhumma hâdzâ ḫaramu rasûlika waj‘alhu lî wiqâyatan
+                        minan nâri wa amânan minal ‘adzâbi wa sû-il ḫisâb(i)
+                    </p>
+                    <p class="pt-2">
+                        Ya Allah, negeri ini adalah tanah haram rasul-Mu.
+                        Jadikanlah ia penjaga bagiku dari neraka, pengaman dari
+                        siksa dan buruknya perhitungan amal.
+                    </p>
+
+                    <!-- Doa Masuk Masjid Nabawi -->
+                    <p class="islamic-color font-semibold mt-4">
+                        Doa Masuk Masjid Nabawi
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ. أَعُوْذُ بِاللهِ
+                        الْعَظِيمِ وَوَجْهِ الْكَرِيمِ وَسُلْطَانِهِ الْقَدِيْمِ
+                        مِنَ الشَّيْطَانِ الرَّجِيمِ. اَللّٰهُمَّ افْتَحْ لِي
+                        أَبْوَابَ رَحْمَتِكَ
+                    </div>
+                    <p>
+                        Bismillahir raḫmânir rahîm. A‘ûdzubillâhil ‘adhîmi wa
+                        wajhil karîmi wa sulthânihil qadîmi minasy syaithânir
+                        rajîmi, allâhumma-ftaḫlî abwâba raḫmatika
+                    </p>
+                    <p class="pt-2">
+                        Dengan menyebut nama Allah Yang Maha Pengasih dan Maha
+                        Penyayang. Aku berlindung kepada Allah yang Maha Agung,
+                        Dzat-Nya yang Mahamulia, dan kekuasaan-Nya Yang Maha
+                        Dahulu, dari godaan setan yang terkutuk. Ya Allah,
+                        bukakanlah bagiku segala pintu rahmat-Mu.
+                    </p>
+                </div>
+            </div>
+            <!-- Phrase 14: Doa Ketika Pulang Haji/Umrah -->
+            <div
+                class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden"
+            >
+                <button
+                    (click)="toggleCollapse(14)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                        <i
+                            class="fa"
+                            [ngClass]="{
+                                'fa-caret-down': isOpen[14],
+                                'fa-caret-right': !isOpen[14]
+                            }"
+                            aria-hidden="true"
+                        ></i>
+                        14. Doa Ketika Pulang Haji/Umrah
+                    </div>
+                </button>
+                <div
+                    *ngIf="isOpen[14]"
+                    class="px-4 py-3 text-sm leading-relaxed text-gray-700"
+                >
+                    <!-- Doa Ketika Pulang Haji/Umrah -->
+                    <p class="islamic-color font-semibold">
+                        Doa Ketika Pulang Haji/Umrah
+                    </p>
+                    <div class="py-1 text-right" dir="rtl">
+                        لَا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ
+                        الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ
+                        قَدِيرٌ، اٰيِبُوْنَ تَائِبُوْنَ عَابِدُوْنَ سَاجِدُوْنَ
+                        لِرَبِّنَا حَامِدُوْنَ صَدَقَ اللهُ وَعْدَهُ وَنَصَرَ
+                        عَبْدَهُ وَهَزَمَ الْأَحْزَابَ وَحْدَهُ
+                    </div>
+                    <p>
+                        Lâ ilâha illallâhu waḫdahu lâ syarîkalahu lahul mulku wa
+                        lahul ḫamdu wahuwa ‘alâ kulli syai-in qadîr(un), âyibûn
+                        tâibûn ‘âbidûn sâjidûna li rabbinâ ḫâmidûn shadaqallâhu
+                        wa’dahu wa nashara ‘abdahu wa hazamal aḫzâba waḫdahu
+                    </p>
+                    <p class="pt-2">
+                        Tidak ada Tuhan kecuali Allah, Tuhan yang Esa, tidak ada
+                        sekutu bagi-Nya. Dia pemilik seluruh kerajaan dan segala
+                        pujian. Dia Maha Kuasa atas segala sesuatu. Semoga kami
+                        termasuk orang-orang yang kembali, orang-orang yang ahli
+                        taubat, ahli ibadah, ahli sujud dan ahli memuji Tuhan
+                        kami. Allah menepati janji-Nya, menolong hamba-Nya, dan
+                        mengalahkan sendiri musuh-musuh-Nya.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <button
+            class="scroll-to-top"
+            *ngIf="showScrollToTop"
+            (click)="scrollToTop()"
+            aria-label="Scroll to top"
+        >
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+</div>

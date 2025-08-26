@@ -1,0 +1,165 @@
+.imam-form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Section Container Styling */
+.form-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Section Title Styling */
+.form-section-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+    //border-bottom: 2px solid #006E8C; /* Accent color for the border */
+    padding-bottom: 5px;
+}
+
+/* Form Field Styling within Sections */
+.mat-form-field {
+    margin-bottom: 16px;
+}
+
+/* Apply special styling to remove the margin of the last field in a section */
+.form-section .mat-form-field:last-of-type {
+    margin-bottom: 0;
+}
+
+.dialog-content {
+    padding: 20px !important;
+    background-color: #fff;
+    max-width: 600px !important;
+    margin: auto !important;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.bgGreen {
+    background-color: #006e8c; /* Green background for the title */
+}
+
+.imam-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-section,
+.email-section {
+    margin-bottom: 24px;
+}
+
+.email-section {
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #006e8c;
+}
+
+.email-list {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-button {
+    margin-top: 8px;
+    margin-top: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.submit-button {
+    background-color: #006e8c;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: #43a047;
+}
+
+.cancel-button {
+    color: #f44336;
+}
+
+.cancel-button:hover {
+    background-color: #fddfdf;
+}
+/* Container for static fields */
+.static-fields-container {
+    display: flex;
+    /* grid-template-columns: 1fr 2fr; */
+    /* gap: 12px 7px; */
+    border: 1px solid #e0e0e0;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+/* Individual row */
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Field labels */
+.field-label {
+    font-weight: 600;
+    color: #555555;
+    font-size: 14px;
+}
+
+/* Field values */
+.field-value {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .static-fields-container {
+        gap: 10px;
+    }
+    .field-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .field-value {
+        text-align: left;
+        margin-top: 4px;
+    }
+}

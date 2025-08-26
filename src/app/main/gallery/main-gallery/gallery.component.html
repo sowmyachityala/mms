@@ -1,0 +1,451 @@
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <div class="page-title justify-between flex">
+        {{ "Gallery.mediaGallery" | translate }}
+        <div class="page-sub-title">
+            <mat-tab-group
+                (selectedTabChange)="currTab($event)"
+                [selectedIndex]="0"
+            >
+                <mat-tab
+                    *ngFor="let tab of Tabs; let i = index"
+                    [label]="'Gallery.' + tab.name | translate"
+                >
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between px-6 md:px-4 p-l-r"
+    >
+        <div
+            class=""
+            *ngIf="
+                user?.roleName === 'Super Admin' ||
+                user?.roleName === 'Ministry Admin'||
+                user?.roleName === 'Super Mosque Admin' ||
+                user?.roleName === 'Mosque Admin'
+            "
+        >
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="uploadData(tabName)"
+                *ngIf="tabName != 'all'"
+            >
+                <span class="ml-2 mr-1"
+                    >{{ "Gallery.add" | translate }}
+                    {{ "Gallery." + buttonName | translate }}</span
+                >
+            </button>
+            <!-- &nbsp;
+            <button mat-flat-button (click)="onPreviewImage()" *ngIf="tabName == 'images' || tabName == 'quotes' || tabName == 'greetingCards' || tabName === 'all'">
+                <span class="ml-2 mr-1">Preview</span>
+            </button> -->
+        </div>
+        <div
+            class="flex shrink-0 items-center mt-6 sm:mt-0"
+            *ngIf="
+                deleteDiv &&
+                (user?.roleName === 'Super Admin' ||
+                    user?.roleName === 'Ministry Admin'||
+                user?.roleName === 'Super Mosque Admin' ||
+                user?.roleName === 'Mosque Admin')
+            "
+        >
+            <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+                <button
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="deleteGalleryImagesConfirm(tabName)"
+                >
+                    <span class="ml-2 mr-1">{{
+                        "Gallery.delete" | translate
+                    }}</span>
+                </button>
+                <button mat-flat-button (click)="cancelDelete(tabName)">
+                    <span class="ml-2 mr-1">{{
+                        "Gallery.cancel" | translate
+                    }}</span>
+                </button>
+            </div>
+            <!-- <div class="">
+                <mat-checkbox  [(ngModel)]="checked">Select All</mat-checkbox>
+            </div> -->
+        </div>
+    </div>
+    <div class="flex flex-auto overflow-hiddens">
+        <div
+            class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4"
+        >
+            <div
+                *ngIf="
+                    tabName === 'all' ||
+                    tabName === 'images' ||
+                    tabName === 'quotes' ||
+                    tabName == 'greetingCards'
+                "
+            >
+                <div class="cont-main mt-3">
+                    <div
+                        class="m-card py-2"
+                        *ngFor="
+                            let tile of allImages
+                                | paginate
+                                    : {
+                                          itemsPerPage: itemsPerPageImage,
+                                          currentPage: pageImage
+                                      };
+                            index as i
+                        "
+                    >
+                        <div class="imgCard">
+                            <div *ngIf="user">
+                                <mat-checkbox class="s-box"                                
+                                    [(ngModel)]="tile.isChecked"
+                                    [ngClass]="tile.isChecked ? 'show-cb' : 'hide-cb'"
+                                    (change)="sOptions(tabName)"
+                                ></mat-checkbox>
+                            </div>                           
+                            <img [src]="tile.fileUri" alt="Nature" class="s-img" (click)="onPreviewImage(i)"/>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="allImages.length > 0">
+                    <pagination-controls
+                        (pageChange)="pageImage = $event"
+                    ></pagination-controls>
+                </div>
+            </div>
+            <!-- <div *ngIf="tabName === 'images' || tabName === 'quotes' || tabName == 'greetingCards'">
+                <div class="cont-main mt-10">
+                    <div class="cont-checkbox" *ngFor="let tile of allImages | paginate: { itemsPerPage: itemsPerPageImage, currentPage: pageImage }; index as i">
+                        <input type="checkbox" [id]="'image-' + i" [(ngModel)]="tile.isChecked" (change)="sOptions()"/>
+                        <label [for]="'image-' + i">
+                          <img [src]="tile.fileUri" />
+                          <span class="cover-checkbox">
+                            <svg viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                    </div>                  
+                </div>
+                <div *ngIf="allImages.length > 0">
+                    <pagination-controls (pageChange)="pageImage = $event"></pagination-controls> 
+                </div>    
+            </div> -->
+            <div *ngIf="tabName === 'videos'" class="px-1">
+                <div class="videoGallery">
+                    <fuse-card
+                        class="m-1 py-2"
+                        *ngFor="
+                            let video of allVideos
+                                | paginate
+                                    : {
+                                          itemsPerPage: itemsPerPage,
+                                          currentPage: page
+                                      };
+                            index as i
+                        "
+                    >
+                        <div class="videoCard vCard">
+                            <div *ngIf="user">
+                                <mat-checkbox class="s-box"
+                                    [(ngModel)]="video.isChecked"
+                                    [ngClass]="video.isChecked ? 'show-cb' : 'hide-cb'"
+                                    (change)="sOptions(tabName)">
+                                </mat-checkbox>
+                            </div>                           
+                            <iframe
+                                class="videoCard h-100"
+                                [src]="
+                                    video.videoEmbedUri | safe : 'resourceUrl'
+                                "
+                                frameborder="0"
+                                webkitallowfullscreen
+                                mozallowfullscreen
+                                allowfullscreen
+                            >
+                            </iframe>
+                            <h4>{{ video.channelTitle }}</h4>
+                            <h4 class="fs-8">{{ video.title }}</h4>
+                        </div>
+                    </fuse-card>
+                </div>
+                <div *ngIf="allVideos.length > 0">
+                    <!-- <div class="pagination">
+                        <button mat-button (click)="previousPage()">{{ prevText }}</button>
+                        <button mat-button (click)="nextPage()">{{ nextText }}</button>
+                    </div> -->
+                    <pagination-controls
+                        (pageChange)="page = $event"
+                    ></pagination-controls>
+                    <!-- <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="currentPage" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
+                </div>
+            </div>
+            <div class="channelsTab">
+                <div class="flex relative" #container>
+                    <div *ngIf="tabName === 'channels'">
+                        <button
+                            mat-icon-button
+                            class="leftArrow left-0 bg-primary"
+                            (click)="currentPlayItem != 1 && changePageItem(-1)"
+                            [ngClass]="{ disabled: currentPlayItem === 1 }"
+                            *ngIf="channelPlayList.length > 0"
+                        >
+                            <mat-icon
+                                class="text-white"
+                                svgIcon="heroicons_outline:chevron-left"
+                            ></mat-icon>
+                        </button>
+                        <div
+                            class="overflow"
+                            [ngStyle]="{
+                                width: overflowWidthItem,
+                                left: pagePositionItem
+                            }"
+                        >
+                            <fuse-card
+                                class="py-2 px-4"
+                                *ngFor="
+                                    let ch of channelPlayList;
+                                    let index = index
+                                "
+                            >
+                                <iframe
+                                    [src]="
+                                        ch.playListEmbedUri
+                                            | safe : 'resourceUrl'
+                                    "
+                                    allow="autoplay"
+                                    width="540"
+                                    height="260"
+                                    frameborder="0"
+                                    webkitallowfullscreen
+                                    mozallowfullscreen
+                                    allowfullscreen
+                                ></iframe>
+                            </fuse-card>
+                        </div>
+                        <button
+                            mat-icon-button
+                            class="rightArrow right-0 bg-primary"
+                            (click)="
+                                currentPlayItem != totalChannelsItems &&
+                                    changePageItem(+1)
+                            "
+                            [ngClass]="{
+                                disabled: currentPlayItem === totalChannelsItems
+                            }"
+                            *ngIf="channelPlayList.length > 0"
+                        >
+                            <mat-icon
+                                class="text-white"
+                                svgIcon="heroicons_outline:chevron-right"
+                            ></mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="mx-4 mt-3 mb-6 bg-[#F5F5F5]">
+                    <div class="flex relative" #container>
+                        <div
+                            *ngIf="tabName === 'channels'"
+                            class="cards"
+                            [ngClass]="{ 'w-full': totalChannels === 1 }"
+                        >
+                            <button
+                                mat-icon-button
+                                class="leftArrow left-0 bg-primary"
+                                (click)="currentChannel != 1 && changePage(-1)"
+                                [ngClass]="{ disabled: currentChannel === 1 }"
+                                *ngIf="allChannels.length > 0"
+                            >
+                                <mat-icon
+                                    class="text-white"
+                                    svgIcon="heroicons_outline:chevron-left"
+                                ></mat-icon>
+                            </button>
+
+                            <div
+                                class="overflow"
+                                [ngStyle]="{
+                                    width: overflowWidth,
+                                    left: pagePosition
+                                }"
+                            >
+                                <fuse-card
+                                    class="m-4 py-6 px-2 h-32 max-w-64 bg-white block text-center bg-wrap"
+                                    *ngFor="
+                                        let c of allChannels;
+                                        let index = index
+                                    "
+                                    [ngStyle]="{ width: cardWidth }"
+                                    [class.activeChannel]="
+                                        activeChannel === index
+                                    "
+                                    (click)="selectedChannel(c, index)"
+                                >
+                                    <img
+                                        class="img-bg"
+                                        [src]="c.channelThumbnailPath"
+                                        alt=""
+                                    />
+                                    <div class="bg-content">
+                                        <div class="">{{ c.channelTitle }}</div>
+                                    </div>
+                                </fuse-card>
+                            </div>
+
+                            <button
+                                mat-icon-button
+                                class="rightArrow right-0 bg-primary"
+                                *ngIf="
+                                    allChannels.length > 0 || totalChannels > 1
+                                "
+                                (click)="
+                                    currentChannel != totalChannels &&
+                                        changePage(+1)
+                                "
+                                [ngClass]="{
+                                    disabled: currentChannel === totalChannels
+                                }"
+                            >
+                                <mat-icon
+                                    class="text-white"
+                                    svgIcon="heroicons_outline:chevron-right"
+                                ></mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <ng-template #channelDialog>
+            <form [formGroup]="channelForm" id="myDialog">
+                <div class="dTitleBar">
+                    <h1 matDialogTitle class="dTitle">
+                        {{ "Gallery.add" | translate }}
+                        {{ "Gallery." + tabName | translate }}
+                    </h1>
+                </div>
+                <mat-dialog-content>
+                    <div class="mt-4">
+                        <div *ngIf="tabName === 'channels'">
+                            <mat-form-field
+                                class="w-full max-w-80"
+                                [ngClass]="
+                                    direction === 'ltr'
+                                        ? 'ml-15'
+                                        : direction === 'rtl'
+                                        ? 'mr-15'
+                                        : ''
+                                "
+                            >
+                                <mat-label>{{
+                                    "Gallery.channelId" | translate
+                                }}</mat-label>
+                                <input
+                                    matInput
+                                    formControlName="channelId"
+                                    [autocomplete]="'off'"
+                                />
+                                <mat-error
+                                    *ngIf="
+                                        channelForm
+                                            .get('channelId')
+                                            .hasError('required')
+                                    "
+                                >
+                                    {{
+                                        "Gallery.channelIDIsRequired"
+                                            | translate
+                                    }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="tabName === 'videos'">
+                            <mat-form-field
+                                class="w-full max-w-80"
+                                [ngClass]="
+                                    direction === 'ltr'
+                                        ? 'ml-15'
+                                        : direction === 'rtl'
+                                        ? 'mr-15'
+                                        : ''
+                                "
+                            >
+                                <mat-label>{{
+                                    "Gallery.videoURI" | translate
+                                }}</mat-label>
+                                <input
+                                    matInput
+                                    formControlName="videoUri"
+                                    [autocomplete]="'off'"
+                                />
+                                <mat-error
+                                    *ngIf="
+                                        channelForm
+                                            .get('videoUri')
+                                            .hasError('required')
+                                    "
+                                >
+                                    {{
+                                        "Gallery.videoURIIsRequired" | translate
+                                    }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div>
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label>{{'Gallery.displayOrder' | translate }}</mat-label>
+                                <input matInput type="number" formControlName="displayOrder" appOnlynumber [autocomplete]="'off'">
+                                <mat-error *ngIf="channelForm.get('displayOrder').hasError('required')">
+                                    {{'Gallery.displayOrderRequired' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div> -->
+                    </div>
+                </mat-dialog-content>
+                <mat-dialog-actions>
+                    <div *ngIf="direction === 'ltr'" class="max-w-80 ml-15">
+                        <button
+                            mat-flat-button
+                            [color]="'primary'"
+                            (click)="addChannelOrVideo()"
+                        >
+                            <span>{{ "Gallery.add" | translate }}</span>
+                        </button>
+                        <button
+                            mat-button
+                            matDialogClose
+                            (click)="closeDialog()"
+                        >
+                            {{ "Gallery.cancel" | translate }}
+                        </button>
+                    </div>
+                    <div *ngIf="direction === 'rtl'" class="max-w-80 ml-15">
+                        <button
+                            mat-button
+                            matDialogClose
+                            (click)="closeDialog()"
+                        >
+                            {{ "Gallery.cancel" | translate }}
+                        </button>
+                        <button
+                            mat-flat-button
+                            [color]="'primary'"
+                            (click)="addChannelOrVideo()"
+                        >
+                            <span>{{ "Gallery.add" | translate }}</span>
+                        </button>
+                    </div>
+                </mat-dialog-actions>
+            </form>
+        </ng-template>
+    </div>
+</div>

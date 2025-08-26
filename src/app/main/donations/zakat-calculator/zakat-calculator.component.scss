@@ -1,0 +1,88 @@
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+    top: 30% !important;
+    position: absolute;
+}
+::ng-deep
+    .mat-mdc-text-field-wrapper
+    .mat-mdc-form-field-flex
+    .mat-mdc-floating-label {
+    top: 50% !important;
+    font-size: 12px;
+}
+::ng-deep .mat-mdc-form-field {
+    height: 40px;
+}
+::ng-deep
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+    .mdc-notched-outline--upgraded
+    .mdc-floating-label--float-above {
+    --mat-mdc-form-field-label-transform: translateY(-30.75px)
+        scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
+}
+
+input[type="number"].no-spinner::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.m-w {
+    width: 95%;
+}
+.f-l {
+    float: left;
+}
+.f-r {
+    float: right;
+}
+.rm-h {
+    min-height: 45px;
+}
+.H-center {
+    justify-content: center;
+    margin: 0px 0 1.25rem 0;
+}
+.h-focus {
+    box-shadow: 0 0 5px 1px #98c7ef;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 12px 3px 6px;
+}
+.img-bg {
+    opacity: 0.2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.bg-wrap {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer !important;
+}
+.py-6 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+.example-card {
+    max-width: 100%;
+}
+.c-warn {
+    color: indianred;
+}
+.example-card:hover {
+    background-color: #f0f0f0 !important;
+}
+.left-align {
+    text-align: left;
+}
+.align-end {
+    text-align: end;
+}
+.d-cal {
+    position: relative;
+    z-index: 10001;
+}
+.icon-display {
+    transform: scale(0.75);
+}

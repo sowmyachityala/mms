@@ -1,0 +1,97 @@
+.imam-form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Section Container Styling */
+.form-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Section Title Styling */
+.form-section-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+    //border-bottom: 2px solid #006E8C; /* Accent color for the border */
+    padding-bottom: 5px;
+}
+
+.fields-gap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* Form Field Styling within Sections */
+.mat-form-field {
+    margin-bottom: 16px;
+}
+
+/* Apply special styling to remove the margin of the last field in a section */
+.form-section .mat-form-field:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Buttons Container Styling */
+.float-left {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dTitle {
+    text-align: center;
+    font-weight: 500;
+    padding: 10px;
+    font-size: 16px;
+}
+.dTitleBar {
+    background: #173f53;
+    color: white;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    overflow: hidden !important;
+}
+
+.p-ltr {
+    padding: 0 35px;
+}
+.mr-3 {
+    margin-right: 2.5rem !important;
+}
+.ml-3 {
+    margin-left: 2.5rem !important;
+}
+.active {
+    color: green;
+    font-weight: bold;
+}
+
+.inactive {
+    color: red;
+    font-weight: bold;
+}
+.bank-detail-row {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.bank-detail-row strong {
+    font-weight: bold;
+    color: #444;
+}
+
+.dialog-content {
+    padding: 20px !important;
+    background-color: #fff;
+    max-width: 600px !important;
+    margin: auto !important;
+}

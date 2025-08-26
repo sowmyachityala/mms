@@ -1,0 +1,277 @@
+<div class="container donation-container">
+    <!-- Header Section -->
+    <!-- <div class="title-section">
+        <h6>Islamic Knowledge</h6>
+    </div> -->
+
+    <!-- Title -->
+    <h3 class="name_allah mt-2">
+        <i class="fa fa-th-large" aria-hidden="true"></i> {{menuItems[activeIndex].label}}
+    </h3>
+
+    <div class="icon-scroll-wrapper">
+        <!-- Left Arrow -->
+        <!-- <button class="scroll-btn left" (click)="scrollIcons('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button> -->
+
+        <div class="icon-scroll" #iconScroll id="iconScroll">
+            <div
+                class="icon-item"
+                #iconItem
+                *ngFor="let item of menuItems; let i = index"
+                (click)="navigateToPage(item.label, i)"
+                [ngClass]="{ active: activeIndex === i }"
+            >
+                <img [src]="item.image" [alt]="item.label" />
+                <div>{{ item.label }}</div>
+            </div>
+        </div>
+        <!-- Right Arrow -->
+        <!-- <button class="scroll-btn right" (click)="scrollIcons('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button> -->
+    </div>
+
+    <div class="divider-image">
+        <img src="assets/images/islamic-knowledge/devider.png" alt="divider" />
+    </div>
+
+    <div class="wudu-section">
+        <h2>CARA WUDHU LENGKAP DENGAN NIAT, DOA, DAN SUNAHNYA</h2>
+
+        <div class="px-10">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/wudu.jpeg"
+            />
+        </div>
+
+        <div class="p-3 wudu-guide-section">
+            <div>
+                <span class="wudu-guide-color font-bold">Wudhu</span> atau
+                bersuci dari hadats kecil merupakan salah satu syarat sah
+                shalat. Dalam situasi normal (bukan rukhsah), seseorang yang
+                melaksanakan shalat tanpa berwudhu maka shalatnya tidak sah
+                karena tidak memenuhi syarat.
+            </div>
+            <div class="pt-3">
+                Dalam sejarahnya, wudhu disyariatkan pada malam Isra Mi’raj
+                sebagaimana kewajiban shalat. Wudhu disyariatkan karena shalat
+                merupakan munajat kepada Tuhan sehingga dibutuhkan keadaan badan
+                yang suci. (Abdullah Bafadhal Al-Hadhrami,
+                <em>Busyral Karim bi Syarhi Masa’ilit Ta’lim</em>, [Beirut,
+                Darul Fikr: 2012 M/1433-1434 H], juz I, halaman 53).
+            </div>
+            <div class="pt-3">
+                Adapun dalil yang mendasari perintah wudhu sebelum shalat adalah
+                firman Allah dalam Al-Qur'an Surat Al-Maidah ayat 6:
+            </div>
+            <div
+                class="pt-4 wudu-guide-color font-bold arabic-text text-right"
+                dir="rtl"
+            >
+                يا أيّها الّذين آمنوا إذا قُمْتُمْ إِلى الصّلاةِ فَاغْسِلُوا
+                وُجُوهَكُمْ وَأَيْدِيَكُمْ إِلَى المَرافِقِ وَامْسَحُوا
+                بِرُؤوسِكُمْ وَأَرْجُلَكُمْ إِلَى الكَعْبَيْنِ
+            </div>
+            <!-- <div class="wudu-guide-color font-bold pt-4">Artinya:</div> -->
+            <div class="pt-4">
+                "Wahai orang-orang yang beriman, apabila kamu berdiri hendak
+                melaksanakan shalat, maka basuhlah wajahmu dan tanganmu sampai
+                ke siku serta usaplah kepalamu dan (basuh) kedua kakimu sampai
+                kedua mata kaki."
+            </div>
+            <div class="pt-3">
+                Dalil tentang penolakan shalat tanpa bersuci juga tercantum
+                dalam hadits Nabi yang diriwayatkan oleh Imam Muslim,
+                sebagaimana berikut:
+            </div>
+            <div class="pt-4 wudu-guide-color arabic-text text-right" dir="rtl">
+                لا يَقْبَلُ اللهُ صَلَاةً بِغَيْرِ طَهُورٍ
+            </div>
+            <div class="pt-2">
+                "Allah tidak menerima shalat tanpa bersuci." (HR Muslim)
+            </div>
+            <div class="pt-3">
+                Hadits lain yang senada juga diriwayatkan oleh Imam Bukhari dan
+                Muslim:
+            </div>
+            <div class="pt-4 wudu-guide-color arabic-text text-right" dir="rtl">
+                لا يَقْبَلُ اللهُ صَلَاةَ أَحَدِكُمْ إِذَا أَحْدَثَ حَتَّى
+                يَتَوَضَّأَ
+            </div>
+            <div class="pt-2">
+                "Allah tidak menerima shalat salah seorang kamu bila berhadats
+                sampai ia berwudhu." (HR Bukhari dan Muslim)
+            </div>
+            <!-- Divider -->
+            <div class="divider-image">
+                <img
+                    src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                    alt="divider"
+                />
+            </div>
+            <div class="p-3 wudu-guide-section">
+                <h2>6 Wajib Wudhu</h2>
+                <div>
+                    Wudhu akan dianggap sah jika melaksanakan 6 wajib wudhu
+                    sebagaimana berikut:
+                </div>
+
+                <div class="pt-3">
+                    <span class="font-bold wudu-guide-color">1. Niat Wudhu</span
+                    ><br />
+                    Pelaksanaan niat wudhu dalam hati berbarengan ketika
+                    membasuh wajah, adapun lafal niat wudhu yang dapat dibaca
+                    adalah:
+                    <div
+                        class="pt-2 pl-3 italic arabic-text text-right"
+                        dir="rtl"
+                    >
+                        نَوَيْتُ رَفْعَ الحَدَثِ لِلهِ تَعَالَى
+                    </div>
+                    <div class="pl-3">
+                        Nawaytu raf‘al hadatsi lillāhi ta’ālā.
+                    </div>
+
+                    <div
+                        class="pt-2 pl-3 italic arabic-text text-right"
+                        dir="rtl"
+                    >
+                        نَوَيْتُ فَرْضَ الوُضُوْءِ لِلهِ تَعَالَى
+                    </div>
+                    <div class="pl-3">
+                        Nawaytu fardhal wudhū’i lillāhi ta’ālā.
+                    </div>
+
+                    <div
+                        class="pt-2 pl-3 italic arabic-text text-right"
+                        dir="rtl"
+                    >
+                        نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى
+                    </div>
+                    <div class="pl-3">Nawaytul wudhū’a lillāhi ta’ālā.</div>
+
+                    <div class="pt-2 pl-3 italic">
+                        نَوَيْتُ الطَّهَارَةَ عَنِ الحَدَثِ لِلهِ تَعَالَى
+                    </div>
+                    <div class="pl-3">
+                        Nawaytut thahārata anil hadatsi lillāhi ta’ālā.
+                    </div>
+                </div>
+
+                <div class="pt-3">
+                    <span class="font-bold wudu-guide-color"
+                        >2. Membasuh Wajah</span
+                    ><br />
+                    Menurut Imam Nawawi, batas wajah dalam wudhu secara vertikal
+                    adalah antara tempat tumbuhnya rambut hingga dagu bagian
+                    bawah. Secara horisontal, antara kedua telinga.
+                </div>
+
+                <div class="pt-3">
+                    <span class="font-bold wudu-guide-color"
+                        >3. Membasuh Kedua Tangan Hingga Siku</span
+                    ><br />
+                    Dalam membasuh tangan, seluruh kulit, kuku, dan rambut mulai
+                    ujung jari hingga siku harus terbasuh. Termasuk kulit di
+                    bawah kuku. Karena itu, kulit yang ada bawah kuku perlu
+                    dijaga kebersihannya agar tak ada kotoran yang dapat
+                    menghalangi air sampai pada kulit.
+                </div>
+
+                <div class="pt-3">
+                    <span class="font-bold wudu-guide-color"
+                        >4. Mengusap Sebagian Kepala</span
+                    ><br />
+                    Batasan minimal mengusap sebagian kepala adalah sampainya
+                    air ke sebagian kecil kepala atau sehelai rambut yang tumbuh
+                    di area kepala. Adapun mengusap rambut yang menjuntai di
+                    luar area kepala (misalnya rambut kepala yang menjuntai di
+                    wilayah bahu atau punggung) maka itu dianggap tidak sah.
+                </div>
+
+                <div class="pt-3">
+                    <span class="font-bold wudu-guide-color"
+                        >5. Membasuh Kedua Kaki Hingga Mata Kaki</span
+                    ><br />
+                    Dalam membasuh kedua kaki hingga kedua mata kaki ini adalah
+                    semua bagian anggota tubuh yang ada pada area tersebut
+                    seperti rambut, kuku dan sebagainya.
+                </div>
+
+                <div class="pt-3">
+                    <span class="font-bold wudu-guide-color">6. Tertib</span
+                    ><br />
+                    Tertib adalah melakukan kegiatan wudhu tersebut secara
+                    berurutan sebagaimana urutan di atas, yakni dimulai dengan
+                    niat dan membasuh muka, membasuh kedua tangan beserta kedua
+                    siku, mengusap sebagian kecil kepala, dan diakhiri dengan
+                    membasuh kedua kaki beserta kedua mata kaki.
+                </div>
+            </div>
+
+            <div class="pt-4 font-bold wudu-guide-color">
+                Wajib dan Sunah Wudhu:
+            </div>
+
+            <div class="pt-2">
+                <ul class="list-disc pl-6">
+                    <li>Bersiwak</li>
+                    <li>Membaca basmalah</li>
+                    <li>Membasuh kedua tangan</li>
+                    <li>Berkumur 3 kali</li>
+                    <li>Menghirup air ke dalam hidung (istinsyaq) 3 kali</li>
+                    <li>
+                        Melafalkan dan memasang niat wudhu saat membasuh wajah
+                    </li>
+                    <li>Membasuh wajah 3 kali</li>
+                    <li>Membasuh tangan hingga siku 3 kali</li>
+                    <li>
+                        Mengusap sebagian kulit kepala dan seluruh kepala 3 kali
+                    </li>
+                    <li>Menyapu kedua telinga 3 kali</li>
+                    <li>Membasuh kaki hingga mata kaki 3 kali</li>
+                    <li>Menghadap kiblat</li>
+                    <li>Membaca doa setelah wudhu</li>
+                </ul>
+            </div>
+            <!-- Divider -->
+            <div class="divider-image">
+                <img
+                    src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                    alt="divider"
+                />
+            </div>
+
+            <h2>Doa Setelah Wudhu:</h2>
+            <div class="pt-2 wudu-guide-color arabic-text text-right" dir="rtl">
+                أَشْهَدُ أَنَّ لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ
+                لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ، وَرَسُولُهُ...
+            </div>
+            <div class="pt-2">
+                "Saya bersaksi bahwa tiada Tuhan selain Allah yang Maha Esa
+                tiada sekutu bagi-Nya dan saya bersaksi bahwa Muhammad adalah
+                hamba Allah dan Rasul-Nya. Ya Allah, jadikanlah saya termasuk
+                golongan orang-orang yang bertaubat dan orang-orang yang suci.
+                Maha Suci Engkau ya Allah, segala puji bagi-Mu, aku bersaksi
+                bahwa tidak ada sesembahan selain Engkau, aku memohon ampunan
+                dan bertaubat kepada-Mu."
+            </div>
+            <button
+                class="scroll-to-top"
+                *ngIf="showScrollToTop"
+                (click)="scrollToTop()"
+                aria-label="Scroll to top"
+            >
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+    </div>
+</div>

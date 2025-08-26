@@ -1,0 +1,52 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="bgGreen w-full py-4 px-8">
+        <img [src]="imageWIthTextUrl" class="w-56" alt="Logo image">
+    </div>
+    <div class="mt-6" [ngClass]="direction === 'ltr' ? 'ml-15 ' : direction === 'rtl' ? 'mr-15' :''">
+        <div class="inner-page-title">
+            {{'adminMosques.selectMosqueToLaunch' | translate}}
+        </div>
+        <div class="inner-page-labels opacity-50 mt-2">
+            {{'adminMosques.youAreAnAdministratorFor' | translate}} {{ availableMosques?.length }} {{'adminMosques.chooseOneToLaunch' | translate}}
+        </div>
+    </div>
+    <div class="mt-6 mr-15 ml-15  flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4">
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="w-80">
+            <mat-form-field class="w-full fuse-mat-dense fuse-mat-rounded min-w-64 maxHeight"
+                [subscriptSizing]="'dynamic'" appearance="outline">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput (keyup)="applyFilter($event.target.value)" [autocomplete]="'off'"
+                    placeholder="Search by mosque, location" class="mt-2">
+            </mat-form-field>
+        </div>
+
+        <div class="page-sub-title">
+            <a class="mr-1 text-xl">{{ availableMosques?.length }}</a>
+            <span class="float-right"> {{'adminMosques.totalMosques' | translate}} </span>
+        </div>
+    </div>
+    <div class="mt-6 mr-15 ml-15">
+        <div class="flex flex-wrap justify-space mt-4 m-0">
+            <div *ngFor="let item of filteredMosques"
+                [ngClass]="direction === 'ltr' ? 'mr-5' : direction === 'rtl' ? 'ml-5' :''">
+                <fuse-card class="flex flex-col max-w-80 h-330 cursor-pointer" (click)="launchSelectedMosque(item)">
+                    <ng-container>
+                        <img class="w-80 h-60" *ngIf="item?.mosqueProfilePhotoUrl" [src]="item?.mosqueProfilePhotoUrl"
+                            alt="Profile Image">
+                        <img class="w-80 h-60" *ngIf="!item?.mosqueProfilePhotoUrl"
+                            [src]="imageEndPoints.dProfileOverlayImage" alt="User avatar">
+                        <div class="p-4 w-80 activeEvent">
+                            <div class="text-xl font-semibold text-primary leading-tight"> {{ item.mosqueName }} </div>
+                            <div class="text-black"> {{ item.mosqueLocation }}, {{ item.mosqueCity }}, {{
+                                item.mosqueCountry }}</div>
+                        </div>
+                    </ng-container>
+                </fuse-card>
+            </div>
+
+        </div>
+    </div>
+</div>

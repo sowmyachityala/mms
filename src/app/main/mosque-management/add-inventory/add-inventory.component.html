@@ -1,0 +1,305 @@
+<div
+    mat-dialog-title
+    class="flex justify-between bgGreen text-white py-4 px-8  {{ direction }}"
+>
+    <h1 class="font-semibold">
+        {{ "Inventory.inventoryStockIn" | translate }}
+    </h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()"
+        ><mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "Inventory.cclose" | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-8 pt-8">
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+
+    <form [formGroup]="inventoryForm">
+        <div class="mt-4 p-ltr">
+            <div>
+                <mat-form-field class="w-half pull-left">
+                    <mat-label>
+                        {{ "Inventory.category" | translate }}
+                    </mat-label>
+                    <mat-select  formControlName="categoryId"
+                        (selectionChange)="getSubCategories($event.value)"
+                        required
+                    >
+                        <mat-option
+                            *ngFor="let type of categories"
+                            [value]="type.categoryGuid"
+                        >
+                            {{ type.categoryName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="inventoryForm.get('categoryId').hasError('required')">
+                        {{'Inventory.categoryIsRequired' | translate }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-half pull-right">
+                    <mat-label>
+                        {{ "Inventory.subCategory" | translate }}
+                    </mat-label>
+                    <mat-select  formControlName="subCategoryId"
+                        (selectionChange)="getProducts($event.value)"
+                        required
+                    >
+                        <mat-option
+                            *ngFor="let type of subCategories"
+                            [value]="type.categoryGuid"
+                        >
+                            {{ type.categoryName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="inventoryForm.get('subCategoryId').hasError('required')">
+                        {{'Inventory.subCategoryIsRequired' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-half pull-left">
+                    <mat-label>
+                        {{ "Inventory.product" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="productId">
+                        <mat-option
+                            *ngFor="let type of products"
+                            [value]="type.id"
+                            (onSelectionChange)="
+                                selectedProduct(type?.id, type?.uomName, type)
+                            "
+                        >
+                            {{ type.productName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error
+                        *ngIf="
+                            inventoryForm.get('productId').hasError('required')
+                        "
+                    >
+                        {{ "Inventory.productIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-half pull-right">
+                    <mat-label>
+                        {{ "Inventory.supplier" | translate }}
+                    </mat-label>
+                    <mat-select
+                        formControlName="supplierId"
+                        (selectionChange)="selectedSupplier($event.value)"
+                    >
+                        <mat-option
+                            *ngFor="let type of supplierList"
+                            [value]="type.id"
+                        >
+                            {{ type.supplierName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error
+                        *ngIf="
+                            inventoryForm.get('supplierId').hasError('required')
+                        "
+                    >
+                        {{ "Inventory.supplierIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <div class="w-half pull-left">
+                    <mat-form-field class="w-half pull-left">
+                        <mat-label>
+                            {{ "Inventory.quantity" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            type="number"
+                            formControlName="quantity"
+                            appOnlynumber
+                            [autocomplete]="'off'"
+                            [min]="1"
+                        />
+                        <mat-error
+                            *ngIf="
+                                inventoryForm
+                                    .get('quantity')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Inventory.quantityIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                inventoryForm.get('quantity').hasError('min')
+                            "
+                        >
+                            {{ "Inventory.minimumQuantityIsOne" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- <mat-form-field class="w-half pull-right">
+                        <mat-label>{{'Inventory.uom' | translate}}</mat-label> -->
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="selectedUOM"
+                        readonly
+                        class="uom-label"
+                    />
+                    <!-- </mat-form-field>                     -->
+                </div>
+                <mat-form-field class="w-half pull-right">
+                    <mat-label>{{
+                        "Inventory.purchasePrice" | translate
+                    }}</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="purchasePrice"
+                        appOnlynumber
+                        [autocomplete]="'off'"
+                    />
+                    <mat-error
+                    *ngIf="
+                        inventoryForm
+                            .get('purchasePrice')
+                            .hasError('required')
+                    "
+                >
+                    {{ "Inventory.purchasePriceIsRequired" | translate }}
+                </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-half pull-left">
+                    <mat-label>
+                        {{ "Inventory.purchaseDate" | translate }}
+                    </mat-label>
+                    <input
+                        matInput
+                        [matDatepicker]="picker1"
+                        placeholder="DOP(DD/MM/YYYY)"
+                        required
+                        formControlName="purchaseDate"
+                        readonly
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error
+                        *ngIf="
+                            inventoryForm
+                                .get('purchaseDate')
+                                .hasError('required')
+                        "
+                    >
+                        {{ "Inventory.purchaseDateIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-half pull-right">
+                    <mat-label>
+                        {{ "Inventory.warrentyThru" | translate }}
+                    </mat-label>
+                    <input
+                        matInput
+                        [matDatepicker]="picker2"
+                        placeholder="DOWE(DD/MM/YYYY)"
+                        formControlName="warrentyThru"
+                        (dateInput)="onDateChange($event)"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker2"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <div>
+                    <div
+                        class="dropzone"
+                        fileDragDrop
+                        (filesChangeEmiter)="onFileChange($event)"
+                        accept="image/*, application/pdf"
+                    >
+                        <div class="text-wrapper">
+                            <div class="centered">
+                                <input
+                                    type="file"
+                                    name="file"
+                                    id="file"
+                                    (change)="onFileChange($event.target.files)"
+                                    accept="image/*, application/pdf"
+                                />
+                                <label for="file"
+                                    ><span class="textLink">{{
+                                        "Inventory.selectYourFile" | translate
+                                    }}</span>
+                                    {{
+                                        "Inventory.dropItHere" | translate
+                                    }}</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>{{ files[0]?.name }}</div>
+                <hr />
+                <!-- <h3 mat-subheader>Files</h3> -->
+                <!-- <div class="row fileItem" *ngFor="let f of files; let ind = index">
+                    <div class="col-sm-12 fileItemIconDiv" (click)="openConfirmDialog(ind);">
+                        <i class="fa-6x fileItemIcon"></i>
+                    </div>
+                    <div class="col-sm-12 fileItemText">
+                        <span>{{f.name}}</span>
+                    </div>
+                </div> -->
+            </div>
+            <div
+                class="text-sm mt-2 mb-2"
+                style="color: red"
+                *ngIf="isMaxThreshold"
+            >
+                <span style="font-weight: bold">Note:</span>
+                <span
+                    >You currently have {{ availableQty }} units in stock, with
+                    a minimum threshold of {{ minThreshold }} and a maximum
+                    threshold of {{ maxThreshold }}. Therefore, you are eligible
+                    to receive {{ maxThreshold - minThreshold }} units in stock
+                    replenishment.</span
+                >
+            </div>
+            <div *ngIf="direction === 'ltr'">
+                <button
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="addOrUpdateInventory()"
+                >
+                    <span>{{ "Inventory.add" | translate }}</span>
+                </button>
+                <button
+                    class="ml-3"
+                    mat-button
+                    matDialogClose
+                    (click)="onClose()"
+                >
+                    {{ "Inventory.cancel" | translate }}
+                </button>
+            </div>
+            <div *ngIf="direction === 'rtl'">
+                <button mat-button matDialogClose (click)="onClose()">
+                    {{ "Inventory.cancel" | translate }}
+                </button>
+                <button
+                    class="mr-3"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="addOrUpdateInventory()"
+                >
+                    <span>{{ "Inventory.add" | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

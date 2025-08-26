@@ -1,0 +1,323 @@
+<div
+    mat-dialog-title
+    class="flex justify-between bgGreen text-white py-4 px-15  {{ direction }}"
+>
+    <h1 class="font-semibold">{{ "imamProfileInfo.myProfile" | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "imamProfileInfo.cclose" | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-15 pt-10 {{ direction }}">
+    <div class="inner-page-title text-xl">
+        {{ "imamProfileInfo.profileInformation" | translate }}
+    </div>
+    <hr />
+    <div class="pt-10 flex">
+        <div class="w-1/3 p-6 bg-[#f5f5f5]">
+            <div
+                class="bg-[#D69C47] h-60 flex justify-center items-center"
+                *ngIf="!imamProfileInfo?.profileImageUrl"
+            >
+                <div>
+                    <mat-icon
+                        class="w-15 h-15 text-white"
+                        svgIcon="feather:user"
+                    ></mat-icon>
+                </div>
+            </div>
+            <div class="h-60" *ngIf="imamProfileInfo?.profileImageUrl">
+                <img [src]="imamProfileInfo?.profileImageUrl" class="h-full" />
+            </div>
+            
+        </div>
+        <div
+            class="w-2/3"
+            [ngClass]="
+                direction === 'ltr' ? 'ml-5' : direction === 'rtl' ? 'mr-5' : ''
+            "
+        >
+            <!-- <div class="inner-page-sub-title">
+                {{ "imamProfileInfo.personalInformation" | translate }}
+            </div>
+            <hr /> -->
+            <div class="justify-between flex mt-6">
+                <div class="w-full">                    
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.fullName' | translate}}</b> : 
+                        <span *ngIf="roleName === 'Imam'">{{ imamProfileInfo?.imamName }}</span>
+                        <span *ngIf="roleName != 'Imam'">{{ imamProfileInfo?.fullName }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.phoneNumber' | translate}}</b> : 
+                        {{ imamProfileInfo?.phoneNumber }}
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.emailID' | translate}}</b> : 
+                        <span *ngIf="roleName === 'Imam'">{{ imamProfileInfo?.email }}</span>
+                        <span *ngIf="roleName != 'Imam'">{{ imamProfileInfo?.emailId }}</span>
+
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.userCurrency' | translate}}</b> : 
+                        {{ imamProfileInfo?.userCurrency }}
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- <div class="inner-page-sub-title mt-10">
+                {{ "imamProfileInfo.roleInformation" | translate }}
+            </div>
+            <hr /> -->
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.role' | translate}}</b> : 
+                        {{ imamProfileInfo?.roleName }}
+                    </div>
+                </div>
+            </div>
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.memberSince' | translate}}</b> : 
+                        {{ imamProfileInfo?.memberSince | date : "d MMMM y" }}
+                    </div>
+                </div>
+            </div>
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.status' | translate}}</b> : 
+                        {{ imamProfileInfo?.userActivityStatus }}
+                    </div>
+                </div>
+            </div>
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <ng-container *ngIf="imamProfileInfo?.deviceCount !== 0; else zeroCount">
+                        <div>
+                            <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.deviceCount' | translate}}</b> : 
+                            <span class="text-underline"(click)="openDeviceList(imamProfileInfo?.deviceList)"><span class="">{{ imamProfileInfo?.deviceCount}} </span>{{ "imamProfileInfo.of" | translate }}<span></span><span> 3</span></span>                            
+                        </div>
+                    </ng-container>
+                    <ng-template #zeroCount>
+                        <div>
+                            <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.deviceCount' | translate}}</b> : 
+                            {{ imamProfileInfo?.deviceCount }}
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div>
+                        <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.lastSession' | translate}}</b> : 
+                        <span *ngIf="roleName === 'Imam'">{{ imamProfileInfo?.lastActive | date : "dd/MM/yyyy" }}</span>&nbsp;
+                        <span *ngIf="roleName === 'Imam'">{{ imamProfileInfo?.lastActive | date : "shortTime" }}</span>
+                        <span *ngIf="roleName != 'Imam'">{{ imamProfileInfo?.lastLoggedIn | date : "dd/MM/yyyy"}}</span>&nbsp;
+                        <span *ngIf="roleName != 'Imam'">{{ imamProfileInfo?.lastLoggedIn | date : "shortTime"}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="flex" *ngIf="roleName === 'Imam'">
+        <div class="w-1/2">
+            <div class="" [ngClass]="direction === 'ltr' ? 'ml-6 ' : direction === 'rtl' ? 'mr-6' :''">
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.nickName' | translate}}</b> : 
+                    {{ imamProfileInfo?.nickName ? imamProfileInfo?.nickName : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.place' | translate}}</b> : 
+                    {{ imamProfileInfo?.place ? imamProfileInfo?.place : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.doB' | translate}}</b> : 
+                    {{ imamProfileInfo?.doB ? imamProfileInfo?.doB : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.address' | translate}}</b> : 
+                    {{ imamProfileInfo?.imamAddress ? imamProfileInfo?.imamAddress : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.country' | translate}}</b> : 
+                    {{ imamProfileInfo?.countryName ? imamProfileInfo?.countryName : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.state' | translate}}</b> : 
+                    {{ imamProfileInfo?.stateName ? imamProfileInfo?.stateName : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.city' | translate}}</b> : 
+                    {{ imamProfileInfo?.cityName ? imamProfileInfo?.cityName : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.district' | translate}}</b> : 
+                    {{ imamProfileInfo?.districtName ? imamProfileInfo?.districtName : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.village' | translate}}</b> : 
+                    {{ imamProfileInfo?.villageName ? imamProfileInfo?.villageName : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.rtrwCode' | translate}}</b> : 
+                    {{ imamProfileInfo?.rtrwCode ? imamProfileInfo?.rtrwCode : 'N/A'  }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.postalCode' | translate}}</b> : 
+                    {{ imamProfileInfo?.postalCode ? imamProfileInfo?.postalCode : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.mapsLocation' | translate}}</b> : 
+                    {{ imamProfileInfo?.mapsLocation ? imamProfileInfo?.mapsLocation : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.mainBaseMosqueName' | translate}}</b> : 
+                    {{ imamProfileInfo?.mainBaseMosque ? imamProfileInfo?.mainBaseMosque : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.mainMosqueAddress' | translate}}</b> : 
+                    {{ imamProfileInfo?.mainMosqueAddress ? imamProfileInfo?.mainMosqueAddress : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.mainBaseMosqueMapsLocation' | translate}}</b> : 
+                    {{ imamProfileInfo?.mosqueMapsLocation ? imamProfileInfo?.mosqueMapsLocation : 'N/A' }}
+                </div>
+                <div *ngFor="let oth of imamProfileInfo?.otherMosques">
+                    <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.otherMosqueName' | translate}}</b> : 
+                        {{ oth?.otherMosqueName ? oth?.otherMosqueName : 'N/A' }}
+                    </div>
+                    <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.otherMosqueAddress' | translate}}</b> : 
+                        {{ oth?.otherMosqueAddress ? oth?.otherMosqueAddress : 'N/A' }}
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.socialMediaAccounts' | translate}}</b> : 
+                    <div *ngFor="let media of imamProfileInfo?.socialMediaAccounts">
+                        <div class="mt-4" *ngIf="media?.isChecked">
+                            <div class="social-media-item">
+                                <a *ngIf="media?.socialMediaType == 'FACEBOOK'" [href]="'https://www.facebook.com/' + media?.socialMediaId" target="_blank">
+                                    <!-- <img src="assets/icons/socialmedia/facebook.png" class="social-icon"> -->
+                                    <i class="fa-brands fa-facebook" style="font-size: x-large;"></i>
+                                </a>
+                                
+                                <a *ngIf="media?.socialMediaType == 'TikTok'" [href]="'https://www.tiktok.com/' + media?.socialMediaId" target="_blank">
+                                    <!-- <img  src="assets/icons/socialmedia/tiktok.png" class="social-icon"> -->
+                                    <i class="fab fa-tiktok" style="font-size: x-large;"></i>
+                                </a>
+                               
+                                <a *ngIf="media?.socialMediaType == 'IG'" [href]="'https://www.instagram.com/' + media?.socialMediaId" target="_blank">
+                                    <!-- <img src="assets/icons/socialmedia/instagram.png" class="social-icon"> -->
+                                    <i class="fab fa-instagram" style="font-size: x-large;"></i>
+                                </a>
+                                <a *ngIf="media?.socialMediaType == 'Twitter'" [href]="'https://www.tiktok.com/' + media?.socialMediaId" target="_blank">
+                                    <!-- <img src="assets/icons/socialmedia/twitter.png" class="social-icon"> -->
+                                    <i class="fa-brands fa-x-twitter" style="font-size: x-large;"></i>
+                                    <!-- <i class="fab fa-twitter"></i> -->
+                                </a>
+                                <a *ngIf="media?.socialMediaType == 'LinkedIn'" [href]="'https://www.linkedin.com/in/' + media?.socialMediaId" target="_blank">
+                                    <!-- <img  src="assets/icons/socialmedia/linkedin.png" class="social-icon"> -->
+                                    <i class="fab fa-linkedin" style="font-size: x-large;"></i>
+                                </a>
+                                <a *ngIf="media?.socialMediaType == 'YouTube Channel'" [href]="'https://www.youtube.com/channel/' + media?.socialMediaId" target="_blank">
+                                    <!-- <img src="assets/icons/socialmedia/youtube.png" class="social-icon"> -->
+                                    <i class="fab fa-youtube" style="font-size: x-large;"></i>
+                                </a>
+                                
+                                <span class="">
+                                    &nbsp;{{ media?.socialMediaId ? media?.socialMediaId : 'N/A' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="w-1/2">
+            <div class="" [ngClass]="direction === 'ltr' ? 'ml-6 ' : direction === 'rtl' ? 'mr-6' :''">
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.professionalImam' | translate}}</b> : 
+                    {{ imamProfileInfo?.professionalImam ? imamProfileInfo?.professionalImam : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.experienceInInternationalDawah' | translate}}</b> : 
+                    {{ imamProfileInfo?.expInternationalDawah ? imamProfileInfo?.expInternationalDawah : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.professionalKhatib' | translate}}</b> : 
+                    {{ imamProfileInfo?.professionalKhatib ? imamProfileInfo?.professionalKhatib : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.experienceAsImamAbroad' | translate}}</b> : 
+                    {{ imamProfileInfo?.expImamAbroad ? imamProfileInfo?.expImamAbroad : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.religiousBookAuthor' | translate}}</b> : 
+                    {{ imamProfileInfo?.religiousBookAuthor ? imamProfileInfo?.religiousBookAuthor : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.activistInReligiousInstitutions' | translate}}</b> : 
+                    {{ imamProfileInfo?.activistReligiousInst ? imamProfileInfo?.activistReligiousInst : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.popularPreacher' | translate}}</b> : 
+                    {{ imamProfileInfo?.popularPreacher ? imamProfileInfo?.popularPreacher : 'N/A' }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.moderateDawahActivist' | translate}}</b> : 
+                    {{ imamProfileInfo?.moderateDawahActivist ? imamProfileInfo?.moderateDawahActivist : 'N/A'  }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.majelisTaklimTeacher' | translate}}</b> : 
+                    {{ imamProfileInfo?.majelisTaklimTeacher ? imamProfileInfo?.majelisTaklimTeacher : 'N/A'  }}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.serviceInGovernmentInstitutions' | translate}}</b> : 
+                    {{ imamProfileInfo?.serviceGovtInst ? imamProfileInfo?.serviceGovtInst : 'N/A'}}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.pesantrenTeacher' | translate}}</b> : 
+                    {{ imamProfileInfo?.pesantrenTeacher ? imamProfileInfo?.pesantrenTeacher : 'N/A'}}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.socialMediaActivist' | translate}}</b> : 
+                    {{ imamProfileInfo?.socialMediaActivist ? imamProfileInfo?.socialMediaActivist : 'N/A'}}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.independent' | translate}}</b> : 
+                    {{ imamProfileInfo?.independent ? imamProfileInfo?.independent : 'N/A'}}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.politicalPartyAffiliation' | translate}}</b> : 
+                    {{ imamProfileInfo?.politicalPartyAffiliation ? imamProfileInfo?.politicalPartyAffiliation : 'N/A'}}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.memorizationAbility' | translate}}</b> : 
+                    {{ imamProfileInfo?.memorizationName ? imamProfileInfo?.memorizationName : 'N/A'}}
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.knownLanguages' | translate}}</b> : 
+                    <ul *ngFor="let lang of imamProfileInfo.knownLanguages">
+                        <li>{{lang.languageName}}</li>
+                    </ul>
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.highestFormalEducation' | translate}}</b> : 
+                    <ul *ngFor="let ed of imamProfileInfo.educationLevels">
+                        <li>{{ed.levelName}}</li>
+                    </ul>
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.informalEducation' | translate}}</b> : 
+                    <ul *ngFor="let tr of imamProfileInfo.trainings">
+                        <li>{{tr.trainingName}}</li>
+                    </ul>
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.khutbahThemes' | translate}}</b> : 
+                    <ul *ngFor="let tr of imamProfileInfo.sermonThemes">
+                        <li>{{tr.sermonThemeName}}</li>
+                    </ul>
+                </div>
+                <div class="mt-4"><b [ngClass]="direction === 'rtl' ? 'float-right' : ''">{{'imamProfileInfo.expertiseAsEducationAndTrainingInstructor' | translate}}</b> : 
+                    <ul *ngFor="let etr of imamProfileInfo.eductaionTrainingInstructor">
+                        <li>{{etr.educationTrainingName}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="float-left mt-4">
+        <button mat-button mat-dialog-close (click)="profileDialogRef.close()">{{'ImamProfile.cancel' | translate}}</button>
+       
+    </div>
+</div>
+<ngx-spinner size="medium" [type]="isLoadingType"></ngx-spinner>

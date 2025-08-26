@@ -1,0 +1,191 @@
+<div
+class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 login-height"
+>
+<div
+    class="hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-primary dark:border-l login_bg"
+>
+    <div class="z-10 w-full max-w-2xl">
+        <div class="text-4xl f-w-3 leading-none text-gray-100">
+            <div class="login_bg_al">
+                <img [src]="imageUrl" />
+            </div>
+
+            <div class="mt-28">Selamat Datang</div>
+        </div>
+        <div class="mt-2 text-lg tracking-tight leading-6 text-white">
+            Sebuah aplikasi perangkat lunak yang dirancang untuk membantu
+            pengurus masjid dalam mengelola berbagai tugas yang berkaitan
+            dengan pengelolaan masjid, seperti mengelola keanggotaan,
+            sedekah, acara, dan komunikasi dengan jamaah
+        </div>
+    </div>
+</div>
+<div
+    style="min-width: 608px !important"
+    class="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full md:w-12 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card"
+>
+    <div class="max-w-md w-full text-center p-4">
+        <div class="titleDetails" *ngIf="!isOtpArrived">
+            Masuk ke Akun Anda 
+        </div>
+        <div class="titleDetails" *ngIf="isOtpArrived">
+            Masukkan kode verifikasi
+        </div>
+        <span class="login-info span-info" *ngIf="!isOtpArrived">
+            Masuk dengan Gmail Id Anda
+        </span>
+        <div class="h-26 w-40 flex flex-col items-center justify-center mt-2 mx-auto" *ngIf="!isOtpArrived">
+            <img 
+              src="assets/images/logo/gmaillogo.jpg" 
+              alt="gmail image" 
+              class="cursor-pointer" 
+              (click)="SignInWithGoogle()"
+            />
+            <div class="font-bold text-2xl text-center">Atau</div>
+        </div>
+        <span class="login-info span-info" *ngIf="isOtpArrived"
+            >Masukkan kode verifikasi yang dikirimkan ke registrasi Anda
+            nomor ponsel atau email</span
+        >
+
+        <form class="mt-2" [formGroup]="signInForm">
+            <mat-form-field class="w-3/4" *ngIf="!isOtpArrived">
+                <mat-label
+                    >Masukan Email yang terdaftar di Isalaam</mat-label
+                >
+                <input id="email" matInput [formControlName]="'email'" />
+                <mat-error
+                    *ngIf="signInForm.get('email').hasError('required')"
+                >
+                    Alamat email yang terdaftar di Isalaam diperlukan
+                </mat-error>
+                <mat-error class="single-line-error"
+                    *ngIf="signInForm.get('email').hasError('email')"
+                >
+                    Silakan masukkan alamat email atau nomor telepon yang
+                    valid
+                </mat-error>
+            </mat-form-field>
+            <div *ngIf ="!isOtpArrived">Kode verifikasi akan dikirimkan ke Email Anda yang terdaftar di iSalaam</div>
+
+            <mat-form-field class="w-full" *ngIf="isOtpArrived">
+                <mat-label>Masukkan kode verifikasi</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'loginOtp'"
+                    appOnlynumber
+                    autofocus
+                    (keypress)="onKeyPress($event)"
+                />
+                <mat-error
+                    *ngIf="signInForm.get('loginOtp').hasError('required')"
+                >
+                    Kode verifikasi diperlukan
+                </mat-error>
+                <mat-error
+                    *ngIf="signInForm.get('loginOtp').hasError('maxlength')"
+                >
+                    Maxlength kode verifikasi hanya 6 digit.
+                </mat-error>
+            </mat-form-field>
+
+            <div class="text-center" *ngIf="seconds !== 0">
+                <span *ngIf="isOtpArrived" class="span-info">
+                    Tersisa <b>{{ displayTimer }}</b>
+                </span>
+            </div>
+            <div
+                class="text-center text-600"
+                *ngIf="isOtpArrived && seconds === 0"
+            >
+                <a (click)="resendOtp()">Kirim ulang</a>                
+            </div>
+            <button
+                class="fuse-mat-button-large w-3/4 mt-6"
+                mat-flat-button
+                [color]="'primary'"
+                [disabled]="signInForm.disabled"
+                (click)="sendOtp()"
+                *ngIf="!signInForm.disabled && !isOtpArrived"
+            >
+                <span class="font-semibold text-lg">
+                    Kirim kode verifikasi ke Email
+                </span>
+                <mat-progress-spinner
+                    *ngIf="signInForm.disabled"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"
+                ></mat-progress-spinner>
+            </button>
+
+            <button
+                class="fuse-mat-button-large w-full mt-6"
+                mat-flat-button
+                [color]="'primary'"
+                [disabled]="signInForm.disabled"
+                (click)="validateSignIn()"
+                *ngIf="!signInForm.disabled && isOtpArrived"
+            >
+                <span class="font-semibold text-lg">
+                    Verifikasi & Lanjutkan
+                </span>
+                <mat-progress-spinner
+                    *ngIf="signInForm.disabled"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"
+                ></mat-progress-spinner>
+            </button>       
+            <div class="mt-4 px-1" *ngIf="!isOtpArrived">
+                <hr class="border-t-4" />
+                <span class="font-normal text-lg">
+                    <span class="createInfo" [routerLink]="['/sign-up']">Daftar</span>
+                    iSalaam Menggunakan Email selain Gmail
+                </span>
+            </div>     
+            <div class="mt-4" *ngIf="!isOtpArrived">
+                <span class="span-info"
+                    >Dengan memberikan alamat Email saya, saya dengan ini
+                    menyetujui dan menerima
+                    <a
+                        href="https://www.isalaam.id/syarat-dan-ketentuan-penggunaan"
+                        target="_blank"
+                        >Syarat Penggunaan</a
+                    >
+                    dan
+                    <a
+                        href="https://www.isalaam.id/kebijakan-privasi"
+                        target="_blank"
+                        >Kebijakan Pribadi</a
+                    ></span
+                >
+            </div>
+
+            <div class="mt-4 text-center" *ngIf="isOtpArrived">
+                <span span-info>
+                    {{ signInForm.value.email }}
+                </span>
+                <div class="flex justify-center">
+                    <span class="login-info w-auto span-info"
+                        >Ganti nomor ponsel atau email?<span
+                            [ngClass]="
+                                direction === 'ltr'
+                                    ? ' mr-1'
+                                    : direction === 'rtl'
+                                    ? ' ml-1'
+                                    : ''
+                            "
+                            class="createInfo w-auto span-info"
+                            (click)="changeLoginDetails()"
+                            >Click here</span
+                        ></span
+                    >
+                </div>
+            </div>
+            
+        </form>
+        <div class="pt-3 flex justify-center">
+            <span class="float-right span-info">©2024. iSalaam MMS. All Rights Reserved.</span>
+        </div>  
+    </div>
+</div>
+</div> 

@@ -1,0 +1,451 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div class="flex flex-col shadow bg-card">
+        <div class="container w-full mx-auto overflow-hidden">
+            <div *ngIf="mosqueSlideInfo.length === 0">
+                <img
+                    class="object-cover imgPos"
+                    *ngIf="mosqueInfo?.mosqueCoverPhotoUrl"
+                    [src]="mosqueInfo?.mosqueCoverPhotoUrl"
+                />
+                <img
+                    class="object-cover imgPos"
+                    *ngIf="!mosqueInfo?.mosqueCoverPhotoUrl"
+                    [src]="imageEndPoints.profileCoverImage"
+                />
+            </div>
+
+            <div *ngIf="mosqueSlideInfo.length > 0">
+                <div *ngFor="let image of mosqueSlideInfo; let i = index">
+                    <div *ngIf="i === activeIndex">
+                        <img
+                            class="w-full h-full object-cover transition-all duration-500 imgPos"
+                            [src]="image.photoUrl"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="overlay">
+                <div
+                    class="top-14 md:top-4 cursor-pointer flex"
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'top-upload-left'
+                            : direction === 'rtl'
+                            ? 'top-upload-right'
+                            : ''
+                    "
+                >
+                    <mat-icon
+                        [style.color]="'white'"
+                        svgIcon="mat_outline:file_upload"
+                    ></mat-icon>
+                    <span (click)="uploadImage('cover', '1200', '300', true)">{{
+                        "MosqueProfile.multipleCoverPage" | translate
+                    }}</span>
+                    <div class="pl-4">
+                        <button
+                            *ngIf="mosqueSlideInfo.length > 0"
+                            class="d-cal"
+                            matTooltip="Delete Cover Photo"
+                            [matTooltipPosition]="'left'"
+                            (click)="
+                                deleteCoverPhotoConfirm(
+                                    mosqueSlideInfo[activeIndex].photoGuid
+                                )
+                            "
+                        >
+                            <mat-icon color="warn" class="icon-display"
+                                >delete</mat-icon
+                            >
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="mosqueSlideInfo.length > 1">
+                <button
+                    (click)="prevSlide()"
+                    class="absolute text-2xl top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                    [ngClass]="direction === 'ltr' ? 'left-4' : 'right-4'"
+                >
+                    &#10094;
+                </button>
+                <button
+                    (click)="nextSlide()"
+                    class="absolute text-2xl top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                    [ngClass]="direction === 'ltr' ? 'right-4' : 'left-4'"
+                >
+                    &#10095;
+                </button>
+            </div>
+
+            <div
+                class="top-14 md:top-4 top-left"
+                [ngClass]="
+                    direction === 'ltr'
+                        ? 'top-info-right'
+                        : direction === 'rtl'
+                        ? 'top-info-left'
+                        : ''
+                "
+            >
+                <div>
+                    <span class="text-xl font-semibold"
+                        >{{ translatedTitle }}
+                        {{ "MosqueProfile.profile" | translate }}</span
+                    >
+                </div>
+                <div>
+                    <span class="text-2lg">{{ mosqueInfo?.mosqueName }}</span>
+                </div>
+                <div class="lg:mt-16 md:mt-4">
+                    <span class="text-sm"
+                        >{{ "MosqueProfile.nextPrayerAt" | translate }}
+                        {{ mosqueInfo?.nextPrayerTime | date : "shortTime" }}
+                    </span>
+                </div>
+                <div>
+                    <span class="text-2xl font-medium">{{
+                        mosqueInfo?.nextPrayerName
+                    }}</span>
+                </div>
+                <div class="chipAlign">
+                    <mat-chip-listbox>
+                        <mat-chip class="bg-white"
+                            >{{ mosqueInfo?.currentHijriDate }} H</mat-chip
+                        >
+                    </mat-chip-listbox>
+                </div>
+            </div>
+            <div
+                class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2"
+                *ngIf="mosqueSlideInfo.length > 1"
+            >
+                <button
+                    *ngFor="let i of mosqueSlideInfo; let idx = index"
+                    class="w-3 h-3 rounded-full bg-white"
+                    (click)="goToSlide(idx)"
+                    [ngClass]="{
+                        'bg-slate-600': activeIndex !== idx,
+                        'bg-white': activeIndex === idx
+                    }"
+                ></button>
+            </div>
+        </div>
+
+        <div class="absolute">
+            <div
+                class="top-80 md:top-64 bottom-right flex"
+                [ngClass]="
+                    direction === 'ltr'
+                        ? 'left-6 '
+                        : direction === 'rtl'
+                        ? 'right-6'
+                        : ''
+                "
+            >
+                <div
+                    class="-mt-26 lg:-mt-12 md:-mt-20 profileHover rounded-full flex text-black"
+                >
+                    <img
+                        class="w-60 h-80 ring-bg-card size"
+                        *ngIf="mosqueInfo?.mosqueProfilePhotoUrl"
+                        [src]="mosqueInfo?.mosqueProfilePhotoUrl"
+                    />
+                    <img
+                        class="w-60 h-80 ring-bg-card size"
+                        *ngIf="!mosqueInfo?.mosqueProfilePhotoUrl"
+                        [src]="imageEndPoints.profileOverlayImage"
+                    />
+                    <div class="overlayProfile -mt-26 lg:-mt-12 md:-mt-20">
+                        <div class="flex uploadProfile cursor-pointer">
+                            <mat-icon
+                                [style.color]="'white'"
+                                svgIcon="mat_outline:file_upload"
+                            ></mat-icon>
+                            <span
+                                class="text-white"
+                                (click)="uploadImage('profile', '250', '320', false)"
+                            >
+                                {{ "MosqueProfile.uploadProfile" | translate }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile_details relative">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl inline_title">
+                            {{ translatedTitle }}
+                            {{ "MosqueProfile.profile" | translate }}
+                        </div>
+                        <div
+                            class="bottom-left"
+                            [ngClass]="
+                                direction === 'ltr'
+                                    ? 'right-4'
+                                    : direction === 'rtl'
+                                    ? 'left-4'
+                                    : ''
+                            "
+                        >
+                            <div
+                                *ngFor="
+                                    let action of currentActions?.childMenuActions
+                                "
+                            >
+                                <button
+                                    class="ml-4"
+                                    mat-flat-button
+                                    [color]="'primary'"
+                                    *ngIf="
+                                        action?.actionNameId === 'Edit' &&
+                                        title != 'MINISTRY'
+                                    "
+                                    (click)="editMosque()"
+                                >
+                                    <span class="ml-2 mr-1">{{
+                                        "MosqueProfile.editProfile" | translate
+                                    }}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline_name mt-4">
+                        {{ mosqueInfo?.mosqueName }}
+                    </div>
+                    <div class="mt-4">
+                        <b
+                            [ngClass]="direction === 'rtl' ? 'float-right' : ''"
+                            >{{ "MosqueProfile.administration" | translate }}</b
+                        >
+                        :
+                        {{
+                            mosqueInfo?.administrationBy
+                                ? mosqueInfo?.administrationBy
+                                : "N/A"
+                        }}
+                    </div>
+                    <div class="mt-4">
+                        <b
+                            [ngClass]="direction === 'rtl' ? 'float-right' : ''"
+                            >{{ "MosqueProfile.website" | translate }}</b
+                        >
+                        :
+                        <a (click)="openWebsite()">{{
+                            mosqueInfo?.website
+                                ? mosqueInfo?.website
+                                : " https://mecca.net"
+                        }}</a>
+                    </div>
+                    <div class="mt-4">
+                        <b
+                            [ngClass]="direction === 'rtl' ? 'float-right' : ''"
+                            >{{ "MosqueProfile.location" | translate }}</b
+                        >
+                        :
+                        <span
+                            >{{
+                                mosqueInfo?.mosqueLocation
+                                    ? mosqueInfo?.mosqueLocation
+                                    : "N/A"
+                            }},
+                            {{
+                                mosqueInfo?.mosqueCity
+                                    ? mosqueInfo?.mosqueCity
+                                    : "N/A"
+                            }}
+                            (
+                            {{
+                                mosqueInfo?.mosqueCountry
+                                    ? mosqueInfo?.mosqueCountry
+                                    : "N/A"
+                            }}
+                            )</span
+                        >
+                    </div>
+                    <div class="mt-4">
+                        <b
+                            [ngClass]="direction === 'rtl' ? 'float-right' : ''"
+                            >{{
+                                "MosqueProfile.completeAddress" | translate
+                            }}</b
+                        >
+                        :
+                        <span>{{
+                            mosqueInfo?.mosqueAddress
+                                ? mosqueInfo?.mosqueAddress
+                                : "N/A"
+                        }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="lg:pt-64 md:pt-64 sm:pt-80 xl:pt-64"
+        [ngClass]="
+            direction === 'ltr' ? 'ml-6 ' : direction === 'rtl' ? 'mr-6' : ''
+        "
+    >
+        <span class="text-2xl"
+            ><b>{{ "MosqueProfile.aboutMosque" | translate }}</b></span
+        >
+        <p>
+            {{ mosqueInfo?.aboutMosque }}
+        </p>
+    </div>
+    <div
+        class="pt-8 pb-4"
+        [ngClass]="
+            direction === 'ltr' ? 'ml-6 ' : direction === 'rtl' ? 'mr-6' : ''
+        "
+    >
+        <span class="text-2xl mt-8"
+            ><b>{{ "MosqueProfile.keyMembers" | translate }}</b></span
+        >
+
+        <div
+            class="flex flex-wrap items-start w-full max-w-400 mt-4 m-0 gap-x-5 gap-y-6"
+        >
+            <fuse-card
+                class="flex flex-col max-w-60 w-full filter-article filter-interactive"
+                style="border: 1px solid #006e8c"
+                *ngFor="let item of keyLeaders"
+            >
+                <ng-container>
+                    <img
+                        class="object-cover max-h-64 h-64"
+                        [src]="item.memberProfileUri"
+                        alt="Card cover image"
+                    />
+                    <div class="p-4 bg-[#F3FFFA] max-h-32">
+                        <div
+                            class="text-2xl font-semibold overflow-hidden text-ellipsis whitespace-nowrap"
+                            title="{{ item?.name }}"
+                        >
+                            {{ item.name }}
+                        </div>
+                        <div
+                            class="text-disabled desContainer"
+                            title="{{ item?.about }}"
+                        >
+                            {{ item.about }}
+                        </div>
+                        <!-- <div class="-mx-3">
+                            <button class="px-3" mat-button [color]="'primary'">
+                                {{'MosqueProfile.viewProfile' | translate}}
+                            </button>
+                        </div> -->
+                    </div>
+                </ng-container>
+            </fuse-card>
+        </div>
+
+        <!-- <div class="text-lg font-semibold pt-8 text-center active cursor-pointer" [routerLink]="['/mosque/keymembers']">
+            {{'MosqueProfile.viewAllMembers' | translate}}
+        </div> -->
+    </div>
+
+    <div
+        class="pt-8 pb-4"
+        [ngClass]="
+            direction === 'ltr' ? 'ml-6 ' : direction === 'rtl' ? 'mr-6' : ''
+        "
+    >
+        <span class="text-2xl mt-8"
+            ><b> {{ "MosqueProfile.mosqueGallery" | translate }}</b></span
+        >
+
+        <div
+            class="flex flex-wrap items-start w-full max-w-400 mt-4 m-0 gap-x-5 gap-y-6"
+        >
+            <!-- <div class="flex" *ngFor="let image of [1, 2, 3, 4, 5, 6, 7, 8]">
+                <img class="w-64 h-52" src="assets/images/ui/profile/gallery/gallery{{image}}.svg">
+            </div> -->
+            <div class="flex v-img" *ngFor="let image of allImages">
+                <img class="w-64 h-52" [src]="image.fileUri" class="s-img" />
+            </div>
+            <div class="flex v-img" *ngFor="let image of allGreetings">
+                <img class="w-64 h-52" [src]="image.fileUri" class="s-img" />
+            </div>
+            <div class="flex v-img" *ngFor="let image of allQuotes">
+                <img class="w-64 h-52" [src]="image.fileUri" class="s-img" />
+            </div>
+        </div>
+
+        <div
+            class="text-lg font-semibold pt-8 text-center active cursor-pointer"
+            (click)="navToGallery()"
+        >
+            {{ "MosqueProfile.viewAllGallery" | translate }}
+        </div>
+    </div>
+
+    <div class="flex flex-col shadow px-6 py-4">
+        <div class="flex justify-between py-6 px-24 h-72 bg-[#ECFAFF]">
+            <div class="text-center">
+                <div>
+                    <div class="text-3xl text-black">
+                        {{ "MosqueProfile.thoseWhoSpendIn" | translate }}
+                    </div>
+                </div>
+                <div class="mt-4 font-bold text-3xl" style="color: #006e8c">
+                    {{ "MosqueProfile.charity" | translate }}
+                </div>
+                <div class="mt-2 text-3xl" style="color: #fd4755">
+                    {{ "MosqueProfile.willBeRichlyRewarded" | translate }}
+                </div>
+                <div class="mt-2" style="color: #071443">
+                    {{ "MosqueProfile.alQuran5710" | translate }}
+                </div>
+                <div
+                    class="mt-1 font-semibold"
+                    *ngIf="mosqueInfo?.isFollowing != null"
+                >
+                    <a
+                        *ngIf="mosqueInfo?.isFollowing"
+                        (click)="FollowTheMosque('UnFollow')"
+                        >{{ "MosqueFollower.following" | translate }}</a
+                    >
+                    <a
+                        *ngIf="!mosqueInfo?.isFollowing"
+                        (click)="FollowTheMosque('Follow')"
+                        >{{ "MosqueFollower.follow" | translate }}</a
+                    >
+                </div>
+                <div
+                    class="mt-2 active font-semibold cursor-pointer flex"
+                    [routerLink]="['/donations']"
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'ml-32'
+                            : direction === 'rtl'
+                            ? 'mr-32'
+                            : ''
+                    "
+                >
+                    <span> {{ "MosqueProfile.donateNow" | translate }}</span>
+                    <mat-icon
+                        *ngIf="direction === 'rtl'"
+                        class="active"
+                        [svgIcon]="'heroicons_solid:chevron-left'"
+                    ></mat-icon>
+                    <mat-icon
+                        *ngIf="direction === 'ltr'"
+                        class="active"
+                        [svgIcon]="'heroicons_solid:chevron-right'"
+                    ></mat-icon>
+                </div>
+            </div>
+            <div>
+                <img
+                    class="h-64 w-72"
+                    [src]="imageEndPoints.donation_mosque"
+                    alt="Cover image"
+                />
+            </div>
+        </div>
+    </div>
+</div>

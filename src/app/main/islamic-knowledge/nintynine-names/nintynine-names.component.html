@@ -1,0 +1,92 @@
+<div class="container donation-container">
+    <!-- Header Section -->
+    <!-- <div class="title-section">
+        <h6>Islamic Knowledge</h6>
+    </div> -->
+
+    <!-- Title -->
+    <h3 class="name_allah mt-2">
+        <i class="fa fa-th-large" aria-hidden="true"></i> {{menuItems[activeIndex].label}}
+    </h3>
+
+    <div class="icon-scroll-wrapper">
+        <!-- Left Arrow -->
+        <!-- <button class="scroll-btn left" (click)="scrollIcons('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button> -->
+
+        <div class="icon-scroll" #iconScroll id="iconScroll">
+            <div
+                class="icon-item"
+                #iconItem
+                *ngFor="let item of menuItems; let i = index"
+                (click)="navigateToPage(item.label, i)"
+                [ngClass]="{ active: activeIndex === i }"
+            >
+                <img [src]="item.image" [alt]="item.label" />
+                <div>{{ item.label }}</div>
+            </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <!-- <button class="scroll-btn right" (click)="scrollIcons('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button> -->
+    </div>
+
+    <div class="divider-image">
+        <img src="assets/images/islamic-knowledge/devider.png" alt="divider" />
+    </div>
+
+    <div class="audio-row">
+        <div
+            class="audio-box"
+            *ngFor="let audio of audioList"
+            (click)="playAudio(audio)"
+        >
+            <i class="fa fa-headphones"></i>
+              <!-- <img src="assets/images/islamic-knowledge/headphone.svg" alt="Headphone Icon" style="width: 20px; height: 20px;" /> -->
+            <p>{{ audio.title }}</p>
+        </div>
+    </div>
+
+    <div class="audio-section">
+        <h2>ASMAUL HUSNA</h2>
+
+        <div class="audio-list" #scrollContainer>
+            <!-- Repeat this block for more items -->
+            <div class="audio-item" *ngFor="let name of NintyNineNames">
+                <div class="audio-info">
+                    <a>{{ name.id }}. {{ name.latin }}</a>
+                    <p>{{ name.indonesian }}</p>
+                </div>
+                <div class="arabic">{{ name.arabic }}</div>
+            </div>
+        </div>
+        <button
+            class="scroll-to-top"
+            *ngIf="showScrollToTop"
+            (click)="scrollToTop()"
+            aria-label="Scroll to top"
+        >
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+</div>
+
+<div
+    id="audioModal"
+    class="modal"
+    [style.display]="isAudioModalOpen ? 'flex' : 'none'"
+>
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="songTitle">{{ selectedAudioTitle }}</span>
+            <span class="close" (click)="closeModal()">&times;</span>
+        </div>
+        <audio controls autoplay id="audioPlayer" controlsList="nodownload">
+            <source [src]="selectedAudioUrl" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+</div>

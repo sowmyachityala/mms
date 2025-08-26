@@ -1,0 +1,1072 @@
+<div class="container donation-container">
+    <!-- Header Section -->
+    <!-- <div class="title-section">
+        <h6>Islamic Knowledge</h6>
+    </div> -->
+
+    <!-- Title -->
+    <h3 class="name_allah mt-2">
+        <i class="fa fa-th-large" aria-hidden="true"></i> {{menuItems[activeIndex].label}}
+    </h3>
+
+    <div class="icon-scroll-wrapper">
+        <!-- Left Arrow -->
+        <!-- <button class="scroll-btn left" (click)="scrollIcons('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button> -->
+
+        <div class="icon-scroll" #iconScroll id="iconScroll">
+            <div
+                class="icon-item"
+                #iconItem
+                *ngFor="let item of menuItems; let i = index"
+                (click)="navigateToPage(item.label, i)"
+                [ngClass]="{ active: activeIndex === i }"
+            >
+                <img [src]="item.image" [alt]="item.label" />
+                <div>{{ item.label }}</div>
+            </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <!-- <button class="scroll-btn right" (click)="scrollIcons('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button> -->
+    </div>
+
+    <div class="divider-image">
+        <img src="assets/images/islamic-knowledge/devider.png" alt="divider" />
+    </div>
+
+    <div class="audio-section">
+        <h2>KHUTBAH JUMAT</h2>
+
+        <div class="p-3 Khutbah-jumat-section">
+            <div class="space-y-4">
+                <div *ngFor="let khutbah of khutbahItems">
+                    <button
+                        (click)="scrollToSection(khutbah.id)"
+                        class="flex items-center"
+                    >
+                        <img [src]="vectorImage" class="w-6 h-6 mr-1" />
+                        <span
+                            class="islamic-knowledge-color underline underline-offset-4"
+                            >{{ khutbah.title }}</span
+                        >
+                    </button>
+                </div>
+            </div>
+
+            <div class="pt-4">
+                <div id="khutbah-empat-ciri-surga-dunia" class="pt-4">
+                    <div class="pt-4">
+                        <h2>KHUTBAH EMPAT CIRI SURGA DUNIA</h2>
+                        <div class="font-extrabold text-center">
+                            Oleh: Drs. H. Ahmad Yani
+                        </div>
+                        <div class="islamic-knowledge-color font-medium">
+                            Ketua Departemen Pembinaan dan Pengembangan SDM
+                            Masjid PP DMI, Ketua LPPD Khairu Ummah, Sekretaris
+                            Dewan Syura IKADI (Ikatan Dai Indonesia), Anggota
+                            Komisi Dakwah MUI Pusat, Bidang Dakwah KODI DKI
+                            Jakarta, Penulis 63 Buku, Trainer Dai, Manajemen
+                            Majelis Taklim dan Manajemen Masjid
+                        </div>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-14.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <div class="islamic-knowledge-color font-bold">
+                            Sidang Jumat Rahimakumullah.
+                        </div>
+                        <div class="pt-4">
+                            Surga seringkali digambarkan sebagai sesuatu yang
+                            menyenangkan, bahkan kesenangan yang tiada terkira,
+                            belum pernah terbayangkan dan kekal abadi. Dalam
+                            satu hadits Qudsi, Allah swt berfirman melalui sabda
+                            Rasulullah saw:
+                        </div>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-15.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <div>
+                            Aku menyiapkan untuk para hamba-Ku yang shaleh, apa
+                            yang belum pernah dilihat dimata dan didengar
+                            telinga serta belum pernah terlintas dalam hati
+                            manusia (HR. Bukhari dan Muslim dari Abu Hurairah).
+                        </div>
+                        <div class="pt-3">
+                            Karena surga yang sesungguhnya masih amat lama untuk
+                            bisa kita nikmati, maka dunia ini harus kita
+                            usahakan menjadi seperti surga. Karenanya, ada empat
+                            hal menyenangkan yang harus kita perjuangkan agar
+                            kehidupan dunia menjadi seperti surga tanpa harus
+                            mengabaikan target kita yang sesungguhnya untuk
+                            meraih surga di akhirat.
+                        </div>
+                        <div class="pt-3">
+                            <span class="islamic-knowledge-color font-bold"
+                                >Pertama, Keluarga Yang Shaleh.</span
+                            >
+                            Surga akan dihuni oleh orang-orang yang bertaqwa
+                            kepada Allah swt, karena memang Allah swt sediakan
+                            surga itu untuk siapa saja yang bertaqwa kepada-Nya.
+                            Diantara yang bisa masuk adalah dari keluarga besar
+                            yang shaleh, mulai dari suami, isteri, anak, cucu
+                            dan seterusnya, Allah swt berfirman:
+                        </div>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-16.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <div>
+                            (yaitu) surga Adn yang mereka masuk ke dalamnya
+                            bersama- sama dengan orang-orang yang saleh dari
+                            bapak-bapaknya, istri-istrinya dan anak cucunya,
+                            sedang malaikat-malaikat masuk ke tempat-tempat
+                            mereka dari semua pintu; (QS Ar Ra’d [13]:23).
+                        </div>
+                        <div class="pt-3">
+                            Bila keluarga yang shaleh akan masuk ke dalam surga,
+                            itu artinya dalam hidup ini akan terasa bagai di
+                            surga bila seluruh anggota keluarga mewujudkan
+                            dirinya menjadi orang- orang yang shaleh. Dengan
+                            keshalehan itu, hubungan suami isteri akan
+                            berlangsung dengan baik dan sangat indah, hubungan
+                            orang tua dengan anak berlangsung dengan penuh kasih
+                            sayang dan hubungan anak dengan orang tuanya
+                            menunjukkan penghormatan yang sangat tinggi, kesemua
+                            itu didasari oleh keikhlasan karena Allah swt.
+                        </div>
+                        <div class="pt-3">
+                            Tanpa keshalehan, kita dapati bahkan bisa jadi kita
+                            rasakan anggota keluarga tidak menunjukkan hubungan
+                            yang baik hanya karena tidak ada faktor duniawi yang
+                            tidak menyenangkan. Ini berarti, bila anggota
+                            keluarga menunjukkan dan selalu meningkatkan
+                            keshalehan, surga dunia bisa kita rasakan dalam
+                            hidup ini.
+                        </div>
+                    </div>
+                    <div>
+                        <div class="islamic-knowledge-color font-bold pt-3">
+                            Kaum MusliminYang Dimuliakan Allah swt.
+                        </div>
+                        <div class="pt-3">
+                            <span class="islamic-knowledge-color font-bold"
+                                >Kedua,</span
+                            >
+                            ciri surga dunia adalah
+                            <span class="islamic-knowledge-color font-bold"
+                                >Sungai Yang Menyenangkan.</span
+                            >
+                            Surga digambarkan di dalamnya terdapat sungai-sungai
+                            yang berisi air, susu, madu dan khamer yang lezat
+                            serta buah-buahan, semuanya tidak bisa dibandingkan
+                            dengan apa yang ada di dunia ini, Allah swt
+                            berfirman:
+                        </div>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-17.png"
+                                alt="divider"
+                            />
+                        </div>
+                        <div class="p-1">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-18.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            (apakah) perumpamaan (penghuni) jannah yang
+                            dijanjikan kepada orang-orang yang bertakwa yang di
+                            dalamnya ada sungai-sungai dari air yang tiada
+                            berubah rasa dan baunya, sungai-sungai dari air susu
+                            yang tidak berubah rasanya, sungai-sungai dari
+                            khamar yang lezat rasanya bagi peminumnya dan
+                            sungai-sungai dari madu yang disaring; dan mereka
+                            memperoleh di dalamnya segala macam buah- buahan dan
+                            ampunan dari Rabb mereka, sama dengan orang yang
+                            kekal dalam Jahannam dan diberi minuman dengan air
+                            yang mendidih sehingga memotong ususnya? (QS
+                            Muhammad [47]:15).
+                        </p>
+                        <p>
+                            Oleh karena itu, suasana surgawi harus kita ciptakan
+                            di dunia ini dengan mewujudkan sungai yang bersih
+                            dari segala kotoran dan sampah. Air sungai
+                            seharusnya jernih sehingga menjadi tempat yang
+                            menyenangkan dan bisa digunakan untuk bersuci. Namun
+                            yang amat kita sayangkan adalah sungai-sungai kita
+                            sekarang ini belum menjadi tempat yang menyenangkan,
+                            tapi justeru bisa membawa malapetaka dengan banjir
+                            besar karena kita kurang menghormati dengan suka
+                            membuang kotoran, sampah dan kurang terpelihara.
+                            Upaya mewujudkan sungai yang bersih merupakan
+                            tanggungjawab bersama masyarakat dan pemerintah.
+                            Kebutuhan kita terhadap sungai sekarang ini semakin
+                            besar, selain untuk menampung dan mengalirkan air
+                            saat hujan, air sungai juga menjadi sumber air minum
+                            dan air bersih melalui proses pembersihan hingga
+                            untuk irigasi dalam pertanian.
+                        </p>
+                        <p>
+                            Ciri surga dunia yang
+                            <span class="islamic-knowledge-color font-bold"
+                                >Ketiga</span
+                            >
+                            adalah
+                            <span class="islamic-knowledge-color font-bold"
+                                >Suasana Damai.</span
+                            >
+                            Permusuhan atau konflik antar manusia merupakan
+                            keadaan yang amat tidak menyenangkan dan
+                            mengakibatkan kesengsaraan yang berkepanjangan, baik
+                            fisik maupun mental, karenanya surga menjadi tempat
+                            yang penuh dengan kedamaian, baik dalam sikap,
+                            perkataan maupun perbuatan, Allah swt berfirman:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-19.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            Sesungguhnya orang-orang yang bertakwa itu berada
+                            dalam surga (taman-taman) dan (di dekat) mata
+                            air-mata air (yang mengalir). (Dikatakan kepada
+                            mereka): "Masuklah ke dalamnya dengan sejahtera lagi
+                            aman". Dan Kami lenyapkan segala rasa dendam yang
+                            berada dalam hati mereka, sedang mereka merasa
+                            bersaudara duduk berhadap-hadapan di atas
+                            dipan-dipan. Mereka tidak merasa lelah di dalamnya
+                            dan mereka sekali-kali tidak akan dikeluarkan
+                            daripadanya. (QS Al Hijr [15]:45-48).
+                        </p>
+                        <p class="pt-3">
+                            Bila kita ingin merasakan suasana surgawi di dunia
+                            ini, harus tercipta kedamaian diantara sesama kita,
+                            mulai dari keluarga, masyarakat dan bangsa. Karena
+                            itu, terjadinya permusuhan antar sesama apalagi
+                            sesama muslim yang sebenarnya saudara dalam keimanan
+                            harus diakhiri dengan kesepakatan untuk berdamai
+                            kembali.
+                        </p>
+                        <div class="pt-1">
+                            Dalam rangka membangun suasana damai, bila kita
+                            marah, maka yang bagus adalah menahan kemarahan dan
+                            memaafkan, begitulah memang salah satu ciri orang
+                            yang bertaqwa kepada Allah swt berfirman:
+                        </div>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-20.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            Dan bersegeralah kamu kepada ampunan dari Tuhanmu
+                            dan kepada surga yang luasnya seluas langit dan bumi
+                            yang disediakan untuk orang-orang yang bertakwa,
+                            (yaitu) orang- orang yang menafkahkan (hartanya),
+                            baik di waktu lapang maupun sempit, dan orang-orang
+                            yang menahan amarahnya dan memaafkan (kesalahan)
+                            orang. Allah menyukai orang- orang yang berbuat
+                            kebajikan (QS Ali Imran [3]:133-134).
+                        </p>
+                        <p class="pt-3">
+                            Karena itu, bila orang lain memutuskan hubungan,
+                            kitapun menyambungkannya kembali, meskipun sudah
+                            tidak ada komunikasi, hal ini karena memang tidak
+                            boleh bagi sesama muslim tidak bertegur sapa sampai
+                            melebihi tiga hari, Rasulullah saw bersabda:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-21.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <p>
+                            Tidak halal bagi seorang muslim tidak bertegur sapa
+                            dengan saudaranya lebih dari tiga malam, yaitu
+                            mereka bertemu, lalu yang ini berpaling dan yang itu
+                            berpaling, tetapi orang yang paling baik adalah yang
+                            paling dahulu memberi salam (HR. Muslim).
+                        </p>
+                        <div class="islamic-knowledge-color font-bold pt-3">
+                            Ma’asyiral Muslimin Rahimakumullah.
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            <span class="islamic-knowledge-color font-bold"
+                                >Keempat,</span
+                            >
+                            ciri suasana surgawi adalah
+                            <span class="islamic-knowledge-color font-bold"
+                                >Tidak Ada Pembicaraan Kotor.</span
+                            >
+                            Berbicara dan mendengar pembicaraan yang baik
+                            merupakan sesuatu yang amat menyenangkan, hal ini
+                            akan bisa kita rasakan di dalam surga sehingga tidak
+                            ada pembicaraan kotor seperti yang sering kita
+                            dengar di dunia ini, Allah swt berfirman:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-22.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <p>
+                            Mereka tidak mendengar di dalamnya Perkataan yang
+                            sia-sia dan tidak pula perkataan yang menimbulkan
+                            dosa, akan tetapi mereka mendengar Ucapan salam (QS
+                            Al Qaqi’ah [56]:25- 26).
+                        </p>
+                        <p>
+                            Bila kita menghendaki suasana surgawi di dunia ini,
+                            setiap kita harus berusaha untuk selalu berbicara
+                            yang baik, baik bahasa yang digunakan, gaya
+                            berbicara maupun muatan pembicaraannya. Manakala
+                            kita tidak bisa berbicara yang baik, disamping hal
+                            itu berbahaya bagi orang lain, sebenarnya juga amat
+                            berbahaya bagi diri kita sendiri, karena memang dosa
+                            terbesar atau terbanyak dari sekian dosa yang
+                            dilakukan manusia adalah dosa yang bersumber dari
+                            lisannya, Rasulullah saw bersabda:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-23.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <div>
+                            Sesungguhnya kebanyakan dosa anak Adam berada pada
+                            lidahnya (HR. Thabrani).
+                        </div>
+                        <p>
+                            <span
+                                >Bila berbicara yang baik dan benar membuat
+                                seorang masuk surga, maka tidak bisa dipungkiri
+                                bahwa berbicara yang bathil akan membuat manusia
+                                masuk ke dalam neraka. Karena itu di dalam surat
+                                Al Muddatstsir [74]: 42, ketika manusia ditanya:
+                            </span>
+                        </p>
+                        <div class="p-2 text-right">
+                            <img
+                                class="w-30 inline-block"
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-24.png"
+                                alt="divider"
+                            />
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <div>
+                            Apa yang menyebabkan kamu masuk ke saqar (neraka)?.
+                        </div>
+                        <div>Maka jawabannya terdapat pada ayat 45:</div>
+                        <div></div>
+                        <p>
+                            Dan adalah kami membicarakan yang bathil, bersama
+                            orang- orang yang membicarakannya.
+                        </p>
+                        <p>
+                            Dengan demikian, suasana kehidupan yang baik
+                            merupakan suasana surga yang bisa kita raih dalam
+                            kehidupan di dunia ini
+                        </p>
+                        <p>
+                            Demikian khutbah Jumat kita yang singkat hari ini,
+                            semoga bermanfaat bagikita bersama, amin.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                        alt="divider"
+                    />
+                </div>
+
+                <div id="khutbah-niat-dan-amal-yang-ihsan">
+                    <div>
+                        <h2>KHUTBAH NIAT DAN AMAL YANG IHSAN</h2>
+                        <div class="font-extrabold text-center">
+                            Oleh: Drs. H. Ahmad Yani
+                        </div>
+                        <p class="islamic-knowledge-color font-bold pt-3">
+                            Ketua Departemen SDM MASJID PP DMI, Ketua LPPD
+                            Khairu Ummah, Sekretaris Dewan Syura IKADI (Ikatan
+                            Dai Indonesia), Anggota Komisi Dakwah MUI Pusat,
+                            Bidang Dakwah KODI DKI Jakarta, Penulis 64 Buku,
+                            Trainer Dai, Manajemen Majelis Taklim dan Manajemen
+                            Masjid
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-34.png"
+                                alt="divider"
+                            />
+                        </div>
+                        <div class="islamic-knowledge-color font-bold">
+                            Sidang Jumat Rahimakumullah.
+                        </div>
+                        <p>
+                            Salah satu tanda keimanan adalah berlaku ihsan dalam
+                            kehidupan sehari-hari. Secara harfiyah, ihsan adalah
+                            baik, dalam satu hadits, ihsan didefinisikan
+                            mengabdi kepada Allah seolah-olah kita melihat Allah
+                            dan bila kita tidak melihat Allah, maka kita yakin
+                            Allah swt melihat kita. Karena itu, berlaku baik
+                            telah menjadi kewajiban yang ditetapkan Allah swt
+                            kepada kita dalam segala aspek kehidupan, dalam satu
+                            hadits, Rasulullah saw bersabda:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-35.png"
+                                alt="divider"
+                            />
+                        </div>
+                        <div>
+                            Sesungguhnya Allah mewajibkan berlaku baik dalam
+                            segala sesuatu (HR. Muslim).
+                        </div>
+                        <p>
+                            Dengan demikian, orang yang ihsan selalu merasa
+                            diawasi oleh Allah swt yang membuatnya akan selalu
+                            berlaku baik, tidak berani menyimpang dari ketentuan
+                            Allah swt, meskipun tidak ada orang lain yang
+                            mengetahuinya.
+                        </p>
+                        <p>
+                            Sesudah menyadari bahwa Allah itu dekat dan selalu
+                            mengawasi manusia, setiap kita juga harus memahami
+                            dan menyadari bahwa Allah swt berlaku baik kepada
+                            manusia seperti telah menyediakan segala yang
+                            dibutuhkan manusia dalam kehidupan di dunia
+                            menundukkan langit dan bumi untuk kepentingan
+                            manusia, ini semua juga semestinya membuat manusia
+                            berlaku baik kepada Allah swt sebagai tanda terima
+                            kasih kepada-Nya, Allah swt berfirman:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-36.png"
+                                alt="divider"
+                            />
+                        </div>
+                        <p>
+                            Tidakkah kamu perhatikan sesungguhnya Allah telah
+                            menundukkan untuk (kepentingan) mu apa yang di
+                            langit dan apa yang di bumi dan menyempurnakan
+                            untukmu nikmat-Nya lahir dan batin. Dan di antara
+                            manusia ada yang membantah tentang (keesaan) Allah
+                            tanpa ilmu pengetahuan atau petunjuk dan tanpa Kitab
+                            yang memberi penerangan. (QS Luqman [31]:20)
+                        </p>
+                        <div class="islamic-knowledge-color font-bold">
+                            Kaum Muslimin Yang Dimuliakan Allah.
+                        </div>
+                        <p>
+                            Untuk melakukan kebaikan, kita harus memulainya
+                            dengan niat yang ihsan, yaitu melakukan segala
+                            sesuatu karena Allah swt dan mengharap ridha- Nya,
+                            sebagaimana firman-Nya:
+                        </p>
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-37.png"
+                                alt="divider"
+                            />
+                        </div>
+                        <div class="pt-2">
+                            <p>
+                                Dan di antara manusia ada orang yang
+                                mengorbankan dirinya karena mencari keridhaan
+                                Allah; dan Allah Maha Penyantun kepada
+                                hamba-hamba-Nya. (QS Al Baqarah [2]:207).
+                            </p>
+                            <p>
+                                Niat yang ihsan merupakan perkara yang amat
+                                penting, hal ini karena padanya akan tercermin
+                                tiga hal penting dalam kaitan dengan amal.
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Pertama,</span
+                                >
+                                Niat yang ikhlas, yakni melakukan sesuatu karena
+                                Allah swt sebagaimana yang telah digariskan-Nya,
+                                Allah swt berfirman:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-38.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <p>
+                                Padahal mereka tidak disuruh kecuali supaya
+                                menyembah Allah dengan memurnikan ketaatan
+                                kepada- Nya dalam (menjalankan) agama yang
+                                lurus, dan supaya mereka mendirikan shalat dan
+                                menunaikan zakat; dan yang demikian itulah agama
+                                yang lurus (QS Al Bayyinah [98]:5).
+                            </p>
+                            <p>
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Kedua,</span
+                                >
+                                Itqan atau tertib dalam beramal, ini merupakan
+                                sesuatu yang amat penting sehingga tidak ada
+                                keraguan, karenanya hal ini amat dicintai Allah
+                                swt , dalam satu hadits Rasulullah saw bersabda:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-39.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                Sesungguhnya Allah Ta’ala cinta terhadap
+                                pekerja, apabila ia bekerja bekerjanya dengan
+                                baik (HR. Baihaki).
+                            </p>
+                            <p>
+                                <span class="islamic-knowledge-color font-bold">
+                                    Ketiga,
+                                </span>
+                                Penyelesaian suatu tugas atau pekerjaan dengan
+                                sebaik-baiknya sehingga tidak ada pekerjaan yang
+                                terbengkalai, karenanya sesulit apapun pekerjaan
+                                yang ditunaikannya, niscaya akan ada kemudahan
+                                sehingga bila suatu pekerjaan sudah
+                                diselesaikan, harus segera diselesaikan
+                                pekerjaan lain yang sudah menunggu, Allah swt
+                                berfirman:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-40.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                sesungguhnya sesudah kesulitan itu ada
+                                kemudahan. Maka apabila kamu telah selesai (dari
+                                suatu urusan), kerjakanlah dengan
+                                sungguh-sungguh (urusan) yang lain (QS Al
+                                Insyirah [94]:6-7).
+                            </p>
+                            <div class="islamic-knowledge-color font-bold">
+                                Jamaah Jumat Yang Berbahagia.
+                            </div>
+                            <p>
+                                Niat yang ihsan harus dibuktikan dengan amal
+                                (perbuatan) yang ihsan, karena niat bukanlah
+                                sesuatu yang bersifat khayali, keuntungannya
+                                buat kita juga, dalam satu ayat, Allah swt
+                                berfirman:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-41.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                Jika kamu berbuat baik (berarti) kamu berbuat
+                                baik bagi dirimu sendiri dan jika kamu berbuat
+                                jahat maka kejahatan itu bagi dirimu sendiri (QS
+                                Al Isra [17]:7).
+                            </p>
+                            <p>
+                                Bila kita beramal baik, setidaknya ada tiga
+                                keuntungan yang akan kita peroleh.
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Pertama, Memperoleh Kecintaan Dari
+                                    Allah,</span
+                                >
+                                karena Allah memang sumber kebaikan dan senang
+                                kepada siapa saja yang berbuat baik, Allah swt
+                                berfirman:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-42.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                Dan belanjakanlah (harta bendamu) di jalan
+                                Allah, dan janganlah kamu menjatuhkan dirimu
+                                sendiri ke dalam kebinasaan, dan berbuat
+                                baiklah, karena sesungguhnya
+                            </p>
+                            <p>
+                                Allah menyukai orang-orang yang berbuat baik.
+                                (QS 2:195).
+                            </p>
+                            <p>
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Kedua,</span
+                                >
+                                keuntungan berlaku ihsan adalah
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Memperoleh Pahala Dari Allah.</span
+                                >
+                                Karena Allah swt cinta kepada orang yang berbuat
+                                baik maka Dia-pun menyediakan pahala yang besar
+                                kepada orang yang berbuat baik bahkan lebih
+                                besar dari amal yang dilakukannya, Allah swt
+                                berfirman:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-43.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <p>
+                                Barang siapa yang mengerjakan amal saleh, baik
+                                laki- laki maupun perempuan dalam keadaan
+                                beriman, maka sesungguhnya akan Kami berikan
+                                kepadanya kehidupan yang baik dan sesungguhnya
+                                akan Kami beri balasan kepada mereka dengan
+                                pahala yang lebih baik dari apa yang telah
+                                mereka kerjakan. (QS An Nahl [16]:97)
+                            </p>
+                            <p>
+                                Keuntungan
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Ketiga</span
+                                >
+                                dari beramal yang ihsan adalah
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Memperoleh Pertolongan Dari Allah.</span
+                                >
+                                Manakala ia mengalami kesulitan, apalagi
+                                berhadapan dengan orang-orang yang tidak suka
+                                pada kebaikan, Allah swt berfirman:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-44.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <p>
+                                Sesungguhnya Allah beserta orang-orang yang
+                                bertakwa dan orang-orang yang berbuat kebaikan.
+                                (QS An Nahl [16]:128)
+                            </p>
+                            <p>
+                                Kesertaan yang membuat-Nya akan memberikan
+                                pertolongan kepada orang yang berlaku baik
+                                disebutkan pula dalam firman-Nya:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-45.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <p>
+                                Dan orang-orang yang berjihad untuk (mencari
+                                keridaan) Kami, benar-benar akan Kami tunjukkan
+                                Kepada mereka jalan-jalan Kami. Dan sesungguhnya
+                                Allah benar-benar beserta orang-orang yang
+                                berbuat baik.(QS Al Ankabut [29]:69).
+                            </p>
+                            <p>
+                                <span class="pl-2"
+                                    >Demikian khutbah Jumat kita yang singkat
+                                    hari ini, semoga bermanfaat bagi kita semua,
+                                    amin.
+                                </span>
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-46.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider-image">
+                    <img
+                        src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                        alt="divider"
+                    />
+                </div>
+                <div id="khutbah-empat-bentuk-hijrah">
+                    <div>
+                        <h2>KHUTBAH EMPAT BENTUK HIJRAH</h2>
+                        <div class="font-extrabold text-center">
+                            Oleh: Drs. H. Ahmad Yani
+                        </div>
+                        <p>
+                            Ketua Departemen Pembinaan dan Pengembangan SDM
+                            Masjid PP DMI, Ketua LPPD Khairu Ummah, Wakil Ketua
+                            PB KBPII, Sekretaris Dewan Syura IKADI (Ikatan Dai
+                            Indonesia), Anggota Komisi Dakwah MUI Pusat, Bidang
+                            Dakwah KODI DKI Jakarta, Penulis 62 Buku, Trainer
+                            Dai, Manajemen Majelis Taklim dan Manajemen Masjid
+                        </p>
+
+                        <div class="p-2">
+                            <img
+                                src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-25.png"
+                                alt="divider"
+                            />
+                        </div>
+                        <div class="pt-3">
+                            <div class="islamic-knowledge-color font-bold">
+                                Sidang Jumat Rahimakumullah.
+                            </div>
+                            <p>
+                                Hijrah Nabi Muhammad saw dari Makkah ke Madinah
+                                kembali kita peringati pada tahun ini guna
+                                mendapatkan pelajaran yang berharga dari
+                                peristiwa besar itu, disebut peristiwa yang
+                                besar karena hijrah menjadi titik tolak bagi
+                                tegaknya nilai-nilai Islam dalam kehidupan nyata
+                                melalui terwujudnya daulah Islamiyah atau negeri
+                                yang Islami, yaitu negeri Madinah.
+                            </p>
+                            <p>
+                                Dari peristiwa ini kita mendapat pelajaran
+                                berharga bahwa meskipun sudah ada jamaah dakwah
+                                yang dibangun oleh Rasul saw dan para
+                                sahabatnya, tetap saja tegaknya nilai-nilai
+                                Islam masih sangat jauh karena tegaknya
+                                nilai-nilai Islam memang tidak cukup hanya
+                                melalui “jamaah” dari kaum muslimin, tapi
+                                tegaknya nilai- nilai Islam juga sangat
+                                memerlukan adanya negara yang konstitusinya
+                                memungkinkan pelaksanaan ajaran Islam dalam
+                                berbagai aspek. Ini berarti, penegakan
+                                nilai-nilai Islam harus berlangsung secara
+                                konstitusional melalui undang-undang suatu
+                                negara, tidak cukup hanya sekadar melalui jamaah
+                                dakwah yang ada di negeri tersebut.
+                            </p>
+                        </div>
+                        <div class="pt-3">
+                            <div class="islamic-knowledge-color font-bold">
+                                Kaum Muslimin Yang Berbahagia.
+                            </div>
+                            <div class="pt-2">
+                                Harus kita ingat bahwa hijrah secara fisik dari
+                                satu tempat ke tempat yang lain atau dari satu
+                                negara ke negara yang lain sebenarnya bukan hal
+                                baru yang hanya diperintah kepada Nabi Muhammad
+                                saw, tapi Nabi-Nabi sebelumnya juga diperintah
+                                dan para Nabi itu melaksanakannya. Nabi Ibrahim
+                                as diperintah untuk hijrah sebagaimana
+                                disebutkan dalam Al-Qur’an:
+                            </div>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-26.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <div>
+                                Dan berkatalah Ibrahim: “Sesungguhnya aku akan
+                                berpindah ke (tempat yang diperintahkan) Tuhanku
+                                (kepadaku); sesungguhnya Dialah Yang Maha
+                                Perkasa lagi Maha Bijaksana” (QS Al Ankabut
+                                [29]:26).
+                            </div>
+                            <div>
+                                Disamping itu, nabi Musa as juga harus hijrah ke
+                                negeri yang lain karena adanya ancaman
+                                pembunuhan terhadap dirinya, Allah swt
+                                berfirman:
+                            </div>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-27.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <div class="islamic-knowledge-color font-bold pt-4">
+                                Ma’asyiral Muslimin Rahimakumullah.
+                            </div>
+                            <p>
+                                Sebagai muslim, amat penting bagi kita untuk
+                                memahami apa sebenarnya hijrah itu. Secara
+                                harfiyah, hijrah itu berarti at turku yang
+                                artinya meninggalkan, baik meninggalkan tempat
+                                maupun meninggalkan sesuatu yang tidak baik,
+                                namun hijrah secara fisik dari satu tempat ke
+                                tempat lain pada masa sekarang ini bukanlah
+                                suatu kemestian, kecuali apabila negeri yang
+                                kita diami tidak memberikan kebebasan kepada
+                                kita untuk mengabdi kepada Allah swt atau negeri
+                                itu sudah sangat rusak yang tingkat kemaksiatan
+                                sudah tidak terkira dan sangat sulit untuk
+                                memperbaikinya. Oleh karena itu hakikat hijrah
+                                yang sebenarnya adalah apa yang disebut dengan
+                                hijrah maknawiyah, yaitu hijrah dalam arti
+                                meninggalkan segala bentuk yang tidak dibenarkan
+                                oleh Allah swt. Dalam hal ini Rasul saw
+                                bersabda:
+                            </p>
+                            <div class="p-2 text-right">
+                                <img
+                                    class="w-40 inline-block"
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-28.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <div class="pt-5">
+                                Orang yang berhijrah itu adalah orang yang
+                                meninggalkan apa-apa yang dilarang Allah atasnya
+                                (HR.Bukhari dan Muslim).
+                            </div>
+                            <p>
+                                Apabila kita sederhanakan, sekurang-kurangnya
+                                ada empat bentuk hijrah secara maknawi.
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Pertama,</span
+                                >
+                                hijrah I’tiqadiyah, yaitu meninggalkan segala
+                                bentuk keyakinan, kepercayaan dan ikatan-ikatan
+                                yang tidak dibenarkan oleh Allah swt. Ini
+                                merupakan kemestian bagi setiap muslim sehingga
+                                sangat tidak dibenarkan apabila keyakinan dan
+                                kepercayaan seorang muslim masih bercampur
+                                dengan keyakinan dan kepercayaan yang tidak
+                                Islami. Karena itu,kita amat menyayangkan,
+                                karena hingga kini masih begitu banyak orang
+                                yang mengaku muslim tapi kepercayaan dan
+                                keyakinannya masih bercampur dengan kepercayaan
+                                dan keyakinan yang tidak dibenarkan oleh ajaran
+                                Islam seperti keyakinan adanya penguasa laut,
+                                roh-roh jahat yang harus diberi sesajian,
+                                percaya pada benda-benda pusaka, hari- hari yang
+                                dikeramatkan dan sebagainya.
+                            </p>
+                            <p>
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Kedua</span
+                                >
+                                yang merupakan bentuk hijrah adalah hijrah
+                                fikriyah, yaitu meninggalkan segala bentuk pola
+                                berpikir yang tidak sesuai dengan pola berpikir
+                                yang Islami, ini berarti setiap muslim harus
+                                selalu berpikir dalam kerangka kebenaran Islam,
+                                kita tidak boleh memikirkan sesuatu guna
+                                melakukan hal-hal yang tidak benar. Di dalam
+                                Al-Quran, Allah swt sendiri memberikan
+                                rangsangan kepada kita agar berpikir dalam
+                                rangka taat kepada-Nya, misalnya saja ada firman
+                                Allah swt:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-29.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <div class="pt-4">
+                                Mengapa kamu suruh orang lain (mengerjakan)
+                                kebajikan, sedang kamu melupakan diri
+                                (kewajiban) mu sendiri, padahal kamu membaca Al
+                                kitab?. Maka tidakkah kamu berpikir (QS Al
+                                Baqarah [2]:44).
+                            </div>
+                            <div class="islamic-knowledge-color font-bold pt-3">
+                                Jamaah Sidang Jumat Yang Berbahagia.
+                            </div>
+                            <p>
+                                Bentuk hijrah yang
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Ketiga</span
+                                >
+                                adalah hijrah syu’uriyah, yaitu meninggalkan
+                                segala bentuk perasaan yang cenderung kepada
+                                hal-hal yang tidak benar, bila orang sudah
+                                hijrah dari perasaan-perasaan yang tidak benar,
+                                maka jiwanya menjadi hidup sehingga jiwanya
+                                menjadi sensitif atau peka terhadap segala
+                                bentuk kemaksiatan yang membuatnya tidak akan
+                                membiarkan kemaksiatan atau kemunkaran itu terus
+                                berlangsung, dalam kaitan ini Rasulullah saw
+                                bersabda:
+                            </p>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-30.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <p>
+                                Barangsiapa melihat kemunkaran, hendaklah ia
+                                mencegah dengan tangan (kekuasaan) nya, bila
+                                tidak mampu, hendaklah ia mencegah dengan
+                                lisannya dan bila tidak mampu juga hendaklah ia
+                                mencegah dengan hatinya, yang demikian itu
+                                adalah selemah-lemah iman (HR. Muslim).
+                            </p>
+                            <p>
+                                Bentuk hijrah yang
+                                <span class="islamic-knowledge-color font-bold"
+                                    >Keempat</span
+                                >
+                                adalah hijrah sulukiyah, yaitu meninggalkan
+                                segala bentuk tingkah laku yang bertentangan
+                                dengan ketentuan-ketentuan Allah swt. Ini
+                                berarti seorang muslim sangat tidak dibenarkan
+                                melakukan hal-hal yang dilarang Allah swt dan
+                                Rasul-Nya, maka kalau yang dilarang itu tetap
+                                dikerjakan oleh manusia, cepat atau lambat,
+                                manusia itu akan mengalami akibatnya, baik di
+                                dunia maupun di akhirat, begitu juga dengan
+                                perintah Allah yang tidak dikerjakannya. Sebagai
+                                salah satu contoh, zina merupakan sesuatu yang
+                                harus dijauhi oleh manusia dan bila ada orang
+                                yang melakukannya, maka hukuman yang tegas harus
+                                diberlakukan, tapi kenyataan menunjukkan bahwa
+                                zina itu dibiarkan saja terus berlangsung,
+                                bahkan fasilitasnya disediakan, sementara orang
+                                yang melakukannya tidak dihukum sebagaimana
+                                hukum yang terdapat di dalam Al- Quran, maka
+                                yang terjadi kemudian adalah munculnya penyakit
+                                yang sangat menakutkan dan belum ditemukan apa
+                                obatnya sementara martabat manusia juga menjadi
+                                semakin rendah.
+                            </p>
+                            <div class="islamic-knowledge-color font-bold pt-4">
+                                Sidang Jum’at Rahimakumullah
+                            </div>
+                            <div class="pt-3">
+                                Group 12, Grouped objectDari pembahasan di atas
+                                menjadi jelas bagi kita bahwa hakikat hijrah itu
+                                sebenarnya adalah komitmen pada
+                                ketentuan-ketentuan dengan meninggalkan segala
+                                bentuk sikap dan prilaku yang tidak menunjukkan
+                                ketaatan kepada Allah swt. Dalam hal ini
+                                Rasulullah saw bersabda:
+                            </div>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-31.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <div class="pt-3">
+                                Apabila engkau mendirikan shalat dan menunaikan
+                                zakat, maka engkau orang yang berhijrah (HR.
+                                Ahmad dan Bazzar).
+                            </div>
+                            <div class="pt-3">
+                                Disamping itu, Rasulullah saw juga bersabda :
+                            </div>
+
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-32.png"
+                                    alt="divider"
+                                />
+                            </div>
+                            <div class="pt-4">
+                                Apabila engkau meninggalkan perbuatan yang keji,
+                                baik yang nyata maupun yang tersembunyi,
+                                mendirikan shalat dan menunaikan zakat, maka
+                                engkau orang yang berhijrah (HR. Ahmad dan
+                                Bazzar)
+                            </div>
+                            <div class="pt-4">
+                                Dengan demikian, hakikat hijrah adalah
+                                melaksanakan perintah Allah dan meninggalkan
+                                larangan- larangan-Nya. Maka, hijrah harus kita
+                                lakukan sepanjang perjalanan hidup, kesemua ini
+                                tentu saja menuntut kesungguhan atau jihad.
+                                Karena itu iman, hijrah dan jihad merupakan
+                                kunci bagi manusia untuk meraih derajat yang
+                                tinggi dan kemenangan dalam melawan musuh-musuh
+                                kebenaran, Allah swt berfirman:
+                            </div>
+                            <div class="pt-3">
+                                Orang-orang yang beriman, berhijrah dan berjihad
+                                di jalan Allah dengan harta dan diri mereka,
+                                adalah lebih tinggi derajatnya di sisi Allah;
+                                dan itulah orang-orang yang mendapat kemenangan
+                                (QS At Taubah [9]:20).
+                            </div>
+                            <div class="pt-3">
+                                Demikian khutbah Jum’at kita yang singkat pada
+                                hari ini, semoga bermanfaat bagi kita bersama,
+                                amien.
+                            </div>
+                            <div class="p-2">
+                                <img
+                                    src="assets/images/islamic-knowledge/khutbah-jumat/KHUTBAH-33.png"
+                                    alt="divider"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button
+                class="scroll-to-top"
+                *ngIf="showScrollToTop"
+                (click)="scrollToTop()"
+                aria-label="Scroll to top"
+            >
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+</div>

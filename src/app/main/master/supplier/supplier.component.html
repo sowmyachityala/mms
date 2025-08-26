@@ -1,0 +1,208 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div>
+         <div class="page-title justify-between flex">
+             <span>{{'Suppliers.suppliers' | translate }}</span>
+             <div class="page-sub-title">
+                 <a class="mr-1 text-xl">{{ supplierList?.length }}</a>
+                 <span class="float-right"> {{'Suppliers.totalsuppliers' | translate }} </span>
+             </div>
+         </div>        
+         <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+             <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                 <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+             </div>
+                <div class="flex items-center gap-2 flex-nowrap w-full overflow-x-auto">
+
+                    <form [formGroup]="searchForm" class="flex items-center gap-2 flex-nowrap">
+                        <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-48">
+                            <mat-label>{{ 'Suppliers.businessName' | translate }}</mat-label>
+                            <input matInput formControlName="supplierName" [autocomplete]="'off'"
+                                placeholder="{{ 'Suppliers.businessName' | translate }}" maxlength="20">
+                        </mat-form-field>
+
+                        <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-40">
+                            <mat-label>{{ 'Suppliers.mobileNumber' | translate }}</mat-label>
+                            <input matInput formControlName="phoneNumber" [autocomplete]="'off'"
+                                placeholder="{{ 'Suppliers.mobileNumber' | translate }}" appOnlynumber maxlength="14">
+                        </mat-form-field>
+
+                        <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-36">
+                            <mat-label>{{ 'MosqueProfile.status' | translate }}</mat-label>
+                            <mat-select formControlName="supplierStatus">
+                                <mat-option [value]="true">Active</mat-option>
+                                <mat-option [value]="false">Inactive</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div class="flex items-center gap-2">
+                            <button mat-flat-button color="primary" (click)="SearchFilter()">
+                                {{ 'RegUsers.search' | translate }}
+                            </button>
+                            <button mat-flat-button (click)="ResetFilterList()" style="background: beige;">
+                                {{ 'RegUsers.reset' | translate }}
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="flex items-center ml-auto">
+                        <ng-container *ngFor="let action of currentActions?.childMenuActions">
+                            <button mat-flat-button color="primary" *ngIf="action?.actionNameId === 'Add'" (click)="addSupplier()">
+                                {{ action?.actionName }}
+                            </button>
+                        </ng-container>
+                    </div>
+
+                </div>
+           
+         </div>
+         <div class="flex flex-auto overflow-hidden">
+             <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                 <table mat-table [dataSource]="dataSource">
+                     
+                     <ng-container matColumnDef="supplierName">
+                         <th mat-header-cell *matHeaderCellDef> {{'Suppliers.businessName' | translate }} </th>
+                         <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+                     </ng-container>  
+
+                     <ng-container matColumnDef="phoneNumber">
+                        <th mat-header-cell *matHeaderCellDef>{{'Suppliers.mobileNumber' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                    </ng-container>
+
+                     <ng-container matColumnDef="supplierAddress">
+                         <th mat-header-cell *matHeaderCellDef> {{'Suppliers.address' | translate }} </th>
+                         <td mat-cell *matCellDef="let element"> {{element.supplierAddress}} </td>
+                     </ng-container>
+ 
+                     <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef> {{'Suppliers.email' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> <a (click)="redirectToEmail(element.email)"> {{element?.email}}</a> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="updatedOn">
+                        <th mat-header-cell *matHeaderCellDef class="colNumeric"> {{'Suppliers.updatedDate' | translate }} </th>
+                        <td mat-cell *matCellDef="let element" class="colNumeric">
+                            <div> {{element.updatedOn | date:'dd/MM/yyyy'}} </div>
+                            <div class="text-sm text-disabled"> {{element?.updatedOn | date:'shortTime'}} </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="isActive">
+                        <th mat-header-cell *matHeaderCellDef class="actionCenter actionCenterWidth"> {{'Suppliers.activeInactive' | translate }} </th>
+                        <td mat-cell *matCellDef="let element; let i = index;" class="actionCenter">
+                            <mat-slide-toggle [color]="'primary'" class="m-auto"
+                                [checked]="element.isActive === true ? true :false" (change)="activeInactiveSupplier($event.checked,element.supplierGuid)">
+                            </mat-slide-toggle>
+                        </td>
+                    </ng-container> 
+
+                     <ng-container matColumnDef="action">
+                         <th mat-header-cell *matHeaderCellDef class="actionCenter"> </th>
+                         <td mat-cell *matCellDef="let element" class="pr-0 pl-0 w-4 actionCenter">
+                             <!-- Add a button to trigger the menu -->
+                             <button  [matMenuTriggerFor]="menu">
+                                 <mat-icon>more_vert</mat-icon>
+                             </button>
+                             <!-- Define the menu -->
+                             <mat-menu #menu="matMenu" [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                                 <ng-container>
+                                    <div *ngFor="let action of currentActions?.childMenuActions">
+                                        <button mat-menu-item (click)="editSupplier(element)" *ngIf="action?.actionNameId === 'Edit'">{{action?.actionName}}</button>
+                                    </div>                                     
+                                 </ng-container>                            
+                             </mat-menu>
+                         </td>
+                     </ng-container>
+ 
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ 
+                     <tr class="mat-row" *matNoDataRow>
+                         <td class="mat-cell" colspan="4">{{'Suppliers.noDataMatching' | translate }}</td>
+                     </tr>
+                 </table>
+                <mat-paginator #paginator [length]="pageLength" [pageSize]="pageSize" [showFirstLastButtons]="true"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="onPageChange($event)">
+                </mat-paginator>
+             </div>
+         </div>
+    </div>
+   
+   <div>
+    <ng-template #supplierDialog>
+        <form [formGroup]="supplierForm" id="myDialog">  
+            <div class="dTitleBar">
+                <h1 matDialogTitle class="dTitle" *ngIf="!isUpdate">  {{'Suppliers.addSupplier' | translate }}</h1> 
+                <h1 matDialogTitle class="dTitle" *ngIf="isUpdate"> {{'Suppliers.updateSupplier' | translate }}</h1> 
+            </div>           
+            <mat-dialog-content>
+                <div class="mt-4">
+                    <div>
+                        <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                            <mat-label> {{'Suppliers.supplierName' | translate }}</mat-label>
+                            <input matInput formControlName="supplierName" [autocomplete]="'off'">
+                            <mat-error *ngIf="supplierForm.get('supplierName').hasError('required')">
+                                {{'Suppliers.supplierNameIsRequired' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="supplierForm.controls['supplierName'].hasError('noLeadingSpaces')">
+                                {{
+                                    "MosqueProfile.spaceNotAllowedInitially" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>   
+                    <div>
+                        <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                            <mat-label> {{'Suppliers.supplierAddress' | translate }}</mat-label>
+                            <input matInput formControlName="supplierAddress" [autocomplete]="'off'">  
+                        </mat-form-field>
+                    </div> 
+                   
+                    <div>
+                        <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                            <mat-label> {{'Suppliers.mobileNumber' | translate }}</mat-label>
+                            <input id="phoneNumber" matInput [formControlName]="'phoneNumber'" appOnlynumber minlength="10" maxlength="14">
+                            <mat-error *ngIf="supplierForm.get('phoneNumber').hasError('required')">
+                                {{'Suppliers.mobileNumberRequired' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="supplierForm.get('phoneNumber').hasError('minlength')">
+                                {{'Suppliers.mobileNumber10' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="supplierForm.get('phoneNumber').hasError('maxlength')">
+                                {{'Suppliers.mobileNumberMax14' | translate }}
+                            </mat-error>           
+                        </mat-form-field>
+                    </div> 
+                    <div>
+                        <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                            <mat-label>{{'Suppliers.email' | translate }}</mat-label>
+                            <input id="email" matInput [formControlName]="'email'">
+                            <!-- <mat-error *ngIf="supplierForm.get('email').hasError('required')">
+                                Email ID is required
+                            </mat-error> -->
+                            <mat-error  *ngIf="supplierForm.get('email').hasError('email') || supplierForm.get('email').hasError('pattern')">
+                                {{'Suppliers.enterValidEmail' | translate }}
+                            </mat-error>           
+                        </mat-form-field>
+                    </div> 
+                </div>  
+            </mat-dialog-content>
+            <mat-dialog-actions >
+                <div *ngIf="direction === 'ltr'" class="max-w-80 ml-15">
+                    <button mat-flat-button [color]="'primary'" (click)="addOrUpdateSupplier()">
+                        <span *ngIf="!isUpdate">{{'Suppliers.add' | translate }}</span>
+                        <span *ngIf="isUpdate">{{'Suppliers.update' | translate }}</span>
+                    </button>
+                    <button mat-button matDialogClose (click)="closeDialog()">{{'Suppliers.cancel' | translate }}</button>                    
+                </div>
+                <div *ngIf="direction === 'rtl'" class="max-w-80 ml-15">                    
+                    <button mat-button matDialogClose (click)="closeDialog()">{{'Suppliers.cancel' | translate }}</button>  
+                    <button mat-flat-button [color]="'primary'" (click)="addOrUpdateSupplier()">
+                        <span *ngIf="!isUpdate">{{'Suppliers.add' | translate }}</span>
+                        <span *ngIf="isUpdate">{{'Suppliers.update' | translate }}</span>
+                    </button>                  
+                </div>
+            </mat-dialog-actions> 
+        </form>
+    </ng-template>
+   </div>
+ </div>

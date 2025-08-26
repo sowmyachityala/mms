@@ -1,0 +1,83 @@
+<div class="py-14 px-14 w-200 pb-0"  [dir]="direction">
+    <div mat-dialog-title class="flex justify-between text-black">
+        <h1 class="font-semibold uppercase">{{'ImageUpload.upload' | translate}} {{ type }} {{'ImageUpload.image' | translate}}</h1>
+        <span class="flex font-semibold" (click)="onClose()"><mat-icon class="text-black cursor">{{'ImageUpload.close' | translate}}</mat-icon>
+            <span class="mt-0.5">{{'ImageUpload.cclose' | translate}}</span>
+        </span>
+    </div>
+    <hr mt-4>
+    <div class="image-container" *ngIf="!isSingleUpload && imageSource">
+        <img [src]="imageSource"  class="{{classWidth}} {{classHeight}}">
+    </div>
+
+    <div class="image-container" *ngIf="isSingleUpload && multiimageSources">
+        <div *ngFor="let images of multiimageSources">
+           <img [src]="images"  class="{{classWidth}} {{classHeight}}">
+        </div>
+    </div>
+    
+<div
+    class="px-20 py-10 dropzone h-40 mt-2 block m-auto"
+    *ngIf="(!isSingleUpload && !imageSource) || (isSingleUpload && !multiimageSources?.length)"
+    fileDragDrop
+    (filesChangeEmiter)="!isSingleUpload ? onFileChange($event) : onMultipleFileChange($event)"
+    accept="image/*"
+  >        
+        <div>
+            <mat-icon svgIcon="mat_outline:file_upload"></mat-icon>
+        </div>
+        <div>
+            {{'ImageUpload.dropYourImage' | translate}}
+            <label class="custom-file-label active font-medium" for="fileInput">Browse</label>
+            <input 
+              id="fileInput" 
+              [attr.multiple]="isSingleUpload ? true : null" 
+              class="custom-file-input" 
+              type="file" 
+              (change)="!isSingleUpload ? onFileChange($event.target.files) : onMultipleFileChange($event.target.files)">
+        </div>
+    </div>  
+    <div class="text-md mt-4 mb-4">{{'ImageUpload.imageRequired' | translate}} {{requiredWidth}}x{{requiredHeight}} {{'ImageUpload.pixel' | translate}} </div>
+    <hr class="mt-10 mb-10">
+    <div mat-dialog-actions class="float-left mb-20">
+        <button 
+            mat-flat-button [color]="'primary'" 
+           (click)="!isSingleUpload ? saveUploadedImage() : updateCoverImages()" 
+           [disabled]="oneClick"> 
+             {{'ImageUpload.saveClose' | translate}} 
+        </button>
+        <button mat-button mat-dialog-close (click)="imgDialogRef.close()">{{'ImageUpload.cancel' | translate}}</button>
+    </div>
+</div>
+
+<!-- <div class="py-14 px-14 w-200 pb-0"  [dir]="direction">
+    <div mat-dialog-title class="flex justify-between text-black">
+        <h1 class="font-semibold uppercase">{{'ImageUpload.upload' | translate}} {{ type }} {{'ImageUpload.image' | translate}}</h1>
+        <span class="flex font-semibold" (click)="onClose()"><mat-icon class="text-black cursor">{{'ImageUpload.close' | translate}}</mat-icon>
+            <span class="mt-0.5">{{'ImageUpload.cclose' | translate}}</span>
+        </span>
+    </div>
+    <hr mt-4>
+    <div class="image-container" *ngIf="imageSources">
+        <div *ngFor="let images of imageSources">
+           <img [src]="images"  class="{{classWidth}} {{classHeight}}">
+        </div>
+    </div>
+    
+    <div class="px-20 py-10 dropzone h-40 mt-2 block m-auto" *ngIf="!imageSources?.length" fileDragDrop (filesChangeEmiter)="onMultipleFileChange($event)" accept="image/*"> 
+        <div>
+            <mat-icon svgIcon="mat_outline:file_upload"></mat-icon>
+        </div>
+        <div>
+            {{'ImageUpload.dropYourImage' | translate}}
+            <label class="custom-file-label active font-medium" for="fileInput">Browse</label>
+            <input id="fileInput" class="custom-file-input" multiple="multiple" type="file" (change)="onMultipleFileChange($event.target.files)">
+        </div>
+    </div>  
+    <div class="text-md mt-4 mb-4">{{'ImageUpload.imageRequired' | translate}} {{requiredWidth}}x{{requiredHeight}} {{'ImageUpload.pixel' | translate}} </div>
+    <hr class="mt-10 mb-10">
+    <div mat-dialog-actions class="float-left mb-20">
+        <button mat-flat-button [color]="'primary'" (click)="updateCoverImages()" [disabled]="oneClick"> {{'ImageUpload.saveClose' | translate}} </button>
+        <button mat-button mat-dialog-close (click)="imgDialogRef.close()">{{'ImageUpload.cancel' | translate}}</button>
+    </div>
+</div> -->

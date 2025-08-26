@@ -1,0 +1,588 @@
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <div>
+        <div class="page-title justify-between flex">
+            <span *ngIf="!showBankForm">{{
+                "BankAccounts.bankAccounts" | translate
+            }}</span>
+            <span *ngIf="showBankForm">{{
+                "BankAccounts.addBankAccount" | translate
+            }}</span>
+            <ng-container>
+                <div class="flex justify-end mr-4">
+                    <button
+                        *ngIf="!showBankForm"
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="toggleBankForm()"
+                    >
+                        <span class="ml-2 mr-1">{{
+                            "BankAccounts.add" | translate
+                        }}</span>
+                    </button>                   
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="!showBankForm">
+        <div *ngIf="banksList?.length > 0" class="pb-4 px-6 md:px-4">
+            <div
+                *ngFor="let item of banksList; let i = index"
+                class="flex mt-4"
+            >
+                <div class="w-16 h-18  cursor-pointer eventDateName font-semibold bg-primary"  (click)="viewBankDetails(item)">
+                    <div class="p-4">
+                        <div class="text-center f-18">
+                            <img [src]="bankImage" />
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="h-18 w-full eventListDetails flex justify-between "
+                    [ngClass]="[
+                        direction === 'ltr'
+                            ? 'ml-4'
+                            : direction === 'rtl'
+                            ? 'mr-4'
+                            : ''
+                    ]"
+                >                   
+                    <div
+                        class="w-full mt-1"
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'ml-3 '
+                                : direction === 'rtl'
+                                ? 'mr-3'
+                                : ''
+                        "
+                    >
+                        <div></div>
+                        <div class="font-semibold mt-1 font-bold text-black">
+                            {{ item?.bankName }}
+                        </div>
+                        <div class="mt-1">
+                            <span>{{ item?.accountHolderName }}</span>
+                            <span class="ml-1">{{ item?.accountNumber }}</span>
+                            <span class="ml-1">{{ item?.swiftCode }}</span>
+                        </div>
+                        <div class="mt-1">
+                            <span>{{ item?.streetAddress }}</span>
+                            <span class="ml-1">{{ item?.city }}</span>
+                            <span class="ml-1">{{ item?.state }}</span>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <span
+                            class="active w-max mt-auto mb-auto ml-3 mr-3"
+                            *ngIf="item?.isPrimaryAccount"
+                        >
+                            {{ "BankAccounts.primary" | translate }}</span
+                        >
+
+                        <button  *ngIf="!item?.isPrimaryAccount"
+                            mat-icon-button
+                            class="mt-auto mb-auto"
+                            (click)="DeleteBank(item?.bankGuid)"
+                        >
+                            <mat-icon style="color: red">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showBankForm" class="p-4">
+        <form [formGroup]="bankForm" class="imam-form">
+            <div class="form-section">
+                <div class="form-section-title"></div>
+                <div class="fields-gap">
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{ "BankAccounts.bankName" | translate }}</mat-label>                       
+                        <mat-select id="bank-select" formControlName="bankName" (selectionChange)="onBankChange($event)">
+                            <mat-option *ngFor="let bank of banks" [value]="bank.bankName">{{ bank.bankName }}</mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                bankForm.get('bankName')?.hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.bankNameIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{ "BankAccounts.bankCode" | translate }}</mat-label>
+                        <input
+                            matInput
+                            appOnlynumber
+                            maxlength="3"
+                            formControlName="bankCode"
+                            placeholder="Bank Code"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('bankCode')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.bankCodeIsRequired" | translate }}
+                    </mat-error>
+                        <mat-error
+                        *ngIf="
+                        bankForm.controls['bankCode'].hasError(
+                                'noLeadingSpaces'
+                            )
+                        "
+                    >
+                        {{
+                            "BankAccounts.noInitialSpace" | translate
+                        }}
+                    </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.branchCode" | translate }}</mat-label>
+                        <input
+                            matInput
+                            maxlength="5"
+                            formControlName="branchCode"
+                            placeholder="Branch Code"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('branchCode')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.branchCodeIsRequired" | translate }}
+                    </mat-error>
+                    <mat-error
+                    *ngIf="
+                    bankForm.controls['branchCode'].hasError(
+                            'noLeadingSpaces'
+                        )
+                    "
+                >
+                {{
+                    "BankAccounts.noInitialSpace" | translate
+                }}
+                </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{ "BankAccounts.branchName" | translate }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="branchName"
+                            placeholder="Branch Name"
+                            maxlength="50"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('branchName')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.branchNameIsRequired" | translate }}
+                    </mat-error>
+                        <mat-error
+                        *ngIf="
+                        bankForm.controls['branchName'].hasError(
+                                'noLeadingSpaces'
+                            )
+                        "
+                    >
+                    {{
+                        "BankAccounts.noInitialSpace" | translate
+                    }}
+                    </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{ "BankAccounts.accountNumber" | translate }}</mat-label>
+                        <input
+                            matInput
+                            appOnlynumber
+                            maxlength="18"
+                            formControlName="accountNumber"
+                            placeholder="Account Number"
+                        />
+                        <mat-error
+                            *ngIf="
+                                bankForm
+                                    .get('accountNumber')
+                                    ?.hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.accountNumberIsRequired" | translate }}
+                        </mat-error>
+                        
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.confirmAccountNumber" | translate }}</mat-label>
+                        <input
+                            matInput
+                            appOnlynumber
+                            maxlength="18"
+                            formControlName="confirmedAccountNumber"
+                            placeholder="Confirm Account Number"
+                        />
+                        <mat-error
+                            *ngIf="
+                                bankForm
+                                    .get('confirmedAccountNumber')
+                                    .hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.confirmAccountNumberIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                bankForm
+                                    .get('confirmedAccountNumber')
+                                    ?.hasError('mismatch')
+                            "
+                        >
+                        {{ "BankAccounts.accountNumbersDoNotMatch" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title"></div>
+                <div class="fields-gap">
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.accountHolderName" | translate }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="accountHolderName"
+                            placeholder="Account Holder"
+                            maxlength="40"
+                        />
+                        <mat-error
+                            *ngIf="
+                                bankForm
+                                    .get('accountHolderName')
+                                    ?.hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.accountHolderNameIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="bankForm.get('accountHolderName')?.errors?.['pattern']"
+                        >
+                        {{
+                            "BankAccounts.accountHolderNamecustom" | translate
+                        }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{ "BankAccounts.bankAccountType" | translate }}</mat-label>
+                        <mat-select formControlName="accountType">
+                            <mat-option
+                                *ngFor="let product of accountTypes"
+                                [value]="product.value"
+                            >
+                                {{ product.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                bankForm
+                                    .get('accountType')
+                                    ?.hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.accountTypeIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.swiftCode" | translate }}</mat-label>
+                        <input
+                            matInput
+                            maxlength="11"
+                            formControlName="swiftCode"
+                            placeholder="Swift Code"
+                        />
+                        <mat-error
+                            *ngIf="
+                                bankForm.get('swiftCode')?.hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.swiftCodeIsRequired" | translate }}
+                        </mat-error>
+                        <mat-error
+                        *ngIf="
+                        bankForm.controls['swiftCode'].hasError(
+                                'noLeadingSpaces'
+                            )
+                        "
+                    >
+                        {{
+                            "MosqueProfile.spaceNotAllowedInitially" | translate
+                        }}
+                    </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.state" | translate }} </mat-label>
+                        <input
+                            matInput
+                            formControlName="state"
+                            placeholder="State"
+                            maxlength="50"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('state')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.stateIsRequired" | translate }}
+                    </mat-error>
+                        <mat-error
+                        *ngIf="
+                        bankForm.controls['state'].hasError(
+                                'noLeadingSpaces'
+                            )
+                        "
+                    >
+                    {{
+                        "BankAccounts.noInitialSpace" | translate
+                    }}
+                    </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.city" | translate }} </mat-label>
+                        <input
+                            matInput
+                            formControlName="city"
+                            placeholder="City"
+                            maxlength="50"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('city')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.cityIsRequired" | translate }}
+                    </mat-error>
+                        <mat-error
+                        *ngIf="
+                        bankForm.controls['city'].hasError(
+                                'noLeadingSpaces'
+                            )
+                        "
+                    >
+                    {{
+                        "BankAccounts.noInitialSpace" | translate
+                    }}
+                    </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>{{ "BankAccounts.postalCode" | translate }}</mat-label>
+                        <input
+                            matInput
+                            appOnlynumber
+                            maxlength="5"
+                            formControlName="postalCode"
+                            placeholder="Postal Code"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('postalCode')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.postalIsRequired" | translate }}
+                    </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.streetAddress" | translate }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="streetAddress"
+                            placeholder="Street Address"
+                            maxlength="50"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('streetAddress')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.streetAddIsRequired" | translate }}
+                    </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.contactNumber" | translate }} </mat-label>
+                        <input
+                            matInput
+                            minlength="10"
+                            maxlength="14"
+                            formControlName="contactInfo"
+                            placeholder="Contact"
+                            appOnlynumber
+                        />
+                        <mat-error
+                            *ngIf="
+                                bankForm
+                                    .get('contactInfo')
+                                    ?.hasError('required')
+                            "
+                        >
+                        {{ "BankAccounts.contactNumberIsRequired" | translate }} 
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.primaryAccount" | translate }}</mat-label>
+                        <mat-select formControlName="isPrimaryAccount">
+                            <mat-option
+                                *ngFor="let product of primaryAccountOptions"
+                                [value]="product.value"
+                            >
+                                {{ product.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('isPrimaryAccount')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.primaryAccIsRequired" | translate }}
+                    </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label> {{ "BankAccounts.bankType" | translate }} </mat-label>
+                        <input
+                            matInput
+                            formControlName="bankType"
+                            placeholder="Bank Type"
+                            maxlength="40"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('bankType')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.bankTypeIsRequired" | translate }}
+                    </mat-error>
+                    <mat-error
+                    *ngIf="
+                    bankForm.controls['bankType'].hasError(
+                            'noLeadingSpaces'
+                        )
+                    "
+                >
+                {{
+                    "BankAccounts.noInitialSpace" | translate
+                }}
+                </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full max-w-80 ml-4">
+                        <mat-label>  {{ "BankAccounts.taxIdentificationNumber" | translate }}</mat-label>
+                        <input
+                            matInput
+                            maxlength="18"
+                            formControlName="npwp"
+                            placeholder="Tax ID"
+                        />
+                        <mat-error
+                        *ngIf="
+                            bankForm.get('npwp')?.hasError('required')
+                        "
+                    >
+                    {{ "BankAccounts.tdnIsRequired" | translate }}
+                    </mat-error>
+                        <mat-error
+                        *ngIf="
+                        bankForm.controls['npwp'].hasError(
+                                'noLeadingSpaces'
+                            )
+                        "
+                    >
+                    {{
+                        "BankAccounts.noInitialSpace" | translate
+                    }}
+                    </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="float-right mt-4">
+                <button
+                    mat-button
+                    class="ml-2 mr-2"
+                    (click)="toggleBankList()"
+                    style="background-color: beige"
+                >
+                    {{ "BankAccounts.cancelAndBack" | translate }}
+                </button>
+                <button
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="submitMosqueBankForm()"
+                >
+                    {{ "BankAccounts.add" | translate  | uppercase}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #bankInfoDialog>
+    <div class="dTitleBar">
+        <h1 matDialogTitle class="dTitle">
+            Bank Details
+        </h1>
+    </div>
+
+    <mat-dialog-content class="dialog-content">
+        <div class="mt-4 p-ltr">
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.bankName" | translate }}:</strong> {{ bankDetails.bankName }}
+                <strong>{{ "BankAccounts.bankCode" | translate }}:</strong> {{ bankDetails.bankCode }}
+            </div>
+          
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.branchCode" | translate }}:</strong> {{ bankDetails.branchCode }}
+                <strong>{{ "BankAccounts.branchName" | translate }}:</strong> {{ bankDetails.branchName }}
+            </div>
+           
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.accountNumber" | translate }}:</strong> {{ bankDetails.accountNumber }}
+              
+            </div>
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.accountHolderName" | translate }}:</strong> {{ bankDetails.accountHolderName }}
+            </div>
+       
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.bankAccountType" | translate }}:</strong> {{ bankDetails.accountType }}
+            </div>
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.swiftCode" | translate }}:</strong> {{ bankDetails.swiftCode }}
+            </div>
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.streetAddress" | translate }}:</strong> {{ bankDetails.streetAddress }}, {{ bankDetails.city }}, {{ bankDetails.state }} - {{ bankDetails.postalCode }}
+            </div>
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.contactNumber" | translate }}:</strong> {{ bankDetails.contactInfo }}
+            </div>
+            <div class="bank-detail-row">
+                <strong>{{ "BankAccounts.accountStatus" | translate }}:</strong> 
+                <span [ngClass]="{ 'active': bankDetails.accountStatus, 'inactive': !bankDetails.accountStatus }">
+                    {{ bankDetails.accountStatus ? 'Active' : 'Inactive' }}
+                </span>
+            </div>
+            <div class="bank-detail-row">
+                <strong>   {{ "BankAccounts.taxIdentificationNumber" | translate }}:</strong> {{ bankDetails.npwp }}
+            </div>
+            <div class="bank-detail-row">
+                <strong>   {{ "BankAccounts.primaryAccount" | translate }}:</strong> {{ bankDetails.isPrimaryAccount ? 'Yes' : 'No' }}
+            </div>
+            <div  style="display: flex; justify-content: flex-end">
+                <button mat-button (click)="onClose()">Close</button>
+            </div>
+           
+        </div>
+    </mat-dialog-content>
+
+ 
+</ng-template>

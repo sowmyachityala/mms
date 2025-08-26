@@ -1,0 +1,79 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+
+<!-- Navigation -->
+<fuse-vertical-navigation class="dark print:hidden fixed" [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'" [navigation]="navigation" [opened]="!isScreenSmall" [position]="'right'">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationHeader>
+        <!-- Logo -->
+        <div class="flex items-center h-16 px-6">
+            <!-- Light version -->
+            <img [src]="direction === 'ltr' ? imageUrl?.menuRightLogo : direction === 'rtl' ? imageUrl?.menuLogoWithText : imageUrl?.menuRightLogo"
+                alt="Logo image">
+
+            <!-- <img class="h-10 w-14" [src]="imageUrl" alt="Logo image" *ngIf="mosqueInfo?.mosqueName">
+            <div *ngIf="mosqueInfo?.mosqueName">
+                <div class="text_logo" title="{{mosqueInfo?.mosqueName}}">{{ mosqueInfo?.mosqueName ? mosqueInfo?.mosqueName : "MOSQUE" }}</div>
+            </div> -->
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div class="fixed w-full z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden" *ngIf="mosqueInfo?.mosqueName">
+    <div class=" bg-[#f5f5f5] py-4 flex justify-between"
+        [ngClass]="direction === 'ltr' ? 'pl-17' : direction === 'rtl' ? 'pr-17' :''">
+        <div class="">
+            <mat-icon class="active icon-p" style="font-size: 20px;">location_on</mat-icon><span class="active font-medium" style="position: absolute; text-transform: uppercase;">{{ mosqueInfo?.mosqueLocation }}</span>
+        </div>
+        <div>
+            <button (click)="showAdminMosques()" class="text-black flex ">
+                <span class="active uppercase font-medium">{{ mosqueInfo?.mosqueName }}</span>
+                <mat-icon class="active icon-p" svgIcon="heroicons_outline:chevron-down" viewBox="0 0 16 16"></mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+    <div class="fixed flex flex-0 items-center w-full top-{{mosqueHeaderTop}} h-16 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden"
+        [ngClass]="direction === 'ltr' ? 'pl-65 ' : direction === 'rtl' ? 'pr-65 ' :''">
+        <button *ngIf="isScreenSmall" mat-icon-button (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+        <!-- <div [ngClass]="direction === 'ltr' ? 'pl-6 ml-4' : direction === 'rtl' ? 'pr-6 mr-4' :''" class="w-[502px]">
+            <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-full min-w-64 maxHeight" [subscriptSizing]="'dynamic'"
+                appearance="outline">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" placeholder="{{'Main.search' | translate}}"
+                    class="mt-2">
+            </mat-form-field>
+        </div> -->
+        <div class="flex items-center space-x-0.5"
+            [ngClass]="direction === 'ltr' ? 'pr-2 ml-auto' : direction === 'rtl' ? 'pl-2 mr-auto' :''">
+            <languages></languages>
+            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+            <!-- <search [appearance]="'bar'"></search> -->
+            <notifications class="ml-0 mr-0"></notifications>
+            <user></user>
+        </div>
+
+    </div>
+
+    <!-- Content -->
+    <div class="relative flex flex-col flex-auto top-{{mosqueHeaderTop}}"
+        [ngClass]="direction === 'rtl' ? 'fullWidth' : direction === 'ltr' ? 'fullWidthLeft' : 'fullWidth'">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <!-- <div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <span class="font-medium text-secondary">Fuse &copy; {{currentYear}}</span>
+    </div> -->
+
+</div>
+
+<!-- Quick chat -->
+<!-- <quick-chat #quickChat="quickChat"></quick-chat> -->

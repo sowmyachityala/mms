@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="top-half">
+        <div>
+            <img [src]="imageUrl" alt="Logo" class="logo">
+			<div class="cls02">
+			Delete Your Acccount ?<br>
+			Fill the Form.
+			</div>
+        </div>  
+		
+    </div>
+    <div class="bottom-half">
+        <div class="card">
+			<form class="formcls" [formGroup]="signInForm">
+				<mat-form-field class="w-full" *ngIf="!isOtpArrived">
+					<mat-label>Please enter the registered email with iSalaam</mat-label>
+					<input id="email" matInput [formControlName]="'email'" />
+					<mat-error *ngIf="signInForm.get('email').hasError('required')">
+						Email address is required
+					</mat-error>
+					<mat-error *ngIf="signInForm.get('email').hasError('email')">
+						Please enter a valid email address
+					</mat-error>
+				</mat-form-field>
+			
+				<mat-form-field class="w-full" *ngIf="isOtpArrived">
+					<mat-label>Enter verification code</mat-label>
+					<input
+						matInput
+						[formControlName]="'loginOtp'"
+						appOnlynumber
+						autofocus
+						(keypress)="onKeyPress($event)"
+					/>
+					<mat-error *ngIf="signInForm.get('loginOtp').hasError('required')">
+						Verification code is required
+					</mat-error>
+					<mat-error *ngIf="signInForm.get('loginOtp').hasError('maxlength')">
+						Verification code maximum length is 6 digits.
+					</mat-error>
+				</mat-form-field>
+			
+				<div class="text-center" *ngIf="seconds !== 0">
+					<span *ngIf="isOtpArrived" class="span-info">
+						Remaining <b>{{ displayTimer }}</b>
+					</span>
+				</div>
+				<div class="text-center text-600" *ngIf="isOtpArrived && seconds === 0">
+					<a (click)="resendOtp()">Resend</a>
+				</div>
+				<button
+					class="fuse-mat-button-large w-full mt-6"
+					mat-flat-button
+					[color]="'primary'"
+					[disabled]="signInForm.disabled"
+					(click)="confirmDonationForUser()"
+					*ngIf="!signInForm.disabled && !isOtpArrived"
+				>
+					<span class="font-semibold text-lg">
+						Send verification code
+					</span>
+					<mat-progress-spinner
+						*ngIf="signInForm.disabled"
+						[diameter]="24"
+						[mode]="'indeterminate'"
+					></mat-progress-spinner>
+				</button>
+			
+				<button
+					class="fuse-mat-button-large w-full mt-6"
+					mat-flat-button
+					[color]="'primary'"
+					[disabled]="signInForm.disabled"
+					(click)="InactiveUserAccount()"
+					*ngIf="!signInForm.disabled && isOtpArrived"
+				>
+					<span class="font-semibold text-lg">
+						Verify & Continue
+					</span>
+					<mat-progress-spinner
+						*ngIf="signInForm.disabled"
+						[diameter]="24"
+						[mode]="'indeterminate'"
+					></mat-progress-spinner>
+				</button>
+			
+				<div class="mt-4 text-center" *ngIf="isOtpArrived">
+					<span span-info>
+						{{ signInForm.value.email }}
+					</span>
+					<div class="flex justify-center">
+						<span class="login-info w-auto span-info">
+							Change phone number or email?<span
+								[ngClass]="
+									direction === 'ltr'
+										? ' mr-1'
+										: direction === 'rtl'
+										? ' ml-1'
+										: ''
+								"
+								class="createInfo w-auto span-info cursor-pointer"
+								(click)="changeLoginDetails()"
+								>Click here</span
+							>
+						</span>
+					</div>
+				</div>
+			
+			</form>
+			
+		</div>
+		<div class="cls01">
+			Got a question ?<br>
+			We are happy to Answer!
+			
+			<div class="cls03">
+			<i class="fa-solid fa-square-phone"></i><span class="cls03">agsds-isalaam&#64;isalaam.id</span>
+			</div>
+			
+		</div>
+		<!-- <button (click)="TestApiData()">Test</button> -->
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <div>
+        <div class="page-title justify-between flex">
+            <span>{{ "User.accountManagementSystem" | translate }}</span>
+        </div>
+        <div class="flex flex-auto overflow-hidden">
+            <div class="flex flex-col flex-auto min-w-0 m-6">
+                <div class="flex flex-col">
+                    <div class="container">                       
+                        <img
+                            src="assets/images/user_profile/account-management.png"
+                            alt="Under Development"
+                            class="flex justify-between accounts-img"
+                        />
+                        <div class="text-center">
+                            <!-- <h2 class="text-xl font-bold mb-2">
+                                {{ "User.title" | translate }}
+                            </h2> -->
+                            <!-- <p class="text-lg">
+                                {{ "User.message" | translate }}
+                            </p> -->
+                            <p class="text-lg" [innerHTML]="'User.message' | translate"></p>
+
+                            <!-- <p class="text-lg"><b>UserName:</b>{{mosqueEmail}}</p> -->
+                            <p class="text-lg"><b>Password:</b>Cdg&#64;12345</p>
+                            <p class="text-sm mt-2">
+                                <!-- {{ "User.stayTuned" | translate }} -->
+                                <a (click)="navigateToAccounts()">click here..!</a>
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>           
+        </div>        
+    </div>
+</div>

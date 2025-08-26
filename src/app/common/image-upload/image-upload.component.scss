@@ -1,0 +1,30 @@
+
+.image-container {
+    height: 8rem; /* Same height for both */
+    display: flex; /* Center content vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Hide overflow content */
+    position: relative; /* Relative positioning for absolute elements inside */
+}
+
+
+.image-container img {
+    height: 100%; /* Fill the container's height */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the container */
+}
+
+.custom-file-input {
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.custom-file-label {
+    cursor: pointer;
+    display: block;
+    margin-top: 0.5rem; /* Optional: Adjust spacing between label and other content */
+}

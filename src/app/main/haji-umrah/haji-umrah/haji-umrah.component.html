@@ -1,0 +1,33 @@
+<div class="container donation-container py-5">
+    <div class="tab-header">
+        <i class="fa fa-th-large" aria-hidden="true"></i>
+        <div class="custom-tabs">
+            <div
+                class="tab"
+                [class.active]="selectedTabIndex === 0"
+                (click)="setTab(0)"
+            >
+                Haji
+            </div>
+            <div
+                class="tab"
+                [class.active]="selectedTabIndex === 1"
+                (click)="setTab(1)"
+            >
+                Umrah
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards py-3 pt-5">
+        <div
+            class="card-item"
+            *ngFor="let item of currentMenuItems; let i = index"
+            (click)="navigateToPage(item.label)"
+        >
+            <img [src]="item.image" [alt]="item.alt || 'Image'" />
+        </div>
+    </div>
+</div>
+

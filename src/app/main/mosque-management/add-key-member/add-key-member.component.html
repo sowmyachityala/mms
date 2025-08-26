@@ -1,0 +1,250 @@
+<div
+    mat-dialog-title
+    class="flex justify-between bgGreen text-white py-4 px-8  {{ direction }}"
+>
+    <h1 class="font-semibold">{{ "addKeyMem.addNewMember" | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()"
+        ><mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "addKeyMem.cclose" | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-8 pt-8">
+    <div class="inner-page-title">
+        {{ "addKeyMem.memberInfo" | translate }}
+    </div>
+    <hr />
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+
+    <form [formGroup]="memberInfoForm">
+        <div class="inner-page-sub-title">
+            {{ "addKeyMem.basicInformation" | translate }}
+        </div>
+
+        <!-- <div class="mt-4">
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>{{
+                    "addKeyMem.selectKeyMemberRole" | translate
+                }}</mat-label>
+                <mat-select formControlName="keyRoleId">
+                    <mat-option *ngFor="let type of mTypes" [value]="type.id">
+                        {{ type.name }}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="memberInfoForm.get('keyRoleId').hasError('required')"
+                >
+                    {{ "addKeyMem.roleNameIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+        </div> -->
+
+        <div class="mt-4">
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>{{
+                    "addKeyMem.keyMemberName" | translate
+                }}</mat-label>
+                <input matInput formControlName="name" [autocomplete]="'off'" />
+                <mat-error
+                    *ngIf="memberInfoForm.get('name').hasError('required')"
+                >
+                    {{ "addKeyMem.keyMemberNameIsRequired" | translate }}
+                </mat-error>
+                <mat-error *ngIf="memberInfoForm.controls['name'].hasError('noLeadingSpaces')">
+                    {{
+                        "MosqueProfile.spaceNotAllowedInitially" | translate
+                    }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="mt-4">
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>{{
+                    "addKeyMem.keyMemberDesignation" | translate
+                }}</mat-label>
+                <textarea
+                    matInput
+                    formControlName="designation"
+                    maxlength="100"
+                ></textarea>
+                <label class="text-disabled">
+                    {{ memberInfoForm?.value?.designation.length }}/100
+                </label>
+                <mat-error
+                    *ngIf="
+                        memberInfoForm.get('designation').hasError('required')
+                    "
+                >
+                    {{ "addKeyMem.keyMemberDesignationIsRequired" | translate }}
+                </mat-error>
+                <mat-error *ngIf="memberInfoForm.controls['designation'].hasError('noLeadingSpaces')">
+                    {{
+                        "MosqueProfile.spaceNotAllowedInitially" | translate
+                    }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="mt-4">
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>{{
+                    "addKeyMem.aboutKeyMember" | translate
+                }}</mat-label>
+                <textarea
+                    matInput
+                    formControlName="about"
+                    maxlength="100"
+                ></textarea>
+                <label class="text-disabled">
+                    {{ memberInfoForm?.value?.about.length }}/100
+                </label>
+                <mat-error
+                    *ngIf="memberInfoForm.get('about').hasError('required')"
+                >
+                    {{ "addKeyMem.aboutKeyMemberIsRequired" | translate }}
+                </mat-error>
+                <mat-error *ngIf="memberInfoForm.controls['about'].hasError('noLeadingSpaces')">
+                    {{
+                        "MosqueProfile.spaceNotAllowedInitially" | translate
+                    }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inner-page-sub-title mt-4">
+            {{ "addKeyMem.contactInfo" | translate }}
+        </div>
+
+        <div class="mt-4">
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>{{
+                    "addKeyMem.phoneNumberOpt" | translate
+                }}</mat-label>
+                <input
+                    matInput
+                    formControlName="phoneNumber"
+                    appOnlynumber
+                    [autocomplete]="'off'"
+                    minlength="8"
+                    maxlength="15"
+                />
+                <mat-error
+                    *ngIf="
+                        memberInfoForm.get('phoneNumber').hasError('required')
+                    "
+                >
+                    {{ "addKeyMem.phoneNumberIsRequired" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        memberInfoForm.controls['phoneNumber'].hasError('minlength') || memberInfoForm.controls['phoneNumber'].hasError('maxlength')"  
+                >
+                    {{ "addKeyMem.phoneNumberMustBe" | translate }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="mt-4">
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>{{ "addKeyMem.email" | translate }}</mat-label>
+                <input
+                    matInput
+                    formControlName="email"
+                    [autocomplete]="'off'"
+                />
+                <mat-error
+                    *ngIf="memberInfoForm.get('email').hasError('required')"
+                >
+                    {{ "addKeyMem.emailIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="inner-page-sub-title mt-4">
+            {{ "addKeyMem.profilePictureOpt" | translate }}
+        </div>
+        <div class="text-disabled text-sm">
+            {{ "addKeyMem.imgeRequiredSize" | translate }}
+        </div>
+
+        <div class="{{ direction }}">
+            <div
+                class="px-20 py-10 dropzone h-40 w-2/5 mt-4 block"
+                (click)="uploadImage('profile', '490', '240')"
+                *ngIf="!selectedProfileFile"
+            >
+                <div>
+                    <mat-icon svgIcon="mat_outline:file_upload"></mat-icon>
+                </div>
+                <div>{{ "addKeyMem.uploadProfilePicture" | translate }}</div>
+            </div>
+            <div
+                class="dropzone w-2/5 px-20 py-10 mt-4 {{ direction }}"
+                *ngIf="profileImageSource"
+            >
+                <img class="w-15 h-18" [src]="profileImageSource" />
+            </div>
+            <div
+                class="w-2/5 mt-2 justify-between flex"
+                *ngIf="profileImageSource"
+            >
+                <div
+                    class="flex cursor-pointer"
+                    (click)="uploadImage('profile', '490', '240')"
+                >
+                    <img class="w-4 h-6" [src]="imageUrl?.reloadIcon" />
+                    <span
+                        class="active font-semibold text-lg"
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'ml-1 '
+                                : direction === 'rtl'
+                                ? 'mr-1 '
+                                : ''
+                        "
+                        >{{ "addKeyMem.reUpload" | translate }}</span
+                    >
+                </div>
+                <div
+                    class="flex cursor-pointer"
+                    (click)="deleteImage('profile')"
+                >
+                    <img class="w-4 h-6" [src]="imageUrl?.deleteIcon" />
+                    <span
+                        class="text-danger font-semibold text-lg"
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'ml-1 '
+                                : direction === 'rtl'
+                                ? 'mr-1 '
+                                : ''
+                        "
+                        >{{ "addKeyMem.delete" | translate }}</span
+                    >
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-28 mb-4" />
+
+        <div mat-dialog-actions class="float-left mt-4">
+            <button mat-button mat-dialog-close (click)="addDialogRef.close()">
+                Cancel
+            </button>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="addOrUpdateMemeber()"
+            >
+                <span *ngIf="!memberGuid">{{
+                    "addKeyMem.createNewMemebr" | translate
+                }}</span>
+                <span *ngIf="memberGuid">{{
+                    "addKeyMem.upateMemebrDetails" | translate
+                }}</span>
+            </button>
+        </div>
+    </form>
+</div>

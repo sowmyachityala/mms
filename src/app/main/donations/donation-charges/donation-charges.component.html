@@ -1,0 +1,47 @@
+
+<div class="container">
+    <div class="top-header">
+        <div>
+            <img [src]="imageUrl" alt="Logo" class="logo">
+        </div>  
+    </div>
+    <div class="footer-body">
+        <h1>{{ "Donations.paymentMode" | translate }}</h1>
+        <div class="payment-container">
+            <div class="payment-tabs">
+                <div *ngFor="let method of paymentMethods; let i = index" class="tab" [class.active]="i === activeTab"  (click)="showContent(i,method.paymentMethod)">
+                     {{ method.paymentMethod }}
+                </div>
+            </div>
+    
+            <div class="payment-content show">
+                <div *ngFor="let bank of BanksData; let i = index" (click)="setActiveImage(i,bank.bankNameId)" [ngClass]="{'active': activeImageIndex === i}">
+                    <div class="tabBank" [class.active]="i === activeImageIndex">
+                        <img [src]="bank.bankLogoUrl" [alt]="bank.bankLogoUrl">
+                    </div>
+                </div>
+            </div>            
+            <div class="hint-message">
+                {{ "Donations.chooseYourBankToPay" | translate }}
+            </div>
+
+            <div class="payment-breakdown">
+                <div><span>{{ "Donations.donatedAmount" | translate }}</span> <span>Rp {{donatedAmount}}</span></div>
+                <div><span>{{ "Donations.transactionVATFee" | translate }}</span> <span *ngIf="BankCharges.totalBankCharges">Rp {{BankCharges.totalBankCharges}}</span></div>
+                <div><span>{{ "Donations.serviceCharge" | translate }}</span> <span *ngIf="BankCharges.splitCharges">Rp {{BankCharges.splitCharges}}</span></div>
+                <div class="total"><span>{{ "Donations.totalPayment" | translate }}</span> <span *ngIf="BankCharges.subTotalAmount">Rp {{BankCharges.subTotalAmount}}</span></div>
+            </div>
+
+        </div>
+        <div class="mt-5">
+            <button mat-button  (click)="onClose()">{{'ProductCat.cancel' | translate }}</button>
+            <button mat-flat-button [color]="'primary'" class="ml-5" (click)="confirmDonationForUser()" [disabled]="!BankCharges.subTotalAmount">
+                {{ "Donations.proceedPay" | translate }}
+            </button>
+        </div>
+    </div>
+    
+</div>
+
+
+

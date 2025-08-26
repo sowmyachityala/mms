@@ -1,0 +1,305 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+   <div *ngIf="allRoles">
+        <div class="page-title justify-between flex">
+            <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>
+            <div class="page-sub-title">
+                <a class="mr-1 text-xl">{{ rolesList?.length }}</a>
+                <span class="float-right">{{'MenuMapping.totalRoles' | translate}} </span>
+            </div>
+        </div>
+
+        <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+            <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+            </div>
+            <div class="">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>{{'MenuMapping.search' | translate}}</mat-label>
+                    <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                    <input matInput [formControl]="searchInputControl" (keyup)="applyFilter($event.target.value)"
+                        [autocomplete]="'off'" placeholder="{{'MenuMapping.search' | translate}}">
+                </mat-form-field>
+            </div>            
+        </div>
+        <div class="flex flex-auto overflow-hidden">
+            <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                <table mat-table [dataSource]="dataSource">
+
+                    <ng-container matColumnDef="roleName">
+                        <th mat-header-cell *matHeaderCellDef> {{'MenuMapping.roleName' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.roleName}} </td>
+                    </ng-container>                
+
+                    <ng-container matColumnDef="roleDescription">
+                        <th mat-header-cell *matHeaderCellDef> {{'MenuMapping.roleDescription' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.roleDescription}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="assignedParentCount">
+                        <th mat-header-cell *matHeaderCellDef class="actionCenter"> {{'MenuMapping.assignedMenu' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="actionCenter"> {{element.assignedParentCount}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="actWidthCenter"></th>
+                        <td mat-cell *matCellDef="let element" class="actWidthCenter">  
+                            <button  [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu" [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                                <ng-container>
+                                    <button mat-menu-item (click)="menuRole(element.roleId,element.roleName)"> {{'MenuMapping.actions' | translate}}</button>
+                                </ng-container>                            
+                            </mat-menu>
+                        </td>
+                    </ng-container>                
+                    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">{{'MenuMapping.noDataMatching' | translate}}</td>
+                    </tr>
+                </table>
+                <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+                </mat-paginator>
+            </div>
+        </div>
+   </div>
+   <div *ngIf="allMenu">
+        <div class="page-title justify-between flex">
+            <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>
+            <div class="page-sub-title">
+                <a class="mr-1 text-xl">{{ menusList?.length }}</a>
+                <span class="float-right"> {{'MenuMapping.totalParentMenus' | translate}} </span>
+            </div>
+        </div>        
+        <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+            <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+            </div>
+            <div class="">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>{{'MenuMapping.search' | translate}}</mat-label>
+                    <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                    <input matInput [formControl]="searchInputControlMenu" (keyup)="applyFilterMenu($event.target.value)"
+                        [autocomplete]="'off'" placeholder="{{'MenuMapping.search' | translate}}">
+                </mat-form-field>
+            </div>  
+            <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+                <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>&nbsp;/&nbsp;<a class="breadCrum" (click)="backToRoles()">{{userRoleName}}</a>            
+            </div>         
+        </div>
+        <div class="flex flex-auto overflow-hidden">
+            <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                <table mat-table [dataSource]="dataSourceMenu">
+                    
+                    <ng-container matColumnDef="menuName">
+                        <th mat-header-cell *matHeaderCellDef> {{'MenuMapping.parentMenuName' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.menuName}} </td>
+                    </ng-container>                
+
+                    <ng-container matColumnDef="menuDescription">
+                        <th mat-header-cell *matHeaderCellDef> {{'MenuMapping.parentMenuDescription' | translate}}  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.menuDescription}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="displayOrder">
+                        <th mat-header-cell *matHeaderCellDef class="disOrder"> {{'MenuMapping.displayOrder' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="actionCenter"> {{element.displayOrder}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="assignedChildCount">
+                        <th mat-header-cell *matHeaderCellDef class="actionCenter"> {{'MenuMapping.assignedMenu' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="actionCenter"> {{element.assignedChildCount}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="isAssigned">
+                        <th mat-header-cell *matHeaderCellDef class="actionCenter actionCenterWidth"> {{'MenuMapping.enabledDisabled' | translate}} </th>
+                        <td mat-cell *matCellDef="let element; let i = index;" class="actionCenter">
+                            <mat-slide-toggle [color]="'primary'" class="m-auto" [checked]="element.isAssigned === true ? true :false"
+                                (change)="updateRoleMenu($event.checked,element,i,'P');">
+                            </mat-slide-toggle>
+                        </td>
+                    </ng-container>  
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="actionCenter"> </th>
+                        <td mat-cell *matCellDef="let element" class="pr-0 pl-0 w-4 actionCenter">
+                            <!-- Add a button to trigger the menu -->
+                            <button  [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <!-- Define the menu -->
+                            <mat-menu #menu="matMenu" [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                                <ng-container>
+                                    <button mat-menu-item (click)="childMenus(element?.menuId,element?.menuName)" *ngIf="element?.isAssigned && element?.isParentHaveChild"> {{'MenuMapping.childMenu' | translate}}</button>
+                                    <button mat-menu-item (click)="addBusinessActions(element.menuGuid,element.menuName,element.menuId)" *ngIf="element?.isAssigned" > {{'MenuMapping.actions' | translate}}</button>
+                                </ng-container>                            
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedMenuColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedMenuColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4"> {{'MenuMapping.noDataMatching' | translate}}</td>
+                    </tr>
+                </table>
+                <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+                </mat-paginator>
+            </div>
+        </div>
+   </div>
+   <div *ngIf="allChildMenu">
+    <div class="page-title justify-between flex">
+        <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>
+        <div class="page-sub-title">
+            <a class="mr-1 text-xl">{{ childMenusList?.length }}</a>
+            <span class="float-right"> {{'MenuMapping.totalChildMenus' | translate}} </span>
+        </div>
+    </div>
+    
+    <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="">
+            <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                <mat-label> {{'MenuMapping.search' | translate}}</mat-label>
+                <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput [formControl]="searchInputControlChildMenu" (keyup)="applyFilterChildMenu($event.target.value)"
+                    [autocomplete]="'off'" placeholder="{{'MenuMapping.search' | translate}}">
+            </mat-form-field>
+        </div>
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+            <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>&nbsp;/&nbsp;<a class="breadCrum" (click)="backToRoles()">{{userRoleName}}</a>&nbsp;/&nbsp;<a class="breadCrum" (click)="backToMainMenu()">{{parentMenuName}}</a>        
+        </div>
+    
+    </div>
+    <div class="flex flex-auto overflow-hidden">
+        <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+            <table mat-table [dataSource]="dataSourceChildMenu">
+                
+                <ng-container matColumnDef="menuName">
+                    <th mat-header-cell *matHeaderCellDef>{{'MenuMapping.childMenuName' | translate}}</th>
+                    <td mat-cell *matCellDef="let element"> {{element.menuName}} </td>
+                </ng-container>                
+
+                <ng-container matColumnDef="menuDescription">
+                    <th mat-header-cell *matHeaderCellDef>{{'MenuMapping.childMenuDescription' | translate}}</th>
+                    <td mat-cell *matCellDef="let element"> {{element.menuDescription}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="displayOrder">
+                    <th mat-header-cell *matHeaderCellDef class="disOrder">{{'MenuMapping.displayOrder' | translate}}</th>
+                    <td mat-cell *matCellDef="let element" class="actionCenter"> {{element.displayOrder}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="isAssigned">
+                    <th mat-header-cell *matHeaderCellDef class="actionCenter actionCenterWidth">{{'MenuMapping.enabledDisabled' | translate}}</th>
+                    <td mat-cell *matCellDef="let element; let i = index;" class="actionCenter">
+                        <mat-slide-toggle [color]="'primary'" class="m-auto" [checked]="element.isAssigned === true ? true :false"
+                            (change)="updateRoleMenu($event.checked,element,i,'C');">
+                        </mat-slide-toggle>
+                    </td>
+                </ng-container>   
+                
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="actionCenter"> </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-0 w-4 actionCenter">
+                        <!-- Add a button to trigger the menu -->
+                        <button  [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <!-- Define the menu -->
+                        <mat-menu #menu="matMenu" [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                            <ng-container>
+                                <button mat-menu-item (click)="addBusinessActions(element.menuGuid,element.menuName,element.menuId)" *ngIf="element?.isAssigned" >{{'MenuMapping.actions' | translate}}</button>
+                            </ng-container>                            
+                        </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedChildMenuColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedChildMenuColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">{{'MenuMapping.noDataMatching' | translate}}</td>
+                </tr>
+            </table>
+            <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+            </mat-paginator>
+        </div>
+    </div>
+   </div>
+   <div *ngIf="businessActions">
+        <div class="page-title justify-between flex">
+            <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>
+            <div class="page-sub-title">
+                <a class="mr-1 text-xl">{{ businessActionsList?.length }}</a>
+                <span class="float-right"> total actions </span>
+            </div>
+        </div>    
+        <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+            <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+            </div>
+            <div class="">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>{{'MenuMapping.search' | translate}}</mat-label>
+                    <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                    <input matInput [formControl]="searchInputControlAction" (keyup)="applyFilterChildMenu($event.target.value)"
+                        [autocomplete]="'off'" placeholder="{{'MenuMapping.search' | translate}}">
+                </mat-form-field>
+            </div>
+            <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+                <span>{{'MenuMapping.rolesMenuActions' | translate}}</span>&nbsp;/&nbsp;<a class="breadCrum" (click)="backToRoles()">{{userRoleName}}</a>&nbsp;/&nbsp;<a class="breadCrum" (click)="backToMainMenu()">{{parentMenuName}}</a>&nbsp;/&nbsp;<a class="breadCrum" (click)="backToChildMenu()">{{childMenuName}}</a><span *ngIf="childMenuName !=''">&nbsp;/&nbsp;</span>{{'MenuMapping.actions' | translate}}      
+            </div>    
+        </div>
+        <div class="flex flex-auto overflow-hidden">
+            <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                <table mat-table [dataSource]="dataSourceActions">
+                    
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> {{'MenuMapping.actionName' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>                
+
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef> {{'MenuMapping.actionDescription' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="displayOrder">
+                        <th mat-header-cell *matHeaderCellDef class="disOrder">{{'MenuMapping.displayOrder' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="actionCenter"> {{element.displayOrder}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="isAssigned">
+                        <th mat-header-cell *matHeaderCellDef class="actionCenter actionCenterWidth"> {{'MenuMapping.enabledDisabled' | translate}} </th>
+                        <td mat-cell *matCellDef="let element; let i = index;" class="actionCenter">
+                            <mat-slide-toggle [color]="'primary'" class="m-auto" [checked]="element.isAssigned === true ? true :false"
+                            (change)="updateRoleMenuAction($event.checked,element,'A',i);">
+                            </mat-slide-toggle>
+                        </td>
+                    </ng-container>   
+
+                    <tr mat-header-row *matHeaderRowDef="displayedActionsColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedActionsColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">{{'MenuMapping.noDataMatching' | translate}}</td>
+                    </tr>
+                </table>
+                <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+                </mat-paginator>
+            </div>
+        </div>
+   </div>
+</div>

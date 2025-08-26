@@ -1,0 +1,75 @@
+<!-- Button -->
+<!-- <button mat-icon-button (click)="setActiveLang('')"> -->
+    <!-- <img class="w-full" [src]="'assets/images/flags/' + inactiveLang.toUpperCase() + '.svg'"> -->
+    <!-- <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: activeLang}"></ng-container> -->
+<!-- </button> -->
+<!-- <mat-form-field *ngIf="selectLang" class="mt-5"  style="height: 65px;width: 85%;">
+    <mat-select [formControl]="selectLang" (selectionChange)="selectPreferedLang($event.value)">        
+        <mat-option *ngFor="let lang of languages;" [value]="lang.cultureCode" [ngClass]="direction === 'ltr' ? '' : direction === 'rtl' ? 'pl-0' :''" showLabels = 'false'> 
+            <mat-icon style="margin-right: 16px;">
+                <img [src]="lang.flagUri">
+            </mat-icon>
+            <span>{{lang.language}}</span> 
+        </mat-option>
+    </mat-select>
+</mat-form-field> -->
+
+
+<!-- Language menu -->
+<!-- <mat-menu
+    [xPosition]="'before'"
+    #languages="matMenu">
+    <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn">
+        <button
+            mat-menu-item
+            (click)="setActiveLang(lang.id)">
+            <span class="flex items-center">
+                <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: lang.id}"></ng-container>
+                <span class="ml-3">{{lang.label}}</span>
+            </span>
+        </button>
+    </ng-container>
+</mat-menu> -->
+
+
+<!-- Flag image template -->
+<!-- <ng-template let-lang #flagImage>
+    <span class="relative w-6 shadow rounded-sm overflow-hidden">
+        <span class="absolute inset-0 ring-1 ring-inset ring-black ring-opacity-10"></span>
+        <img class="w-full" [src]="'assets/images/flags/' + flagCodes[lang].toUpperCase() + '.svg'"
+            [alt]="'Flag image for ' + lang" (click)="setActiveLang('')">
+    </span>
+</ng-template> -->
+<button
+    mat-icon-button
+    [matMenuTriggerFor]="languages"  [matTooltip]="tooltip || 'language'"> 
+     <!-- <img class="w-full" [src]="selectLangFlag"> -->
+    <!-- <img class="w-full" [src]="'assets/images/flags/' + selectLangFlag + '.svg'"> -->
+    <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: activeLang}"></ng-container>
+</button>
+
+<mat-menu
+    [xPosition]="'before'"
+    #languages="matMenu">
+    <ng-container *ngFor="let lang of allLangs; trackBy: trackByFn">
+        <button
+            mat-menu-item
+            (click)="selectPreferedLang(lang.cultureCode,lang.flagUri)">
+            <span class="flex items-center">
+                <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: lang.cultureCode}"></ng-container>
+                <span class="ml-3">{{lang.language}}</span>
+            </span>
+        </button>
+    </ng-container>
+</mat-menu>
+
+<ng-template let-lang #flagImage>
+    <span class="relative w-6 shadow rounded-sm overflow-hidden">
+        <span class="absolute inset-0 ring-1 ring-inset ring-black ring-opacity-10"></span>
+        <img class="w-full" [src]="'assets/images/flags/' + flagCodes[lang] + '.svg'"
+            [alt]="'Flag image for ' + lang" >
+        <!-- <img class="w-full" [src]="lang.flagUri"
+            [alt]="'Flag image for ' + lang" > -->
+    </span>
+    <!-- [src]="'assets/images/flags/' + flagCodes[lang.id] + '.svg'"-->
+</ng-template>

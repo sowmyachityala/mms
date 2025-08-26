@@ -1,0 +1,31 @@
+ 
+<div class="zoom-controls">    
+    <button mat-button (click)="zoomIn()">
+        <span class="ml-1 mr-1" ><mat-icon>zoom_in</mat-icon></span>
+    </button>
+    <button mat-button (click)="zoomOut()">
+        <span class="ml-1 mr-1" ><mat-icon>zoom_out</mat-icon></span>
+    </button>
+    <button mat-button (click)="resetZoom()">
+        <span class="ml-1 mr-1" ><mat-icon>refresh</mat-icon></span>
+    </button>
+    <button mat-button (click)="downloadImageById(mediaGuid,mediaFileName)">
+        <span class="ml-1 mr-1"> <mat-icon>save_alt</mat-icon></span>
+    </button>
+</div>   
+<!-- <div class="preview">
+    <img src="{{srcUrl}}" id="{{mediaGuid}}" name="{{mediaFileName}}" [style.transform]="'scale(' + zoomLevel + ')'" width="100%"/>
+</div> -->
+<div class="image-container"  (mousedown)="onImageDragStart($event)" (wheel)="onMouseWheel($event)">
+    <img
+      src="{{srcUrl}}"
+      alt="Zoomable Image"
+      id="{{mediaGuid}}" name="{{mediaFileName}}"
+      [ngStyle]="{ transform: 'scale(' + zoomLevel + ') translate(' + imageX + 'px, ' + imageY + 'px)', cursor: cursorStyle }"
+      (mousedown)="onImageDragStart($event)"
+      (mouseup)="onImageDragEnd($event)"
+      (mousemove)="onImageDrag($event)"
+       width="100%"
+    />
+  </div>
+

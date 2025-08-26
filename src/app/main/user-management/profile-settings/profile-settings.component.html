@@ -1,0 +1,236 @@
+<div
+    mat-dialog-title
+    class="flex justify-between bgGreen text-white py-4 px-15  {{ direction }}"
+>
+    <h1 class="font-semibold">{{ "UserProfile.myProfile" | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "UserProfile.cclose" | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-15 pt-10 {{ direction }}">
+    <div class="inner-page-title text-xl">
+        {{ "UserProfile.profileInformation" | translate }}
+    </div>
+    <hr />
+    <div class="pt-10 flex">
+        <div class="w-1/3 p-6 bg-[#f5f5f5] h-[494px]">
+            <div
+                class="bg-[#D69C47] h-60 flex justify-center items-center"
+                *ngIf="!profileImageUrl"
+            >
+                <div>
+                    <mat-icon
+                        class="w-15 h-15 text-white"
+                        svgIcon="feather:user"
+                    ></mat-icon>
+                </div>
+            </div>
+            <!-- <div class="h-60" *ngIf="profileImageUrl">
+                <img [src]="getCacheBustedImageUrl()" class="h-full" />
+            </div> -->
+            <div class="h-60" *ngIf="profileImageUrl">
+                <img [src]="profileImageUrl" class="h-full" />
+            </div>
+            <div class="pt-6">
+                <button
+                    mat-flat-button
+                    [color]="'primary'"
+                    class="w-full"
+                    (click)="uploadImage('profile', '490', '240')"
+                >
+                    {{ "UserProfile.updateProfilePicture" | translate }}
+                </button>
+            </div>
+        </div>
+        <div
+            class="w-2/3"
+            [ngClass]="
+                direction === 'ltr' ? 'ml-5' : direction === 'rtl' ? 'mr-5' : ''
+            "
+        >
+            <div class="inner-page-sub-title">
+                {{ "UserProfile.personalInformation" | translate }}
+            </div>
+            <hr />
+            <div class="justify-between flex mt-6">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.fullName" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.fullName }}
+                    </div>
+                </div>
+                <div
+                    class="active font-semibold text-lg cursor-pointer"
+                    (click)="editUserProfileInfo('Full_Name')"
+                >
+                    {{ "UserProfile.edit" | translate }}
+                </div>
+            </div>
+
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.phoneNumber" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.phoneNumber }}
+                    </div>
+                </div>
+                <div
+                    class="active font-semibold text-lg cursor-pointer"
+                    (click)="editUserProfileInfo('Phone_Number')"
+                >
+                    {{ "UserProfile.edit" | translate }}
+                </div>
+            </div>
+
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.emailID" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.emailId }}
+                    </div>
+                </div>
+                <div
+                    class="active font-semibold text-lg cursor-pointer"
+                    (click)="editUserProfileInfo('Email_Id')"
+                >
+                    {{ "UserProfile.edit" | translate }}
+                </div>
+            </div>
+
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.userCurrency" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.userCurrency }}
+                    </div>
+                </div>
+                <div
+                    class="active font-semibold text-lg cursor-pointer"
+                    (click)="editUserProfileInfo('Currency_Type')"
+                >
+                    {{ "UserProfile.edit" | translate }}
+                </div>
+            </div>
+            <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div class="inner-page-labels">Gender</div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.gender }}
+                    </div>
+                </div>
+                <div
+                    class="active font-semibold text-lg cursor-pointer"
+                    (click)="editUserProfileInfo('Gender')"
+                >
+                    {{ "UserProfile.edit" | translate }}
+                </div>
+            </div>
+            <!-- <div class="justify-between flex mt-4">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.referralCode" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.referralCode }}
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="inner-page-sub-title mt-10">
+                {{ "UserProfile.roleInformation" | translate }}
+            </div>
+            <hr />
+            <div class="justify-between flex mt-6">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.role" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.roleName }}
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.memberSince" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.memberSince | date : "d MMMM y" }}
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.status" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.userActivityStatus }}
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.referralCode" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.referralCode }}
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="justify-between flex mt-6">
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.deviceCount" | translate }}
+                    </div>
+                    <ng-container
+                        *ngIf="userProfile?.deviceCount !== 0; else zeroCount"
+                    >
+                        <div
+                            class="inner-page-labels font-semibold mt-1 text-underline"
+                            (click)="openDeviceList(userProfile?.deviceList)"
+                        >
+                            <span class="">{{ userProfile?.deviceCount }} </span
+                            >{{ "UserProfile.of" | translate }}<span></span
+                            ><span> 3</span>
+                        </div>
+                    </ng-container>
+                    <ng-template #zeroCount>
+                        <div class="inner-page-labels font-semibold mt-1">
+                            {{ userProfile?.deviceCount }}
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.lastSession" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ user?.lastLoggedIn | date : "dd/MM/yyyy" }}
+                        {{ user?.lastLoggedIn | date : "shortTime" }}
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="inner-page-labels">
+                        {{ "UserProfile.mosquesFollowing" | translate }}
+                    </div>
+                    <div class="inner-page-labels font-semibold mt-1">
+                        {{ userProfile?.followedMosquesCount }}
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="inner-page-labels"></div>
+                    <div class="inner-page-labels font-semibold mt-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner size="medium" [type]="isLoadingType"></ngx-spinner>

@@ -1,0 +1,235 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div>
+         <div class="page-title justify-between flex">
+             <span>{{'productThreshold.productThreshold' | translate}}</span>
+             <div class="page-sub-title">
+                 <a class="mr-1 text-xl">{{ productList?.length }}</a>
+                 <span class="float-right">{{'productThreshold.totalThreshold' | translate}} </span>
+             </div>
+         </div>        
+         <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+             <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                 <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+             </div>
+             <div class="flex items-center gap-2 flex-nowrap w-full overflow-x-auto">
+                <form [formGroup]="searchForm" class="flex items-center gap-2 flex-nowrap">
+                    <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-52">
+                        <mat-label>{{'productThreshold.productName' | translate}}</mat-label>
+                        <input matInput formControlName="productName" [autocomplete]="'off'"  placeholder="{{ 'productThreshold.productName' | translate }}" maxlength="20" />
+                    </mat-form-field>
+
+                    <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-42">
+                        <mat-label>{{'Filters.status' | translate}}</mat-label>
+                        <mat-select formControlName="status">
+                            <mat-option [value]="true">{{'Filters.active' | translate}}</mat-option>
+                            <mat-option [value]="false">{{'Filters.inActive' | translate}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="flex items-center gap-2">
+                        <button mat-flat-button color="primary" (click)="SearchFilter()">
+                            {{ 'RegUsers.search' | translate }}
+                        </button>
+                        <button mat-flat-button (click)="ResetFilterList()" style="background: beige;">
+                            {{ 'RegUsers.reset' | translate }}
+                        </button>
+                    </div>
+                </form>
+
+                <div class="flex items-center ml-auto">
+                    <div *ngFor="let action of currentActions?.childMenuActions">                    
+                        <button mat-flat-button [color]="'primary'" *ngIf="action?.actionNameId === 'Add'" (click)="addUpdateProductThreshold('Add','')">
+                            <span class="ml-2 mr-1">{{action?.actionName}}</span>
+                        </button>                      
+                    </div>                
+                </div>
+            </div>            
+                
+         </div>
+         <div class="flex flex-auto overflow-hidden">
+             <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                 <table mat-table [dataSource]="dataSource">                     
+                     <ng-container matColumnDef="productName">
+                         <th mat-header-cell *matHeaderCellDef> {{'productThreshold.productName' | translate}} </th>
+                         <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+                     </ng-container> 
+                    <ng-container matColumnDef="productDescription">
+                        <th mat-header-cell *matHeaderCellDef> {{'productThreshold.productDescription' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.productDescription}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="miniThreshold">
+                        <th mat-header-cell *matHeaderCellDef> {{'productThreshold.miniThreshold' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.miniThreshold}} {{element.uomName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="maxThreshold">
+                        <th mat-header-cell *matHeaderCellDef> {{'productThreshold.maxThreshold' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.maxThreshold}} {{element.uomName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="availableQuantity">
+                        <th mat-header-cell *matHeaderCellDef class="colNumeric"> {{'productThreshold.availableQuantity' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="colNumeric">{{element.availableQuantity}} {{element.uomName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="entryBy">
+                        <th mat-header-cell *matHeaderCellDef> {{'productThreshold.entryBy' | translate}} </th>
+                        <td mat-cell *matCellDef="let element">{{element.entryBy}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="entryOn">
+                        <th mat-header-cell *matHeaderCellDef class="colNumeric"> {{'productThreshold.entryOn' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" class="colNumeric">
+                            <div> {{element.entryOn | date:'dd/MM/yyyy'}} </div>
+                            <div class="text-sm text-disabled"> {{element?.entryOn | date:'shortTime'}} </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="isActive">
+                        <th mat-header-cell *matHeaderCellDef> {{'Inventory.status' | translate}} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="flex cursor-pointer">
+                                <img class="w-4 h-4 mt-1" [ngClass]="direction === 'ltr' ? 'mr-1 ' : direction === 'rtl' ? 'ml-1' :''"
+                                    [src]="element?.isActive === false ? imageEndPoints?.deactive : imageEndPoints?.activeIcon">
+                                <span [ngClass]="element?.isActive === false ? '' : element.isActive ? 'active' :''">{{element.isActive ? 'Active' : 'Inactive'}}</span>
+                            </span>
+    
+                        </td>
+                    </ng-container>                    
+                    <ng-container matColumnDef="action">
+                         <th mat-header-cell *matHeaderCellDef class="actionCenter"> </th>
+                         <td mat-cell *matCellDef="let element" class="pr-0 pl-0 w-4 actionCenter">
+                             <button  [matMenuTriggerFor]="menu">
+                                 <mat-icon>more_vert</mat-icon>
+                             </button>
+                             <mat-menu #menu="matMenu" [ngClass]="direction === 'ltr' ? 'left-4 ' : direction === 'rtl' ? 'right-4' :''">
+                                 <ng-container>
+                                    <div *ngFor="let action of currentActions?.childMenuActions">                                        
+                                        <button mat-menu-item *ngIf="action?.actionNameId === 'Edit'" (click)="addUpdateProductThreshold('Update',element)">
+                                            <span> {{action?.actionName}} </span>
+                                        </button>                                       
+                                    </div>                                    
+                                 </ng-container>                            
+                             </mat-menu>
+                         </td>
+                     </ng-container>
+ 
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ 
+                     <tr class="mat-row" *matNoDataRow>
+                         <td class="mat-cell" colspan="4">{{'productThreshold.noDataMatching' | translate}}</td>
+                     </tr>
+                 </table>
+                 <mat-paginator #paginator [length]="pageLength" [pageSize]="pageSize" [showFirstLastButtons]="true"
+                    showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="onPageChange($event)">
+                </mat-paginator>
+             </div>
+         </div>
+    </div>
+    <div>
+        <ng-template #thresholdDialog>
+            <form [formGroup]="pThresholdForm" id="myDialog">  
+                <div class="dTitleBar">
+                    <h1 matDialogTitle class="dTitle" *ngIf="!isUpdate">  {{'productThreshold.addProduct' | translate }}</h1> 
+                    <h1 matDialogTitle class="dTitle" *ngIf="isUpdate"> {{'productThreshold.updateProduct' | translate }}</h1> 
+                </div>           
+                <mat-dialog-content>
+                    <div class="mt-4">
+                        <div *ngIf="!isUpdate">
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label> {{'productThreshold.category' | translate}} </mat-label>
+                                <mat-select (selectionChange)="getSubCategories($event.value)">
+                                    <mat-option *ngFor="let type of categories" [value]="type.categoryGuid">
+                                        {{type.categoryName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>   
+                        <div *ngIf="!isUpdate">
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label>  {{'productThreshold.subCategory' | translate}} </mat-label>
+                                <mat-select (selectionChange)="getProducts($event.value)">
+                                    <mat-option *ngFor="let type of subCategories" [value]="type.categoryGuid">
+                                        {{type.categoryName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>   
+                        <div *ngIf="!isUpdate">
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label> {{'productThreshold.product' | translate}} </mat-label>
+                                <mat-select formControlName="productId">
+                                    <mat-option *ngFor="let type of products"  [value]="type.id" (onSelectionChange)="selectedProduct(type)">
+                                        {{type.productName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="pThresholdForm.get('productId').hasError('required')">
+                                    {{'productThreshold.productIsRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>  
+                        <div *ngIf="isUpdate">
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label> {{'productThreshold.product' | translate}}</mat-label>
+                                <input matInput formControlName="productName" [autocomplete]="'off'" readonly>
+                            </mat-form-field>
+                        </div>  
+                        <div>
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label> {{'productThreshold.availableQty' | translate}}</mat-label>
+                                <input matInput formControlName="availableQty" appOnlynumber [autocomplete]="'off'" readonly>
+                                <mat-error *ngIf="pThresholdForm.get('availableQty').hasError('required')">
+                                    {{'productThreshold.availableQtyRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>    
+                        <div>
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label> {{'productThreshold.minQuantity' | translate}}</mat-label>
+                                <input matInput  formControlName="miniThreshold" appOnlynumber [autocomplete]="'off'" minlength="1" maxlength="5">
+                                <mat-error *ngIf="pThresholdForm.get('miniThreshold').hasError('required')">
+                                    {{'productThreshold.minQuantityRequired' | translate}}
+                                </mat-error>
+                                <mat-error  *ngIf=" pThresholdForm.get('miniThreshold').hasError('maxlength')">
+                                    {{ "productThreshold.minQtyDigits" | translate }}
+                                </mat-error>
+                                <mat-error *ngIf="pThresholdForm.get('miniThreshold').hasError('min')">
+                                    {{ 'productThreshold.minQuantityMin' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>   
+                        <div>
+                            <mat-form-field class="w-full max-w-80" [ngClass]="direction === 'ltr' ? 'ml-15' : direction === 'rtl' ? 'mr-15' :''">
+                                <mat-label> {{'productThreshold.maxQuantity' | translate}}</mat-label>
+                                <input matInput formControlName="maxThreshold" appOnlynumber [autocomplete]="'off'" minlength="1" maxlength="5">
+                                <mat-error *ngIf="pThresholdForm.get('maxThreshold').hasError('required')">
+                                    {{'productThreshold.maxQuantityRequired' | translate}}
+                                </mat-error>
+                                <mat-error  *ngIf=" pThresholdForm.get('maxThreshold').hasError('maxlength')">
+                                 {{ "productThreshold.maxQtyDigits" | translate }}
+                                </mat-error>
+                                <mat-error *ngIf="pThresholdForm.get('maxThreshold').hasError('min')">
+                                    {{ 'productThreshold.minQuantityMax' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>   
+                       
+                    </div>  
+                </mat-dialog-content>
+                <mat-dialog-actions >
+                    <div *ngIf="direction === 'ltr'" class="max-w-80 ml-15">
+                        <button mat-flat-button [color]="'primary'" (click)="addOrUpdateProductThreshold()">
+                            <span *ngIf="!isUpdate">{{'productThreshold.add' | translate }}</span>
+                            <span *ngIf="isUpdate">{{'productThreshold.update' | translate }}</span>
+                        </button>
+                        <button mat-button matDialogClose (click)="closeDialog()">{{'productThreshold.cancel' | translate }}</button>                    
+                    </div>
+                    <div *ngIf="direction === 'rtl'" class="max-w-80 ml-15">                    
+                        <button mat-button matDialogClose (click)="closeDialog()">{{'productThreshold.cancel' | translate }}</button>  
+                        <button mat-flat-button [color]="'primary'" (click)="addOrUpdateProductThreshold()">
+                            <span *ngIf="!isUpdate">{{'productThreshold.add' | translate }}</span>
+                            <span *ngIf="isUpdate">{{'productThreshold.update' | translate }}</span>
+                        </button>                  
+                    </div>
+                </mat-dialog-actions> 
+            </form>
+        </ng-template>
+       
+       </div>
+ </div>

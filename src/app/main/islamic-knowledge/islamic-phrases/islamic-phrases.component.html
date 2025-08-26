@@ -1,0 +1,735 @@
+<div class="container donation-container">
+    <!-- Header Section -->
+    <!-- <div class="title-section">
+        <h6>Islamic Knowledge</h6>
+    </div> -->
+
+    <!-- Title -->
+    <h3 class="name_allah mt-2">
+        <i class="fa fa-th-large" aria-hidden="true"></i> {{menuItems[activeIndex].label}}
+    </h3>
+
+    <div class="icon-scroll-wrapper">
+        <!-- Left Arrow -->
+        <!-- <button class="scroll-btn left" (click)="scrollIcons('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button> -->
+
+        <div class="icon-scroll"  #iconScroll id="iconScroll">
+            <div class="icon-item" #iconItem *ngFor="let item of menuItems; let i = index" (click)="navigateToPage(item.label, i)" [ngClass]="{ 'active': activeIndex === i }">
+                <img [src]="item.image" [alt]="item.label" />
+                <div>{{ item.label }}</div>
+            </div>           
+        </div>
+
+        <!-- Right Arrow -->
+        <!-- <button class="scroll-btn right" (click)="scrollIcons('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button> -->
+    </div>
+
+    <div class="divider-image">
+        <img src="assets/images/islamic-knowledge/devider.png" alt="divider" />
+    </div>
+    
+    <div class="islamic-section">
+        <h2>FRASA ISLAMI - PENJELASAN </h2>
+
+        <div class="px-10">
+            <img
+                src="assets/images/islamic-knowledge/IslamicPhrase1.png"
+            />
+        </div>
+
+            <div class="mt-6">
+                <!-- Phrase 1 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                    <button
+                    (click)="toggleCollapse(1)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                    >
+                    <div class="flex items-center gap-2">
+                        <i
+                        class="fa"
+                        [ngClass]="{ 'fa-caret-down': isOpen[1], 'fa-caret-right': !isOpen[1] }"
+                        aria-hidden="true"
+                        ></i>
+                        1. Bismillāhir-Raḥmānir-Raḥīm
+                    </div>
+                    </button>
+                    <div *ngIf="isOpen[1]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Bismillāhir-Raḥmānir-Raḥīm</p>
+                    <div class="py-1 text-right" dir="rtl">بِسْمِ ٱللّٰهِ ٱلرَّحْمٰنِ ٱلرَّحِيمِ </div>
+                    <p><strong class="islamic-color">Arti:</strong> Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br />
+                        Basmalah adalah pembuka setiap surah dalam Al-Qur’an (kecuali at-Taubah). Digunakan untuk memulai segala aktivitas agar diberkahi, seperti makan, menulis, masuk rumah, dll.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong>
+                        QS. An-Naml: 30
+                    </p>
+                        <div class="py-1 text-right" dir="rtl">إِنَّهُۥ مِن سُلَيْمَـٰنَ وَإِنَّهُۥ بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
+                    <p>“Sesungguhnya (isi surat itu) dari Sulaiman dan sesungguhnya (isi)nya: Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.”</p>
+                    
+                    <p><strong class="islamic-color">Keterangan:</strong> Basmalah menjadi pembuka dalam 113 dari 114 surat Al-Qur'an.</p>
+                    </div>
+                </div>
+
+                <!-- Phrase 2 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                    <button
+                    (click)="toggleCollapse(2)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                    >
+                    <div class="flex items-center gap-2">
+                        <i
+                        class="fa"
+                        [ngClass]="{ 'fa-caret-down': isOpen[2], 'fa-caret-right': !isOpen[2] }"
+                        aria-hidden="true"
+                        ></i>
+                        2. Al-ḥamdu lillāh
+                    </div>
+                    </button>
+                    <div *ngIf="isOpen[2]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Al-ḥamdu lillāh</p>
+                    <div class="py-1 text-right" dir="rtl">ٱلْـحَمْدُ لِلَّهِ </div>
+                    <p><strong class="islamic-color">Arti:</strong> Segala puji hanya bagi Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br />
+                        Ungkapan syukur atas segala nikmat Allah. Digunakan setelah makan, menerima kabar baik, atau dalam dzikir.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br />
+                        QS. Al-Fātiḥah: 2 
+                    </p>
+                    <div class="py-1 text-right" dir="rtl"> ٱلْـحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ </div>
+                    <p>“Segala puji bagi Allah, Tuhan semesta alam.”</p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Disebut Tahmid, dan merupakan pembuka doa maupun khutbah.</p>
+                    </div>
+                </div>
+
+                <!-- Phrase 3 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(3)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i
+                        class="fa"
+                        [ngClass]="{ 'fa-caret-down': isOpen[3], 'fa-caret-right': !isOpen[3] }"
+                        aria-hidden="true"
+                    ></i>
+                    3. Subḥānallāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[3]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Subḥānallāh</p>
+                    <p class="py-1 text-right" dir="rtl">سُبْحَانَ ٱللَّهِ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Maha Suci Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br />
+                    Digunakan untuk mengekspresikan kekaguman atau sebagai bagian dari dzikir.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br />
+                    QS. Al-Isra: 1 </p>
+                    <p class="py-1 text-right" dir="rtl">سُبْحَـٰنَ ٱلَّذِىٓ أَسْرَىٰ بِعْبْدِهِۦ... </p>
+                    <p>“Maha Suci (Allah) yang telah memperjalankan hamba-Nya...”</p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Termasuk dalam dzikir tasbih yang disunnahkan setelah shalat.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 4 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(4)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i
+                        class="fa"
+                        [ngClass]="{ 'fa-caret-down': isOpen[4], 'fa-caret-right': !isOpen[4] }"
+                        aria-hidden="true"
+                    ></i>
+                    4. Allāhu akbar
+                    </div>
+                </button>
+                <div *ngIf="isOpen[4]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Allāhu akbar</p>
+                    <p class="py-1 text-right" dir="rtl"> ٱللَّهُ أَكْبَرُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Allah Maha Besar.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br />
+                    Ungkapan pemuliaan dan pengagungan Allah. Wajib diucapkan dalam shalat, adzan, dan takbir hari raya.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br />
+                    HR. Muslim No. 602 <br />
+                    “Kunci shalat adalah bersuci, pembukanya adalah takbir, dan penutupnya adalah salam.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Dikenal sebagai Takbir.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 5 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(5)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i
+                        class="fa"
+                        [ngClass]="{ 'fa-caret-down': isOpen[5], 'fa-caret-right': !isOpen[5] }"
+                        aria-hidden="true"
+                    ></i>
+                    5. Lā ilāha illā Allāh 
+                    </div>
+                </button>
+                <div *ngIf="isOpen[5]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Lā ilāha illā Allāh</p>
+                    <p class="py-1 text-right" dir="rtl">5. لَا إِلٰهَ إِلَّا ٱللَّهُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Tiada Tuhan selain Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br />
+                    Pusat keimanan dan tauhid dalam Islam. Dikenal sebagai kalimat Tahlil.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br />
+                    QS. Muhammad: 19 </p>
+                    <p class="py-1 text-right" dir="rtl">فَٱعْلَمْ أَنَّهُۥ لَآ إِلَـٰهَ إِلَّا ٱللَّهُ </p>
+                    <p>“Maka ketahuilah, bahwa sesungguhnya tidak ada Tuhan yang berhak disembah selain Allah.”</p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Kalimat pertama dari dua kalimat syahadat.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 6 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(6)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[6], 'fa-caret-right': !isOpen[6] }"></i>
+                    6. In shāʾ Allāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[6]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> In shāʾ Allāh</p>
+                    <p class="py-1 text-right" dir="rtl">إِنْ شَاءَ ٱللَّهُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Jika Allah menghendaki.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Digunakan saat merencanakan sesuatu, dengan menyadari bahwa segala kehendak hanya milik Allah.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Al-Kahfi: 23–24</p>
+                    <p class="py-1 text-right" dir="rtl">وَلَا تَقُولَنَّ لِشَاۤىْءٍ إِنِّي فَاعِلٌ ذَٰلِكَ غَدًا، إِلَّآ أَن يَشَآءَ ٱللَّهُ</p>
+                    <p>“Dan jangan sekali-kali kamu mengatakan terhadap sesuatu: ‘Aku pasti melakukan itu besok’, kecuali dengan mengatakan: ‘Insya Allah’.”</p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Anjuran untuk tidak sombong atas rencana.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 7 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(7)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[7], 'fa-caret-right': !isOpen[7] }"></i>
+                    7. Mā shāʾ Allāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[7]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Mā shāʾ Allāh</p>
+                    <p class="py-1 text-right" dir="rtl"> مَا شَاءَ ٱللَّهُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Apa yang dikehendaki Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ucapan kekaguman atas sesuatu yang baik, sebagai bentuk pengakuan atas kehendak Allah.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Al-Kahfi: 39</p>
+                    <p class="py-1 text-right" dir="rtl">مَا شَآءَ ٱللَّهُ لَا قُوَّةَ إِلَّا بِٱللَّهِ</p>
+                    <p>“Masya Allah, tidak ada kekuatan kecuali dengan pertolongan Allah.”</p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Sunnah diucapkan ketika memuji sesuatu agar tidak terkena ‘ain (dengki).</p>
+                </div>
+                </div>
+
+                <!-- Phrase 8 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(8)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[8], 'fa-caret-right': !isOpen[8] }"></i>
+                    8. Astagh’firullāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[8]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Astagh’firullāh</p>
+                    <p class="py-1 text-right" dir="rtl">أَسْتَغْفِرُ ٱللَّهَ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Aku memohon ampun kepada Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Digunakan dalam tobat dan permohonan ampun atas dosa.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Nuh: 10</p>
+                    <p class="py-1 text-right" dir="rtl">فَقُلْتُ ٱسْتَغْفِرُوا۟ رَبَّكُمْ إِنَّهُۥ كَانَ غَفَّارًا</p>
+                    <p>“Maka aku katakan kepada mereka: ‘Mohonlah ampun kepada Tuhanmu, sungguh, Dia Maha Pengampun.’”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Rasulullah beristighfar lebih dari 70 kali sehari (HR. Bukhari).</p>
+                </div>
+                </div>
+
+                <!-- Phrase 9 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(9)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[9], 'fa-caret-right': !isOpen[9] }"></i>
+                    9. Jazākallāhu khayran
+                    </div>
+                </button>
+                <div *ngIf="isOpen[9]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Jazākallāhu khayran</p>
+                    <p class="py-1 text-right" dir="rtl">جَزَاكَ ٱللَّهُ خَيْرًا </p>
+                    <p><strong class="islamic-color">Arti:</strong> Semoga Allah membalasmu dengan kebaikan.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ucapan terima kasih terbaik dalam Islam.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Tirmidzi No. 2035<br>
+                    “Siapa yang mengucapkan: ‘Jazakallahu khayran’ maka dia telah benar-benar memuji dengan sempurna.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Lebih utama daripada hanya mengatakan “terima kasih”.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 10 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(10)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[10], 'fa-caret-right': !isOpen[10] }"></i>
+                    10.  Innā lillāhi wa innā ilayhi rājiʿūn
+                    </div>
+                </button>
+                <div *ngIf="isOpen[10]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Innā lillāhi wa innā ilayhi rājiʿūn</p>
+                    <p class="py-1 text-right" dir="rtl">إِنَّا لِلّٰهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Sesungguhnya kami milik Allah dan kepada-Nya kami kembali.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Dibaca ketika mendapatkan musibah, sebagai bentuk kesabaran dan tawakal.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Al-Baqarah: 156</p>
+                    <p class="py-1 text-right" dir="rtl">ٱلَّذِينَ إِذَآ أَصَابَتْهُم مُّصِيبَةٌ قَالُوٓا۟ إِنَّا لِلَّهِ وَإِنَّآ إِلَيْهِ رَٰجِعُونَ</p>
+                    <p>“(Yaitu) orang-orang yang apabila ditimpa musibah, mereka mengucapkan: ‘Sesungguhnya kami milik Allah dan kepada-Nya kami kembali.’”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Disebut Istirja’, dan merupakan sunnah untuk menghibur diri dan menunjukkan rida terhadap takdir Allah.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 11 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(11)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[11], 'fa-caret-right': !isOpen[11] }"></i>
+                    11.  Bārakallāhu fīk
+                    </div>
+                </button>
+                <div *ngIf="isOpen[11]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Bārakallāhu fīk</p>
+                    <p class="py-1 text-right" dir="rtl">بَارَكَ ٱللَّهُ فِيكَ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Semoga Allah memberkahimu.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ucapan doa kebaikan dan keberkahan kepada orang lain.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Ahmad No. 2346<br>
+                    “Bārakallāhu laka fī ahlika wa mālika.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Biasa digunakan setelah seseorang membantu atau memberi hadiah.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 12 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(12)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[12], 'fa-caret-right': !isOpen[12] }"></i>
+                    12.  Lā ḥawla wa lā quwwata illā billāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[12]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Lā ḥawla wa lā quwwata illā billāh</p>
+                    <p class="py-1 text-right" dir="rtl"> لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Tiada daya dan kekuatan kecuali dengan pertolongan Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Dibaca ketika menghadapi kesulitan atau merasa lemah.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Bukhari No. 6409<br>
+                    “Kalimat ini adalah simpanan dari simpanan surga.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Bagian dari dzikir harian dan istighatsah.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 13 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(13)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[13], 'fa-caret-right': !isOpen[13] }"></i>
+                    13.  Hasbunallāhu wa ni‘mal-wakīl
+                    </div>
+                </button>
+                <div *ngIf="isOpen[13]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Hasbunallāhu wa ni‘mal-wakīl</p>
+                    <p class="py-1 text-right" dir="rtl">حَسْبُنَا ٱللَّهُ وَنِعْمَ ٱلْوَكِيلُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Cukuplah Allah sebagai penolong kami dan sebaik-baik tempat bergantung.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Diucapkan saat menghadapi ancaman atau kesulitan.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Ali 'Imran: 173<br>
+                    “Hasbunallāhu wa ni‘mal-wakīl.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Doa yang dibaca oleh Nabi Ibrahim AS saat dilempar ke api.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 14 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(14)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[14], 'fa-caret-right': !isOpen[14] }"></i>
+                    14.  Raḍītu billāhi Rabbā
+                    </div>
+                </button>
+                <div *ngIf="isOpen[14]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Raḍītu billāhi Rabbā</p>
+                    <p class="py-1 text-right" dir="rtl"> رَضِيتُ بِٱللَّهِ رَبًّا </p>
+                    <p><strong class="islamic-color">Arti:</strong> Aku ridha Allah sebagai Tuhanku.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Pernyataan kepasrahan dan keimanan.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Muslim No. 1884<br>
+                    “Barang siapa yang mengucapkannya pagi dan sore, maka Allah akan meridhainya.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Bagian dari dzikir pagi dan petang.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 15 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(15)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[15], 'fa-caret-right': !isOpen[15] }"></i>
+                    15. Allāhumma ṣalli ‘alā Muḥammad
+                    </div>
+                </button>
+                <div *ngIf="isOpen[15]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Allāhumma ṣalli ‘alā Muḥammad</p>
+                    <p class="py-1 text-right" dir="rtl">ٱللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Ya Allah, limpahkanlah shalawat kepada Nabi Muhammad.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ucapan cinta dan doa kepada Rasulullah SAW.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Al-Ahzab: 56<br>
+                    “Sesungguhnya Allah dan malaikat-Nya bershalawat kepada Nabi...”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Sangat dianjurkan dalam doa dan dzikir.</p>
+                </div>
+                </div>
+                
+                <!-- Phrase 16 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(16)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[16], 'fa-caret-right': !isOpen[16] }"></i>
+                    16. Tawakkaltu ‘alā Allāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[16]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Tawakkaltu ‘alā Allāh</p>
+                    <p class="py-1 text-right" dir="rtl">تَوَكَّلْتُ عَلَى ٱللَّهِ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Aku bertawakal kepada Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ungkapan pasrah penuh kepada Allah.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Abu Dawud No. 5095<br>
+                    “Barang siapa yang keluar rumah dan membaca ini, maka ia dijaga dari segala keburukan.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Dibaca saat keluar rumah.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 17 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(17)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[17], 'fa-caret-right': !isOpen[17] }"></i>
+                    17. Na‘am billāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[17]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Na‘am billāh</p>
+                    <p class="py-1 text-right" dir="rtl">نَعَمْ بِٱللَّهِ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Benar, demi Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Penegasan atau sumpah sebagai bentuk kesaksian dan iman.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. Yunus: 53<br>
+                    “Qul iī wa rabbī innahu laḥaqq.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Digunakan dalam konteks pembenaran yang kuat.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 18 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(18)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[18], 'fa-caret-right': !isOpen[18] }"></i>
+                    18.  A‘ūdzu billāhi minash-shayṭānir-rajīm
+                    </div>
+                </button>
+                <div *ngIf="isOpen[18]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> A‘ūdzu billāhi minash-shayṭānir-rajīm</p>
+                    <p class="py-1 text-right" dir="rtl">أَعُوذُ بِٱللَّهِ مِنَ ٱلشَّيْطَانِ ٱلرَّجِيمِ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Aku berlindung kepada Allah dari godaan syaitan yang terkutuk.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Dibaca sebelum membaca Al-Qur’an atau saat terganggu waswas.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. An-Nahl: 98<br>
+                    “Apabila kamu membaca Al-Qur’an, mintalah perlindungan kepada Allah dari setan yang terkutuk.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Sunnah sebelum membaca ayat Al-Qur’an.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 19 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(19)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[19], 'fa-caret-right': !isOpen[19] }"></i>
+                    19.  Yā Allāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[19]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Yā Allāh</p>
+                    <p class="py-1 text-right" dir="rtl">يَا ٱللَّهُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Wahai Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Seruan langsung kepada Allah dalam doa.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    Digunakan dalam berbagai doa Nabi SAW.
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Panggilan yang paling lembut dan mendalam dalam munajat.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 20 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(20)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[20], 'fa-caret-right': !isOpen[20] }"></i>
+                    20. Sami‘allāhu liman ḥamidah
+                    </div>
+                </button>
+                <div *ngIf="isOpen[20]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Sami‘allāhu liman ḥamidah</p>
+                    <p class="py-1 text-right" dir="rtl">سَمِعَ ٱللَّهُ لِمَنْ حَمِدَهُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Allah mendengar siapa yang memuji-Nya.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Dibaca oleh imam saat bangkit dari ruku’ dalam shalat.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Bukhari No. 789<br>
+                    Rasulullah SAW mengucapkannya dalam setiap shalat.
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Merupakan bagian dari bacaan wajib dalam shalat berjamaah.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 21 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(21)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[21], 'fa-caret-right': !isOpen[21] }"></i>
+                    21. As-salāmu ‘alaykum
+                    </div>
+                </button>
+                <div *ngIf="isOpen[21]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> As-salāmu ‘alaykum</p>
+                    <p class="py-1 text-right" dir="rtl">ٱلسَّلَامُ عَلَيْكُمْ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Semoga keselamatan tercurah atas kalian.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ucapan salam yang merupakan doa dan bentuk kasih sayang antar sesama Muslim. Disyariatkan ketika bertemu, memasuki rumah, atau mengawali komunikasi.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. An-Nur: 61</p>
+                    <p class="py-1 text-right" dir="rtl">فَإِذَا دَخَلْتُمْ بُيُوتًا فَسَلِّمُوا عَلَىٰٓ أَنفُسِكُمْ تَحِيَّةً مِّنْ عِندِ ٱللَّهِ</p>
+                    <p>“Maka apabila kamu memasuki rumah-rumah, ucapkanlah salam kepada dirimu sendiri dengan salam yang datang dari Allah...”
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Muslim No. 2162<br>
+                    "Kamu tidak akan masuk surga sampai kalian beriman, dan tidak sempurna iman kalian sampai kalian saling mencintai. Maukah aku tunjukkan sesuatu yang jika kalian melakukannya maka kalian akan saling mencintai? Sebarkanlah salam di antara kalian.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Salam adalah syiar Islam. Balasannya wajib hukumnya, minimal dengan “Wa-‘alaykum as-salām”.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 22 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(22)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[22], 'fa-caret-right': !isOpen[22] }"></i>
+                    22.  Wa-‘alaykumu-s-salām
+                    </div>
+                </button>
+                <div *ngIf="isOpen[22]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Wa-‘alaykumu-s-salām</p>
+                    <p class="py-1 text-right" dir="rtl"> وَعَلَيْكُمُ ٱلسَّلَامُ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Dan semoga keselamatan tercurah juga kepadamu.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Jawaban dari salam. Hukumnya wajib menjawab salam yang diberikan sesama Muslim.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    QS. An-Nisa: 86</p>
+                    <p class="py-1 text-right" dir="rtl">وَإِذَا حُيِّيتُم بِتَحِيَّةٍ فَحَيُّوا۟ بِأَحْسَنَ مِنْهَآ أَوْ رُدُّوهَا</p>
+                   <p>“Apabila kamu diberi penghormatan dengan suatu penghormatan, maka balaslah dengan yang lebih baik atau balaslah (dengan yang serupa).”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Bisa ditambahkan: “Wa ‘alaykumu-s-salām wa raḥmatullāhi wa barakātuh” untuk balasan yang lebih baik.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 23 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(23)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[23], 'fa-caret-right': !isOpen[23] }"></i>
+                    23. Allāhumma bārik
+                    </div>
+                </button>
+                <div *ngIf="isOpen[23]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Allāhumma bārik</p>
+                    <p class="py-1 text-right" dir="rtl"> ٱللَّهُمَّ بَارِكْ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Ya Allah, berkahilah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Digunakan sebagai doa untuk memohon keberkahan atas sesuatu yang dilihat, diberikan, atau dimiliki orang lain.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Ahmad & Bukhari dalam Adabul Mufrad<br>
+                    “Jika salah satu dari kalian melihat sesuatu yang mengagumkannya pada saudaranya, maka ucapkanlah: 'Allāhumma bārik fīh.'”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Bisa digunakan untuk mencegah penyakit ‘ain (dengki) terhadap orang lain.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 24 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(24)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[24], 'fa-caret-right': !isOpen[24] }"></i>
+                    24. Bismillāh
+                    </div>
+                </button>
+                <div *ngIf="isOpen[24]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Bismillāh</p>
+                    <p class="py-1 text-right" dir="rtl"> بِسْمِ ٱللَّهِ </p>
+                    <p><strong class="islamic-color">Arti:</strong> Dengan nama Allah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Versi pendek dari basmalah. Diucapkan sebelum melakukan aktivitas seperti makan, masuk rumah, memakai pakaian, menaiki kendaraan, dll.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Tirmidzi No. 1858<br>
+                    "Sebutlah nama Allah (Bismillah), makanlah dengan tangan kananmu, dan makanlah dari yang terdekat darimu.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Memberi keberkahan dan perlindungan dari setan dalam setiap aktivitas harian.</p>
+                </div>
+                </div>
+
+                <!-- Phrase 25 -->
+                <div class="mb-4 border border-gray-300 rounded-xl shadow-sm overflow-hidden">
+                <button
+                    (click)="toggleCollapse(25)"
+                    class="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-lg islamic-color"
+                >
+                    <div class="flex items-center gap-2">
+                    <i class="fa" [ngClass]="{ 'fa-caret-down': isOpen[25], 'fa-caret-right': !isOpen[25] }"></i>
+                    25. Āmīn 
+                    </div>
+                </button>
+                <div *ngIf="isOpen[25]" class="px-4 py-3 text-sm leading-relaxed text-gray-700">
+                    <p><strong class="islamic-color">Transliterasi:</strong> Āmīn</p>
+                    <p class="py-1 text-right" dir="rtl">آمِينَ</p>
+                    <p><strong class="islamic-color">Arti:</strong> Ya Allah, kabulkanlah.</p>
+                    <p><strong class="islamic-color">Makna & Konteks:</strong><br>
+                    Ucapan penutup doa. Dalam shalat, dibaca setelah membaca Surah Al-Fatihah.
+                    </p>
+                    <p><strong class="islamic-color">Dalil:</strong><br>
+                    HR. Bukhari No. 780<br>
+                    “Jika imam membaca 'ghayril maghdūbi ‘alayhim wa laḍ-ḍāllīn’, maka ucapkanlah ‘Āmīn’, karena siapa yang ucapannya bertepatan dengan para malaikat, maka dosanya yang lalu akan diampuni.”
+                    </p>
+                    <p><strong class="islamic-color">Keterangan:</strong> Maknanya sangat kuat, walau hanya satu kata. Tidak wajib, tapi sangat dianjurkan.</p>
+                </div>
+                </div>
+
+            </div>
+           <button
+                class="scroll-to-top"
+                *ngIf="showScrollToTop"
+                (click)="scrollToTop()"
+                aria-label="Scroll to top"
+            >
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+</div>

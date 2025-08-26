@@ -1,0 +1,29 @@
+<div class="dialogBox"  [dir]="direction">
+    <div class="btn-toolbar">
+        <button mat-button class="closeButton m-2" (click)="closeDialog()">
+            <span class="ml-1 mr-1">{{'Gallery.cclose' | translate }}</span>
+        </button>
+        <!-- <button mat-button>
+            <span class="ml-1 mr-1" ><mat-icon>more_horiz</mat-icon></span>
+        </button> -->   
+    </div>
+    <div class="previewGallery">
+        
+        <div>
+            <app-preview srcUrl="{{allImages[currentPicture].fileUri}}" mediaGuid="{{allImages[currentPicture].mediaGuid}}" mediaFileName="{{allImages[currentPicture].mediaFileName}}"></app-preview>
+        </div>   
+        <div class="arrows">
+            <!-- <div class="arrow-right" (click)="selectArrow()"></div> -->
+            <button mat-icon-button class="leftArrow left-0 bg-primary" style="position: absolute;top:40%;" (click)="selectLeftArrow()">
+                    <mat-icon class="text-white" svgIcon="heroicons_outline:chevron-left"></mat-icon>
+            </button> 
+            <!-- <div class="arrow-left" (click)="selectLeftArrow()"></div> -->
+            <button mat-icon-button class="rightArrow right-0 bg-primary" style="position: absolute;top:40%;" (click)="selectArrow()">
+                    <mat-icon class="text-white" svgIcon="heroicons_outline:chevron-right"></mat-icon>
+            </button>    
+        </div>       
+        <div class="wrapper">
+            <app-thumb *ngFor="let picture of allImages; let i = index" (click)="select(i)" srcUrl="{{picture.fileUri}}"> </app-thumb>          
+        </div>
+    </div>
+</div>

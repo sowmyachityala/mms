@@ -1,0 +1,45 @@
+.actionCenterWidth {
+    width: 30px;
+}
+.colNumeric {
+    text-align: right;
+    justify-content: flex-end;
+}
+.actionCenter {
+    text-align: center;
+}
+.actWidthCenter {
+    width: 5px;
+    text-align: center;
+}
+.disOrder {
+    width: 135px !important;
+    text-align: right;
+    justify-content: flex-end;
+}
+
+#myDialog {
+    min-width: 450px !important;
+    min-height: 440px !important;
+}
+.dTitle {
+    text-align: center;
+    font-weight: 500;
+    padding: 10px;
+}
+.dTitleBar {
+    background: #173f53;
+    color: white;
+}
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    overflow: hidden !important;
+}
+.p-ltr {
+    padding: 0 35px;
+}
+.mr-3 {
+    margin-right: 2.5rem !important;
+}
+.ml-3 {
+    margin-left: 2.5rem !important;
+}

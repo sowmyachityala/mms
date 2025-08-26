@@ -1,0 +1,25 @@
+
+  .star-rating {
+    color: #ffd700; /* Gold color for stars */
+    display: inline-flex;
+  }
+  
+  .star {
+    font-size: 42px; /* Adjust as needed */
+    display: inline-block;
+  }
+  
+  .full {
+    color: #ffd700; /* Gold color for filled stars */
+  }
+  
+  .half {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 50%;  
+  }
+  
+  
+
+  

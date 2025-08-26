@@ -1,0 +1,53 @@
+<div class="p-4">
+    <div mat-dialog-title class="flex justify-between">
+        <h1 class="font-semibold">{{ messageType }}</h1>
+        <span class="flex font-semibold" (click)="onClose()">
+            <span class="mt-0.5">{{ "DialogBox.close" | translate }}</span>
+            <mat-icon class="cursor">close</mat-icon>
+        </span>
+    </div>
+    <hr class="m-auto mt-2" />
+
+    <div class="p-4 mt-4 {{ messageType }}">
+        <div class="flex">
+            <img class="w-6" [src]="data?.iconType" />
+            <span class="pr-4"
+                ><b>{{ messageType }}</b></span
+            >
+        </div>
+
+        <p class="pr-10" *ngIf="messageType === 'SUCCESS'">
+            {{ "DialogBox.mosque" | translate }} <b>“{{ mosqueName }}”</b>
+            {{ "DialogBox.youNeedToAssign" | translate }}
+            <b>{{ "DialogBox.admin" | translate }}</b>
+            {{ "DialogBox.organiseThisMosque" | translate }}
+        </p>
+        <p class="pr-10" *ngIf="messageType === 'DELETE' && mosqueName != null">
+            {{ "DialogBox.wantToDelete" | translate }}
+            <b>“{{ mosqueName }}”</b>
+            {{ "DialogBox.actionCanNotBeUndo" | translate }}
+        </p>
+        <p
+            class="pr-10"
+            *ngIf="messageType === 'DELETE' && mosqueName === null"
+        >
+            {{ "DialogBox.confirmToDelete" | translate }}
+            <b>“{{ inputData }}”</b>
+        </p>
+        <p class="pr-10" *ngIf="messageType === 'INFO'">
+            {{ "DialogBox.shareSiteUri" | translate }} <b>“{{ inputData }}”</b>
+        </p>
+    </div>
+
+    <div mat-dialog-actions class="float-left mt-4 mb-4">
+        <button
+            mat-flat-button
+            *ngFor="let item of data?.buttons"
+            class="{{ item?.buttonClass }}"
+            [color]="item?.color ? item?.color : ''"
+            (click)="onActionClick(item)"
+        >
+            {{ item?.label ? item?.label : "" }}
+        </button>
+    </div>
+</div>

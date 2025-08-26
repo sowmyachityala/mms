@@ -1,0 +1,23 @@
+.desContainer {
+    max-height: 100px;
+    /* Adjust to your preferred height */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* Adjust to the number of lines you want to show */
+}
+
+/* Adding ellipsis to the last line */
+.desContainer::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-left: 1em;
+    /* Adjust as needed */
+    background: linear-gradient(to right, transparent, white);
+}
+.cPointer{
+    cursor: pointer;
+}

@@ -1,0 +1,87 @@
+<!-- Button -->
+<div *ngIf="!isAuthenticated" class="flex">
+    <span
+        class="mt-0.5"
+        [ngClass]="
+            direction === 'ltr' ? 'mr-2' : direction === 'rtl' ? 'pl-2' : ''
+        "
+    >
+        <a (click)="signIn()">{{ "User.sign-In" | translate }}</a>
+    </span>
+    <mat-icon
+        class="text-primary"
+        [svgIcon]="'heroicons_outline:user-circle'"
+    ></mat-icon>
+</div>
+<div class="flex text-end" *ngIf="isAuthenticated">
+    <div>
+        <div class="font-semibold text-[#006E8C]">
+            {{ user?.userName }}
+        </div>
+        <div class="text-sm-new">
+            {{ user?.roleName }}
+        </div>
+    </div>
+    <button
+        [matMenuTriggerFor]="userActions"
+        [ngClass]="
+            direction === 'ltr' ? 'ml-3' : direction === 'rtl' ? 'mr-3' : ''
+        "
+    >
+        <span class="relative">
+            <mat-icon
+                *ngIf="!showAvatar || !profileImageUrl"
+                class="text-primary w-9 h-9"
+                [svgIcon]="'heroicons_outline:user-circle'"
+            ></mat-icon>
+            <img
+                class="w-9 h-9 rounded-full"
+                *ngIf="showAvatar && profileImageUrl"
+                [src]="profileImageUrl"
+                matTooltip="Profile Settings"
+            />
+        </span>
+    </button>
+</div>
+
+<mat-menu
+    [xPosition]="'before'"
+    #userActions="matMenu"
+    style="pointer-events: none"
+>
+    <button mat-menu-item class="bgGreen h-18">
+        <span class="flex flex-col leading-none text-white">
+            <span class="mt-4 text-md font-medium">{{
+                user?.phoneNumber
+            }}</span>
+            <span class="mt-1 text-md">
+                {{ user?.email }}
+            </span>
+            <span class="mt-1 mb-4 text-md"
+                >{{ "User.lastSession" | translate }}
+                {{ user?.lastLoggedIn | date : "dd/MM/yyyy" }}
+                {{ user?.lastLoggedIn | date : "shortTime" }}</span
+            >
+        </span>
+    </button>
+    <button mat-menu-item class="mt-2" (click)="profileSettings()">
+        <span class="font-semibold">{{
+            "User.profileSettings" | translate
+        }}</span>
+    </button>
+    <!-- <button mat-menu-item>
+        <span class="font-semibold">{{'User.accountPreferences' | translate}}</span>
+    </button> -->
+    <button mat-menu-item (click)="userActivity()">
+        <span class="font-semibold">{{ "User.activityLog" | translate }}</span>
+    </button>
+    <!-- <button mat-menu-item class="mb-2">
+        <span class="font-semibold">{{'User.techSupport' | translate}}</span>
+    </button> -->
+    <mat-divider class="m-auto"></mat-divider>
+    <button mat-menu-item class="pt-4 pb-4" (click)="signOut()">
+        <span class="font-semibold"
+            ><a>{{ "User.signOut" | translate }}</a></span
+        >
+    </button>
+</mat-menu>

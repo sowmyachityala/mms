@@ -1,0 +1,206 @@
+<div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8">
+    <h1 class="font-semibold">
+        {{ "addKeyMem.assignUserForMosque" | translate }}
+    </h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()"
+        ><mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">{{ "addKeyMem.cclose" | translate }}</span>
+    </span>
+</div>
+
+<div mat-dialog-content class="pt-5 pr-52 pl-52">
+    <div class="text-2xl font-semibold text-center p-4">
+        <!-- {{"addKeyMem.searchUsers" | translate}}  -->
+        <span style="color: #006e8c">{{ mosqueName }}</span>
+    </div>
+    <form [formGroup]="memberInfoForm">
+        <div class="mt-4">
+            <mat-form-field class="w-half">
+                <mat-label>{{
+                    "addKeyMem.selectKeyMemberRole" | translate
+                }}</mat-label>
+                <mat-select
+                    formControlName="keyRoleId"
+                    (selectionChange)="
+                        getUnAssignedAdminsForMosque($event.value)
+                    "
+                    required
+                >
+                    <mat-option
+                        *ngFor="let type of rolesList"
+                        [value]="type.roleId"
+                    >
+                        {{ type.roleName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="memberInfoForm.get('keyRoleId').hasError('required')"
+                >
+                    {{ "addKeyMem.roleNameIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-half ml-8">
+                <mat-label>
+                    {{
+                        "addKeyMem.selectUnAssignedUser" | translate
+                    }}</mat-label
+                >
+                <mat-select
+                    formControlName="selectedUserId"
+                    (selectionChange)="selectedAdminUser($event.value)"
+                >
+                    <mat-option>
+                        <ngx-mat-select-search
+                            placeholderLabel="Search"
+                            [formControl]="userFilterCtrl"
+                        ></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option
+                        *ngFor="let type of filteredUsers | async"
+                        [value]="type.userId"
+                    >
+                        {{ type.fullName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="
+                        memberInfoForm
+                            .get('selectedUserId')
+                            .hasError('required')
+                    "
+                >
+                    {{ "addKeyMem.selectedUserIdIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <div *ngIf="filteredUsersList">
+        <div class="activeEvent">
+            <div
+                class="mt-4"
+                style="background-color: #fafafa; border: #006e8c 1px solid"
+            >
+                <div class="flex">
+                    <div class="m-2 w-1/2">
+                        <b class="ml-2">{{ "addKeyMem.uName" | translate }}</b>
+                        <span>{{ filteredUsersList?.fullName }}</span>
+                    </div>
+                    <div class="m-2 w-1/2">
+                        <b class="ml-2">{{
+                            "addKeyMem.contactNumber" | translate
+                        }}</b>
+                        <span>{{ filteredUsersList?.phoneNumber }}</span>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="m-2 w-1/2">
+                        <b class="ml-2">{{
+                            "addKeyMem.emailID" | translate
+                        }}</b>
+                        <span>{{ filteredUsersList?.email }}</span>
+                    </div>
+                    <div class="m-2 w-1/2">
+                        <b class="ml-2">{{ "addKeyMem.status" | translate }}</b>
+                        <span>{{
+                            filteredUsersList?.status ? "Active" : "Inactive"
+                        }}</span>
+                    </div>
+                </div>
+                <!-- <div class="flex pr-13">
+                    <div class="m-2 w-3/4">
+                        <b class="ml-2">Contact Number: </b>
+                        <span>{{filteredUsersList?.phoneNumber}}</span>
+                    </div>
+
+                    <div class="m-2 w-3/4">
+                        <b class="ml-2">Email ID: </b>
+                        <span>{{filteredUsersList?.email}}</span>
+                    </div>
+
+                    <div class="m-2 w-3/4">
+                        <b class="ml-2">Status: </b>
+                        <span>{{ filteredUsersList?.status ? 'Active' : 'Inactive' }}</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="mt-16">
+        <div mat-dialog-actions class="float-left mt-4">
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="assignAdminForMosque()"
+            >
+                {{ "addKeyMem.assign" | translate }}
+            </button>
+            <button mat-button mat-dialog-close (click)="dialogRef.close()">
+                {{ "addKeyMem.cancel" | translate }}
+            </button>
+        </div>
+    </div>
+    <!-- <div class="flex">
+        <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-full" [subscriptSizing]="'dynamic'">
+            <mat-icon class="icon-size-5 active font-semibold" matPrefix
+                [svgIcon]="'heroicons_solid:search'"></mat-icon>
+            <input matInput [autocomplete]="'off'" [placeholder]="'Search'" [(ngModel)]="searchText" class="mt-2">
+        </mat-form-field>
+
+        <button class="mr-4 mt-1" mat-flat-button [color]="'primary'" (click)="searchAdminUsers()">Search</button>
+    </div> -->
+
+    <!-- <div *ngIf="searchUsersList?.length > 0">
+        <div class="inner-page-sub-title mt-8">
+            <span class="active">Search Results For {{ searchUsersList[0]?.mosqueName }}
+                ({{searchUsersList?.length}})</span>
+        </div>
+        <div *ngFor="let item of searchUsersList; let i = index" [ngClass]="item?.activeEvent ? 'activeEvent' : ''">
+            <div class="mt-4 h-24" style="background-color:#fafafa; border: #006E8C 1px solid">
+                <div class="flex">
+                    <mat-checkbox (change)="selectUserToAssignAdmin($event, item)"
+                        [disabled]="(selectedUser?.length > 0 && selectedUser[0]?.userGuid !== item?.userGuid)"></mat-checkbox>
+                    <div class="m-2">
+                        <span>{{item?.fullName}}</span>
+                        <b class="ml-2">:Name</b>
+                    </div>
+                </div>
+                <div class="flex pr-13">
+                    <div class="m-2 w-3/4">
+                        <span>{{item?.phoneNumber}}</span>
+                        <b class="ml-2">:Contact Number</b>
+                    </div>
+
+                    <div class="m-2 w-3/4">
+                        <span>{{item?.email}}</span>
+                        <b class="ml-2">:Email ID</b>
+                    </div>
+
+                    <div class="m-2 w-3/4">
+                        <span>{{item?.status}}</span>
+                        <b class="ml-2">:Status</b>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!-- <div class="mt-16">
+    <hr class="hrPer">
+    <div mat-dialog-actions class="float-left mt-4 assignMatActions">
+        <mat-button-toggle-group>
+            <mat-button-toggle class="split-button-1" (click)="assignAdministrator()"><span class="clr-w">{{ selectedRole ? 'Assign ' + selectedRole : 'Assign'}}</span></mat-button-toggle>
+            <mat-button-toggle class="split-button-1" [matMenuTriggerFor]="dropdownMenuOne">
+                <mat-icon class="clr-w">arrow_drop_down</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-menu #dropdownMenuOne="matMenu" xPosition="before">
+            <button mat-menu-item *ngFor="let item of roles" (click)="assignRoleToSelectedUser(item)">{{ item.name }}</button>
+        </mat-menu>
+        
+        <button mat-button mat-dialog-close (click)="dialogRef.close()">Cancel</button>
+    </div>
+</div> -->

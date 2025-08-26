@@ -1,0 +1,101 @@
+body {
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    font-family: sans-serif;
+}
+.donation-container {
+    padding: 20px;
+    max-width: 96%;
+    margin: 20px auto;
+    border-radius: 15px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.tab-header {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  width: 350px;
+  height: 28px;
+  gap: 9px;
+  cursor: pointer;
+  overflow: hidden; /* optional, keeps it clean */
+}
+
+.name_allah {
+    font-weight: 600;
+    font-size: 15px;
+    color: #006e8c;
+}
+
+.hajiUmrah-section h2{
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(to top, #004a68, #f2cf66);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;    
+}
+
+.hajiUmrah-section h3{
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    background: linear-gradient(to top, #004a68, #f2cf66);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;    
+}
+
+.hajiUmrah-section {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.hajiUmrah-color {
+    color: #006E8C; 
+}
+
+p {
+    padding-bottom: 1.0rem;
+}
+
+ol {
+  list-style-type: decimal;
+}
+ol li::marker {
+  color: #006E8C;
+  font-weight: bold;
+}
+
+.alpha-list {
+  list-style-type: lower-alpha;
+}
+
+.hajiUmrah-section .scroll-to-top {
+    position: absolute; /* Changed from fixed */
+    bottom: 30px;
+    right: 30px;
+    background-color: #006e8c; /* Tailwind teal-600 style */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    z-index: 10; /* reduced from 999 to stay inside section */
+}
+
+.hajiUmrah-section .scroll-to-top:hover {
+    background-color: #006e8c; /* Tailwind teal-700 */
+}

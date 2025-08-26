@@ -1,0 +1,348 @@
+<div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8">
+    <h1 class="font-semibold">{{ "Events.eventDetails" | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()"
+        ><mat-icon class="text-white cursor">close</mat-icon>
+        <span class="mt-0.5">{{ "Events.cclose" | translate }}</span>
+    </span>
+</div>
+<div mat-dialog-content class="px-8 pt-8 flex">
+    <div class="w-2/3 p-4">
+        <div class="inner-page-sub-title">
+            {{ "Events.eventInformation" | translate }}
+        </div>
+        <hr />
+        <div class="mt-4 flex">
+            <div class="w-2/5">
+                <div class="inner-page-labels">
+                    {{ "Events.eventName" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventName }}
+                </div>
+            </div>
+
+            <div class="w-3/5">
+                <div class="inner-page-labels">
+                    {{ "Events.eventDescription" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventDescription }}
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 flex">
+            <div class="w-2/5">
+                <div class="inner-page-labels">
+                    {{ "Events.eventTypeCategory" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventType }}
+                </div>
+            </div>
+
+            <div class="w-3/5">
+                <div class="inner-page-labels">
+                    {{ "Events.keynoteSpeaker" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.keyNoteSpeaker }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 flex">
+            <div class="w-2/5">
+                <div class="inner-page-labels">
+                    {{ "Events.eventDate" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventDate | date : "dd/MM/yyyy" }}
+                    {{ eventDetails?.eventDate | date : "shortTime" }}
+                </div>
+            </div>
+            <div class="w-2/5">
+                <div class="inner-page-labels">
+                    {{ "Events.eventType" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{
+                        eventDetails?.isImportantEvent ? "Important" : "Normal"
+                    }}
+                </div>
+            </div>
+            <div class="w-1/5">
+                <div class="inner-page-labels">
+                    {{ "Events.eventStatus" | translate }}
+                </div>
+                <div
+                    class="inner-page-labels font-semibold mt-1 flex"
+                    [ngClass]="
+                        eventDetails?.differenceDays > 0 ||
+                        !eventDetails?.eventStatus
+                            ? 'text-danger'
+                            : eventDetails?.differenceDays <= 0
+                            ? 'active'
+                            : ''
+                    "
+                >
+                    <img
+                        class="w-4 h-4"
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'mr-1 '
+                                : direction === 'rtl'
+                                ? 'ml-1'
+                                : ''
+                        "
+                        [src]="
+                            eventDetails?.differenceDays > 0 ||
+                            !eventDetails?.eventStatus
+                                ? imageEndPoints?.deactive
+                                : imageEndPoints?.activeIcon
+                        "
+                    />
+                    {{
+                        eventDetails?.differenceDays > 0
+                            ? "Expired"
+                            : !eventDetails?.eventStatus
+                            ? "Deactivated"
+                            : "Active"
+                    }}
+                </div>
+            </div>
+        </div>
+
+        <div class="uppercase inner-page-sub-title mt-6">
+            {{ "Events.eventLocationDetails" | translate }}
+        </div>
+
+        <hr />
+        <div class="mt-4 flex">
+            <div class="w-1/3">
+                <div class="inner-page-labels">
+                    {{ "Events.eventLocation" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventLocation }}
+                </div>
+            </div>
+            <div class="w-1/3">
+                <div class="inner-page-labels">
+                    {{ "Events.eventMapLocation" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ "Events.nill" | translate }}
+                </div>
+            </div>
+            <div class="w-2/3">
+                <div class="inner-page-labels">
+                    {{ "Events.eventCompleteAddress" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventCompleteAddress }}
+                </div>
+            </div>
+        </div>
+
+        <div class="inner-page-sub-title mt-6">
+            {{ "Events.registrationInformation" | translate }}
+        </div>
+
+        <hr class="mt-4 mb-4" />
+        <div class="mt-4 flex">
+            <div class="w-1/5">
+                <div class="inner-page-labels">
+                    {{ "Events.registrationStartDate" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{
+                        eventDetails?.registrationDateFrom | date : "dd/MM/yyyy"
+                    }}
+                    {{
+                        eventDetails?.registrationDateFrom | date : "shortTime"
+                    }}
+                </div>
+            </div>
+            <div class="w-1/5">
+                <div class="inner-page-labels">
+                    {{ "Events.registrationEndDate" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.registrationDateTo | date : "dd/MM/yyyy" }}
+                    {{ eventDetails?.registrationDateTo | date : "shortTime" }}
+                </div>
+            </div>
+            <div class="w-1/5">
+                <div class="inner-page-labels">
+                    {{ "Events.registrationLimitation" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.isUnlimited ? "Unlimited" : "Limited" }}
+                </div>
+            </div>
+            <div class="w-1/5" *ngIf="!eventDetails?.isUnlimited">
+                <div class="inner-page-labels">
+                    {{ "Events.limit" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.eventLimit }}
+                </div>
+            </div>
+            <div class="w-1/5">
+                <div class="inner-page-labels">
+                    {{ "Events.registrationRequired" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.isFreeEvent ? "No" : "Yes" }}
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 flex">
+            <div class="w-full">
+                <div class="inner-page-labels">
+                    {{ "Events.registrationFee" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.registrationFee }}
+                </div>
+            </div>
+        </div>
+
+        <div class="inner-page-sub-title mt-6">
+            {{ "Events.publishingInformation" | translate }}
+        </div>
+
+        <hr class="mt-4 mb-4" />
+
+        <div class="mb-6 mt-4 flex">
+            <div class="w-1/3">
+                <div class="inner-page-labels">
+                    {{ "Events.publishingDate" | translate }}
+                </div>
+                <div class="inner-page-labels font-semibold mt-1">
+                    {{ eventDetails?.publishedDate | date : "dd/MM/yyyy" }}
+                    {{ eventDetails?.publishedDate | date : "shortTime" }}
+                </div>
+            </div>
+
+            <div class="w-2/3">
+                <div class="inner-page-labels">
+                    {{ "Events.liveVideoUrl" | translate }}
+                </div>
+                <a>{{ eventDetails?.liveVideoUrl }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="w-1/3 bg-[#f5f5f5]">
+        <div class="bg-white flex m-4">
+            <div class="mt-1 ml-1 w-2/5">
+                <ngx-qrcode-styling
+                    #qrcode
+                    [template]="'green'"
+                    [data]="qrEvent"
+                    [width]="140"
+                    [height]="180"
+                    [dotsOptions]="{ color: '#006E8C', type: 'extra-rounded' }"
+                    [qrOptions]="{ typeNumber: 10, errorCorrectionLevel: 'Q' }"
+                    [cornersSquareOptions]="{ type: 'square', color: '#00000' }"
+                    [cornersDotOptions]="{ type: 'square', color: '#00000' }"
+                >
+                </ngx-qrcode-styling>
+            </div>
+            <div class="m-4 w-3/5">
+                <div class="uppercase inner-page-sub-title mt-3">
+                    {{ "Events.evntRegistrationCode" | translate }}
+                </div>
+                <div class="page-sub-title font-light text-md mt-6 text-center">
+                    {{ "Events.codeToRegister" | translate }}
+                </div>
+                <div class="text-danger text-xs mt-6 text-center">
+                    {{ "Events.qrCodeExpire" | translate }}
+                    {{ eventDetails?.eventDate | date : "dd/MM/yyyy" }}
+                    {{ eventDetails?.eventDate | date : "shortTime" }}
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <img
+                [src]="bannerUrl"
+                *ngIf="!eventDetails?.eventFilePath"
+                class="pt-0 pb-2 p-4 h-64"
+                style="height: 100% !important"
+            />
+            <img
+                [src]="eventDetails?.eventFilePath"
+                *ngIf="eventDetails?.eventFilePath"
+            />
+        </div>
+        <div class="px-6 justify-between">
+            <div
+                class="cursor-pointer flex py-1"
+                (click)="updateEvent()"
+                *ngIf="
+                    eventDetails?.differenceDays <= 0 &&
+                    eventDetails?.eventStatus &&
+                    (user?.roleName === 'Super Admin' ||
+                        user?.roleName === 'Ministry Admin' ||
+                        user?.roleName === 'Mosque Admin' ||
+                        user?.roleName === 'Imam') &&
+                    !eventDetails?.isEventCancelled
+                "
+            >
+                <mat-icon svgIcon="feather:edit" class="w-1 h-1"></mat-icon>
+                <span class="ml-2"> {{ "Events.edit" | translate }}</span>
+            </div>
+
+            <div
+                class="cursor-pointer flex py-1"
+                (click)="printQRCode()"
+                *ngIf="eventDetails?.eventStatus"
+            >
+                <mat-icon
+                    svgIcon="mat_outline:print"
+                    class="w-1 h-1"
+                ></mat-icon>
+                <span class="ml-2"> {{ "Events.printEvent" | translate }}</span>
+            </div>
+
+            <div
+                class="cursor-pointer flex py-1"
+                (click)="confirmationMessage('cancel')"
+                *ngIf="
+                    eventDetails?.differenceDays <= 0 &&
+                    eventDetails?.eventStatus &&
+                    (user?.roleName === 'Super Admin' ||
+                        user?.roleName === 'Ministry Admin' ||
+                        user?.roleName === 'Mosque Admin' ||
+                        user?.roleName === 'Imam') &&
+                    !eventDetails?.isEventCancelled
+                "
+            >
+                <mat-icon svgIcon="feather:x-square" class="w-1 h-1"></mat-icon>
+                <span class="ml-2">{{ "Events.cancelEvent" | translate }}</span>
+            </div>
+
+            <div
+                class="cursor-pointer text-danger flex py-1"
+                (click)="confirmationMessage('deactivate')"
+                *ngIf="
+                    eventDetails?.eventStatus &&
+                    eventDetails?.differenceDays <= 0 &&
+                    (user?.roleName === 'Super Admin' ||
+                        user?.roleName === 'Ministry Admin' ||
+                        user?.roleName === 'Mosque Admin' ||
+                        user?.roleName === 'Imam')
+                "
+            >
+                <mat-icon
+                    svgIcon="feather:trash-2"
+                    class="text-danger w-1 h-1"
+                ></mat-icon>
+                <span class="ml-2">{{
+                    "Events.deactivateEvent" | translate
+                }}</span>
+            </div>
+        </div>
+    </div>
+</div>

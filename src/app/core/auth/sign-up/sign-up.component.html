@@ -1,0 +1,158 @@
+<div
+    class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 login-height">
+    <div
+        class="hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-primary dark:border-l login_bg">
+        <div class="z-10 w-full max-w-2xl">
+            <div class="text-4xl f-w-3 leading-none text-gray-100">
+                <div class="login_bg_al">
+                    <img [src]="imageUrl">
+                </div>
+
+                <div class="mt-28">Selamat Datang</div>
+                <!-- <div class="text-600">iSalaam MMS</div> -->
+            </div>
+            <div class="mt-2 text-lg tracking-tight leading-6 text-white">
+                Sebuah aplikasi perangkat lunak yang dirancang untuk membantu kementerian, pengurus masjid, dan pengurus kantor lainnya dalam mengelola
+                berbagai tugas yang berkaitan dengan pengelolaan masjid, seperti mengelola keanggotaan, sumbangan, acara, dan
+                komunikasi dengan anggota.</div>
+        </div>
+    </div>
+    <div style="min-width: 608px !important;"
+        class="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full md:w-12 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="max-w-md w-full text-center p-4">
+
+            <div class="titleDetails" *ngIf="!isOtpArrived">Mendaftar Akun Baru di iSalaam</div>
+            <div class="titleDetails" *ngIf="isOtpArrived">Masukkan kode verifikasi</div>
+            <span class="login-info span-info" *ngIf="!isOtpArrived">Daftar iSalaam Menggunakan Gmail id Anda</span>
+            <span class="login-info span-info" *ngIf="isOtpArrived">Masukkan kode verifikasi yang dikirimkan ke registrasi Anda
+                nomor ponsel atau email.</span>
+            <div class="h-26 w-40 flex flex-col items-center justify-center mt-2 mx-auto" *ngIf="!isOtpArrived">
+                <img 
+                    src="assets/images/logo/gmaillogo.jpg" 
+                    alt="gmail image" 
+                    class="cursor-pointer" 
+                    (click)="SignInWithGoogle()"
+                />
+               <div class="font-bold text-2xl text-center">Atau</div>
+            </div>
+            <div class="login-info span-info pt-2" *ngIf="!isOtpArrived">Daftar iSalaam Menggunakan Email selain Gmail</div>
+            <form class="mt-2" [formGroup]="signUpForm">
+                <mat-form-field class="w-full" *ngIf="!isOtpArrived">
+                    <mat-label>Nama lengkap</mat-label>
+                    <input id="fullName" matInput [formControlName]="'fullName'" (change)="checkForTrimChars()">
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('required')">
+                        Nama lengkap wajib diisi
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('minlength')">Nama lengkap minimal 2
+                        Karakter
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('maxlength')">Panjang maksimal untuk Nama Lengkap adalah 50
+                        Hanya karakter
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('pattern')">Silakan masukkan Nama Lengkap yang valid
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('customValidation')">
+                        Nama lengkap tidak boleh mengandung angka.
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('whitespace')">
+                        Nama lengkap tidak boleh hanya berupa spasi kosong
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('fullName').hasError('multispace')">
+                        Nama lengkap tidak boleh memiliki lebih dari satu spasi
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-full" *ngIf="!isOtpArrived">
+                    <mat-label>ID email</mat-label>
+                    <input id="eMail" matInput [formControlName]="'eMail'">
+                    <mat-error *ngIf="signUpForm.get('eMail').hasError('required')">
+                        ID email diperlukan
+                    </mat-error>
+                    <mat-error
+                        *ngIf="signUpForm.get('eMail').hasError('email') || signUpForm.get('eMail').hasError('pattern')">
+                        Silakan masukkan id email yang valid
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-full" *ngIf="!isOtpArrived">
+                    <mat-label>Nomor handphone</mat-label>
+                    <input id="phoneNumber" matInput [formControlName]="'phoneNumber'" appOnlynumber minlength="8" maxlength="15">
+                    <mat-error *ngIf="signUpForm.get('phoneNumber').hasError('required')">
+                        Nomor Ponsel diperlukan
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('phoneNumber').hasError('minlength')">Nomor Ponsel seharusnya setidaknya 8 Karakter
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('phoneNumber').hasError('maxlength')">
+                        Panjang maksimal Nomor Ponsel adalah 15 Karakter saja
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-full" *ngIf="isOtpArrived">
+                    <mat-label>Masukkan OTP</mat-label>
+                    <input matInput [formControlName]="'loginOtp'" appOnlynumber (keypress)="onKeyPress($event)">
+                    <mat-error>
+                        OTP diperlukan
+                    </mat-error>
+                </mat-form-field>
+
+
+                <div class="text-center" *ngIf="seconds !== 0">
+                    <span *ngIf="isOtpArrived" class="span-info"> Tersisa <b>{{ displayTimer }}</b>
+                    </span>
+                </div>
+                <div class="text-center text-600" *ngIf="isOtpArrived && seconds===0">
+                    <a (click)="resendOtp()">Kirim ulang OTP</a>
+                </div>
+
+                <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'"
+                    [disabled]="signUpForm.disabled" (click)="signUp()" *ngIf="!signUpForm.disabled && !isOtpArrived">
+                    <span>
+                        Melanjutkan
+                    </span>
+                    <mat-progress-spinner *ngIf="signUpForm.disabled" [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
+
+                <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'"
+                    [disabled]="signUpForm.disabled" (click)="validateSignUp()"
+                    *ngIf="!signUpForm.disabled && isOtpArrived">
+                    <span class="buttonText">
+                        Verifikasi & Lanjutkan
+                    </span>
+                    <mat-progress-spinner *ngIf="signUpForm.disabled" [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
+
+                <div class="mt-8" *ngIf="!isOtpArrived">
+                    <!-- <span class="span-info">
+                        By continuing, you agree to Mosque <a href="assets/termsofuse.pdf" target="_blank">Terms of Use</a> and confirm that you have read Mosque’s
+                        <a href="assets/privacypolicy.pdf" target="_blank">Privacy Policy</a>
+                    </span> -->
+                    <span class="span-info">
+                        Dengan meberikan alamat Email saya, saya dengan ini menyetujui dan mene <a
+                            href="https://www.isalaam.id/syarat-dan-ketentuan-penggunaan"
+                            target="_blank"
+                            >Syarat Penggunaan</a
+                        > dan
+                        <a
+                        href="https://www.isalaam.id/kebijakan-privasi"
+                        target="_blank"
+                        >Kebijakan Pribadi</a
+                    >
+                    </span>
+                </div>
+
+                <div class="mt-4 flex justify-center" *ngIf="!isOtpArrived">
+                    <span class="login-info span-info">Sudah memiliki akun? <span class="createInfo span-info mt-[1px]"
+                        [ngClass]="direction === 'ltr' ? 'ml-1' : direction === 'rtl' ? 'mr-1' :''"
+                        [routerLink]="['/sign-in']">Masuk</span></span>
+                    
+                </div>
+
+                <div class="pt-3 flex justify-center">
+                    <span class="float-right span-info">©2024. iSalaam MMS. All Rights Reserved.</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

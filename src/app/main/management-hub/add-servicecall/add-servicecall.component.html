@@ -1,0 +1,379 @@
+<div class="flex bgGreen text-white py-4 px-8  {{ direction }}">
+    <h1 class="font-semibold">
+        {{ "serviceCall.serviceManagement" | translate }}
+    </h1>
+</div>
+<!-- <div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8  {{direction}}">
+    <h1 class="font-semibold">Service Call Form</h1>
+    <h1 class="font-semibold" >{{'ProductCat.addNewProduct' | translate }}</h1> 
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white">close</mat-icon>
+        <span class="mt-0.5">Close</span>
+    </span>
+</div> -->
+<!-- <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+    <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+</div> -->
+<div class="px-8 pt-8">
+    <form [formGroup]="combinedForm" class="form-container">
+        <div>
+            <h1 class="dTitle">
+                {{ "serviceCall.serviceCallForm" | translate }}
+            </h1>
+        </div>
+        <mat-divider style="border: 2px solid seagreen"></mat-divider>
+        <div class="mt-4">
+            <!-- Category Form Field -->
+
+            <mat-form-field class="w-full max-w-80">
+                <mat-label>
+                    {{ "serviceCall.category" | translate }}
+                </mat-label>
+                <mat-select
+                    formControlName="parentCategory"
+                    [value]="parentCategory"
+                    (selectionChange)="getSubCategories($event.value)"
+                >
+                    <mat-option
+                        *ngFor="let type of categories"
+                        [value]="type.categoryGuid"
+                    >
+                        {{ type.categoryName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="
+                        combinedForm.get('parentCategory').hasError('required')
+                    "
+                >
+                    {{ "serviceCall.categoryIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- SubCategory Form Field -->
+            <mat-form-field class="w-full max-w-80 ml-4">
+                <mat-label>
+                    {{ "serviceCall.subCategory" | translate }}
+                </mat-label>
+                <mat-select
+                    formControlName="categoryId"
+                    (selectionChange)="onSubCategoryChange($event.value)"
+                    placeholder="Select a subcategory"
+                >
+                    <mat-option
+                        *ngFor="let type of subCategories"
+                        [value]="type.id"
+                    >
+                        {{ type.categoryName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="combinedForm.get('categoryId').hasError('required')"
+                >
+                    {{ "serviceCall.subCategoryIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full max-w-80 ml-4">
+                <mat-label>
+                    {{ "serviceCall.selectProducts" | translate }}
+                </mat-label>
+                <mat-select
+                    formControlName="selectedProductIds"
+                    multiple
+                    (selectionChange)="onProductSelect($event)"
+                >
+                    <mat-option
+                        *ngFor="let product of products"
+                        [value]="product.id"
+                    >
+                        {{ product.productName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="
+                        combinedForm
+                            .get('selectedProductIds')
+                            .hasError('required')
+                    "
+                >
+                    {{ "serviceCall.productIsRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+
+            <div class="mt-4">
+                <!-- Products Form Field -->
+
+                <!-- Vendor Form Field -->
+                <mat-form-field class="w-full max-w-80">
+                    <mat-label>
+                        {{ "serviceCall.vendor" | translate }}
+                    </mat-label>
+                    <mat-select
+                        formControlName="vendorId"
+                        (selectionChange)="getVendorDetails()"
+                    >
+                        <mat-option
+                            *ngFor="let type of vendorData"
+                            [value]="type.vendorId"
+                        >
+                            {{ type.vendorName }} ({{ type.phoneNumber }})   
+                        </mat-option>
+                    </mat-select>
+                    <mat-error
+                        *ngIf="
+                            combinedForm.get('vendorId').hasError('required')
+                        "
+                    >
+                        {{ "serviceCall.vendorIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full max-w-80 ml-4">
+                    <mat-label>
+                        {{ "serviceCall.scheduleFrom" | translate }}
+                    </mat-label>
+                    <mat-datetimepicker-toggle
+                        [for]="datetimePicker1"
+                        matSuffix
+                    ></mat-datetimepicker-toggle>
+                    <mat-datetimepicker
+                        #datetimePicker1
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5"
+                    >
+                    </mat-datetimepicker>
+                    <input
+                        matInput
+                        formControlName="visitTimeFrom"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [disabled]="true"
+                        [matDatetimepicker]="datetimePicker1"
+                        autocomplete="false"
+                    />
+                    <mat-error
+                        *ngIf="
+                            combinedForm
+                                .get('visitTimeFrom')
+                                .hasError('required')
+                        "
+                    >
+                        {{ "serviceCall.scheduleFromIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Visits To Datepicker -->
+                <mat-form-field class="w-full max-w-80 ml-4">
+                    <mat-label>
+                        {{ "serviceCall.scheduleTo" | translate }}
+                    </mat-label>
+                    <mat-datetimepicker-toggle
+                        [for]="datetimePicker2"
+                        matSuffix
+                    ></mat-datetimepicker-toggle>
+                    <mat-datetimepicker
+                        #datetimePicker2
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5"
+                    >
+                    </mat-datetimepicker>
+                    <input
+                        matInput
+                        [min]="minVisitToDate"
+                        [max]="maxDate"
+                        formControlName="visitTimeTo"
+                        [disabled]="true"
+                        [matDatetimepicker]="datetimePicker2"
+                        autocomplete="false"
+                    />
+                    <mat-error
+                        *ngIf="
+                            combinedForm.get('visitTimeTo').hasError('required')
+                        "
+                    >
+                        {{ "serviceCall.scheduleToIsRequired" | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <!-- Nature of Fault Form Field -->
+                <mat-form-field class="w-full max-w-120">
+                    <mat-label>
+                        {{ "serviceCall.complaint" | translate }}
+                    </mat-label>
+                    <input
+                        matInput
+                        formControlName="natureOfFault"
+                        placeholder="Enter Nature of Fault"
+                       
+
+                    />
+                    <label class="text-disabled">
+                        {{
+                            combinedForm?.value?.natureOfFault
+                                .length
+                        }}/40
+                    </label>
+                    <mat-error
+                    *ngIf="
+                        combinedForm.get('natureOfFault').hasError('required')
+                    "
+                >
+                    {{ "serviceCall.natureOfFault" | translate }}
+                </mat-error>
+                <mat-error *ngIf="combinedForm.get('natureOfFault').hasError('maxlength')">
+                    {{ "serviceCall.complaintMaxlength" | translate }}</mat-error>
+
+             
+                </mat-form-field>
+               
+                <mat-form-field class="w-full max-w-120 ml-4">
+                    <mat-label>
+                        {{ "serviceCall.complaintDescription" | translate }}
+                    </mat-label>
+                    <textarea
+                        matInput
+                        formControlName="adminDescription"
+                        placeholder="Enter Description"
+                        [attr.maxLength]="400"
+                    ></textarea>
+                    <label class="text-disabled">
+                        {{
+                            combinedForm?.value?.adminDescription
+                                .length
+                        }}/400
+                    </label>
+                    <mat-error *ngIf="combinedForm.get('adminDescription').hasError('required')">
+                        {{ "serviceCall.faultDesc" | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div formArrayName="vmServiceCallItem" class="product-table">
+                <div
+                    *ngFor="
+                        let product of selectedProducts.controls;
+                        let i = index
+                    "
+                    [formGroupName]="i"
+                    class="product-row"
+                >
+                    <!-- Product Name -->
+                    <span class="product-name">
+                        {{
+                            getProductName(
+                                selectedProducts.at(i).get("productId")?.value
+                            )
+                        }}
+                    </span>
+            
+                    <!-- Quantity Input with Mat Error -->
+                    <div class="quantity-wrapper">
+                        <input
+                            matInput
+                            class="quantity-input"
+                            placeholder="Quantity"
+                            formControlName="quantity"
+                            type="number"
+                            required
+                            maxlength="4"
+                            min="1"
+                            pattern="[0-9]*"
+                            (input)="onInputChange($event,i)"
+                        />
+                        <mat-error
+                            *ngIf="selectedProducts.at(i).get('quantity')?.hasError('required') && selectedProducts.at(i).get('quantity')?.touched"
+                            class="error-message"
+                        >
+                        {{ "serviceCall.quantityRequired" | translate }}
+                        </mat-error>
+                        <mat-error   *ngIf="selectedProducts.at(i).get('quantity')?.hasError('min') && selectedProducts.at(i).get('quantity')?.touched"
+                            class="error-message"
+                        >
+                        {{ "serviceCall.minQuantity" | translate }}
+                        </mat-error>
+                    </div>
+            
+                    <!-- <div class="quantity-wrapper">
+                        <mat-form-field class="w-full max-w-80">
+                            <mat-label>{{'ProductCat.productDescription' | translate }}</mat-label>
+                            <textarea matInput formControlName="productDescription"></textarea>
+                            <mat-error *ngIf="productForm.get('productDescription').hasError('required')">
+                                {{'ProductCat.productDescriptionIsRequired' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                        
+                    </div> -->
+                    <!-- File Upload with Mat Error -->
+                    <div class="file-upload-wrapper">
+                        <button
+                            type="button" matTooltip="Upload File"  matTooltipPosition="right" 
+                            mat-icon-button
+                            (click)="fileInput.click()"
+                            *ngIf="!selectedProducts.at(i).get('defectImageName')?.value"
+                        >
+                            <mat-icon svgIcon="mat_outline:file_upload"></mat-icon>
+                        </button>
+            
+                        <!-- File name and delete icon horizontally aligned -->
+                        <div class="file-display" *ngIf="selectedProducts.at(i).get('defectImageName')?.value">
+                            <span style="color: seagreen;">
+                                {{ selectedProducts.at(i).get("defectImageName")?.value }}
+                            </span>
+                            <mat-icon
+                                (click)="removeFile(i)"
+                                class="delete-icon"
+                            >
+                                delete
+                            </mat-icon>
+                        </div>
+            
+                        <input
+                            type="file"
+                            #fileInput
+                            class="hidden-file-input"
+                            (change)="onFileChange($event, i)"
+                        />
+                        <mat-error
+                            *ngIf="!selectedProducts.at(i).get('defectImageName')?.value && selectedProducts.at(i).get('defectImageName')?.touched"
+                            class="error-message"
+                        >
+                        {{ "serviceCall.fileRequired" | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+            <div class="form-actions">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                    class="submit-button"
+                    (click)="submitForm()"
+                    [disabled]="oneClickDisable "
+                >
+                    <span *ngIf="!serviceCallId">{{
+                        "serviceCall.create" | translate
+                    }}</span>
+                    <span *ngIf="serviceCallId">{{
+                        "serviceCall.update" | translate
+                    }}</span>
+                </button>
+
+                <button
+                    class="submit-button"
+                    mat-button
+                    mat-dialog-close
+                    (click)="onClose()"
+                >
+                    {{ "serviceCall.cancel" | translate }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

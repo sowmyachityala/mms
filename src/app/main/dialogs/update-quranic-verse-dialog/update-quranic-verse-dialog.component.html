@@ -1,0 +1,52 @@
+<div class="p-4">
+    <div mat-dialog-title class="flex justify-between">
+        <h1 class="font-bold text-xl"> {{'DialogBox.dashboardWidget' | translate}} </h1>
+        <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+            <span class="mt-0.5">{{'DialogBox.close' | translate}}</span>
+            <mat-icon class="cursor">close</mat-icon>
+        </span>
+    </div>
+    <hr class="m-auto mt-2">
+
+    <form [formGroup]="quranicVerseForm">
+        <div class="pt-6">
+            <mat-form-field class="w-full">
+                <mat-label>{{'DialogBox.widgetHeader' | translate}}</mat-label>
+                <input matInput [formControlName]="'widgetHeader'">
+                <mat-error *ngIf="quranicVerseForm.get('widgetHeader').hasError('required')">
+                    {{'DialogBox.widgetHeaderIsRequired' | translate}}
+                </mat-error>
+            </mat-form-field>           
+        </div>
+
+        <div class="pt-6">
+            <mat-form-field class="w-full">
+                <mat-label>{{'DialogBox.widgetBody' | translate}}</mat-label>
+                <textarea matInput class="verseText" rows="4" name="widgetBody" [formControlName]="'widgetBody'"></textarea>
+                <mat-error *ngIf="quranicVerseForm.get('widgetBody').hasError('required')">
+                    {{'DialogBox.widgetBodyIsRequired' | translate}}
+                </mat-error>
+            </mat-form-field>           
+        </div>
+        
+        <div class="pt-6">
+            <mat-form-field class="w-full">
+                <mat-label> {{'DialogBox.widgetReference' | translate}}</mat-label>
+                <input matInput [formControlName]="'widgetReference'">
+                <mat-error *ngIf="quranicVerseForm.get('widgetReference').hasError('required')">
+                    {{'DialogBox.widgetReferenceIsRequired' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions class="pt-10 mb-4">
+            <ng-container *ngFor="let item of data?.buttons">
+                <button mat-flat-button [disabled]="quranicVerseForm.disabled && item?.type === 'Confirm'"
+                    *ngIf="!item?.hide" class="{{item?.buttonClass}}" [color]="item?.color ? item?.color : ''"
+                    (click)="onActionClick(item)">
+                    {{ item?.label ? item?.label : '' }}
+                </button>
+            </ng-container>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,52 @@
+.figure {
+    width: 100%;
+    padding: 0;
+    margin: 0 0 .5rem 0;
+}
+.figCaption {
+  text-align: center;
+}
+ .figCaption .__text {
+    font-family: 'Source Sans Pro';
+    font-size: 10px;
+    padding: 0 .5rem;
+  }
+.circular-chart {
+  display: block;
+  max-width: 55px;
+  max-height: 55px;
+  margin: 0 auto;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}
+
+.circular-chart.orange .circle {
+  stroke: #ff9f00;
+}
+.circular-chart.blue .circle {
+  stroke: #5093d5;
+}
+.percentage {
+  fill: #085280;
+  font-family: 'Source Sans Pro';
+  font-size: 8px;
+  text-anchor: middle;
+  font-weight: 600;
+}

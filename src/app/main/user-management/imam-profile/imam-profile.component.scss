@@ -1,0 +1,99 @@
+.hide_file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 24px;
+    width: 100%;
+}
+.mat-mdc-dialog-surface {
+    overflow-y: unset !important;
+}
+
+.text-underline {
+    text-decoration: underline !important;
+    cursor: pointer;
+    color: #006e8c;
+}
+.max-width-rem62 {
+    max-width: 62rem !important;
+}
+
+.imam-form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.form-section-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+    padding-bottom: 5px;
+}
+.fields-gap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.mat-form-field {
+    margin-bottom: 16px;
+}
+
+.form-section .mat-form-field:last-of-type {
+    margin-bottom: 0;
+}
+
+.float-left {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-media-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #f9f9f9;
+}
+
+.social-media-section-title {
+    font-size: 1.2em;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.social-media-account-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.social-media-checkbox {
+    margin: 0;
+}
+
+.social-media-form-field {
+    max-width: 100%;
+    margin: 0;
+}
+
+.social-media-error {
+    font-size: 0.875em;
+    margin-top: 4px;
+}

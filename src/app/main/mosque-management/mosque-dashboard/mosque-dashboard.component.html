@@ -1,0 +1,164 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div>
+        <div class="page-title justify-between flex">
+            <span>{{'ControlCentre.controlCentreDashboard' | translate}}</span>
+            <div class="page-sub-title">
+                <button mat-flat-button [color]="'primary'" (click)="refreshData()">
+                    <mat-icon>refresh</mat-icon><span class="ml-2 mr-1">{{'ControlCentre.refreshData' | translate}}</span>
+                </button>  
+            </div>
+        </div>  
+    </div>
+    
+    <div class="px-4  flex">
+        <div class="w-1/3  treshold" [ngClass]="direction === 'rtl' ? 'ml-8' : direction === 'ltr' ? 'mr-8' : ''">
+            <span class="page-sub-title">{{'ControlCentre.temperatureMonitor' | translate}}</span>
+        </div>
+        <div class="w-1/3 treshold" [ngClass]="direction === 'rtl' ? 'ml-4' : direction === 'ltr' ? 'mr-4' : ''">
+            <span class="page-sub-title">{{'ControlCentre.energyConsumption' | translate}}</span>
+        </div>
+        <div class="w-1/3 treshold" [ngClass]="direction === 'rtl' ? 'ml-4 mr16' : direction === 'ltr' ? 'mr-4 ml16' : ''">
+            <span class="page-sub-title">{{'ControlCentre.waterConsumption' | translate}}</span>
+        </div>
+    </div>
+    <div class="px-4 pb-3 flex">
+        <div class="w-1/3 bg-[#F5F5F5] treshold" [ngClass]="direction === 'rtl' ? 'pl-5  ml-4' : direction === 'ltr' ? 'pr-5  mr-4 ' : ''">
+            <img class="donation-cover w-2/5 bg-[#ECFAFF] cw-75 ptb05 power-img" [ngClass]="direction === 'rtl' ? 'mrp25' : direction === 'ltr' ? 'mlp25' : ''" [src]="imageEndPoints.temperatureIcon" alt="Cover image"/>
+            <div class="flex py-6 px-8">
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-4xl sm:text-5xl font-bold tracking-tight leading-none text-blue-500">
+                        <span>{{ TempSensor?.temp ? TempSensor?.temp : 0 }}</span><span class="degree">&nbsp;&deg;C</span>
+                    </div>
+                    <div class="text-md font-medium text-black-600 dark:text-black-500">
+                        {{'ControlCentre.roomTemperature' | translate}}
+                    </div>
+                    <div class="text-sm font-small text-black-300 dark:text-black-200">
+                        {{'ControlCentre.serverRoom' | translate}}
+                    </div>
+                </div>
+            </div> 
+           
+        </div>
+        <div class="w-1/3 bg-[#F5F5F5] treshold" [ngClass]="direction === 'rtl' ? 'ml-4' : direction === 'ltr' ? 'mr-4' : ''">
+            <img class="donation-cover w-2/5 bg-[#ECFAFF] cw-75 ptb05 power-img" style="height: 80%;" [ngClass]="direction === 'rtl' ? 'mrp25' : direction === 'ltr' ? 'mlp25' : ''" [src]="imageEndPoints.powerIcon" alt="Cover image"/>            
+            <div class="flex py-6">
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-3xl sm:text-4xl font-bold tracking-tight leading-none text-blue-500">
+                        <span>{{ totalEnergy ? totalEnergy : 0 }}</span>&nbsp;kWh
+                    </div>                   
+                    <div class="text-sm font-semibold text-black-300 dark:text-black-200 text-center pt-2">
+                        {{'ControlCentre.totalEnergy' | translate}}
+                    </div>
+                    <!-- <div class="text-sm font-semibold text-green-300 dark:text-green-300 text-center pt-2">                        
+                        <span>{{ consumptionPercent ? consumptionPercent : 0 }}</span>% Consumption
+                    </div> -->
+                    <div class="text-sm font-small text-black-300 dark:text-black-200 text-center">
+                        <span *ngIf="consumptionDifference > 0"><mat-icon class="text-primary pt-4">keyboard_arrow_up</mat-icon>
+                            {{ consumptionPercent ? consumptionPercent : 0 }}% more compared to last month
+                        </span> 
+                        <span *ngIf="consumptionDifference < 0"><mat-icon class="text-warn pt-4">keyboard_arrow_down</mat-icon>
+                            {{ consumptionPercent ? consumptionPercent : 0 }}% less compared to last month
+                        </span>
+                    </div>
+                </div>
+            </div>      
+        </div>
+        <div class="w-1/3 bg-[#F5F5F5] treshold">            
+            <img class="donation-cover w-2/5 bg-[#ECFAFF] cw-75 ptb05 power-img" [ngClass]="direction === 'rtl' ? 'mrp25' : direction === 'ltr' ? 'mlp25' : ''" [src]="imageEndPoints.waterDropIcon" alt="Cover image"/>
+            <div class="flex py-6">
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-2xl sm:text-3xl font-bold tracking-tight leading-none text-blue-500">
+                        345 <span> Kilo-Liters</span>
+                    </div>                   
+                    <div class="text-sm font-semibold text-black-300 dark:text-black-200 text-center pt-2">
+                        {{'ControlCentre.totalWater' | translate}}
+                    </div>
+                    <div class="text-sm font-small text-black-300 dark:text-black-200 text-center pt-2">
+                        {{shortMonthName}} {{currentYear}}
+                    </div>
+                </div>
+            </div>  
+        </div>
+        
+
+    </div>  
+    <div class="m-4">
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+            <span class="page-sub-title">{{'ControlCentre.energyMonitor' | translate}}</span>
+        </div>
+        <div class="bg-[#F5F5F5]">
+            <div class="px-4 pb-3 flex">
+                <canvas id="energyChart" width="400" height="100"></canvas>
+            </div>
+        </div>
+    </div> 
+    
+    
+    <div class="px-4  flex">
+        <div class="w-1/3  treshold" [ngClass]="direction === 'rtl' ? 'ml-8' : direction === 'ltr' ? 'mr-8' : ''">
+            <span class="page-sub-title">{{'ControlCentre.switchControl' | translate}}</span>
+        </div>
+        <div class="w-1/3 treshold" [ngClass]="direction === 'rtl' ? 'ml-4' : direction === 'ltr' ? 'mr-4' : ''">
+            <span class="page-sub-title">{{'ControlCentre.airConditioner' | translate}}</span>
+        </div>
+        <div class="w-1/3 treshold" [ngClass]="direction === 'rtl' ? 'ml-4 mr16' : direction === 'ltr' ? 'mr-4 ml16' : ''">
+            <span class="page-sub-title">{{'ControlCentre.userRatings' | translate}}</span>
+        </div>
+    </div>
+    <div class="px-4 pb-3 flex">
+        <div class="w-1/3 bg-[#F5F5F5] treshold cursor-pointer" [ngClass]="direction === 'rtl' ? 'ml-4' : direction === 'ltr' ? 'mr-4 ' : ''">
+           
+            <div class="container2" [ngClass]="direction === 'rtl' ? 'pl-5 mrtwp-15' : direction === 'ltr' ? 'pr-5 mltwp-15' : ''">              
+                <div *ngFor="let switchItem of switchArray" class="switch-container2">
+                    <label class="font-semibold w-2/5">{{ switchItem.name }}</label>
+                    <mat-slide-toggle
+                        [color]="switchItem.value.on ? 'primary' : 'warn'"
+                        [ngClass]="direction === 'rtl' ? 'mrp-100' :'mlp-100'"
+                        [checked]="switchItem.value.on"
+                        (change)="toggleSwitch(switchItem.key, $event)">
+                        <span *ngIf="switchItem.value.on" style="color: green;">{{'ControlCentre.on' | translate}}</span>
+                        <span *ngIf="!switchItem.value.on"style="color: red;">{{'ControlCentre.off' | translate}}</span>
+                    </mat-slide-toggle>
+                </div>                
+            </div>
+        </div>
+        <div class="w-1/3 bg-[#F5F5F5] treshold" [ngClass]="direction === 'rtl' ? 'ml-4' : direction === 'ltr' ? 'mr-4' : ''">            
+           
+            <div class="container2" style="width:100%;margin-top: 15px;" [ngClass]="direction === 'rtl' ? 'pl-5 mrp15' : direction === 'ltr' ? 'pr-5 mlp15' : ''">                
+                <mat-label> {{'ControlCentre.serverRoom' | translate}}</mat-label>
+                <mat-form-field>
+                    <mat-label>{{'ControlCentre.selectTemperature' | translate}}</mat-label>
+                    <mat-select [(value)]="selectedTemp">
+                        <mat-option *ngFor="let temp of temps" [value]="temp">{{ temp }} <span class="degree">&deg;C</span></mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-flat-button [color]="'primary'" (click)="SetTemperature()" >
+                    <mat-icon>thermostat</mat-icon><span class="ml-2 mr-1">{{'ControlCentre.setTemperature' | translate}}</span>
+                </button>               
+            </div>
+        </div>
+        <div class="w-1/3 bg-[#F5F5F5] treshold">
+            <div class="container2" style="width:100%;margin-top: 15px;">                  
+                <div class="text-center">
+                    <div [appStarRating]="rating" data-star></div>
+                </div>                
+                <div class="text-4xl sm:text-5xl font-bold tracking-tight leading-none text-blue-500 text-center">{{rating}}/5</div>
+                <div class="text-sm font-semibold ext-black-300 dark:text-black-200 text-center pt-2">
+                    {{'ControlCentre.overallRating' | translate}}
+                </div>
+                <div class="text-sm font-small text-black-300 dark:text-black-200 text-center pb-3 pt-2">Ministry of Islamic Affairs, Dawah, and Guidance</div>
+            </div> 
+        </div>
+    </div> 
+    <!-- <div class="flex shrink-0 items-center mt-6 sm:mt-0 ml-4">
+        <span class="page-sub-title">Live Video Streaming</span>
+    </div>
+    <div>
+        <app-videostream class="vd"></app-videostream>
+        <app-videostream class="vd"></app-videostream>
+    </div>  -->
+    
+    <!-- <app-circle-chart [percentage]="consumptionPercent"></app-circle-chart> -->
+
+</div> 
+

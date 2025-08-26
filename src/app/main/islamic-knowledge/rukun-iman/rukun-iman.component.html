@@ -1,0 +1,614 @@
+<div class="container donation-container">
+    <!-- Header Section -->
+    <!-- <div class="title-section">
+        <h6>Islamic Knowledge</h6>
+    </div> -->
+
+    <!-- Title -->
+    <h3 class="name_allah mt-2">
+        <i class="fa fa-th-large" aria-hidden="true"></i> {{menuItems[activeIndex].label}}
+    </h3>
+
+    <div class="icon-scroll-wrapper">
+        <!-- Left Arrow -->
+        <!-- <button class="scroll-btn left" (click)="scrollIcons('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button> -->
+
+         <div class="icon-scroll"  #iconScroll id="iconScroll">
+            <div class="icon-item" #iconItem *ngFor="let item of menuItems; let i = index" (click)="navigateToPage(item.label, i)" [ngClass]="{ 'active': activeIndex === i }">
+                <img [src]="item.image" [alt]="item.label" />
+                <div>{{ item.label }}</div>
+            </div>           
+        </div>
+
+        <!-- Right Arrow -->
+        <!-- <button class="scroll-btn right" (click)="scrollIcons('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button> -->
+    </div>
+
+    <div class="divider-image">
+        <img src="assets/images/islamic-knowledge/devider.png" alt="divider" />
+    </div>
+   
+    <div class="audio-section">
+        <h2>RUKUN IMAN</h2>
+
+        <div class="px-10">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Rukun_iman.png"
+            />
+        </div>
+        <div class="p-3 rukum-iman-section">
+            <div>
+                <span class="rukum-iman-color">Rukun Iman</span> adalah enam
+                pokok kepercayaan yang menjadi fondasi utama dalam ajaran Islam.
+                Rukun ini mencerminkan keyakinan batin seorang Muslim terhadap
+                hal-hal yang bersifat gaib dan mendasar dalam hubungan manusia
+                dengan Allah serta kehidupan akhirat. Tanpa keimanan kepada
+                keenam prinsip ini, keislaman seseorang dianggap belum sempurna.
+            </div>
+            <div class="pt-3">
+                Iman bukan sekadar pengakuan lisan, melainkan keyakinan yang
+                tertanam dalam hati dan dibuktikan melalui sikap serta amal
+                perbuatan. Enam prinsip ini mencakup keimanan kepada Allah,
+                malaikat-malaikat-Nya, kitab-kitab-Nya, rasul-rasul-Nya, hari
+                akhir, dan takdir baik maupun buruk dari-Nya. Kepercayaan ini
+                tidak hanya bersifat teoretis, tetapi menjadi landasan moral dan
+                spiritual dalam menjalani kehidupan sehari-hari.
+            </div>
+            <div class="pt-3">
+                Dasar dari Rukun Iman dijelaskan secara langsung dalam
+                <span class="rukum-iman-color"
+                    >Al-Qur’an Surat An-Nisa ayat 136:</span
+                >
+            </div>
+            <div class="pt-4 rukum-iman-color">
+                يَا أَيُّهَا الَّذِينَ آمَنُوا آمِنُوا بِاللَّهِ وَرَسُولِهِ
+                وَالْكِتَابِ الَّذِي نَزَّلَ عَلَىٰ رَسُولِهِ وَالْكِتَابِ
+                الَّذِي أَنْزَلَ مِنْ قَبْلُ ۚ وَمَنْ يَكْفُرْ بِاللَّهِ
+                وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَالْيَوْمِ الْآخِرِ
+                فَقَدْ ضَلَّ ضَلَالًا بَعِيدًا
+            </div>
+            <div class="rukum-iman-color font-bold pt-4">Artinya:</div>
+            <div class="pt-4">
+                "Wahai orang-orang yang beriman! Tetaplah beriman kepada Allah,
+                Rasul-Nya (Muhammad), kitab (Al-Qur'an) yang diturunkan kepada
+                Rasul-Nya, dan kitab-kitab yang diturunkan sebelumnya. Barang
+                siapa ingkar kepada Allah, malaikat-malaikat-Nya,
+                kitab-kitab-Nya, rasul-rasul-Nya, dan hari akhir, maka sungguh
+                dia telah tersesat sangat jauh."
+            </div>
+            <div class="pl-3">(QS. An-Nisa: 136)</div>
+            <div class="pt-4">
+                Ayat ini adalah
+                <span class="font-bold rukum-iman-color"
+                    >perintah langsung dari Allah</span
+                >
+                <span class="rukum-iman-color">kepada kaum beriman agar</span>
+                <span class="rukum-iman-color font-bold"
+                    >meneguhkan dan memperdalam keimanan mereka</span
+                >
+                kepada enam unsur pokok:
+            </div>
+            <div class="pt-6">
+                <div class="font-bold rukum-iman-color">1. Allah</div>
+                <div class="font-bold rukum-iman-color">2. Malaikat</div>
+                <div class="font-bold rukum-iman-color">
+                    3. Kitab-kitab suci
+                </div>
+                <div class="font-bold rukum-iman-color">4. Rasul-rasul</div>
+                <div class="font-bold rukum-iman-color">5. Hari Akhir</div>
+                <div class="font-bold rukum-iman-color flex">
+                    6. <span class="pl-1">Qadar (disebut dalam hadits Nabi, walau tidak tercantum
+                    eksplisit di ayat ini)</span>
+                </div>
+            </div>
+            <div class="pt-4">
+                Ayat ini juga menunjukkan bahwa
+                <span class="rukum-iman-color font-bold"
+                    >terhadap salah satu saja dari unsur tersebut
+                </span>
+                menyebabkan seseorang tersesat jauh dari kebenaran. Ini
+                menunjukkan betapa penting dan wajibnya meyakini seluruh prinsip
+                Rukun Iman sebagai satu kesatuan.
+            </div>
+        </div>
+
+        <!-- Rukun iman-1 -->
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+        <div class="px-20">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Allah.png"
+            />
+        </div>
+        <h2>RUKUN IMAN PERTAMA</h2>
+        <h2>IMAN KEPADA ALLAH</h2>
+        <h2>(الإِيمَانُ بِاللَّهِ)</h2>
+        <div class="p-3 rukum-iman-section">
+            <div class="rukum-iman-color font-bold">Pengertian:</div>
+            <div>
+                Beriman kepada Allah artinya meyakini dengan sepenuh hati bahwa
+                Allah ada, satu-satunya Tuhan, tiada sekutu bagi-Nya, dan hanya
+                Allah yang patut disembah.
+            </div>
+            <div class="pt-4">
+                <div class="rukum-iman-color font-bold">
+                    Dalil dari Al-Qur’an:
+                </div>
+                <div class="pt-4">
+                    فَاعْلَمْ أَنَّهُ لَا إِلَـٰهَ إِلَّا اللَّهُ
+                </div>
+                <div>
+                    “Maka ketahuilah bahwa sesungguhnya tidak ada Tuhan (yang
+                    berhak disembah) selain Allah.”
+                </div>
+                <div>(QS. Muhammad: 19)</div>
+            </div>
+            <div class="pt-4">
+                <div class="rukum-iman-color font-bold">
+                    Mengapa Harus Iman kepada Allah?
+                </div>
+                <div>1. Dasar seluruh amal perbuatan.</div>
+                <div>2. Landasan akhlak dan ibadah.</div>
+                <div class="flex">
+                    3. <span class="pl-1">Menumbuhkan rasa takut dan cinta kepada-Nya.</span>
+                </div>
+            </div>
+            <div class="pt-4">
+                <div class="rukum-iman-color font-bold">
+                    Hikmah Iman kepada Allah:
+                </div>
+                <li>Hati menjadi tenang karena bergantung hanya kepada-Nya.</li>
+                <li>Memiliki tujuan hidup yang jelas.</li>
+                <li>
+                    Tidak takut kehilangan dunia karena yakin rezeki dari Allah.
+                </li>
+            </div>
+        </div>
+ <!--  Rukun iman-2 -->
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+        <div class="px-20">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Malaikat.png"
+            />
+        </div>
+        <h2>RUKUN IMAN KE-2</h2>
+        <h2>IMAN KEPADA MALAIKAT</h2>
+        <h2>(الإِيمَانُ بِالْمَلَائِكَةِ)</h2>
+
+        <div class="p-3 rukum-iman-section">
+            <div class="rukum-iman-color font-bold">Pengertian:</div>
+            <div>
+                Beriman kepada malaikat berarti meyakini bahwa Allah telah
+                menciptakan para malaikat dari cahaya (nur), dan mereka selalu
+                taat, tidak pernah durhaka, serta memiliki tugas khusus dari
+                Allah.
+            </div>
+            <div class="pt-2">
+                Malaikat bukan laki-laki atau perempuan, tidak makan dan minum,
+                serta tidak memiliki hawa nafsu. Mereka senantiasa bertasbih dan
+                menjalankan perintah Allah tanpa henti.
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Dalil dari Al-Qur’an:
+                </div>
+                <div class="pt-3">
+                    لَا يَعْصُونَ اللَّهَ مَا أَمَرَهُمْ وَيَفْعَلُونَ مَا
+                    يُؤْمَرُونَ
+                </div>
+                <div>
+                    “Mereka tidak mendurhakai Allah terhadap apa yang
+                    diperintahkan-Nya kepada mereka dan selalu mengerjakan apa
+                    yang diperintahkan.”
+                </div>
+                <div>(QS. At-Tahrim: 6)</div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Nama-Nama Malaikat Utama dan Tugasnya:
+                </div>
+                <div class="p-3">
+                    <div>
+                        1.
+                        <span class="font-semibold pl-1">Jibril (جبريل) – </span
+                        >menyampaikan wahyu.
+                    </div>
+                    <div>
+                        2.
+                        <span class="font-semibold">Mikail (ميكائيل) – </span
+                        >mengatur rezeki dan hujan.
+                    </div>
+                    <div>
+                        3.
+                        <span class="font-semibold">Israfil (إسرافيل) – </span
+                        >meniup sangkakala kiamat.
+                    </div>
+                    <div>
+                        4.
+                        <span class="font-semibold">Izrail (عزرائيل) – </span
+                        >mencabut nyawa.
+                    </div>
+                    <div>
+                        5.
+                        <span class="font-semibold"
+                            >Raqib (رقيب) & Atid (عتيد) – </span
+                        >mencatat amal perbuatan.
+                    </div>
+                    <div>
+                        6.
+                        <span class="font-semibold"
+                            >Munkar dan Nakir (منكر ونكير) – </span
+                        >menanyai di alam kubur.
+                    </div>
+                    <div>
+                        7.
+                        <span class="font-semibold">Malik (مالك) – </span
+                        >penjaga neraka.
+                    </div>
+                    <div>
+                        8.
+                        <span class="font-semibold">Ridwan (رضوان) – </span
+                        >penjaga surga.
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="rukum-iman-color font-bold">
+                        Mengapa Kita Harus Iman kepada Malaikat?
+                    </div>
+                    <li>Meyakini adanya makhluk Allah yang ghaib.</li>
+                    <li>
+                        Menumbuhkan rasa takut berbuat dosa, karena selalu
+                        diawasi.
+                    </li>
+                    <li>
+                        Meningkatkan keimanan dan kedisiplinan dalam ibadah.
+                    </li>
+                </div>
+                <div class="pt-3">
+                    <div class="rukum-iman-color font-bold">
+                        Hikmah Iman kepada Malaikat:
+                    </div>
+                    <li>
+                        Hidup lebih berhati-hati dan taat pada aturan agama.
+                    </li>
+                    <li>
+                        Merasa dijaga dan dilindungi oleh malaikat atas izin
+                        Allah.
+                    </li>
+                    <li>
+                        Memperkuat keyakinan bahwa segala amal tidak akan
+                        sia-sia.
+                    </li>
+                </div>
+            </div>
+        </div>
+
+        <!--  Rukun iman-3 -->
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+        <div class="px-20">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Kitab-kitab_suci.png"
+            />
+        </div>
+        <h2>RUKUN IMAN KE-3</h2>
+        <h2>IMAN KEPADA KITAB-KITAB ALLAH</h2>
+        <h2>(الإِيمَانُ بِالْكُتُبِ)</h2>
+
+        <div class="p-3 rukum-iman-section">
+            <div class="rukum-iman-color font-bold">Pengertian:</div>
+            <div>
+                Iman kepada kitab Allah artinya percaya dengan sepenuh hati
+                bahwa Allah telah menurunkan kitab-kitab suci sebagai petunjuk
+                hidup umat manusia, melalui rasul-rasul-Nya.
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Dalil dari Al-Qur’an:
+                </div>
+                <div class="pt-3">
+                    نَزَّلَ عَلَيْكَ الْكِتَابَ بِالْحَقِّ مُصَدِّقًا لِّمَا
+                    بَيْنَ يَدَيْهِ وَأَنزَلَ التَّوْرَاةَ وَالْإِنجِيلَ
+                </div>
+                <div>
+                    “Dia menurunkan Al-Kitab (Al-Qur’an) kepadamu dengan
+                    sebenarnya; membenarkan kitab yang telah diturunkan
+                    sebelumnya dan menurunkan Taurat dan Injil.”
+                </div>
+                <div>(QS. Ali Imran: 3)</div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Kitab-Kitab Allah yang Wajib Diimani:
+                </div>
+                <div class="pl-3">
+                    <div class="flex">
+                        1. <span class="pl-1">Taurat – diturunkan kepada Nabi Musa عليه السلام.</span>
+                    </div>
+                    <div class="flex">
+                        2. <span class="pl-1">Zabur – diturunkan kepada Nabi Dawud عليه السلام.</span>
+                    </div>
+                    <div class="flex">
+                        3. <span class="pl-1">Injil – diturunkan kepada Nabi Isa عليه السلام.</span>
+                    </div>
+                    <div class="flex">4. <span class="pl-1">Al-Qur’an – diturunkan kepada Nabi Muhammad ﷺ.</span></div>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Mengapa Harus Iman kepada Kitab?
+                </div>
+                <div class="pl-3">
+                    <li>
+                        Menunjukkan bahwa Allah selalu memberi petunjuk bagi
+                        umat-Nya.
+                    </li>
+                    <li>
+                        Mengakui risalah dan wahyu sejak zaman para nabi
+                        terdahulu.
+                    </li>
+                    <li>
+                        Membentuk sikap toleransi terhadap agama samawi yang
+                        lain.
+                    </li>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Hikmah Iman kepada Kitab:
+                </div>
+                <div class="pl-3">
+                    <li>
+                        Membaca dan memahami Al-Qur’an sebagai pedoman hidup
+                        utama.
+                    </li>
+                    <li>
+                        Menyadari bahwa Islam melanjutkan risalah sebelumnya
+                        secara sempurna.
+                    </li>
+                    <li>Menumbuhkan rasa cinta kepada ilmu dan kebenaran.</li>
+                </div>
+            </div>
+        </div>
+
+        <!-- rukan-iman-4 -->
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+        <div class="px-20">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Rasul-rasul.png"
+            />
+        </div>
+        <h2>RUKUN IMAN KE-4</h2>
+        <h2>IMAN KEPADA RASUL</h2>
+        <h2>(الإِيمَانُ بِالرُّسُلِ)</h2>
+
+        <div class="p-3 rukum-iman-section">
+            <div class="rukum-iman-color font-bold">Pengertian:</div>
+            <div>
+                Beriman kepada rasul artinya percaya bahwa Allah telah mengutus
+                manusia pilihan sebagai rasul untuk menyampaikan ajaran-Nya dan
+                membimbing umat menuju jalan yang benar.
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Dalil dari Al-Qur’an:
+                </div>
+                <div class="pt-2">
+                    مَّا كَانَ مُحَمَّدٌ أَبَا أَحَدٍ مِّن رِّجَالِكُمْ
+                    وَلَـٰكِن رَّسُولَ اللَّهِ وَخَاتَمَ النَّبِيِّينَ
+                </div>
+                <div>
+                    “Muhammad itu sekali-kali bukanlah bapak dari seorang
+                    laki-laki di antara kamu, tetapi dia adalah Rasul Allah dan
+                    penutup para nabi.”
+                </div>
+                <div class="pl-2">(QS. Al-Ahzab: 40)</div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Jumlah Rasul dan Nabi:
+                </div>
+                <div class="pl-2">
+                    <li>
+                        <span class="rukum-iman-color font-bold">Nabi:</span>
+                        ±124.000 orang.
+                    </li>
+                    <li>
+                        <span class="rukum-iman-color font-bold">Rasul: </span>
+                        25 yang wajib diketahui, di antaranya: Nuh, Ibrahim,
+                        Musa, Isa, dan Muhammad ﷺ sebagai penutup.
+                    </li>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Mengapa Harus Iman kepada Rasul?
+                </div>
+                <div class="pl-2">
+                    <li>
+                        Rasul adalah
+                        <span class="rukum-iman-color font-bold"
+                            >teladan hidup dan akhlak yang sempurna.
+                        </span>
+                    </li>
+                    <li>Menyampaikan ajaran Allah dengan benar dan jujur.</li>
+                    <li>
+                        Menghubungkan manusia dengan wahyu dan perintah Allah.
+                    </li>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Hikmah Iman kepada Rasul:
+                </div>
+                <div class="pl-2">
+                    <li>
+                        Menumbuhkan rasa cinta dan loyalitas pada ajaran Nabi.
+                    </li>
+                    <li>Meneladani perilaku dan akhlak mulia para rasul.</li>
+                    <li>
+                        Meyakini bahwa Islam adalah kelanjutan risalah kenabian
+                        terdahulu.
+                    </li>
+                </div>
+            </div>
+        </div>
+
+        <!-- rukun iman-5 -->
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+        <div class="px-20">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Hari_Akhir.png"
+            />
+        </div>
+        <h2>RUKUN IMAN KE-5</h2>
+        <h2>IMAN KEPADA HARI AKHIR</h2>
+        <h2>(الإِيمَانُ بِالْيَوْمِ الآخِرِ)</h2>
+
+        <div class="p-3 rukum-iman-section">
+            <div class="rukum-iman-color font-bold">Pengertian:</div>
+            <div>
+                Iman kepada qadha dan qadar adalah percaya bahwa segala sesuatu
+                yang terjadi di alam semesta ini, baik maupun buruk, telah
+                ditetapkan oleh Allah dengan ilmu dan kehendak-Nya.
+            </div>
+            <div class="rukum-iman-color font-bold">Dalil dari Al-Qur’an:</div>
+            <div class="pt-3">إِنَّمَا تُجْزَوْنَ مَا كُنتُمْ تَعْمَلُونَ</div>
+            <div>
+                “Sesungguhnya kamu hanya diberi balasan atas apa yang telah kamu
+                kerjakan.”
+            </div>
+            <div class="pl-2">(QS. At-Tur: 16)</div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Mengapa Harus Iman kepada Hari Akhir?
+                </div>
+                <div class="pl-2">
+                    <li>
+                        Mengingatkan bahwa
+                        <span class="rukum-iman-color font-bold"
+                            >hidup tidak hanya di dunia saja</span
+                        >
+                    </li>
+                    <li>
+                        Mendorong kita untuk
+                        <span class="rukum-iman-color font-bold"
+                            >berbuat baik dan meninggalkan maksiat.</span
+                        >
+                    </li>
+                    <li>
+                        Menyadari bahwa segala amal akan dipertanggungjawabkan.
+                    </li>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Hikmah Iman kepada Hari Akhir:
+                </div>
+                <div class="pl-2">
+                    <li>Hidup lebih bertanggung jawab</li>
+                    <li>
+                        Tidak mudah putus asa karena tahu akhirat lebih baik.
+                    </li>
+                    <li>
+                        Menyadarkan bahwa hidup ini fana dan ada kehidupan abadi
+                        setelahnya.
+                    </li>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rukum iman-6 -->
+
+        <div class="divider-image">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/divider2.png"
+                alt="divider"
+            />
+        </div>
+        <div class="px-20">
+            <img
+                src="assets/images/islamic-knowledge/Rukun_imam logos/Qadar.png"
+            />
+        </div>
+        <h2>RUKUN IMAN KE-6</h2>
+        <h2>IMAN KEPADA QADHA DAN QADAR</h2>
+        <h2>(الإِيمَانُ بِالْقَدَرِ)</h2>
+
+        <div class="p-3 rukum-iman-section">
+            <div class="rukum-iman-color font-bold">Pengertian:</div>
+            <div>
+                Iman kepada qadha dan qadar adalah percaya bahwa segala sesuatu
+                yang terjadi di alam semesta ini, baik maupun buruk, telah
+                ditetapkan oleh Allah dengan ilmu dan kehendak-Nya.
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">
+                    Dalil dari Al-Qur’an:
+                </div>
+                <div class="pt-3">إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ</div>
+                <div>
+                    “Sesungguhnya Kami menciptakan segala sesuatu menurut takdir
+                    (ketentuan).”
+                </div>
+                <div class="pl-2">(QS. Al-Qamar: 49)</div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">Dalil Hadis:</div>
+                <div>“Engkau beriman kepada takdir yang baik maupun yang buruk.”</div>
+                <div class="pl-3">(HR. Muslim – Hadis Jibril)</div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">Mengapa Harus Iman kepada Takdir? </div>
+                <div class="pl-3">
+                    <li>Menumbuhkan sikap <span class="rukum-iman-color font-bold">ridha dan sabar atas ujian hidup.</span></li>
+                    <li>Tidak sombong saat sukses, tidak putus asa saat gagal. </li>
+                    <li>Meyakini bahwa segala usaha harus diiringi tawakal.</li>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="rukum-iman-color font-bold">Hikmah Iman kepada Qadha dan Qadar: </div>
+                <div class="pl-3">
+                    <li>Hati menjadi tenang dan tidak gelisah berlebihan. </li>
+                    <li>Mendorong ikhtiar maksimal, tapi pasrah kepada hasil terbaik dari Allah.  </li>
+                    <li>Memahami bahwa semua yang terjadi pasti ada hikmahnya. </li>
+                </div>
+            </div>
+            <button
+                class="scroll-to-top"
+                *ngIf="showScrollToTop"
+                (click)="scrollToTop()"
+                aria-label="Scroll to top"
+            >
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div> 
+    </div>
+</div>

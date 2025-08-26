@@ -1,0 +1,305 @@
+<div class="p-4">
+    <div mat-dialog-title class="flex justify-between">
+        <h1 class="font-bold text-xl">{{ messageHeader }}</h1>
+        <span class="flex font-semibold" (click)="onClose()">
+            <span class="mt-0.5">{{ "DialogBox.close" | translate }}</span>
+            <mat-icon class="cursor">close</mat-icon>
+        </span>
+    </div>
+    <hr class="m-auto mt-2" />
+
+    <div
+        class="p-4 mt-4 {{ messageType }}"
+        [ngClass]="
+            data?.messageType === 'Phone_Number' ||
+            data?.messageType === 'Full_Name' ||
+            data?.messageType === 'Email_Id' ||
+            data?.messageType === 'Gender' ||
+            data?.messageType === 'Currency_Type'
+                ? 'bg-[#EFF6FC]'
+                : data?.messageType === 'Verification_Code'
+                ? 'bg-[#F8EED2]'
+                : ''
+        "
+    >
+        <div class="flex items-center">
+            <mat-icon
+                svgIcon="heroicons_solid:information-circle"
+                style="color: #106ebe"
+                *ngIf="
+                    data?.messageType === 'Phone_Number' ||
+                    data?.messageType === 'Full_Name' ||
+                    data?.messageType === 'Email_Id' ||
+                    data?.messageType === 'Gender' ||
+                    data?.messageType === 'Currency_Type'
+                "
+            ></mat-icon>
+            <mat-icon
+                svgIcon="heroicons_solid:bell"
+                style="color: #f0b400"
+                *ngIf="data?.messageType === 'Verification_Code'"
+            ></mat-icon>
+            <span
+                class="text-3xl font-medium"
+                [ngClass]="
+                    direction === 'ltr'
+                        ? 'ml-4'
+                        : direction === 'rtl'
+                        ? 'mr-4'
+                        : ''
+                "
+                >{{ messageType }}</span
+            >
+        </div>
+
+        <p class="mt-4" *ngIf="data?.messageType === 'Phone_Number'">
+            {{ "DialogBox.yourCurrentPhoneNumber" | translate }}
+            <b>“{{ data?.profileDetails?.phoneNumber }}”</b>
+            {{ "DialogBox.weWillSendVerificationCode" | translate }}
+        </p>
+        <p class="mt-4" *ngIf="data?.messageType === 'Full_Name'">
+            {{ "DialogBox.currentFullName" | translate }}
+            <b>“{{ data?.profileDetails?.fullName }}”</b>
+            {{ "DialogBox.nameChangeMessage" | translate }}
+        </p>
+        <p class="mt-4" *ngIf="data?.messageType === 'Email_Id'">
+            {{ "DialogBox.currentEmailId" | translate }}
+            <b>“{{ data?.profileDetails?.emailId }}”</b>
+            {{ "DialogBox.emailIdChangeMessage" | translate }}
+        </p>
+        <!-- <p class="mt-4" *ngIf="data?.messageType === 'Currency_Type'">
+            {{ "DialogBox.currentCurrency" | translate }}
+            <b>“{{ data?.profileDetails?.userCurrency }}”</b>
+            {{ "DialogBox.currentCurrencyChangeMessage" | translate }}
+        </p> -->
+        <p *ngIf="data?.messageType === 'Verification_Code'">
+            {{ "DialogBox.enterNewDetails" | translate }}
+            <!-- <span
+                *ngIf="
+                    data?.messageType === 'Phone_Number' ||
+                    data?.messageType === 'Full_Name'
+                "
+            >
+                <span *ngIf="data?.messageType === 'Phone_Number'">
+                    {{ "DialogBox.new" | translate }}
+                </span>
+                {{ "DialogBox.phoneNumber" | translate }}
+                <b>“{{ data?.profileDetails?.phoneNumber }}”</b></span
+            > -->
+            <!-- *ngIf="data?.messageType === 'Email_Id'"-->
+            <span
+                >{{ "DialogBox.newEmailId" | translate }}
+                <b>“{{ userProfileForm.value.emailId }}”</b></span
+            >
+        </p>
+    </div>
+
+    <form [formGroup]="userProfileForm">
+        <div class="pt-6">
+            <mat-form-field *ngIf="data?.messageType === 'Full_Name'">
+                <mat-label>{{ "DialogBox.fullName" | translate }}</mat-label>
+                <input
+                    id="fullName"
+                    matInput
+                    [formControlName]="'fullName'"
+                    (change)="checkForTrimChars()"
+                />
+                <mat-error
+                    *ngIf="userProfileForm.get('fullName').hasError('required')"
+                >
+                    {{ "DialogBox.fullNameRequired" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('fullName').hasError('minlength')
+                    "
+                >
+                    {{ "DialogBox.fullNameShould" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('fullName').hasError('maxlength')
+                    "
+                >
+                    {{ "DialogBox.fullNameMaxLength" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="userProfileForm.get('fullName').hasError('pattern')"
+                >
+                    {{ "DialogBox.validFullName" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm
+                            .get('fullName')
+                            .hasError('customValidation')
+                    "
+                >
+                    {{ "DialogBox.noNumbersInFullName" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('fullName').hasError('whitespace')
+                    "
+                >
+                    {{ "DialogBox.noSpacesInName" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('fullName').hasError('multispace')
+                    "
+                >
+                    {{ "DialogBox.noSpaceFullName" | translate }}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="data?.messageType === 'Email_Id'">
+                <mat-label> {{ "DialogBox.emailID" | translate }}</mat-label>
+                <input id="emailId" matInput [formControlName]="'emailId'" />
+                <mat-error
+                    *ngIf="userProfileForm.get('emailId').hasError('required')"
+                >
+                    {{ "DialogBox.emailIDIsRequired" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('emailId').hasError('emailId') ||
+                        userProfileForm.get('emailId').hasError('pattern')
+                    "
+                >
+                    {{ "DialogBox.enterValidEmailId" | translate }}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                class="w-full max-w-80"
+                *ngIf="data?.messageType === 'Currency_Type'"
+            >
+                <mat-label>
+                    {{ "DialogBox.currency" | translate }}
+                </mat-label>
+                <mat-select
+                    formControlName="userCurrency"
+                    (selectionChange)="selectedCurrency($event)"
+                >
+                    <mat-option
+                        *ngFor="let type of allCurrencyTypes"
+                        [value]="type.currencyCode"
+                    >
+                        {{ type.currencyName }} ({{ type.currencyCode }})
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="data?.messageType === 'Phone_Number'">
+                <mat-label>
+                    {{ "DialogBox.mobileNumber" | translate }}</mat-label
+                >
+                <input
+                    id="phoneNumber"
+                    matInput
+                    [formControlName]="'phoneNumber'"
+                    appOnlynumber
+                    minlength="8"
+                    maxlength="15"
+                />
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('phoneNumber').hasError('required')
+                    "
+                >
+                    {{ "DialogBox.mobileNumberIsRequired" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('phoneNumber').hasError('minlength')
+                    "
+                >
+                    {{ "DialogBox.mobileNumberMin" | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                        userProfileForm.get('phoneNumber').hasError('maxlength')
+                    "
+                >
+                    {{ "DialogBox.mobileNumberMax" | translate }}
+                </mat-error>
+            </mat-form-field>
+             <mat-form-field  class="w-full max-w-80"
+                        *ngIf="data?.messageType === 'Gender'">
+                            <mat-label>Gender</mat-label>
+                            <mat-select formControlName ="gender">
+                                <mat-option
+                                    *ngFor="let gender of genders"
+                                    [value]="gender.value"
+                                >
+                                    {{ gender.viewValue }}
+                                    
+                                </mat-option>
+                            </mat-select>
+                </mat-form-field>
+
+            <mat-form-field
+                class="w-half"
+                *ngIf="data?.messageType === 'Verification_Code'"
+            >
+                <mat-label> {{ "DialogBox.enterOTP" | translate }}</mat-label>
+                <input matInput [formControlName]="'Otp'" appOnlynumber maxlength="6"/>
+                <mat-error>
+                    {{ "DialogBox.otpRequired" | translate }}
+                </mat-error>
+            </mat-form-field>
+
+             
+                       
+                    
+
+            <!-- <h2 mat-dialog-title>{{ data.message }}</h2>
+ <div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">OK</button>
+ </div> -->
+
+              
+
+            <div class="text-center" *ngIf="seconds !== 0">
+                <span *ngIf="isOtpArrived" class="span-info">
+                    {{ "DialogBox.remaining" | translate }}
+                    <b>{{ displayTimer }}</b>
+                </span>
+            </div>
+            <div
+                class="font-semibold"
+                style="min-height: 56px"
+                *ngIf="isOtpArrived && seconds === 0"
+                [disabled]="singleClickButton"
+            >
+                <a
+                    style="padding: 35px 15px 0 15px; position: absolute"
+                    (click)="resendOtp()"
+                >
+                    {{ "DialogBox.resendOTP" | translate }}
+                </a>
+            </div>
+        </div>
+        <div mat-dialog-actions class="pt-10 mb-4">
+            <ng-container *ngFor="let item of data?.buttons">
+                <button
+                    mat-flat-button
+                    [disabled]="
+                        (userProfileForm.disabled &&
+                            item?.type === 'Confirm') ||
+                        (item?.type === 'Confirm' && singleClickButton)
+                    "
+                    *ngIf="!item?.hide"
+                    class="{{ item?.buttonClass }}"
+                    [color]="item?.color ? item?.color : ''"
+                    (click)="onActionClick(item, data?.messageType)"
+                >
+                    {{ item?.label ? item?.label : "" }}
+                </button>
+            </ng-container>
+        </div>
+    </form>
+</div>
+<ngx-spinner size="medium" [type]="isLoadingType"></ngx-spinner>

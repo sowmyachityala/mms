@@ -1,0 +1,535 @@
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <div class="px-4 pt-6 justify-between flex">
+        <div>
+            <div class="text-2xl opacity-60">
+                {{ "Dashboard.assalamualaikum" | translate }}
+                <!-- <span [ngClass]="direction === 'rtl' ? 'float-right' : ''">,</span> -->
+            </div>
+            <div class="text-3xl font-semibold">
+                {{
+                    user?.userName
+                        ? user?.userName
+                        : ("Dashboard.innominateVisitor" | translate)
+                }}
+            </div>
+        </div>
+        <div class="flex">
+            <div
+                class="left-panel panel"
+                [ngClass]="direction == 'ltr' ? 'text-right' : 'text-left'"
+            >
+                <div>
+                    <span class="text-3xl m-auto font-semibold">
+                        {{ currentTime }}
+                    </span>
+                </div>
+                <div>
+                    <span class="leftPanelTemp"
+                        >{{ weatherDesc | titlecase }} | {{ temp }}&deg;C</span
+                    >
+                </div>
+            </div>
+            <div class="right-panel panel">
+                <span><img [src]="weatherico" class="w-16" /></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-4 pb-3 flex">
+        <div
+            class="profileContainer w-1/2"
+            [ngClass]="
+                direction === 'rtl' ? 'pl-5' : direction === 'ltr' ? 'pr-5' : ''
+            "
+        >
+            <img [src]="[nextwebWidgetUri]" alt="" />
+            <div
+                class="prayerDetails pt-12"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'right-12'
+                        : direction === 'ltr'
+                        ? 'left-12'
+                        : ''
+                "
+            >
+                <div>
+                    {{ "Dashboard.nextPrayerIn" | translate }}
+                    <span> {{ hoursLeft }}</span
+                    ><b> : </b><span>{{ minsLeft }}</span
+                    ><b> : </b><span>{{ secsLeft }}</span>
+                </div>
+                <div class="text-3xl nextPrayerName">
+                    {{ "Dashboard." + nextPrayerName | translate }} {{ " " }}
+                    {{ nextPrayerTime | date : "shortTime" }}
+                </div>
+                <div>{{ nextgregorianDate }}</div>
+                <div>{{ nexthijriDate }} H</div>
+            </div>
+        </div>
+
+        <div
+            class="w-1/2 bg-[#ECFAFF]"
+            [ngClass]="
+                direction === 'rtl' ? 'pr-5' : direction === 'ltr' ? 'pl-5' : ''
+            "
+            style="align-items: center; display: flex"
+        >
+            <img
+                class="donation-cover w-2/5"
+                [src]="imageEndPoints.donation_mosque"
+                alt="Cover image"
+            />
+            <div class="flex py-6 px-5">
+                <div class="text-center">
+                    <div>
+                        <div style="font-size: 1rem !important">
+                            {{ "Dashboard.thoseWhoSpendIn" | translate }}
+                        </div>
+                    </div>
+                    <div class="mt-2 font-bold text-4xl" style="color: #006e8c">
+                        {{ "Dashboard.charity" | translate }}
+                    </div>
+                    <div class="mt-2 text-1.5xl" style="color: #fd4755">
+                        {{ "Dashboard.willBeRichlyRewarded" | translate }}
+                    </div>
+                    <div class="mt-2 color-[#071443]">
+                        {{ "Dashboard.alQuran5710" | translate }}
+                    </div>
+                    <button
+                        class="mt-2"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [routerLink]="['/donations']"
+                        *ngIf="user"
+                    >
+                        {{ "Dashboard.donateNow" | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-4 mt-3 mb-6 bg-[#F5F5F5]">
+        <div class="flex relative" #container>
+            <div class="cards" [ngClass]="{ 'w-full': totalPages === 1 }">
+                <button
+                    mat-icon-button
+                    class="leftArrow left-0 bg-primary"
+                    (click)="currentPage != 1 && changePage(-1)"
+                    [ngClass]="{ disabled: currentPage === 1 }"
+                >
+                    <mat-icon
+                        class="text-white"
+                        svgIcon="heroicons_outline:chevron-left"
+                    ></mat-icon>
+                </button>
+
+                <div
+                    class="overflow"
+                    [ngStyle]="{ width: overflowWidth, left: pagePosition }"
+                >
+                    <fuse-card
+                        class="m-4 py-6 px-2 h-32 max-w-64 bg-white block text-center bg-wrap"
+                        *ngFor="let i of prayerTimings; let index = index"
+                        [ngStyle]="{ width: cardWidth }"
+                    >
+                        <img class="img-bg" [src]="i.webWidgetUri" alt="" />
+                        <div class="bg-content">
+                            <div
+                                *ngIf="
+                                    (i.hours < 0 || i.minutes < 0) &&
+                                    !i.prayerNow
+                                "
+                            >
+                                {{ "Dashboard.past" | translate }}
+                            </div>
+                            <div *ngIf="i.prayerNow">
+                                {{ "Dashboard.now" | translate }}
+                            </div>
+                            <div
+                                *ngIf="
+                                    (i.hours > 0 || i.minutes > 0) &&
+                                    !i.prayerNow
+                                "
+                            >
+                                {{ "Dashboard.next" | translate }}
+                            </div>
+                            <div class="prayerName">
+                                <span
+                                    >{{
+                                        "Dashboard." + i.prayerName | translate
+                                    }}
+                                    {{ " " }}
+                                    {{
+                                        i.prayerTime | date : "shortTime"
+                                    }}</span
+                                >
+                            </div>
+                            <!-- <div class="text-disabled" *ngIf="i.hours >=0 && i.minutes >= 0"> Starting in {{i.hours}} hrs {{i.minutes}} mins </div> -->
+                            <div
+                                class=""
+                                *ngIf="i.hours >= 0 && i.minutes >= 0"
+                            >
+                                {{ "Dashboard.startingIn" | translate }}
+                                {{ i.timer[0] }}
+                                {{ "Dashboard.hrs" | translate }}
+                                {{ i.timer[1] }}
+                                {{ "Dashboard.mins" | translate }}
+                                {{ i.timer[2] }}
+                                {{ "Dashboard.sec" | translate }}
+                            </div>
+                            <!-- <div class="text-disabled" *ngIf="i.hours < 0 || i.minutes < 0">Completed {{i.hours * -1}} hrs {{i.minutes * -1}} mins ago</div> -->
+                            <div class="" *ngIf="i.hours < 0 || i.minutes < 0">
+                                {{ "Dashboard.completed" | translate }}
+                                {{ i.hours * -1 }}
+                                {{ "Dashboard.hrs" | translate }}
+                                {{ i.timer[1] }}
+                                {{ "Dashboard.mins" | translate }}
+                                {{ i.timer[2] }}
+                                {{ "Dashboard.sec" | translate }}
+                                {{ "Dashboard.ago" | translate }}
+                            </div>
+                            <div class="">{{ i.gregorianDate }}</div>
+                            <div class="">{{ i.hijriDate }}</div>
+                        </div>
+                    </fuse-card>
+                </div>
+
+                <button
+                    mat-icon-button
+                    class="rightArrow right-0 bg-primary"
+                    *ngIf="totalPages > 1"
+                    (click)="currentPage != totalPages && changePage(+1)"
+                    [ngClass]="{ disabled: currentPage === totalPages }"
+                >
+                    <mat-icon
+                        class="text-white"
+                        svgIcon="heroicons_outline:chevron-right"
+                    ></mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="card-carousel-container">
+            <div class="arrow left-arrow" (click)="onLeftArrowClick()">
+                &lt;
+            </div>
+            <div class="cards-container">
+                <div
+                    class="card"
+                    *ngFor="let card of cards; let i = index"
+                    [style.left.px]="(i - currentIndex) * 150"
+                >
+                    {{ card }}
+                </div>
+            </div>
+            <div class="arrow right-arrow" (click)="onRightArrowClick()">
+                &gt;
+            </div>
+        </div>
+    </div>
+
+    <div class="px-4 pb-3 flex">
+        <div
+            class="relative w-1/2 Ehover"
+            [ngClass]="
+                direction === 'rtl' ? 'pl-5' : direction === 'ltr' ? 'pr-5' : ''
+            "
+        >
+            <!-- <div class="flex actions" (click)="updateQuranicVerseDetails()" *ngIf="user?.roleName === 'Super Admin' || user?.roleName === 'Ministry Admin'">
+                <span class="flex cursor-pointer m-5">
+                    <mat-icon style="color: white;" class="" title="Edit" svgIcon="heroicons_outline:pencil"></mat-icon>                        
+                </span>
+            </div> -->
+            <img [src]="imageEndPoints?.verseOfTheDay" class="" />
+
+            <div
+                class="prayerDetails verseBody"
+                [ngClass]="
+                    direction === 'rtl' ? '' : direction === 'ltr' ? '' : ''
+                "
+            >
+                <!-- <img class="w-16 mx-auto pt-8" [src]="imageEndPoints?.verseOfTheDayIcon"> -->
+                <div class="text-center">
+                    <div class="">
+                        {{ verseOfTheDay?.widgetHeader }}
+                    </div>
+                    <div class="font-semibold pt-5">
+                        <p style="white-space: pre-wrap">
+                            {{ verseOfTheDay?.widgetBodyArabic }}
+                        </p>
+                    </div>
+                    <div class="font-semibold pt-5">
+                        <p style="white-space: pre-wrap">
+                            {{ verseOfTheDay?.widgetBody }}
+                        </p>
+                    </div>
+                    <div class="font-semibold pt-5">
+                        <p style="white-space: pre-wrap">
+                            {{ verseOfTheDay?.widgetBodyBahasa }}
+                        </p>
+                    </div>
+                    <div class="text-lg pt-5">
+                        {{ verseOfTheDay?.widgetReference }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/2 bg-[#F5F5F5] pl-6 pr-6 pt-6">
+            <div class="font-semibold text-xl eventsHeader">
+                {{ "Dashboard.upcomingEvents" | translate }}
+                <span
+                    class="seeAllEvents"
+                    [ngClass]="direction === 'rtl' ? 'seeAllRTL' : 'seeAllLTR'"
+                    ><a routerLink="/events">{{
+                        "Dashboard.seeAll" | translate
+                    }}</a></span
+                >
+            </div>
+            <div *ngFor="let item of upcomingEvents">
+                <mat-card
+                    class="example-card mt-2 cursor-pointer eventListDetails"
+                    (click)="getEventDetails(item)"
+                >
+                    <mat-card-header class="cardHeader">
+                        <div mat-card-avatar class="cardavatar">
+                            <!-- <img [src]="ministryEventImageUrl"  *ngIf="item?.isMinistryEvent && (item?.differenceDays > 0 || item?.differenceDays === 0)">
+                            <img [src]="ministryEventInactiveImageUrl" *ngIf="item?.isMinistryEvent && item?.differenceDays < 0"> -->
+                            <img
+                                [src]="mosqueEventImageUrl"
+                                *ngIf="
+                                    item?.differenceDays < 0 ||
+                                    item?.differenceDays === 0
+                                "
+                            />
+                            <img
+                                [src]="mosqueEventInactiveImageUrl"
+                                *ngIf="item?.differenceDays > 0"
+                            />
+                        </div>
+                        <mat-card-title class="cardTitle">
+                            <div>
+                                <span>
+                                    {{
+                                        item?.differenceDays > 0
+                                            ? item?.differenceDays
+                                            : item?.differenceDays < 0
+                                            ? item?.differenceDays * -1
+                                            : ""
+                                    }}
+                                    {{
+                                        item?.differenceDays > 0
+                                            ? "Days Ago"
+                                            : item?.differenceDays < 0
+                                            ? "Days Left"
+                                            : item?.differenceDays === 0
+                                            ? "Happening Today"
+                                            : ""
+                                    }}
+                                </span>
+                            </div>
+                            <div
+                                class="font-semibold mt-2"
+                                [ngClass]="
+                                    item?.differenceDays > 0
+                                        ? ''
+                                        : 'font-bold text-black'
+                                "
+                            >
+                                {{ item?.eventName }}
+                            </div>
+                            <div class="mt-2">
+                                {{ item?.eventDate | date : "dd/MM/yyyy" }}
+                                {{ item?.eventDate | date : "shortTime" }}
+                                <span>({{ item?.hijriDate }})</span>
+                            </div>
+                        </mat-card-title>
+
+                        <mat-card-actions
+                            [ngClass]="
+                                direction === 'rtl' ? 'p-left' : 'p-right'
+                            "
+                        >
+                            <button
+                                mat-icon-button
+                                class="mt-auto mb-auto"
+                                (click)="getEventDetails(item)"
+                            >
+                                <mat-icon
+                                    class="text-primary"
+                                    *ngIf="direction === 'rtl'"
+                                    svgIcon="heroicons_outline:chevron-left"
+                                ></mat-icon>
+                                <mat-icon
+                                    class="text-primary"
+                                    *ngIf="direction === 'ltr'"
+                                    svgIcon="heroicons_outline:chevron-right"
+                                ></mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div
+        *ngIf="
+            user?.roleName === 'Super Admin' ||
+            user?.roleName === 'Ministry Admin' ||
+            user?.roleName === 'Mosque Admin'
+        "
+    >
+        <div class="flex mx-4 bg-[#F3FFFA]">
+            <div class="inline py-12 w-2/3" *ngIf="DonationChartDetails">
+                <apx-chart
+                    class="pb-4"
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [dataLabels]="chartOptions.dataLabels"
+                    [plotOptions]="chartOptions.plotOptions"
+                    [yaxis]="chartOptions.yaxis"
+                    [legend]="chartOptions.legend"
+                    [fill]="chartOptions.fill"
+                    [stroke]="chartOptions.stroke"
+                    [tooltip]="chartOptions.tooltip"
+                    [xaxis]="chartOptions.xaxis"
+                ></apx-chart>
+            </div>
+            <div
+                class="py-12 w-1/3 text-end"
+                [ngClass]="
+                    direction === 'ltr'
+                        ? 'pr-10'
+                        : direction === 'rtl'
+                        ? 'pl-10'
+                        : ''
+                "
+            >
+                <div class="text-black">
+                    {{ "Dashboard.totalZakatDonations" | translate }}
+                </div>
+                <div class="text-7xl">
+                    {{ DonationChartDetails?.totalZakatDonationAmount }}
+                </div>
+                <div class="text-black pt-18">
+                    {{ "Dashboard.totalSadaqahDonations" | translate }}
+                </div>
+                <div class="text-6xl font-semibold">
+                    {{ DonationChartDetails?.totalDonationAmount }}
+                </div>
+                <div
+                    class="pt-6 font-semibold text-lg text-primary"
+                    (click)="getTransactionHistory(user)"
+                >
+                    <span class="cursor-pointer">{{
+                        "Dashboard.seeDetails" | translate
+                    }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4 pb-3 flex mt-4 container">
+            <div
+                class="child-div"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'pl-5'
+                        : direction === 'ltr'
+                        ? 'pr-5'
+                        : ''
+                "
+                (click)="getEssentialProducts(user)"
+            >
+                <img
+                    [src]="imageEndPoints.thresholdAsset"
+                    alt="Threshold Asset"
+                />
+                <div class="content">
+                    <div class="count">
+                        {{ verseOfTheDay?.essentialProductsCount }}
+                    </div>
+                    <div class="description">
+                        {{ "Dashboard.essentialInventoryItems" | translate }}
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="child-div"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'pl-5'
+                        : direction === 'ltr'
+                        ? 'pr-5'
+                        : ''
+                "
+                (click)="getPendingAssets(user)"
+            >
+                <img
+                    [src]="imageEndPoints.assetDonation"
+                    alt="Asset Donation"
+                />
+                <div class="content">
+                    <div class="count">
+                        {{ verseOfTheDay?.pendingAssetCount }}
+                    </div>
+                    <div class="description">
+                        {{ "Dashboard.pendingAssetDonations" | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4 pb-3 flex mt-2 container">
+            <div
+                class="child-div"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'pl-5'
+                        : direction === 'ltr'
+                        ? 'pr-5'
+                        : ''
+                "
+                (click)="getFollowerList(user)"
+            >
+                <img [src]="imageEndPoints.followerIcon" alt="Follower Icon" />
+                <div class="content">
+                    <div class="count">
+                        {{ verseOfTheDay?.followersCount }}
+                    </div>
+                    <div class="description">
+                        {{ "Dashboard.followers" | translate }}
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="child-div"
+                [ngClass]="
+                    direction === 'rtl'
+                        ? 'pl-5'
+                        : direction === 'ltr'
+                        ? 'pr-5'
+                        : ''
+                "
+                (click)="getTodayAttendies(user)"
+            >
+                <img
+                    class="donation-cover"
+                    [src]="imageEndPoints.attendiesIcon"
+                    alt="Attendies Icon"
+                />
+                <div class="content">
+                    <div class="count">
+                        {{ verseOfTheDay?.todayAttendies }}
+                    </div>
+                    <div class="description">
+                        {{ "Dashboard.todayAttendies" | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

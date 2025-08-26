@@ -1,0 +1,50 @@
+.f-r {
+    flex: initial;
+}
+/* Adjust padding for MatIcon inside MatCard */
+.mat-card-header .mat-icon {
+    padding-top: 8px !important; /* Adjust the value as needed */
+    padding-bottom: 8px !important; /* Adjust the value as needed */
+}
+
+/* Add hover effect for the entire MatCard */
+.mat-card:hover {
+    background-color: #f0f0f0 !important;
+}
+
+/* Add hover effect for MatExpansionPanel */
+.mat-expansion-panel:hover {
+    background-color: #f0f0f0 !important;
+}
+
+/* Position MatCard actions to the right or left */
+.p-right {
+    position: absolute;
+    right: 2%;
+}
+
+.p-left {
+    position: absolute;
+    left: 2%;
+}
+
+/* Set text color for MatCard title */
+.p-c {
+    color: #173f53;
+}
+
+/* Adjust font size for MatCard title */
+.example-card .mat-mdc-card-title {
+    font-size: var(--mdc-typography-headline6-font-size, 12px);
+}
+
+/* Set max-width for MatCard */
+.example-card {
+    max-width: 100%;
+}
+.c-warn {
+    color: indianred;
+}
+.example-card:hover {
+    background-color: #f0f0f0 !important;
+}

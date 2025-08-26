@@ -1,0 +1,77 @@
+<div class="sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div>
+         <div class="page-title justify-between flex">
+             <span>{{'Translations.transTitle' | translate }} </span>
+             <div class="page-sub-title">
+                 <a class="mr-1 text-xl">{{ transList?.length }}</a>
+                 <span class="float-right">{{'Translations.totalTranslations' | translate }}</span>
+             </div>
+         </div>        
+         <div class=" flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4 px-6 md:px-4">
+             <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                 <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+             </div>
+             <div class="">
+                 <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                     <mat-label>{{'Translations.search' | translate }}</mat-label>
+                     <mat-icon matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                     <input matInput [formControl]="searchInputControl" (keyup)="applyFilter($event.target.value)"
+                         [autocomplete]="'off'" [placeholder]="'Search'">
+                 </mat-form-field>
+             </div>               
+             <div class="flex shrink-0 items-center mt-6 sm:mt-0">
+                <!-- <div *ngFor="let action of currentActions?.childMenuActions">
+                    <button mat-flat-button [color]="'primary'" *ngIf="action?.actionNameId === 'Add'">
+                        <span class="ml-2 mr-1">{{action?.actionName}}</span>
+                    </button>   
+                </div>                        -->
+             </div>         
+         </div>
+         <div class="flex flex-auto overflow-hidden">
+             <div class="flex flex-col flex-auto overflow-hidden sm:overflow-y-auto sm:justify-between px-6 md:px-4">
+                <form [formGroup]="TrsForm" autocomplete="off">
+                    <ng-container>
+                        <table #table mat-table [dataSource]="dataSource">        
+                            <ng-container matColumnDef="english">
+                                <th mat-header-cell *matHeaderCellDef> {{'Translations.transName' | translate }} </th>
+                                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element" class="text-td">
+                                    <textarea class="textField" matInput type="text" formControlName="english" [readonly]="true" rows="3"> </textarea>
+                                 </td>
+                            </ng-container>        
+                            <ng-container matColumnDef="language">
+                                <th mat-header-cell *matHeaderCellDef> {{'Translations.language' | translate }} </th>
+                                   <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element" [ngClass]="!TrsForm.get('TrsRecord').value[i].isEditable ? 'text-td textFieldWrite' : 'text-td'">
+                                        <textarea matInput type="text" formControlName="language" [readonly]="TrsForm.get('TrsRecord').value[i].isEditable" rows="3" [ngClass]="TrsForm.get('TrsRecord').value[i].isEditable ? 'textField' : 'text-write'"> </textarea>
+                                   </td>
+                            </ng-container>       
+                            <ng-container matColumnDef="action">
+                               <th mat-header-cell *matHeaderCellDef class="actionCenter"> </th>
+                               <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element" class="pr-0 pl-0 w-4 actionCenter">                                   
+                                   <button matTooltip="{{'Translations.edit' | translate }}" *ngIf="TrsForm.get('TrsRecord').value[i].isEditable" color="primary" (click)="EditTrsRecord(TrsForm,i)">
+                                       <mat-icon  class="actionIcon">edit</mat-icon>
+                                   </button>
+                                   <button matTooltip="Save"  (click)="SaveTrsRecord(element?.value?.transGuid,element?.value?.language)" *ngIf="!TrsForm.get('TrsRecord').value[i].isEditable" color="primary">
+                                       <mat-icon class="actionIcon">check_circle</mat-icon>
+                                   </button>
+                                    <button matTooltip="Cancel" (click)="CancelTrsRecord(TrsForm,i)"  *ngIf="!TrsForm.get('TrsRecord').value[i].isEditable">
+                                        <mat-icon class="actionIcon icon-c">cancel</mat-icon>
+                                    </button>
+                               </td>
+                           </ng-container>
+        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row ; columns: displayedColumns;"></tr>
+        
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching</td>
+                            </tr>
+                        </table>
+                    </ng-container> 
+                </form>                
+                 <mat-paginator style-paginator [length]="pageLength" [pageSize]="pageSize" [showTotalPages]="3"
+                     showFirstLastButtons [pageSizeOptions]="[10,20, 50]" (page)="pageChangeEvent($event)">
+                 </mat-paginator>
+             </div>
+         </div>
+    </div>
+ </div>

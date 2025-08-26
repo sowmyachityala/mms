@@ -1,0 +1,674 @@
+<div class="flex flex-col flex-auto min-w-0 m-6">
+    <!-- Header -->
+    <div class="flex flex-col shadow bg-card">
+        <div class="container">
+            <div
+                style="background: #ecfaff; height: 330px"
+                class="flex justify-between pr-24 pl-24"
+            >
+                <div class="pt-15 pb-15 text-center">
+                    <div>
+                        <div class="text-3xl">
+                            {{ "Donations.thoseWhoSpendIn" | translate }}
+                        </div>
+                    </div>
+                    <div class="mt-6 font-bold text-3xl" style="color: #006e8c">
+                        {{ "Donations.charity" | translate }}
+                    </div>
+                    <div class="mt-6 text-3xl" style="color: #fd4755">
+                        {{ "Donations.willBeRichlyRewarded" | translate }}
+                    </div>
+                    <div class="mt-6" style="color: #071443">
+                        {{ "Donations.alQuran5710" | translate }}
+                    </div>
+                </div>
+                <img
+                    class="donation-cover mt-6 mb-6"
+                    [src]="imageEndPoints.donation_mosque"
+                    alt="Cover image"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="mt-8 justify-between flex">
+        <div>
+            <div class="inner-page-title">
+                {{ "Donations.donations" | translate }}
+                <!-- <span class="material-icons calculator" *ngIf="user" (click)="ZakatCalculator()" >calculate</span> -->
+            </div>
+            <div>
+                {{ "Donations.enterAmountToDonate" | translate }}
+            </div>
+        </div>
+        <div *ngIf="user">
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="ZakatCalculator()"
+            >
+                <span class="ml-2">{{
+                    "zakat.zakatCalculator" | translate
+                }}</span>
+            </button>
+            <button
+                class=""
+                mat-flat-button
+                [color]="'primary'"
+                (click)="getTransactionHistory()"
+                [ngClass]="
+                    direction === 'ltr'
+                        ? 'ml-2'
+                        : direction === 'rtl'
+                        ? 'mr-2'
+                        : ''
+                "
+            >
+                <span> {{ "Donations.transactionHistory" | translate }}</span>
+            </button>
+        </div>
+    </div>
+    <!-- <div class="mt-4 text-center">
+        <mat-form-field class="w-1/4" appearance="fill">
+            <mat-label>{{'Donations.donationType' | translate }}</mat-label>
+            <mat-select [(ngModel)]="userdonationType" (selectionChange)="getUserDonationSelected($event)">
+                <mat-option *ngFor="let type of userDonationTypes" [value]="type.userDonationId">
+                    {{type.userDonationTypeName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div> -->
+    <div>
+        <mat-radio-group (change)="getUserDonationSelected($event.value)">
+            <mat-radio-button
+                *ngFor="let type of userDonationTypes"
+                class="pr-10"
+                [checked]="type.isSelected"
+                [value]="type.userDonationId"
+            >
+                {{ type.userDonationTypeName }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div *ngIf="userdonationType === 1 || userdonationType === 3">
+        <div *ngIf="userdonationType === 1">
+            <form [formGroup]="mosqueDonationForm">
+                <div class="mt-4 p-ltr">
+                    <!-- <mat-form-field class="w-1/2 pr-2" appearance="fill">
+                        <mat-label>{{
+                            "Donations.mosqueName" | translate
+                        }}</mat-label>
+                        <mat-select (selectionChange)="isMosqueSelected($event)"
+                            formControlName="mosqueId"
+                        >
+                            <mat-option
+                                *ngFor="let type of allMosques"
+                                [value]="type.mosqueId"
+                            >
+                                {{ type.mosqueName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="mosqueDonationForm.get('mosqueId').hasError('required')">
+                            {{ "Inventory.mosqueNameRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>                     -->
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+            <div
+                *ngFor="let item of amountTypes"
+                [ngClass]="item?.isActive ? 'activeEvent' : ''"
+            >
+                <div
+                    class="max-w-64 w-64 donationTiles"
+                    [ngClass]="item?.isActive ? 'activeEvent' : ''"
+                    (click)="selectAmount(item)"
+                >
+                    <!-- <img class="w-4 pt-2 mr-2 mb-2" [src]="imageEndPoints.donation_Amount_Icon" alt="Amount Icon" *ngIf="!item?.isActive"> -->
+                    <mat-icon
+                        class="w-4 mt-4 inactive"
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'ml-4 '
+                                : direction === 'rtl'
+                                ? 'mr-4'
+                                : ''
+                        "
+                        svgIcon="mat_outline:circle"
+                        *ngIf="!item?.isActive"
+                    ></mat-icon>
+                    <mat-icon
+                        class="w-4 mt-4 active"
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'ml-4 '
+                                : direction === 'rtl'
+                                ? 'mr-4'
+                                : ''
+                        "
+                        svgIcon="heroicons_solid:check-circle"
+                        *ngIf="item?.isActive && item?.value !== 'other'"
+                    ></mat-icon>
+                    <div class="mr-6 ml-6" *ngIf="item?.value === 'other'">
+                        <div>
+                            <mat-icon
+                                class="w-4 mt-4 active"
+                                [ngClass]="
+                                    direction === 'ltr'
+                                        ? 'ml-4 '
+                                        : direction === 'rtl'
+                                        ? 'mr-4'
+                                        : ''
+                                "
+                                svgIcon="heroicons_solid:check-circle"
+                                *ngIf="item?.isActive"
+                            ></mat-icon>
+                        </div>
+                        <mat-form-field
+                            class="w-50"
+                            *ngIf="item?.value === 'other'"
+                        >
+                            <mat-label>{{
+                                "Donations.enterCustomAmount" | translate
+                            }}</mat-label>
+                            <input
+                                matInput
+                                appOnlynumber
+                                [(ngModel)]="amountEntered"
+                                name="cAmount"
+                                #cAmount
+                                (input)="onAmountChange($event)"
+                                [autocomplete]="'off'"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div
+                        [ngClass]="
+                            direction === 'ltr'
+                                ? 'donationAmount-left '
+                                : direction === 'rtl'
+                                ? 'donationAmount-right'
+                                : ''
+                        "
+                        *ngIf="item?.value !== 'other'"
+                    >
+                        <span
+                            class="text-2xl absolute mt-1"
+                            [ngClass]="
+                                direction === 'ltr'
+                                    ? 'ml-8'
+                                    : direction === 'rtl'
+                                    ? 'mr-8'
+                                    : ''
+                            "
+                        >
+                            {{ item?.displayValue }}
+                        </span>
+                        <span class="relative">{{ userCurrency }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedAmount > 0">
+            <div class="mt-6 text-4xl text-center">
+                <span class="mr-1">{{ userCurrency }}</span>
+                <span class="font-semibold"> {{ selectedAmount }}</span>
+            </div>
+            <div class="text-center max-w-100 m-auto text-disabled text-md">
+                {{ "Donations.wishToDonate" | translate }}
+            </div>
+
+            <div
+                class="mt-4 text-center"
+                *ngIf="isPayRegistred && userdonationType === 1 && !isZakat"
+            >
+                <span class="text-disabled text-md">{{
+                    "Donations.donationPurposeType" | translate
+                }}</span>
+                <mat-radio-group
+                    [(ngModel)]="PurposeFlag"
+                    (change)="getDonationTypes()"
+                >
+                    <mat-radio-button value="D">{{
+                        "Donations.default" | translate
+                    }}</mat-radio-button>
+                    <mat-radio-button value="C">{{
+                        "Donations.custom" | translate
+                    }}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div
+                class="mt-4 text-center"
+                *ngIf="isPayRegistred && userdonationType === 1 && !isZakat"
+            >
+                <mat-form-field class="w-1/4" appearance="fill">
+                    <mat-label>{{
+                        "Donations.donationPurpose" | translate
+                    }}</mat-label>
+                    <mat-select
+                        [(ngModel)]="donationTypeSelected"
+                        multiple
+                        (selectionChange)="getDonationSelected($event)"
+                        [matTooltip]="getSelectedDonationNames()"
+                    >
+                        <mat-option
+                            *ngFor="let type of donationTypes"
+                            [value]="type.donationGuid"
+                        >
+                            {{ type.donationTypeName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="text-center" *ngIf="userdonationType === 3">
+                <form [formGroup]="eventDonationForm">
+                    <div class="mt-4 p-ltr">
+                        <!-- <mat-form-field class="w-1/2 pr-2">
+                            <mat-label>{{
+                                "Donations.mosqueName" | translate
+                            }}</mat-label>
+                            <mat-select
+                                (selectionChange)="getMosqueSelected($event)"
+                                formControlName="mosqueId"
+                            >
+                                <mat-option
+                                    *ngFor="let type of allMosques"
+                                    [value]="type.mosqueId"
+                                >
+                                    {{ type.mosqueName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    eventDonationForm
+                                        .get('mosqueId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{ "Inventory.mosqueNameRequired" | translate }}
+                            </mat-error>
+                        </mat-form-field> -->
+                        <mat-form-field class="w-1/4 pl-2">
+                            <mat-label>{{
+                                "Events.eventName" | translate
+                            }}</mat-label>
+                            <mat-select
+                                (selectionChange)="getEventSelected($event)"
+                                formControlName="eventId"
+                            >
+                                <mat-option
+                                    *ngFor="let type of allEvents"
+                                    [value]="type.eventId"
+                                >
+                                    {{ type.eventName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    eventDonationForm
+                                        .get('eventId')
+                                        .hasError('required')
+                                "
+                            >
+                                {{ "Events.eventNameIsRequired" | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="text-center flex justify-center items-center">
+                <mat-icon 
+                  [svgIcon]="isChecked ? 'heroicons_solid:check-circle' : 'mat_outline:circle'" 
+                  [ngClass]="isChecked ? 'active' : 'inactive'" 
+                  class="cursor-pointer mr-2" 
+                  (click)="toggleCheck()">
+                </mat-icon>
+                <span class="text-lg font-medium text-gray-700">
+                    {{ "Donations.confirmCheck" | translate }}
+                </span>
+              </div> -->
+
+            <div
+                class="bg-yellow-100 text-yellow-800 p-4 rounded-lg border-l-4 border-yellow-500 mt-2"
+                *ngIf="!isPayRegistred"
+            >
+                <p class="text-center font-medium">
+                    {{ "Donations.notregisteredwithxendit" | translate }}
+                    <a
+                        (click)="openXenditRegDailog()"
+                        class="text-yellow-600 underline"
+                    >
+                        {{ "Donations.clickhere" | translate }}</a
+                    >{{ "Donations.toregister" | translate }}.
+                </p>
+            </div>
+
+            <div class="mt-4 text-center" *ngIf="isPayRegistred">
+                <!-- (click)="openDonationDailog()"  -->
+                <button
+                    (click)="navigateToChargesPage()"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [ngClass]="
+                        direction === 'ltr'
+                            ? 'ml-2'
+                            : direction === 'rtl'
+                            ? 'mr-2'
+                            : ''
+                    "
+                >
+                    <span> {{ "Donations.donate" | translate }}</span>
+                </button>
+            </div>
+
+            <!-- <div class="mt-4 text-center">
+                <div *ngIf="donationTypeSelected?.length > 0">
+                    <mat-radio-group
+                        [(ngModel)]="paymentMethod"
+                        (change)="selectPaymentMethod($event)"
+                    >
+                        <mat-radio-button value="Moyasar">{{
+                            "Donations.moyasar" | translate
+                        }}</mat-radio-button>
+                        <mat-radio-button value="Paypal">{{
+                            "Donations.paypal" | translate
+                        }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div> -->
+            <!-- <div>
+                <div class="mt-6 flex justify-center">
+                    <ngx-paypal
+                        *ngIf="paymentMethod === 'Paypal'"
+                        [config]="payPalConfig"
+                    ></ngx-paypal>
+                </div>
+                <div *ngIf="paymentMethod === 'Moyasar'">
+                    <div class="mysr-form"></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div *ngIf="userdonationType === 2">
+        <!-- <button (click)="getSampleExcelView()">
+            <mat-icon>edit</mat-icon>
+        </button> -->
+        <form [formGroup]="assetDonationForm">
+            <div class="mt-4 p-ltr">
+                <div>
+                    <mat-form-field class="w-1/2">
+                        <mat-label>
+                            {{ "Inventory.category" | translate }}
+                        </mat-label>
+                        <mat-select
+                            formControlName="categoryId"
+                            (selectionChange)="getSubCategories($event.value)"
+                        >
+                            <mat-option
+                                *ngFor="let type of categories"
+                                [value]="type.categoryGuid"
+                            >
+                                {{ type.categoryName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                assetDonationForm
+                                    .get('categoryId')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Inventory.categoryIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field class="w-1/2">
+                        <mat-label>
+                            {{ "Inventory.subCategory" | translate }}
+                        </mat-label>
+                        <mat-select
+                            formControlName="subCategoryId"
+                            (selectionChange)="getProducts($event.value)"
+                        >
+                            <mat-option
+                                *ngFor="let type of subCategories"
+                                [value]="type.categoryGuid"
+                            >
+                                {{ type.categoryName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                assetDonationForm
+                                    .get('subCategoryId')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Inventory.subCategoryIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="w-1/2">
+                        <mat-label>
+                            {{ "Inventory.product" | translate }}
+                        </mat-label>
+                        <mat-select formControlName="productId">
+                            <mat-option
+                                *ngFor="let type of products"
+                                [value]="type.id"
+                                (onSelectionChange)="
+                                    selectedProduct(type?.id, type?.uomName)
+                                "
+                            >
+                                {{ type.productName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                assetDonationForm
+                                    .get('productId')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Inventory.productIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="w-1/2">
+                        <mat-label>
+                            {{ "Inventory.quantity" | translate }}</mat-label
+                        >
+                        <input
+                            matInput
+                            formControlName="quantity"
+                            appOnlynumber
+                            [autocomplete]="'off'"
+                        />
+                        <mat-error
+                            *ngIf="
+                                assetDonationForm
+                                    .get('quantity')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Inventory.quantityIsRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- <mat-form-field class="w-half pull-right"> -->
+                    <!-- <mat-label>{{'Inventory.uom' | translate}}</mat-label> -->
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="selectedUOM"
+                        readonly
+                        class=""
+                    />
+                    <!-- </mat-form-field>    -->
+                </div>
+                <!-- <div>
+                    <mat-form-field class="w-1/2">
+                        <mat-label>{{
+                            "Donations.mosqueName" | translate
+                        }}</mat-label>
+                        <mat-select formControlName="mosqueId">
+                            <mat-option
+                                *ngFor="let type of allMosques"
+                                [value]="type.mosqueId"
+                            >
+                                {{ type.mosqueName }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="
+                                assetDonationForm
+                                    .get('mosqueId')
+                                    .hasError('required')
+                            "
+                        >
+                            {{ "Inventory.mosqueNameRequired" | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div> -->
+                <div *ngIf="direction === 'ltr'">
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="assetDonateNow()"
+                    >
+                        <span>{{
+                            "Dashboard.generateAcknowledgement" | translate
+                        }}</span>
+                    </button>
+                    <!-- <button mat-button matDialogClose (click)="onClose()">{{'Inventory.cancel' | translate}}</button>                     -->
+                </div>
+                <div *ngIf="direction === 'rtl'">
+                    <!-- <button mat-button matDialogClose (click)="onClose()">{{'Inventory.cancel' | translate}}</button>   -->
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="assetDonateNow()"
+                    >
+                        <span>{{
+                            "Dashboard.generateAcknowledgement" | translate
+                        }}</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <ng-template #confirmDonationDialog>
+        <mat-dialog-content class="dialog-content">
+            <h1 class="text-lg">
+                {{ "Donations.paymentConfirmation" | translate }}
+                ?
+            </h1>
+
+            <div style="display: flex; justify-content: center">
+                <button
+                    mat-button
+                    matDialogClose
+                    (click)="onClose()"
+                    color="warn"
+                >
+                    {{ "Donations.no" | translate }}
+                </button>
+                <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="confirmDonation()"
+                >
+                    {{ "Donations.yes" | translate }}
+                </button>
+            </div>
+        </mat-dialog-content>
+    </ng-template>
+
+    <ng-template #xenditRegDialog>
+        <mat-dialog-content class="dialog-contentxe">
+            <!-- Form Content -->
+            <form [formGroup]="xenditRegistrationForm">
+                <!-- Business Name Field -->
+                <div class="mt-4 p-ltr">
+                    <div class="text-center border-b pb-2 mb-4">
+                        <span class="text-gray-600 text-sm font-medium">
+                            {{ "Donations.email" | translate }}:</span
+                        >
+                        <span class="text-gray-800 text-base font-semibold">
+                            {{ xenditRegistrationForm.get("email")?.value }}
+                        </span>
+                    </div>
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{
+                                    "Donations.businessname" | translate
+                                }}</mat-label
+                            >
+                            <input matInput formControlName="businessName" />
+                            <mat-error
+                                *ngIf="
+                                    xenditRegistrationForm
+                                        .get('businessName')
+                                        .hasError('required')
+                                "
+                            >
+                                {{
+                                    "Donations.businessnamerequired" | translate
+                                }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div style="display: flex; justify-content: end">
+                    <button mat-button matDialogClose (click)="closeDailog()">
+                        {{ "Donations.close" | translate }}
+                    </button>
+                    <button
+                        class="ml-2"
+                        mat-flat-button
+                        color="primary"
+                        (click)="regMosqueXenditt()"
+                    >
+                        {{ "Donations.register" | translate }}
+                    </button>
+                </div>
+                <!-- Important Note Section -->
+                <div
+                    class="mt-6 p-ltr"
+                >
+                    <p class="font-semibold mb-2">CATATAN PENTING:</p>
+                    <p>
+                        Nama Masjid ini akan muncul saat jamaah sedang
+                        bersedekah, mohon diperhatikan. Saat membuat rekening
+                        akun Xendit untuk masjid, mohon tambahkan nama kecamatan
+                        atau wilayah di belakang nama masjid.
+                    </p>
+                    <p>
+                        Tujuannya agar tidak tertukar dengan masjid lain yang
+                        namanya sama, dan memudahkan jamaah saat bersedekah.
+                    </p>
+                    <p class="mt-2"><strong>Contoh:</strong></p>
+                    <ul class="list-disc list-inside">
+                        <li>Masjid Al-Hikmah Cibinong</li>
+                        <li>Masjid Al-Muttaqin Bojonggede</li>
+                    </ul>
+                    <p class="mt-2">Terima kasih atas perhatian dan kerja samanya.</p>
+                    <p class="text-right font-medium">– iSalaam Management</p>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </ng-template>
+</div>

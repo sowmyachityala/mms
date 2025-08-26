@@ -1,0 +1,162 @@
+<div
+    mat-dialog-title
+    class="flex justify-between bgGreen text-white py-4 px-8 {{ direction }}"
+>
+    <h1 class="font-semibold">{{ "zakat.zakatCalculator" | translate }}</h1>
+    <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+        <mat-icon class="text-white"> close </mat-icon>
+        <span class="mt-0.5">{{ "zakat.cclose" | translate }}</span>
+    </span>
+</div>
+<div *ngIf="!newCalc">
+    <!-- <fuse-card class="m-4 py-6 px-2 h-32 max-w-64 bg-white block text-center bg-wrap">
+    <img class="img-bg" [src]="zakatCalculator" alt="">
+    <div class="font-bold mt-10 text-center text-primary">
+      New Calculation
+    </div>
+    <div class="mt-1">
+      <mat-icon class=" text-primary"> add_circle_outline</mat-icon>
+    </div>
+  </fuse-card> -->
+    <div
+        [fxLayout]="direction === 'rtl' ? 'row-reverse' : 'row'"
+        class="m-2 px-2"
+    >
+        <button mat-flat-button [color]="'primary'" (click)="newCalculation()">
+            {{ "zakat.newCalculation" | translate }}
+        </button>
+    </div>
+
+    <div
+        [fxLayout]="direction === 'rtl' ? 'row-reverse wrap' : 'row wrap'"
+        class="m-2 ml-3"
+    >
+        <fuse-card
+            *ngFor="let item of zakathCalc"
+            class="m-1 py-6 px-2 h-32 max-w-64 bg-white block text-center bg-wrap"
+            style="width: 238px"
+        >
+            <div class="align-end">
+                <button
+                    class="d-cal"
+                    (click)="deleteCalculationConfirm(item?.zakatId)"
+                    matTooltip="{{
+                        'Translations.deleteCalculation' | translate
+                    }}"
+                    [matTooltipPosition]="'left'"
+                >
+                    <!-- <mat-icon color="warn" (click)="deleteCalculationConfirm(item?.zakatId);">delete</mat-icon> -->
+                    <!-- <mat-icon><img [src]="trashIcon" alt="" ></mat-icon>  -->
+                    <mat-icon color="warn" class="icon-display"
+                        >delete</mat-icon
+                    >
+                </button>
+            </div>
+            <div (click)="getCalculationByZakatId(item?.zakatId)">
+                <img class="img-bg" [src]="zakatCalculator" alt="" />
+                <div class="mt-2 left-align">
+                    {{ "zakat.calculatedOn" | translate }}
+                    <span class="font-bold">
+                        {{ item?.updatedOn | date : "dd/MM/yyyy" }} &nbsp;
+                        {{ item?.updatedOn | date : "shortTime" }}</span
+                    >
+                </div>
+                <div class="mt-1 left-align">
+                    {{ "zakat.totalAssets" | translate }} &nbsp;
+                    <span class="font-bold text-primary"
+                        >{{ item?.userCurrency }} &nbsp;
+                        {{ item?.totalAssets | number : "1.2-2" }}</span
+                    >
+                </div>
+                <div class="mt-1 left-align">
+                    {{ "zakat.zakatDue" | translate }} &nbsp;
+                    <span class="font-bold c-warn"
+                        >{{ item?.userCurrency }} &nbsp;
+                        {{ item?.zakatDue | number : "1.2-2" }}</span
+                    >
+                </div>
+            </div>
+        </fuse-card>
+    </div>
+</div>
+
+<div *ngIf="newCalc">
+    <div mat-dialog-content class="px-8 pt-8 {{ direction }}">
+        <div fxLayout="row" class="H-center">
+            <div class="h-focus">
+                <mat-label class="ml-2 mr-2 font-semibold">{{
+                    "zakat.totalAssets" | translate
+                }}</mat-label
+                ><span class="text-primary"
+                    >{{ currencyType }}&nbsp;
+                    {{ calculateTotalAssets()}}
+                    <!-- {{ calculateTotalAssets() | number : "1.2-2" }} -->
+                </span>
+                <mat-label class="ml-2 mr-2 font-semibold">{{
+                    "zakat.zakatDue" | translate
+                }}</mat-label
+                ><span class="c-warn"
+                    >{{ currencyType }}&nbsp;
+                    {{ calculateZakatDue() }}
+                    <!-- {{ calculateZakatDue() | number : "1.2-2" }} -->
+                    </span
+                >
+            </div>
+        </div>
+        <div [fxLayout]="direction === 'rtl' ? 'row-reverse' : 'row'"
+            *ngFor="let value of panels; let i = index"  class="rm-h">
+            <div fxLayout="row" fxFlex="12%" fxLayoutGap="10px" class="py-0.5">
+                <mat-label class="ml-2 mr-2 font-semibold">{{
+                    "zakat." + value.title | translate
+                }}</mat-label>
+            </div>
+            <div fxLayout="row" fxFlex="5%" fxLayoutGap="10px" class="py-0.5">
+                <mat-slide-toggle
+                    class="toggle"
+                    [color]="'primary'"
+                    checked="{{ value.expanded }}"
+                    (change)="IsExpandedChange($event, i)"
+                ></mat-slide-toggle>
+            </div>
+            <div fxLayout="row wrap" fxFlex="83%" fxLayoutGap="10px" *ngIf="value.expanded" class="py-0.5">
+                <div *ngFor="let subValue of value.subPanels; let j = index" style="width: 14%">
+                    <mat-form-field appearance="outline" class="m-w">
+                        <mat-label>{{"zakat." + subValue.subTitle | translate}}</mat-label>
+                        <input matInput type="number" class="no-spinner" appOnlynumber
+                            [(ngModel)]="subValue.modelId" (change)="modelValue(subValue)"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div
+            class="max-w-120"
+            [ngClass]="
+                direction === 'ltr' ? 'f-l' : direction === 'rtl' ? 'f-r' : ''
+            "
+        >
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class="ml-2"
+                (click)="logZakathCalculator('S')"
+            >
+                {{ "zakat.save" | translate }}
+            </button>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class="ml-2"
+                (click)="logZakathCalculator('DN')"
+            >
+                {{ "zakat.donateNow" | translate }}
+            </button>
+            <!-- <button mat-flat-button color="warn" class="ml-2" (click)="deleteCalculationConfirm()" *ngIf="zakatId >0"><mat-icon>delete</mat-icon> Delete </button>     -->
+            <button mat-button (click)="newCalc = false">
+                {{ "zakat.cancel" | translate }}
+            </button>
+        </div>
+    </div>
+</div>

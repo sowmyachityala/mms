@@ -1,0 +1,78 @@
+<div mat-dialog-title class="flex justify-between bgGreen text-white py-4 px-8 {{direction}}">
+  <h1 class="font-semibold">Zakath Calculator</h1>
+  <span class="flex font-semibold cursor-pointer" (click)="onClose()">
+    <mat-icon class="text-white"> close </mat-icon>
+    <span class="mt-0.5">CLOSE</span>
+  </span>
+</div>
+
+<div mat-dialog-content class="px-8 pt-8">
+  <mat-accordion *ngIf="!newCalc">
+    <mat-card class="example-card mt-2 cursor-pointer">
+      <mat-card-header>
+          <mat-card-title class="p-c">
+            <div>
+              <spn>New Calculation </spn>
+              <span [ngClass]="direction === 'rtl' ? 'p-left' : 'p-right'">
+                <button mat-icon-button (click)="newCalc = true">
+                  <mat-icon class="text-primary">add_circle_outline</mat-icon>
+                </button>
+              </span>
+            </div>
+          </mat-card-title> 
+      </mat-card-header>                   
+    </mat-card>
+    <div *ngFor="let item of zakathCalc;">
+      <mat-card class="example-card mt-2 cursor-pointer">
+          <mat-card-header>              
+              <mat-card-title>
+                  <div>
+                    Calculated On: {{item?.updatedOn | date:'dd/MM/yyyy'}} &nbsp; {{item?.updatedOn | date:'shortTime'}}
+                  </div>
+                  <div class="font-bold mt-1 text-primary">
+                    Total Assets: &nbsp; {{item?.totalAssets | number: '1.2-2'}} &nbsp; SAR
+                  </div>
+                  <div class="mt-1 c-warn">
+                    Zakat Due: &nbsp; {{item?.zakatDue | number: '1.2-2'}} &nbsp; SAR
+                  </div>
+              </mat-card-title>  
+          </mat-card-header>                   
+      </mat-card>
+  </div>
+  </mat-accordion>
+  <mat-accordion *ngIf="newCalc">
+    <mat-expansion-panel *ngFor="let value of panels; let i = index;" [expanded]="value.expanded">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ value.title }}</mat-panel-title>
+        <mat-panel-description class="f-r">{{ formatNumber(calculateSum(value.subPanels)) }} <span>&nbsp; SAR</span></mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let subValue of value.subPanels; let i = index;">
+        <mat-form-field>
+          <mat-label>{{ subValue.subTitle }}</mat-label>
+          <input matInput type="number" placeholder="" [(ngModel)]="subValue.modelId" (change)="modelValue(subValue)">
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel disabled="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Total Assets:</mat-panel-title>
+        <mat-panel-description class="f-r">{{ calculateTotalAssets() | number: '1.2-2'}} <span>&nbsp; SAR</span></mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle="true" disabled="true">
+      <mat-expansion-panel-header hideToggle>
+        <mat-panel-title>Zakat Due:</mat-panel-title>
+        <mat-panel-description class="f-r">{{ calculateZakatDue() | number: '1.2-2' }} <span>&nbsp; SAR</span></mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <div mat-dialog-actions class="float-right mt-4">
+      <button mat-button (click)="newCalc = false">Cancel</button>
+      <button mat-flat-button [color]="'primary'" (click)="logZakathCalculator('S')">Save</button>
+      <button mat-flat-button class="ml-2" [color]="'primary'" (click)="logZakathCalculator('DN')">Donate Now</button>
+    </div>
+  </mat-accordion>
+
+  
+</div>
